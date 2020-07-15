@@ -3,27 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.8.3" />
+<meta name="generator" content="pdoc 0.6.3" />
 <title>bnbad API documentation</title>
 <meta name="description" content="Optimizer, written as a data miner.
 Break the data up into regions
 of &#39;bad&#39; and &#39;better&#39;. Find ways to jump from &#39;bad&#39; to &#39;better&#39;.
 Nearly all this …" />
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
 <style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{xline-height:1.5em;line-height:1.2em;font-family:Arial}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+<script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML'></script>
 </head>
 <body>
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>bnbad</code></h1>
+<h1 class="title">Module <code>bnbad</code></h1>
 </header>
 <section id="section-intro">
 <p>Optimizer, written as a data miner.
@@ -99,8 +97,8 @@ Update just the branches that get too many anomalies (if that ever happens).</li
 </li>
 </ul>
 <h2 id="classes">Classes</h2>
-<p>In my code <code><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></code> and <code><a title="bnbad.o" href="#bnbad.o">o</a></code> are basic utility classes. <code><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></code>s
-know how to pretty-print themselves while <code><a title="bnbad.o" href="#bnbad.o">o</a></code> classes are
+<p>In my code <a title="bnbad.Thing" href="#bnbad.Thing"><code>Thing</code></a> and <a title="bnbad.o" href="#bnbad.o"><code>o</code></a> are basic utility classes. <a title="bnbad.Thing" href="#bnbad.Thing"><code>Thing</code></a>s
+know how to pretty-print themselves while <a title="bnbad.o" href="#bnbad.o"><code>o</code></a> classes are
 basic containers for things with names slots (but no methods).</p>
 <pre><code> Thing
     o  
@@ -117,24 +115,24 @@ basic containers for things with names slots (but no methods).</p>
     Tab(rows)     :has 1 :to 1 :of Cols  
     Test
 </code></pre>
-<p>The real work here is done by <code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code>les.
-Such <code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code>les are the core of this design.
+<p>The real work here is done by <a title="bnbad.Tab" href="#bnbad.Tab"><code>Tab</code></a>les.
+Such <a title="bnbad.Tab" href="#bnbad.Tab"><code>Tab</code></a>les are the core of this design.
 When data is read from disk
-it is entered into a <code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code>le. When collecting data from some
-process, that data is incrementally written into a <code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code>le.
+it is entered into a <a title="bnbad.Tab" href="#bnbad.Tab"><code>Tab</code></a>le. When collecting data from some
+process, that data is incrementally written into a <a title="bnbad.Tab" href="#bnbad.Tab"><code>Tab</code></a>le.
 If we recursively cluster data, each level of that recursion
 is a table.
-into tables. that have <code><a title="bnbad.rows" href="#bnbad.rows">rows()</a></code> and <code><a title="bnbad.cols" href="#bnbad.cols">cols()</a></code>.
+into tables. that have <a title="bnbad.rows" href="#bnbad.rows"><code>rows()</code></a> and <a title="bnbad.cols" href="#bnbad.cols"><code>cols()</code></a>.
 Each row is some example of <code>y=f(x)</code> where <code>y</code> and <code>x</code>
 can have multiple values (and when <code>|y|&gt;1</code>, then this
 then becomes a multi-objective reasoner).</p>
 <p>Our
-<code><a title="bnbad.rows" href="#bnbad.rows">rows()</a></code> are just plain old Python lists. We can
+<a title="bnbad.rows" href="#bnbad.rows"><code>rows()</code></a> are just plain old Python lists. We can
 compute the <code>dist</code>ance between rows as well as checking
 if the goals in one row are "better than" (also known as
 "dominates") the other.</p>
-<p><code><a title="bnbad.Col" href="#bnbad.Col">Col</a></code> objects summarize what was seen in each column. There are
-two general kinds of <code><a title="bnbad.Col" href="#bnbad.Col">Col</a></code>s (<code><a title="bnbad.Num" href="#bnbad.Num">Num</a></code>erics and <code><a title="bnbad.Sym" href="#bnbad.Sym">Sym</a></code>bols) and
+<p><a title="bnbad.Col" href="#bnbad.Col"><code>Col</code></a> objects summarize what was seen in each column. There are
+two general kinds of <a title="bnbad.Col" href="#bnbad.Col"><code>Col</code></a>s (<a title="bnbad.Num" href="#bnbad.Num"><code>Num</code></a>erics and <a title="bnbad.Sym" href="#bnbad.Sym"><code>Sym</code></a>bols) and
 which can be categoriesed into</p>
 <ul>
 <li><code>y</code> values:</li>
@@ -166,9 +164,7 @@ OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">#!/usr/bin/env pypy3
 &#34;&#34;&#34;
 Optimizer, written as a data miner.  Break the data up into regions
@@ -1015,11 +1011,9 @@ if __name__ == &#34;__main__&#34;:
 <span>def <span class="ident">args</span></span>(<span>f)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Link to Python's command line option processor.</p></div>
+<section class="desc"><p>Link to Python's command line option processor.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def args(f):
   &#34;&#34;&#34;
   Link to Python&#39;s command line option processor.
@@ -1038,11 +1032,9 @@ if __name__ == &#34;__main__&#34;:
 <span>def <span class="ident">cols</span></span>(<span>src)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Ignore columns if, on line one, the name contains '?'.</p></div>
+<section class="desc"><p>Ignore columns if, on line one, the name contains '?'.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def cols(src):
   &#34;Ignore columns if, on line one, the name contains &#39;?&#39;.&#34;
   todo = None
@@ -1055,12 +1047,10 @@ if __name__ == &#34;__main__&#34;:
 <span>def <span class="ident">dicts</span></span>(<span>i, seen=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This is a tool used by <code><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></code>.
-Converts <code>i</code> into a nested dictionary, then pretty-prints that.</p></div>
+<section class="desc"><p>This is a tool used by <a title="bnbad.Thing" href="#bnbad.Thing"><code>Thing</code></a>.
+Converts <code>i</code> into a nested dictionary, then pretty-prints that.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def dicts(i,seen=None):
   &#34;&#34;&#34;
   This is a tool used by `Thing`.
@@ -1086,12 +1076,10 @@ Converts <code>i</code> into a nested dictionary, then pretty-prints that.</p></
 <span>def <span class="ident">dprint</span></span>(<span>d, pre='', skip='_')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Pretty print a dictionary, sorted by keys, ignoring
-private slots (those that start with '<em>'</em>).</p></div>
+<section class="desc"><p>Pretty print a dictionary, sorted by keys, ignoring
+private slots (those that start with '<em>'</em>).</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def dprint(d, pre=&#34;&#34;,skip=&#34;_&#34;):
   &#34;&#34;&#34;
   Pretty print a dictionary, sorted by keys, ignoring 
@@ -1110,12 +1098,10 @@ private slots (those that start with '<em>'</em>).</p></div>
 <span>def <span class="ident">go</span></span>(<span>fn=None, use=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Decorator for test functions.
-Adds the function to <code><a title="bnbad.Test.all" href="#bnbad.Test.all">Test.all</a></code>.</p></div>
+<section class="desc"><p>Decorator for test functions.
+Adds the function to <a title="bnbad.Test.all" href="#bnbad.Test.all"><code>Test.all</code></a>.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def go(fn=None,use=None):  
   &#34;&#34;&#34;
   Decorator for test functions. 
@@ -1128,15 +1114,13 @@ Adds the function to <code><a title="bnbad.Test.all" href="#bnbad.Test.all">Test
 <span>def <span class="ident">has</span></span>(<span>i, seen=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Report a nested object as a set of nested lists.
-If we see the same <code><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></code> twice, then show it the
+<section class="desc"><p>Report a nested object as a set of nested lists.
+If we see the same <a title="bnbad.Thing" href="#bnbad.Thing"><code>Thing</code></a> twice, then show it the
 first time, after which, just show its id. Do not
 return anything that is private;
-i.e. anything whose name starts with "_".</p></div>
+i.e. anything whose name starts with "_".</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def has(i,seen=None):
   &#34;&#34;&#34;
   Report a nested object as a set of nested lists.
@@ -1164,11 +1148,9 @@ i.e. anything whose name starts with "_".</p></div>
 <span>def <span class="ident">help</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Define options.</p></div>
+<section class="desc"><p>Define options.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def help(): 
   &#34;&#34;&#34;
   Define options.
@@ -1199,13 +1181,11 @@ i.e. anything whose name starts with "_".</p></div>
 <span>def <span class="ident">makeArgParseOption</span></span>(<span>txt, **d)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Support code for Command-line Options. Argument
+<section class="desc"><p>Support code for Command-line Options. Argument
 types are inferred by peeking at the default.
-Different types then lead to different kinds of options.</p></div>
+Different types then lead to different kinds of options.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def makeArgParseOption(txt,**d):
   &#34;&#34;&#34;
   Support code for Command-line Options. Argument
@@ -1236,11 +1216,9 @@ Different types then lead to different kinds of options.</p></div>
 <span>def <span class="ident">rows</span></span>(<span>x=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Read a csv file from disk.</p></div>
+<section class="desc"><p>Read a csv file from disk.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def rows(x=None):
   &#34;Read a csv file from disk.&#34;
   prep=lambda z: re.sub(r&#39;([\n\t\r ]|#.*)&#39;,&#39;&#39;,z.strip())
@@ -1259,11 +1237,9 @@ Different types then lead to different kinds of options.</p></div>
 <span>def <span class="ident">shuffle</span></span>(<span>lst)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return a shuffled list.</p></div>
+<section class="desc"><p>Return a shuffled list.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def shuffle(lst):
   &#34;Return a shuffled list.&#34;
   random.shuffle(lst)
@@ -1274,12 +1250,10 @@ Different types then lead to different kinds of options.</p></div>
 <span>def <span class="ident">test_bore</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Recursively prune worst half the data
-(down to sqrt(N) of original data).</p></div>
+<section class="desc"><p>Recursively prune worst half the data
+(down to sqrt(N) of original data).</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_bore():
   &#34;&#34;&#34;
@@ -1302,11 +1276,9 @@ def test_bore():
 <span>def <span class="ident">test_bye</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Commit and push Github files.</p></div>
+<section class="desc"><p>Commit and push Github files.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_bye():    
   &#34;Commit and push Github files.&#34;
@@ -1320,11 +1292,9 @@ def test_bye():
 <span>def <span class="ident">test_dist</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Check the distance calculations.</p></div>
+<section class="desc"><p>Check the distance calculations.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_dist():
   &#34;Check the distance calculations.&#34;
@@ -1349,11 +1319,9 @@ def test_dist():
 <span>def <span class="ident">test_hello</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Simple test1.</p></div>
+<section class="desc"><p>Simple test1.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_hello(): 
   &#34;Simple test1.&#34;
@@ -1364,11 +1332,9 @@ def test_hello():
 <span>def <span class="ident">test_hetab1</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Read a small table from disk.</p></div>
+<section class="desc"><p>Read a small table from disk.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_hetab1():
   &#34;&#34;&#34;
@@ -1387,11 +1353,9 @@ def test_hetab1():
 <span>def <span class="ident">test_range1</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Two ranges, equal size</p></div>
+<section class="desc"><p>Two ranges, equal size</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_range1():
   &#34;Two ranges, equal size&#34;
@@ -1403,11 +1367,9 @@ def test_range1():
 <span>def <span class="ident">test_range2</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>4 ranges</p></div>
+<section class="desc"><p>4 ranges</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_range2():
   &#34;4 ranges&#34;
@@ -1419,11 +1381,9 @@ def test_range2():
 <span>def <span class="ident">test_range3</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>5 ranges</p></div>
+<section class="desc"><p>5 ranges</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_range3():
   &#34;5 ranges&#34;
@@ -1435,11 +1395,9 @@ def test_range3():
 <span>def <span class="ident">test_range4</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>random noise: only 1 range</p></div>
+<section class="desc"><p>random noise: only 1 range</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_range4():
   &#34;random noise: only 1 range&#34;
@@ -1451,11 +1409,9 @@ def test_range4():
 <span>def <span class="ident">test_range5</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>random noise: only 1 range</p></div>
+<section class="desc"><p>random noise: only 1 range</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_range5():
   &#34;random noise: only 1 range&#34;
@@ -1467,11 +1423,9 @@ def test_range5():
 <span>def <span class="ident">test_range6</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>3 ranges</p></div>
+<section class="desc"><p>3 ranges</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_range6():
   &#34;3 ranges&#34;
@@ -1483,11 +1437,9 @@ def test_range6():
 <span>def <span class="ident">test_range7</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>singletons: 1 range</p></div>
+<section class="desc"><p>singletons: 1 range</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_range7():
   &#34;singletons: 1 range&#34;
@@ -1499,11 +1451,9 @@ def test_range7():
 <span>def <span class="ident">test_tab2</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Read a larger table from disk.</p></div>
+<section class="desc"><p>Read a larger table from disk.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_tab2():
   &#34;Read a larger table from disk.&#34;
@@ -1515,11 +1465,9 @@ def test_tab2():
 <span>def <span class="ident">test_tests</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>List all tests.</p></div>
+<section class="desc"><p>List all tests.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_tests():
   &#34;List all tests.&#34;
@@ -1530,11 +1478,9 @@ def test_tests():
 <span>def <span class="ident">test_tree</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Recursively divide the data in two.</p></div>
+<section class="desc"><p>Recursively divide the data in two.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">@go
 def test_tree():
   &#34;Recursively divide the data in two.&#34;
@@ -1550,15 +1496,13 @@ def test_tree():
 <dl>
 <dt id="bnbad.Bore"><code class="flex name class">
 <span>class <span class="ident">Bore</span></span>
-<span>(</span><span>t)</span>
+<span>(</span><span>i, t)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Multi-objective clustering to find <code>best</code> rows;
-i.e. those that tend to dominate everything else.</p></div>
+<section class="desc"><p>Multi-objective clustering to find <code>best</code> rows;
+i.e. those that tend to dominate everything else.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Bore(Cluster):
    &#34;&#34;&#34;
    Multi-objective clustering to find `best` rows;
@@ -1620,7 +1564,7 @@ i.e. those that tend to dominate everything else.</p></div>
 <span>def <span class="ident">div</span></span>(<span>i, t, lo)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Perform a top-down recursive division
+<section class="desc"><p>Perform a top-down recursive division
 of data, based on their
 `y values, as follows:</p>
 <ul>
@@ -1630,11 +1574,9 @@ of data, based on their
 <li>Add the <code>rest</code> to <code>i.rest</code>, recurse on the <code>best</code>.</li>
 <li>Stop when less than <code>N**.s</code> rows.
 Return the surviving `best' ranges.</li>
-</ul></div>
+</ul></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def div(i,t,lo):
   &#34;&#34;&#34;  
   Perform a top-down recursive division 
@@ -1667,11 +1609,9 @@ Return the surviving `best' ranges.</li>
 <span>def <span class="ident">key</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return the key range that most selects for best.</p></div>
+<section class="desc"><p>Return the key range that most selects for best.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def key(i):
   &#34;Return the key range that most selects for best.&#34;
   best  = my.e
@@ -1693,15 +1633,14 @@ Return the surviving `best' ranges.</li>
 </dd>
 <dt id="bnbad.Cluster"><code class="flex name class">
 <span>class <span class="ident">Cluster</span></span>
+<span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Cluster(Thing): pass</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -1710,22 +1649,20 @@ pprint-ing that dictionary.</p></div>
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
-<li><a title="bnbad.Bore" href="#bnbad.Bore">Bore</a></li>
 <li><a title="bnbad.Tree" href="#bnbad.Tree">Tree</a></li>
+<li><a title="bnbad.Bore" href="#bnbad.Bore">Bore</a></li>
 </ul>
 </dd>
 <dt id="bnbad.Col"><code class="flex name class">
 <span>class <span class="ident">Col</span></span>
-<span>(</span><span>pos, txt)</span>
+<span>(</span><span>i, pos, txt)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Col(Thing):
   def __init__(i,pos,txt):
     i.n, i.pos, i.txt = 0, pos, txt
@@ -1747,15 +1684,14 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.Cols"><code class="flex name class">
 <span>class <span class="ident">Cols</span></span>
+<span>(</span><span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Cols(Thing):
   def __init__(i) : 
     i.x,i.y,i.nums,i.syms,i.all,i.klas = {},{},{},{},[],None
@@ -1781,11 +1717,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">add</span></span>(<span>i, lst)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def add(i,lst): 
   [ col.add( lst[col.pos] ) for col in i.all ]</code></pre>
 </details>
@@ -1794,11 +1728,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">header</span></span>(<span>i, lst)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def header(i,lst):
   for pos,txt in enumerate(lst):
     tmp = (Num if Magic.nump(txt) else Sym)(pos,txt)
@@ -1812,11 +1744,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">klass</span></span>(<span>i, lst)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def klass(i,lst): 
   return lst[i.klas]</code></pre>
 </details>
@@ -1825,16 +1755,14 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.DecisionList"><code class="flex name class">
 <span>class <span class="ident">DecisionList</span></span>
-<span>(</span><span>t, lvl=4)</span>
+<span>(</span><span>i, t, lvl=4)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class DecisionList(Thing):
   def __init__(i, t, lvl=my.H):
     i.t=t
@@ -1866,11 +1794,9 @@ pprint-ing that dictionary.</p></div>
 ')</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def show(i,pre=&#34;  &#34;): 
   if i.leaf:
     print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
@@ -1884,16 +1810,14 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.Dist"><code class="flex name class">
 <span>class <span class="ident">Dist</span></span>
-<span>(</span><span>t, cols=None, rows=None, p=2)</span>
+<span>(</span><span>i, t, cols=None, rows=None, p=2)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Dist(Thing):
   def __init__(i, t,cols=None, rows=None, p=my.p):
     i.t= t
@@ -1935,11 +1859,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">dist</span></span>(<span>i, row1, row2)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def dist(i,row1,row2):
   d = 0
   for col in i.cols.values():
@@ -1952,11 +1874,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">faraway</span></span>(<span>i, row)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def faraway(i,row):
    a= i.neighbors(row)
    return a[ int( len(a) * my.f ) ][1]</code></pre>
@@ -1966,11 +1886,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">neighbors</span></span>(<span>i, r1)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def neighbors(i,r1):
   a = [(i.dist(r1,r2),r2) for r2 in i.rows if id(r1) != id(r2)]
   return sorted(a, key = lambda z: z[0])</code></pre>
@@ -1980,11 +1898,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">poles</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def poles(i):
    tmp   = random.choice(i.rows)
    left  = i.faraway(tmp)
@@ -1996,11 +1912,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">project</span></span>(<span>i, row, left, right, c)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def project(i,row, left,right,c):
    a = i.dist(row,left)
    b = i.dist(row,right)
@@ -2014,15 +1928,14 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.Magic"><code class="flex name class">
 <span>class <span class="ident">Magic</span></span>
+<span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Define magic characterss.
+<section class="desc"><p>Define magic characterss.
 Used in column headers to denote goals, klasses, numbers.
-Used also to denote things to skip (columns, specific cells).</p></div>
+Used also to denote things to skip (columns, specific cells).</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Magic:
   &#34;&#34;&#34;
   Define magic characterss. 
@@ -2051,11 +1964,9 @@ Used also to denote things to skip (columns, specific cells).</p></div>
 <span>def <span class="ident">goalp</span></span>(<span>s)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Goals</p></div>
+<section class="desc"><p>Goals</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def goalp(s): 
   &#34;Goals&#34;
   return &#34;&lt;&#34; in s or &#34;!&#34; in s or &#34;&gt;&#34; in s</code></pre>
@@ -2065,11 +1976,9 @@ Used also to denote things to skip (columns, specific cells).</p></div>
 <span>def <span class="ident">klassp</span></span>(<span>s)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Non-numeric goals.</p></div>
+<section class="desc"><p>Non-numeric goals.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def klassp(s): 
   &#34;Non-numeric goals.&#34;
   return &#34;!&#34; in s</code></pre>
@@ -2079,11 +1988,9 @@ Used also to denote things to skip (columns, specific cells).</p></div>
 <span>def <span class="ident">lessp</span></span>(<span>s)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Thing to minimize</p></div>
+<section class="desc"><p>Thing to minimize</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def lessp(s): 
   &#34;Thing to minimize&#34;
   return &#34;&lt;&#34; in s</code></pre>
@@ -2093,11 +2000,9 @@ Used also to denote things to skip (columns, specific cells).</p></div>
 <span>def <span class="ident">no</span></span>(<span>s)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Things to skip.</p></div>
+<section class="desc"><p>Things to skip.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def no(s): 
   &#34;Things to skip.&#34;
   return  s == &#34;?&#34;</code></pre>
@@ -2107,11 +2012,9 @@ Used also to denote things to skip (columns, specific cells).</p></div>
 <span>def <span class="ident">nump</span></span>(<span>s)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Numbers.</p></div>
+<section class="desc"><p>Numbers.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def nump(s): 
   &#34;Numbers.&#34;
   return &#34;&lt;&#34; in s or &#34;$&#34; in s or &#34;&gt;&#34; in s</code></pre>
@@ -2121,16 +2024,14 @@ Used also to denote things to skip (columns, specific cells).</p></div>
 </dd>
 <dt id="bnbad.Num"><code class="flex name class">
 <span>class <span class="ident">Num</span></span>
-<span>(</span><span>*l)</span>
+<span>(</span><span>i, *l)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Num(Col):
   def __init__(i, *l):
     super().__init__(*l)
@@ -2161,11 +2062,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">add</span></span>(<span>i, x)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def add(i,x):
   x = float(x)
   i.lo,i.hi = min(i.lo,x), max(i.hi,x)
@@ -2177,11 +2076,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">dist</span></span>(<span>i, x, y)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def dist(i,x,y):
   if Magic.no(x) and Magic.no(y): return 1
   if Magic.no(x): x = i.lo if y &gt; i.mu else i.hi
@@ -2193,11 +2090,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">mid</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def mid(i): return i.mu</code></pre>
 </details>
 </dd>
@@ -2205,11 +2100,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">norm</span></span>(<span>i, x)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def norm(i,x):
   if Magic.no(x) : return x
   return (x - i.lo)  / (i.hi - i.lo + 0.000001)</code></pre>
@@ -2219,16 +2112,14 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.Range"><code class="flex name class">
 <span>class <span class="ident">Range</span></span>
-<span>(</span><span>what, ranges)</span>
+<span>(</span><span>i, what, ranges)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Range(Thing):
   def __init__(i,what,ranges):
     i.what,i._ranges = what,  ranges
@@ -2272,11 +2163,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">add</span></span>(<span>i, x, y)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def add(i,x,y):
   i.n += 1
   if y==i._ranges.goal: i.yes += 1
@@ -2289,11 +2178,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">better</span></span>(<span>c, a, b)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def better(c,a,b):
   sa, sb, sc = a.s(), b.s(), c.s()
   return abs(sb - sa) &lt; my.e or sc &gt;= sb and sc &gt;= sa</code></pre>
@@ -2303,11 +2190,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">matches</span></span>(<span>i, row)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def matches(i, row):
   v = row[i._ranges.get]
   return v != &#34;?&#34; and i.lo &lt;= v and v &lt;= i.hi</code></pre>
@@ -2317,11 +2202,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">merge</span></span>(<span>i, j)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def merge(i,j):
   k     = i._ranges.bin()
   k.gen = max(i.gen,j.gen) + 1
@@ -2337,11 +2220,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">s</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def s(i):
   yes   = i.yes/i._ranges.all.yes 
   no    = i.no /i._ranges.all.no
@@ -2353,16 +2234,14 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.Ranges"><code class="flex name class">
 <span>class <span class="ident">Ranges</span></span>
-<span>(</span><span>txt, a, goal=True, get=&lt;function Ranges.&lt;lambda&gt;&gt;)</span>
+<span>(</span><span>i, txt, a, goal=True, get=<function Ranges.<lambda> at 0x10701f510>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Report how to divide a list of pairs <code>[x,y]</code>
+<section class="desc"><p>Report how to divide a list of pairs <code>[x,y]</code>
 such that groups of <code>x</code> values most select for some
-desired <code>y</code> (which is called the <code>goal</code>.</p></div>
+desired <code>y</code> (which is called the <code>goal</code>.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Ranges(Thing):
   &#34;&#34;&#34;
   Report how to divide a list of pairs `[x,y]` 
@@ -2438,11 +2317,9 @@ desired <code>y</code> (which is called the <code>goal</code>.</p></div>
 <span>def <span class="ident">grow</span></span>(<span>i, a)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>When discretizing numbers, divide <code>a</code> into lots of small bins.</p></div>
+<section class="desc"><p>When discretizing numbers, divide <code>a</code> into lots of small bins.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def grow(i,a):
   &#34;When discretizing numbers, divide `a` into lots of small bins.&#34;
   min  = len(a)**my.b
@@ -2461,14 +2338,12 @@ desired <code>y</code> (which is called the <code>goal</code>.</p></div>
 <span>def <span class="ident">merge</span></span>(<span>i, bins)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>When discretizing numbers,
+<section class="desc"><p>When discretizing numbers,
 merge adjacent bins if that works better than
 keeping them part. If any merges found, then
-recurse to merge the merged list.</p></div>
+recurse to merge the merged list.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def merge(i,bins):
   &#34;&#34;&#34;
   When discretizing numbers, 
@@ -2494,13 +2369,11 @@ recurse to merge the merged list.</p></div>
 <span>def <span class="ident">nums</span></span>(<span>i, a)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>When discretizing numbers,
+<section class="desc"><p>When discretizing numbers,
 Generate lots of small ranges, then
-merge those with similar scores."</p></div>
+merge those with similar scores."</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def nums(i,a):
   &#34;&#34;&#34;
   When discretizing numbers,
@@ -2514,11 +2387,9 @@ merge those with similar scores."</p></div>
 <span>def <span class="ident">pairs</span></span>(<span>i, a)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>When discretizing numbers, convert <code>a</code> into a list of x,y pairs</p></div>
+<section class="desc"><p>When discretizing numbers, convert <code>a</code> into a list of x,y pairs</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def pairs(i,a):
   &#34;When discretizing numbers, convert `a` into a list of x,y pairs&#34;
   lst = [(x,y) for x,y in a if not Magic.no(x)]
@@ -2529,11 +2400,9 @@ merge those with similar scores."</p></div>
 <span>def <span class="ident">syms</span></span>(<span>i, a)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>When discretizing symbols, Generate one range for each symbol.</p></div>
+<section class="desc"><p>When discretizing symbols, Generate one range for each symbol.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def syms(i,a):
   &#34;When discretizing symbols, Generate one range for each symbol.&#34;
   d  = {}
@@ -2549,16 +2418,14 @@ merge those with similar scores."</p></div>
 </dd>
 <dt id="bnbad.Sym"><code class="flex name class">
 <span>class <span class="ident">Sym</span></span>
-<span>(</span><span>*l)</span>
+<span>(</span><span>i, *l)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Sym(Col):
   def __init__(i, *l):
     super().__init__(*l)
@@ -2582,11 +2449,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">add</span></span>(<span>i, x)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def add(i,x):
   tmp = i.seen[x] = i.seen.get(x,0) + 1
   if tmp &gt; i.most: i.most,i.mode = tmp,x
@@ -2597,11 +2462,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">dist</span></span>(<span>i, x, y)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def dist(i,x,y): 
   return 1 if Magic.no(x) and Magic.no(y) else x != y</code></pre>
 </details>
@@ -2610,11 +2473,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">mid</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def mid(i): return i.mode</code></pre>
 </details>
 </dd>
@@ -2622,16 +2483,14 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.Tab"><code class="flex name class">
 <span>class <span class="ident">Tab</span></span>
-<span>(</span><span>rows=[])</span>
+<span>(</span><span>i, rows=[])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Tab(Thing):
   def __init__(i,rows=[]):
     i.rows, i.cols = [], Cols()
@@ -2675,11 +2534,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">add</span></span>(<span>i, a)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def add(i,a): 
   i.rows += [[c + a[c.pos] for c in i.cols.all]]</code></pre>
 </details>
@@ -2688,11 +2545,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">better</span></span>(<span>i, row1, row2)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def better(i,row1,row2):
   s1,s2,n = 0,0,len(i.cols.y)+0.0001
   for c in i.cols.y.values():
@@ -2707,11 +2562,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">clone</span></span>(<span>i, rows=[])</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def clone(i,rows=[]):
   t  = Tab()
   t  + [c.txt for c in i.cols.all] 
@@ -2723,11 +2576,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">mid</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def mid(i):
   return [ col.mid() for col in i.cols.all ]</code></pre>
 </details>
@@ -2736,11 +2587,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">pairs</span></span>(<span>i, col)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def pairs(i,col):
   return Bins(col.pos,i.rows, lambda z: z[col.pos], 
                               lambda z: i.cols.klass(z))</code></pre>
@@ -2750,11 +2599,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">read</span></span>(<span>i, data=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def read(i,data=None): 
   [i + row for row in cols(rows(data))]
   return i</code></pre>
@@ -2764,11 +2611,9 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">status</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def status(i):
   return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid()) 
                    for c in i.cols.y.values()]) + &#39;}&#39;</code></pre>
@@ -2778,14 +2623,13 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.Test"><code class="flex name class">
 <span>class <span class="ident">Test</span></span>
+<span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Unit test manager. Stores all the tests in <code><a title="bnbad.Test.all" href="#bnbad.Test.all">Test.all</a></code>.
-Lets you list the tests, run some of them, or all.</p></div>
+<section class="desc"><p>Unit test manager. Stores all the tests in <a title="bnbad.Test.all" href="#bnbad.Test.all"><code>Test.all</code></a>.
+Lets you list the tests, run some of them, or all.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Test:
   &#34;&#34;&#34;
   Unit test manager. Stores all the tests in `Test.all`. 
@@ -2832,15 +2676,15 @@ Lets you list the tests, run some of them, or all.</p></div>
 <dl>
 <dt id="bnbad.Test.all"><code class="name">var <span class="ident">all</span></code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 </dd>
 <dt id="bnbad.Test.f"><code class="name">var <span class="ident">f</span></code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 </dd>
 <dt id="bnbad.Test.t"><code class="name">var <span class="ident">t</span></code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -2849,11 +2693,9 @@ Lets you list the tests, run some of them, or all.</p></div>
 <span>def <span class="ident">go</span></span>(<span>fn=None, use=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def go(fn=None, use=None):
   if fn:
     Test.all += [fn]
@@ -2867,11 +2709,9 @@ Lets you list the tests, run some of them, or all.</p></div>
 <span>def <span class="ident">list</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def list():
   print(&#34;&#34;)
   print(__file__ + &#34; -t [NAME]&#34;) 
@@ -2887,11 +2727,9 @@ Lets you list the tests, run some of them, or all.</p></div>
 <span>def <span class="ident">run</span></span>(<span>fun)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def run(fun):    
   try:
     Test.t += 1
@@ -2913,11 +2751,9 @@ Lets you list the tests, run some of them, or all.</p></div>
 <span>def <span class="ident">score</span></span>(<span>s)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def score(s): 
   t,f = Test.t, Test.f
   return f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;</code></pre>
@@ -2927,15 +2763,14 @@ Lets you list the tests, run some of them, or all.</p></div>
 </dd>
 <dt id="bnbad.Thing"><code class="flex name class">
 <span>class <span class="ident">Thing</span></span>
+<span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Thing:
   &#34;&#34;&#34;
   All my classes are Things that pretty print themselves
@@ -2948,29 +2783,27 @@ pprint-ing that dictionary.</p></div>
 </details>
 <h3>Subclasses</h3>
 <ul class="hlist">
-<li><a title="bnbad.Cluster" href="#bnbad.Cluster">Cluster</a></li>
+<li><a title="bnbad.o" href="#bnbad.o">o</a></li>
 <li><a title="bnbad.Col" href="#bnbad.Col">Col</a></li>
 <li><a title="bnbad.Cols" href="#bnbad.Cols">Cols</a></li>
-<li><a title="bnbad.DecisionList" href="#bnbad.DecisionList">DecisionList</a></li>
+<li><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></li>
 <li><a title="bnbad.Dist" href="#bnbad.Dist">Dist</a></li>
+<li><a title="bnbad.Cluster" href="#bnbad.Cluster">Cluster</a></li>
+<li><a title="bnbad.DecisionList" href="#bnbad.DecisionList">DecisionList</a></li>
 <li><a title="bnbad.Range" href="#bnbad.Range">Range</a></li>
 <li><a title="bnbad.Ranges" href="#bnbad.Ranges">Ranges</a></li>
-<li><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></li>
-<li><a title="bnbad.o" href="#bnbad.o">o</a></li>
 </ul>
 </dd>
 <dt id="bnbad.Tree"><code class="flex name class">
 <span>class <span class="ident">Tree</span></span>
-<span>(</span><span>t, cols='x', lo=None, lvl=0)</span>
+<span>(</span><span>i, t, cols='x', lo=None, lvl=0)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Tree(Cluster):
   def __init__(i, t, cols=my.c, lo=None, lvl=0):
     lo = lo or 2*len(t.rows)**my.s
@@ -2999,16 +2832,14 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.o"><code class="flex name class">
 <span>class <span class="ident">o</span></span>
-<span>(</span><span>**d)</span>
+<span>(</span><span>i, **d)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class o(Thing):
   def __init__(i,**d) : i.__dict__.update(**d)</code></pre>
 </details>
@@ -3198,7 +3029,9 @@ truth for yourself."
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
 </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
 </body>
 </html>
