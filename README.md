@@ -52,11 +52,10 @@ Run as super user
 
 ## Technical Notes: 
 
-- `bad` and `better` are score via 
-  [Zitler's continuous domination predicate](docs/index.html#bnbad.Tab.better)
 - Examples are clustered in goal
   space and the `better` cluster is the one that dominates all the
   other `bad` clusters.
+- `bad` and `better` are score via [Zitler's continuous domination predicate](docs/index.html#bnbad.Tab.better)
 - Numerics are then broken up into just a few ranges
   using a bottom-up merging process
   guided by the ratio of `better` to `bad`  in each range. 
