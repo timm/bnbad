@@ -22,13 +22,13 @@ its own behavior?  Can that software report how well the user goals
 are being achieved and can it suggest how to adjust the system, to
 better achieve those goals?
 
-Do you want to make your software more ethical?  BRKNBAD is a
+Do you want to make your software more ethical?  BnBAD is a
 collection of data structures that support ethical the kind of
 ethical reasoning listed above.  It is a multi-objective optimizer
 that reasons by breaking up problems into regions of `bad` and
 `better`, then looks for ways on how to jump between those regions.
 
-BRKNBAD might be an ethical choice in domains:
+BnBAD might be an ethical choice in domains:
 
 - when users have to trade-off competing goals, 
 - when succinct explanations are needed about what the system is doing,
@@ -43,7 +43,7 @@ BRKNBAD might be an ethical choice in domains:
 Technical notes: 
 
 - `bad` and `better` are score via 
-  [Zitler's continuous domination predicate](#brknbad.Tab.dom).
+  [Zitler's continuous domination predicate](#bnbad.Tab.better)
 - Examples are clustered in goal
   space and the `better` cluster is the one that dominates all the
   other `bad` clusters.
@@ -75,16 +75,16 @@ basic containers for things with names slots (but no methods).
      Thing
         o  
         Cluster
-           Bore     :has 1 :to 2 :of Tab
-           Tree     :has 1 :to * :of Tab
-        Col(txt, pos)
-           Num(mu, lo, hi)
+           Bore       :has 1 :to 2 :of Tab
+           Tree       :has 1 :to * :of Tab
+        Col(txt,pos)
+           Num(mu,lo,hi)
            Sym(mode)
-        Cols        :has 1 :to * :of Col
-        Dist        :has 1 :to 1 :of Tab
-        Range(lo, hi)
-        Ranges      :has 1 :to * :of Range
-        Tab(rows)   :has 1 :to 1 :of Cols  
+        Cols          :has 1 :to * :of Col
+        Dist          :has 1 :to 1 :of Tab
+        Range(lo,hi)
+        Ranges        :has 1 :to * :of Range
+        Tab(rows)     :has 1 :to 1 :of Cols  
         Test
 
 The real work here is done by `Tab`les. 
@@ -157,6 +157,9 @@ def help():
     h("use at most 'd' rows for distance calcs",        d= 256),
     h("merge ranges whose scores differ by less that F",e= 0.05),
     h("separation of poles (f=1 means 'max distance')", f= .9),
+    h("decision list leaf, minimum size",               M= 10),
+    h("decision list maximum height",                   H= 4),
+    h("decision lists, ratio of negative examples",     N= 4),
     h("coefficient for distance" ,                      p= 2),
     h("random number seed" ,                            r = 1),
     h("tree leaves must be at least n**s in size" ,     s= 0.5),
@@ -445,22 +448,49 @@ class Bore(Cluster):
      return i.div(kid,lo)
    def key(i):
      "Return the key range that most selects for best."
-     best = my.e
+     best  = my.e
+     bests = i.best.rows
+     rests = i.rest.rows
+     rests = shuffle(rests)[ :my.N*len(bests) ]
      for  col in i.best.cols.x.values():
        all  = []
-       all += [[r[col.pos], True]  for r in i.best.rows]
-       all += [[r[col.pos], False] for r in i.rest.rows]
-       for one in Ranges(col.txt, all).ranges:
+       all += [[r[col.pos], True]  for r in bests]
+       all += [[r[col.pos], False] for r in rests]
+       for one in Ranges(col.txt, all,
+                         get = col.pos).ranges:
          if one.s() > best:
            best, out = one.s(), one
      return out 
 
+class DecisionList(Thing):
+  def __init__(i, t, lvl=my.H):
+    i.t=t
+    i.leaf = None
+    if lvl > 0 and len(t.rows) >= my.M: 
+      b = Bore(t)
+      i.split = b.key()
+      i.col = i.split._ranges.get
+      i.leaf, kid = t.clone(), t.clone()
+      for row in t.rows:
+        (i.leaf if i.split.matches(row) else kid).add(row)
+      i.kid = DecisionList(kid, lvl-1)
+  def show(i,pre="  "): 
+    if i.leaf:
+      print(pre+"if", i.split._ranges.txt," in ",i.split.lo, "..",i.split.hi,
+           "then",  i.leaf.status(), len(i.leaf.rows))
+      i.kid.show(pre="el")
+    else:
+     print("else", i.t.status(), len(i.t.rows))
+
 class Range(Thing):
-  def __init__(i,what,xf,ranges):
-    i.what,i.xf,i._ranges = what, xf, ranges
+  def __init__(i,what,ranges):
+    i.what,i._ranges = what,  ranges
     i.n, i.yes, i.no = 0,0.0001,0.0001
     i.lo, i.hi = None, None
     i.gen=1
+  def matches(i, row):
+    v = row[i._ranges.get]
+    return v != "?" and i.lo <= v and v <= i.hi
   def add(i,x,y):
     i.n += 1
     if y==i._ranges.goal: i.yes += 1
@@ -486,33 +516,37 @@ class Range(Thing):
     return tmp if tmp > my.e else 0
 
 class Ranges(Thing):
-  def __init__(i,txt,a,x=lambda z:z[0],
-                       y=lambda z:z[1], goal=True):
+  """
+  Report how to divide a list of pairs `[x,y]` 
+  such that groups of `x` values most select for some
+  desired `y` (which is called the `goal`.
+  """
+  def __init__(i,txt,a,goal=True, get=lambda z:z[0]):
     i.txt  = txt
     i.goal = goal
-    i.bin  = lambda: Range(txt,x,i)
+    i.get  = get
+    i.bin  = lambda: Range(txt,i)
     i.all  = i.bin()
-    i.ranges = (i.nums if Magic.nump(txt) else i.syms)(x,y,a)
-  def syms(i,x,y,a):
+    i.ranges = (i.nums if Magic.nump(txt) else i.syms)(a)
+  def syms(i,a):
     "When discretizing symbols, Generate one range for each symbol."
     d  = {}
-    for one in a:
-      x1, y1 = x(one), y(one)
+    for x1,y1 in a:
       if Magic.no(x1): continue
       if not x1 in d: d[x1] = i.bin()
       d[x1].add(x1,y1)
       i.all.add(x1,y1)
     return d.values()
-  def nums(i,x,y,a):
+  def nums(i,a):
     """
     When discretizing numbers,
     Generate lots of small ranges, then
     merge those with similar scores."
     """
-    return i.merge( i.grow( i.pairs(x,y,a)))
-  def pairs(i,x,y,a):
+    return i.merge( i.grow( i.pairs(a)))
+  def pairs(i,a):
     "When discretizing numbers, convert `a` into a list of x,y pairs"
-    lst = [(x(z), y(z)) for z in a if not isinstance(x(z),str)]
+    lst = [(x,y) for x,y in a if not Magic.no(x)]
     return sorted(lst, key= lambda z:z[0])
   def grow(i,a):
     "When discretizing numbers, divide `a` into lots of small bins."
@@ -683,7 +717,7 @@ def test_hetab1():
   """
   Read a small table from disk. 
   """
-  t = Tab().read("../docs/data/weather4.csv")
+  t = Tab().read("data/weather4.csv")
   assert( 4 == t.cols.x[0].seen["overcast"])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -700,7 +734,7 @@ def test_tab2():
 @go
 def test_dist():
   "Check the distance calculations."
-  t = Tab().read("../docs/data/auto93.csv")
+  t = Tab().read("data/auto93.csv")
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not "?" in r1:
@@ -719,7 +753,7 @@ def test_dist():
 @go
 def test_tree():
   "Recursively divide the data in two."
-  t = Tab().read("../docs/data/auto93.csv")
+  t = Tab().read("data/auto93.csv")
   my.treeVerbose = True
   Tree(t,cols="y")
 
@@ -729,18 +763,21 @@ def test_bore():
   Recursively prune worst half the data 
   (down to sqrt(N) of original data).
   """
-  t = Tab().read("../docs/data/auto93.csv")
+  t = Tab().read("data/auto93.csv")
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print("best",b.best.status())
   print("rest",b.rest.status())
   print("all",t.status())
-  print(b.key())
+  k = b.key()
+  print("SCORE",k._ranges.txt,k.s()) #print("KEY",b.key())
+  for _ in range(1):
+     DecisionList(t).show()
 
 def _range0(xy):
-  for r in Ranges("t",xy).ranges:
+  "Worker for the tests"
+  for r in Ranges("$t",xy).ranges:
      print ("::",r.gen, 2**r.gen, r.lo, r.hi, r.n,r.s())
-
 
 @go
 def test_range1():

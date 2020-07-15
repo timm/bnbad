@@ -1,18 +1,19 @@
 #http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
-echo  -n "$(tput bold) $(tput setaf 3) "; cat <<'EOF'
-
- _____             _   _            _____       _ 
-| __  |___ ___ ___| |_|_|___ ___   | __  |___ _| |
-| __ -|  _| -_| .'| '_| |   | . |  | __ -| .'| . |
-|_____|_| |___|__,|_,_|_|_|_|_  |  |_____|__,|___| version 1
-                            |___|                 
+echo  "$(tput bold) $(tput setaf 3) "; cat <<'EOF'
+   :-------:  
+   | Ba    | Bad <-----.  Brk'n Bad
+   |    56 |           |  version 1.0
+   :-------:------:    |    
+           | B    |    v  
+           |    5 | Better  
+           :------:
 
 To update your vim packages, use 'vims'.
 For options, use 'b -h'
 EOF
 echo  -n "$(tput sgr0)"
 
-
+e()      { vi $Ell/bnbad/__init__.py; }
 here()   { cd $1; basename `pwd`; }
 reload() { . $Ell/etc/ellrc.sh; }
 vims()   { vim -u $Ell/etc/.vimrc +PluginInstall +qall; }
@@ -377,7 +378,7 @@ cython_debug/
 EOF
 
 want=$Ell/etc/.tmuxrc
-[ -f "$want" ] && cat<<'EOF'> $want
+[ -f "$want" ] ||  cat<<'EOF'> $want
 set -g aggressive-resize on
 unbind C-b
 set -g prefix C-Space

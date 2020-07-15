@@ -50,13 +50,13 @@ Can that software report how well the user goals
 are being achieved and can it suggest how to adjust the system, to
 better achieve those goals?</p>
 <p>Do you want to make your software more ethical?
-BRKNBAD is a
+BnBAD is a
 collection of data structures that support ethical the kind of
 ethical reasoning listed above.
 It is a multi-objective optimizer
 that reasons by breaking up problems into regions of <code>bad</code> and
 <code>better</code>, then looks for ways on how to jump between those regions.</p>
-<p>BRKNBAD might be an ethical choice in domains:</p>
+<p>BnBAD might be an ethical choice in domains:</p>
 <ul>
 <li>when users have to trade-off competing goals, </li>
 <li>when succinct explanations are needed about what the system is doing,</li>
@@ -72,7 +72,7 @@ to change the system, </li>
 <p>Technical notes: </p>
 <ul>
 <li><code>bad</code> and <code>better</code> are score via
-<a href="#brknbad.Tab.dom">Zitler's continuous domination predicate</a>.</li>
+<a href="#bnbad.Tab.better">Zitler's continuous domination predicate</a></li>
 <li>Examples are clustered in goal
 space and the <code>better</code> cluster is the one that dominates all the
 other <code>bad</code> clusters.</li>
@@ -105,16 +105,16 @@ basic containers for things with names slots (but no methods).</p>
 <pre><code> Thing
     o  
     Cluster
-       Bore     :has 1 :to 2 :of Tab
-       Tree     :has 1 :to * :of Tab
-    Col(txt, pos)
-       Num(mu, lo, hi)
+       Bore       :has 1 :to 2 :of Tab
+       Tree       :has 1 :to * :of Tab
+    Col(txt,pos)
+       Num(mu,lo,hi)
        Sym(mode)
-    Cols        :has 1 :to * :of Col
-    Dist        :has 1 :to 1 :of Tab
-    Range(lo, hi)
-    Ranges      :has 1 :to * :of Range
-    Tab(rows)   :has 1 :to 1 :of Cols  
+    Cols          :has 1 :to * :of Col
+    Dist          :has 1 :to 1 :of Tab
+    Range(lo,hi)
+    Ranges        :has 1 :to * :of Range
+    Tab(rows)     :has 1 :to 1 :of Cols  
     Test
 </code></pre>
 <p>The real work here is done by <code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code>les.
@@ -193,13 +193,13 @@ its own behavior?  Can that software report how well the user goals
 are being achieved and can it suggest how to adjust the system, to
 better achieve those goals?
 
-Do you want to make your software more ethical?  BRKNBAD is a
+Do you want to make your software more ethical?  BnBAD is a
 collection of data structures that support ethical the kind of
 ethical reasoning listed above.  It is a multi-objective optimizer
 that reasons by breaking up problems into regions of `bad` and
 `better`, then looks for ways on how to jump between those regions.
 
-BRKNBAD might be an ethical choice in domains:
+BnBAD might be an ethical choice in domains:
 
 - when users have to trade-off competing goals, 
 - when succinct explanations are needed about what the system is doing,
@@ -214,7 +214,7 @@ BRKNBAD might be an ethical choice in domains:
 Technical notes: 
 
 - `bad` and `better` are score via 
-  [Zitler&#39;s continuous domination predicate](#brknbad.Tab.dom).
+  [Zitler&#39;s continuous domination predicate](#bnbad.Tab.better)
 - Examples are clustered in goal
   space and the `better` cluster is the one that dominates all the
   other `bad` clusters.
@@ -246,16 +246,16 @@ basic containers for things with names slots (but no methods).
      Thing
         o  
         Cluster
-           Bore     :has 1 :to 2 :of Tab
-           Tree     :has 1 :to * :of Tab
-        Col(txt, pos)
-           Num(mu, lo, hi)
+           Bore       :has 1 :to 2 :of Tab
+           Tree       :has 1 :to * :of Tab
+        Col(txt,pos)
+           Num(mu,lo,hi)
            Sym(mode)
-        Cols        :has 1 :to * :of Col
-        Dist        :has 1 :to 1 :of Tab
-        Range(lo, hi)
-        Ranges      :has 1 :to * :of Range
-        Tab(rows)   :has 1 :to 1 :of Cols  
+        Cols          :has 1 :to * :of Col
+        Dist          :has 1 :to 1 :of Tab
+        Range(lo,hi)
+        Ranges        :has 1 :to * :of Range
+        Tab(rows)     :has 1 :to 1 :of Cols  
         Test
 
 The real work here is done by `Tab`les. 
@@ -328,6 +328,9 @@ def help():
     h(&#34;use at most &#39;d&#39; rows for distance calcs&#34;,        d= 256),
     h(&#34;merge ranges whose scores differ by less that F&#34;,e= 0.05),
     h(&#34;separation of poles (f=1 means &#39;max distance&#39;)&#34;, f= .9),
+    h(&#34;decision list leaf, minimum size&#34;,               M= 10),
+    h(&#34;decision list maximum height&#34;,                   H= 4),
+    h(&#34;decision lists, ratio of negative examples&#34;,     N= 4),
     h(&#34;coefficient for distance&#34; ,                      p= 2),
     h(&#34;random number seed&#34; ,                            r = 1),
     h(&#34;tree leaves must be at least n**s in size&#34; ,     s= 0.5),
@@ -616,22 +619,43 @@ class Bore(Cluster):
      return i.div(kid,lo)
    def key(i):
      &#34;Return the key range that most selects for best.&#34;
-     best = my.e
+     best  = my.e
+     bests = i.best.rows
+     rests = i.rest.rows
+     rests = shuffle(rests)[ :my.N*len(bests) ]
      for  col in i.best.cols.x.values():
        all  = []
-       all += [[r[col.pos], True]  for r in i.best.rows]
-       all += [[r[col.pos], False] for r in i.rest.rows]
-       for one in Ranges(col.txt, all).ranges:
+       all += [[r[col.pos], True]  for r in bests]
+       all += [[r[col.pos], False] for r in rests]
+       for one in Ranges(col.txt, all,
+                         get = col.pos).ranges:
          if one.s() &gt; best:
            best, out = one.s(), one
      return out 
 
+class DecisionList(Thing):
+  def __init__(i, t, lvl=my.H):
+    print(&#34;::&#34;,lvl,len(t.rows))
+    if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
+      b = Bore(t)
+      split = b.key()
+      i.col = split._ranges.get
+      i.leaf, i.kid = t.clone(), t.clone()
+      for row in t.rows:
+        (i.leaf if split.matches(row) else i.kid).add(row)
+      print(len(i.leaf.rows), len(i.kid.rows))
+      DecisionList(i.kid, lvl-1)
+  def show(i): pass
+
 class Range(Thing):
-  def __init__(i,what,xf,ranges):
-    i.what,i.xf,i._ranges = what, xf, ranges
+  def __init__(i,what,ranges):
+    i.what,i._ranges = what,  ranges
     i.n, i.yes, i.no = 0,0.0001,0.0001
     i.lo, i.hi = None, None
     i.gen=1
+  def matches(i, row):
+    v = row[i._ranges.get]
+    return v != &#34;?&#34; and i.lo &lt;= v and v &lt;= i.hi
   def add(i,x,y):
     i.n += 1
     if y==i._ranges.goal: i.yes += 1
@@ -657,33 +681,38 @@ class Range(Thing):
     return tmp if tmp &gt; my.e else 0
 
 class Ranges(Thing):
-  def __init__(i,txt,a,x=lambda z:z[0],
-                       y=lambda z:z[1], goal=True):
+  &#34;&#34;&#34;
+  Report how to divide a list of pairs `[x,y]` 
+  such that groups of `x` values most select for some
+  desired `y` (which is called the `goal`.
+  &#34;&#34;&#34;
+  def __init__(i,txt,a,goal=True, get=lambda z:z[0]):
     i.txt  = txt
     i.goal = goal
-    i.bin  = lambda: Range(txt,x,i)
+    i.get  = get
+    i.bin  = lambda: Range(txt,i)
     i.all  = i.bin()
-    i.ranges = (i.nums if Magic.nump(txt) else i.syms)(x,y,a)
-  def syms(i,x,y,a):
+    i.ranges = (i.nums if Magic.nump(txt) else i.syms)(a)
+    a = []
+  def syms(i,a):
     &#34;When discretizing symbols, Generate one range for each symbol.&#34;
     d  = {}
-    for one in a:
-      x1, y1 = x(one), y(one)
+    for x1,y1 in a:
       if Magic.no(x1): continue
       if not x1 in d: d[x1] = i.bin()
       d[x1].add(x1,y1)
       i.all.add(x1,y1)
     return d.values()
-  def nums(i,x,y,a):
+  def nums(i,a):
     &#34;&#34;&#34;
     When discretizing numbers,
     Generate lots of small ranges, then
     merge those with similar scores.&#34;
     &#34;&#34;&#34;
-    return i.merge( i.grow( i.pairs(x,y,a)))
-  def pairs(i,x,y,a):
+    return i.merge( i.grow( i.pairs(a)))
+  def pairs(i,a):
     &#34;When discretizing numbers, convert `a` into a list of x,y pairs&#34;
-    lst = [(x(z), y(z)) for z in a if not isinstance(x(z),str)]
+    lst = [(x,y) for x,y in a if not Magic.no(x)]
     return sorted(lst, key= lambda z:z[0])
   def grow(i,a):
     &#34;When discretizing numbers, divide `a` into lots of small bins.&#34;
@@ -854,7 +883,7 @@ def test_hetab1():
   &#34;&#34;&#34;
   Read a small table from disk. 
   &#34;&#34;&#34;
-  t = Tab().read(&#34;../docs/data/weather4.csv&#34;)
+  t = Tab().read(&#34;data/weather4.csv&#34;)
   assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -871,7 +900,7 @@ def test_tab2():
 @go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  t = Tab().read(&#34;../docs/data/auto93.csv&#34;)
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
@@ -890,7 +919,7 @@ def test_dist():
 @go
 def test_tree():
   &#34;Recursively divide the data in two.&#34;
-  t = Tab().read(&#34;../docs/data/auto93.csv&#34;)
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   my.treeVerbose = True
   Tree(t,cols=&#34;y&#34;)
 
@@ -900,18 +929,20 @@ def test_bore():
   Recursively prune worst half the data 
   (down to sqrt(N) of original data).
   &#34;&#34;&#34;
-  t = Tab().read(&#34;../docs/data/auto93.csv&#34;)
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print(&#34;best&#34;,b.best.status())
   print(&#34;rest&#34;,b.rest.status())
   print(&#34;all&#34;,t.status())
-  print(b.key())
+  k = b.key()
+  print(&#34;SCORE&#34;,k._ranges.txt,k.s()) #print(&#34;KEY&#34;,b.key())
+  DecisionList(t)
 
 def _range0(xy):
-  for r in Ranges(&#34;t&#34;,xy).ranges:
+  &#34;Worker for the tests&#34;
+  for r in Ranges(&#34;$t&#34;,xy).ranges:
      print (&#34;::&#34;,r.gen, 2**r.gen, r.lo, r.hi, r.n,r.s())
-
 
 @go
 def test_range1():
@@ -1144,6 +1175,9 @@ i.e. anything whose name starts with "_".</p></div>
     h(&#34;use at most &#39;d&#39; rows for distance calcs&#34;,        d= 256),
     h(&#34;merge ranges whose scores differ by less that F&#34;,e= 0.05),
     h(&#34;separation of poles (f=1 means &#39;max distance&#39;)&#34;, f= .9),
+    h(&#34;decision list leaf, minimum size&#34;,               M= 10),
+    h(&#34;decision list maximum height&#34;,                   H= 4),
+    h(&#34;decision lists, ratio of negative examples&#34;,     N= 4),
     h(&#34;coefficient for distance&#34; ,                      p= 2),
     h(&#34;random number seed&#34; ,                            r = 1),
     h(&#34;tree leaves must be at least n**s in size&#34; ,     s= 0.5),
@@ -1246,13 +1280,15 @@ def test_bore():
   Recursively prune worst half the data 
   (down to sqrt(N) of original data).
   &#34;&#34;&#34;
-  t = Tab().read(&#34;../docs/data/auto93.csv&#34;)
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print(&#34;best&#34;,b.best.status())
   print(&#34;rest&#34;,b.rest.status())
   print(&#34;all&#34;,t.status())
-  print(b.key())</code></pre>
+  k = b.key()
+  print(&#34;SCORE&#34;,k._ranges.txt,k.s()) #print(&#34;KEY&#34;,b.key())
+  DecisionList(t)</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_bye"><code class="name flex">
@@ -1285,7 +1321,7 @@ def test_bye():
 <pre><code class="python">@go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  t = Tab().read(&#34;../docs/data/auto93.csv&#34;)
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
@@ -1331,7 +1367,7 @@ def test_hetab1():
   &#34;&#34;&#34;
   Read a small table from disk. 
   &#34;&#34;&#34;
-  t = Tab().read(&#34;../docs/data/weather4.csv&#34;)
+  t = Tab().read(&#34;data/weather4.csv&#34;)
   assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -1495,7 +1531,7 @@ def test_tests():
 <pre><code class="python">@go
 def test_tree():
   &#34;Recursively divide the data in two.&#34;
-  t = Tab().read(&#34;../docs/data/auto93.csv&#34;)
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   my.treeVerbose = True
   Tree(t,cols=&#34;y&#34;)</code></pre>
 </details>
@@ -1552,12 +1588,16 @@ i.e. those that tend to dominate everything else.</p></div>
      return i.div(kid,lo)
    def key(i):
      &#34;Return the key range that most selects for best.&#34;
-     best = my.e
+     best  = my.e
+     bests = i.best.rows
+     rests = i.rest.rows
+     rests = shuffle(rests)[ :my.N*len(bests) ]
      for  col in i.best.cols.x.values():
        all  = []
-       all += [[r[col.pos], True]  for r in i.best.rows]
-       all += [[r[col.pos], False] for r in i.rest.rows]
-       for one in Ranges(col.txt, all).ranges:
+       all += [[r[col.pos], True]  for r in bests]
+       all += [[r[col.pos], False] for r in rests]
+       for one in Ranges(col.txt, all,
+                         get = col.pos).ranges:
          if one.s() &gt; best:
            best, out = one.s(), one
      return out </code></pre>
@@ -1627,12 +1667,16 @@ Return the surviving `best' ranges.</li>
 </summary>
 <pre><code class="python">def key(i):
   &#34;Return the key range that most selects for best.&#34;
-  best = my.e
+  best  = my.e
+  bests = i.best.rows
+  rests = i.rest.rows
+  rests = shuffle(rests)[ :my.N*len(bests) ]
   for  col in i.best.cols.x.values():
     all  = []
-    all += [[r[col.pos], True]  for r in i.best.rows]
-    all += [[r[col.pos], False] for r in i.rest.rows]
-    for one in Ranges(col.txt, all).ranges:
+    all += [[r[col.pos], True]  for r in bests]
+    all += [[r[col.pos], False] for r in rests]
+    for one in Ranges(col.txt, all,
+                      get = col.pos).ranges:
       if one.s() &gt; best:
         best, out = one.s(), one
   return out </code></pre>
@@ -1768,6 +1812,52 @@ pprint-ing that dictionary.</p></div>
 </summary>
 <pre><code class="python">def klass(i,lst): 
   return lst[i.klas]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.DecisionList"><code class="flex name class">
+<span>class <span class="ident">DecisionList</span></span>
+<span>(</span><span>t, lvl=4)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DecisionList(Thing):
+  def __init__(i, t, lvl=my.H):
+    print(&#34;::&#34;,lvl,len(t.rows))
+    if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
+      b = Bore(t)
+      split = b.key()
+      i.col = split._ranges.get
+      i.leaf, i.kid = t.clone(), t.clone()
+      for row in t.rows:
+        (i.leaf if split.matches(row) else i.kid).add(row)
+      print(len(i.leaf.rows), len(i.kid.rows))
+      DecisionList(i.kid, lvl-1)
+  def show(i): pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.DecisionList.show"><code class="name flex">
+<span>def <span class="ident">show</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show(i): pass</code></pre>
 </details>
 </dd>
 </dl>
@@ -2109,7 +2199,7 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.Range"><code class="flex name class">
 <span>class <span class="ident">Range</span></span>
-<span>(</span><span>what, xf, ranges)</span>
+<span>(</span><span>what, ranges)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>All my classes are Things that pretty print themselves
@@ -2120,11 +2210,14 @@ pprint-ing that dictionary.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Range(Thing):
-  def __init__(i,what,xf,ranges):
-    i.what,i.xf,i._ranges = what, xf, ranges
+  def __init__(i,what,ranges):
+    i.what,i._ranges = what,  ranges
     i.n, i.yes, i.no = 0,0.0001,0.0001
     i.lo, i.hi = None, None
     i.gen=1
+  def matches(i, row):
+    v = row[i._ranges.get]
+    return v != &#34;?&#34; and i.lo &lt;= v and v &lt;= i.hi
   def add(i,x,y):
     i.n += 1
     if y==i._ranges.goal: i.yes += 1
@@ -2186,6 +2279,20 @@ pprint-ing that dictionary.</p></div>
   return abs(sb - sa) &lt; my.e or sc &gt;= sb and sc &gt;= sa</code></pre>
 </details>
 </dd>
+<dt id="bnbad.Range.matches"><code class="name flex">
+<span>def <span class="ident">matches</span></span>(<span>i, row)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def matches(i, row):
+  v = row[i._ranges.get]
+  return v != &#34;?&#34; and i.lo &lt;= v and v &lt;= i.hi</code></pre>
+</details>
+</dd>
 <dt id="bnbad.Range.merge"><code class="name flex">
 <span>def <span class="ident">merge</span></span>(<span>i, j)</span>
 </code></dt>
@@ -2226,44 +2333,49 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.Ranges"><code class="flex name class">
 <span>class <span class="ident">Ranges</span></span>
-<span>(</span><span>txt, a, x=&lt;function Ranges.&lt;lambda&gt;&gt;, y=&lt;function Ranges.&lt;lambda&gt;&gt;, goal=True)</span>
+<span>(</span><span>txt, a, goal=True, get=&lt;function Ranges.&lt;lambda&gt;&gt;)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
-by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+<div class="desc"><p>Report how to divide a list of pairs <code>[x,y]</code>
+such that groups of <code>x</code> values most select for some
+desired <code>y</code> (which is called the <code>goal</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Ranges(Thing):
-  def __init__(i,txt,a,x=lambda z:z[0],
-                       y=lambda z:z[1], goal=True):
+  &#34;&#34;&#34;
+  Report how to divide a list of pairs `[x,y]` 
+  such that groups of `x` values most select for some
+  desired `y` (which is called the `goal`.
+  &#34;&#34;&#34;
+  def __init__(i,txt,a,goal=True, get=lambda z:z[0]):
     i.txt  = txt
     i.goal = goal
-    i.bin  = lambda: Range(txt,x,i)
+    i.get  = get
+    i.bin  = lambda: Range(txt,i)
     i.all  = i.bin()
-    i.ranges = (i.nums if Magic.nump(txt) else i.syms)(x,y,a)
-  def syms(i,x,y,a):
+    i.ranges = (i.nums if Magic.nump(txt) else i.syms)(a)
+    a = []
+  def syms(i,a):
     &#34;When discretizing symbols, Generate one range for each symbol.&#34;
     d  = {}
-    for one in a:
-      x1, y1 = x(one), y(one)
+    for x1,y1 in a:
       if Magic.no(x1): continue
       if not x1 in d: d[x1] = i.bin()
       d[x1].add(x1,y1)
       i.all.add(x1,y1)
     return d.values()
-  def nums(i,x,y,a):
+  def nums(i,a):
     &#34;&#34;&#34;
     When discretizing numbers,
     Generate lots of small ranges, then
     merge those with similar scores.&#34;
     &#34;&#34;&#34;
-    return i.merge( i.grow( i.pairs(x,y,a)))
-  def pairs(i,x,y,a):
+    return i.merge( i.grow( i.pairs(a)))
+  def pairs(i,a):
     &#34;When discretizing numbers, convert `a` into a list of x,y pairs&#34;
-    lst = [(x(z), y(z)) for z in a if not isinstance(x(z),str)]
+    lst = [(x,y) for x,y in a if not Magic.no(x)]
     return sorted(lst, key= lambda z:z[0])
   def grow(i,a):
     &#34;When discretizing numbers, divide `a` into lots of small bins.&#34;
@@ -2360,7 +2472,7 @@ recurse to merge the merged list.</p></div>
 </details>
 </dd>
 <dt id="bnbad.Ranges.nums"><code class="name flex">
-<span>def <span class="ident">nums</span></span>(<span>i, x, y, a)</span>
+<span>def <span class="ident">nums</span></span>(<span>i, a)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>When discretizing numbers,
@@ -2370,17 +2482,17 @@ merge those with similar scores."</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nums(i,x,y,a):
+<pre><code class="python">def nums(i,a):
   &#34;&#34;&#34;
   When discretizing numbers,
   Generate lots of small ranges, then
   merge those with similar scores.&#34;
   &#34;&#34;&#34;
-  return i.merge( i.grow( i.pairs(x,y,a)))</code></pre>
+  return i.merge( i.grow( i.pairs(a)))</code></pre>
 </details>
 </dd>
 <dt id="bnbad.Ranges.pairs"><code class="name flex">
-<span>def <span class="ident">pairs</span></span>(<span>i, x, y, a)</span>
+<span>def <span class="ident">pairs</span></span>(<span>i, a)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>When discretizing numbers, convert <code>a</code> into a list of x,y pairs</p></div>
@@ -2388,14 +2500,14 @@ merge those with similar scores."</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def pairs(i,x,y,a):
+<pre><code class="python">def pairs(i,a):
   &#34;When discretizing numbers, convert `a` into a list of x,y pairs&#34;
-  lst = [(x(z), y(z)) for z in a if not isinstance(x(z),str)]
+  lst = [(x,y) for x,y in a if not Magic.no(x)]
   return sorted(lst, key= lambda z:z[0])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.Ranges.syms"><code class="name flex">
-<span>def <span class="ident">syms</span></span>(<span>i, x, y, a)</span>
+<span>def <span class="ident">syms</span></span>(<span>i, a)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>When discretizing symbols, Generate one range for each symbol.</p></div>
@@ -2403,11 +2515,10 @@ merge those with similar scores."</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def syms(i,x,y,a):
+<pre><code class="python">def syms(i,a):
   &#34;When discretizing symbols, Generate one range for each symbol.&#34;
   d  = {}
-  for one in a:
-    x1, y1 = x(one), y(one)
+  for x1,y1 in a:
     if Magic.no(x1): continue
     if not x1 in d: d[x1] = i.bin()
     d[x1].add(x1,y1)
@@ -2821,6 +2932,7 @@ pprint-ing that dictionary.</p></div>
 <li><a title="bnbad.Cluster" href="#bnbad.Cluster">Cluster</a></li>
 <li><a title="bnbad.Col" href="#bnbad.Col">Col</a></li>
 <li><a title="bnbad.Cols" href="#bnbad.Cols">Cols</a></li>
+<li><a title="bnbad.DecisionList" href="#bnbad.DecisionList">DecisionList</a></li>
 <li><a title="bnbad.Dist" href="#bnbad.Dist">Dist</a></li>
 <li><a title="bnbad.Range" href="#bnbad.Range">Range</a></li>
 <li><a title="bnbad.Ranges" href="#bnbad.Ranges">Ranges</a></li>
@@ -2890,7 +3002,21 @@ pprint-ing that dictionary.</p></div>
 </section>
 </article>
 <nav id="sidebar">
-<center><img src="letscook.png" width=500></center>
+<center>
+<img src="letscook.png" width=500>
+<p><a href="#license">&copy; 2020</a>, Tim Menzies<br>
+<a href="mailto:timm@ieee.org">timm@ieee.org</a><br>
+<a href="http://menzies.us">http://menzies.us</a>
+</p>
+<p style="font-size: 12px; line-height: 14px;">
+"Give me the fruitful error any time,
+full of seeds, bursting with its own
+corrections. You can keep your sterile
+truth for yourself."
+-- Vilfredo Pareto</p>
+<img src="pareto.png" width=200>
+<hr>
+</center>
 <h1>Index</h1>
 <div class="toc">
 <ul>
@@ -2953,6 +3079,12 @@ pprint-ing that dictionary.</p></div>
 </ul>
 </li>
 <li>
+<h4><code><a title="bnbad.DecisionList" href="#bnbad.DecisionList">DecisionList</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.DecisionList.show" href="#bnbad.DecisionList.show">show</a></code></li>
+</ul>
+</li>
+<li>
 <h4><code><a title="bnbad.Dist" href="#bnbad.Dist">Dist</a></code></h4>
 <ul class="">
 <li><code><a title="bnbad.Dist.dist" href="#bnbad.Dist.dist">dist</a></code></li>
@@ -2986,6 +3118,7 @@ pprint-ing that dictionary.</p></div>
 <ul class="">
 <li><code><a title="bnbad.Range.add" href="#bnbad.Range.add">add</a></code></li>
 <li><code><a title="bnbad.Range.better" href="#bnbad.Range.better">better</a></code></li>
+<li><code><a title="bnbad.Range.matches" href="#bnbad.Range.matches">matches</a></code></li>
 <li><code><a title="bnbad.Range.merge" href="#bnbad.Range.merge">merge</a></code></li>
 <li><code><a title="bnbad.Range.s" href="#bnbad.Range.s">s</a></code></li>
 </ul>
