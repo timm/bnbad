@@ -23,6 +23,7 @@ href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
 </p>
 
+<hr>
 <img  align=right width=400 
 src="docs/letscook.png">
 
