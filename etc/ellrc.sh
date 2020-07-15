@@ -17,7 +17,7 @@ here()   { cd $1; basename `pwd`; }
 reload() { . $Ell/etc/ellrc.sh; }
 vims()   { vim -u $Ell/etc/.vimrc +PluginInstall +qall; }
 doc()    {
-  pdoc3 --template-dir=$Ell/docs \
+  pdoc3 --template-dir $Ell/docs/  \
         --html --force            \
         -o $Ell/docs               \
         -c latex_math=True  bnbad
