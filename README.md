@@ -1,14 +1,13 @@
 <p align=center> 
 <img src="https://img.shields.io/badge/license-mit-red"> <img 
-src="https://img.shields.io/badge/language-python-orange"> <img 
-src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <img 
-src="https://img.shields.io/badge/platform-mac,*nux-informational"><a 
+src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
      href="https://travis-ci.org/github/sehero/lua"> <img 
-src="https://travis-ci.org/aiez/eg.svg?branch=master"></a><a 
-     href="https://zenodo.org/badge/latestdoi/263210595"> <img 
-src="https://zenodo.org/badge/263210595.svg" alt="DOI"></a><a 
-     href='https://coveralls.io/github/aiez/lua?branch=master'> <img i
-src='https://coveralls.io/repos/github/aiez/eg/badge.svg?branch=master' alt='Coverage Status' /></a></p>
+src="https://travis-ci.org/aiez/eg.svg?branch=master"></a> <a 
+href="https://doi.org/10.5281/zenodo.3947026"><img 
+src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> <a
+     href='https://coveralls.io/github/aiez/lua?branch=master'> <img 
+src='https://coveralls.io/repos/github/aiez/eg/badge.svg?branch=master' 
+alt='Coverage Status' /></a></p>
 
 <h1 align=center><a href="/README.md#top">Break 'n Bad</a></h1>
 <h3 align=center> Fast, explicable, multi-objective optimization</h3> 
