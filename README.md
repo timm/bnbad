@@ -1,11 +1,12 @@
 <h1 align=center><a href="/README.md#top">Break 'n Bad</a></h1>
-<h2 align=center> Fast, explicable, multi-objective optimization</h2> 
+<h3 align=center> Fast, explicable, multi-objective optimization</h3> 
 <p align=center>
 <a
-href="LICENSE.md">license</a> :: <a
+href="docs/index.html">docs</a> :: <a
 href="#install">install</a> :: <a
-href="CONTRIBUTING.md">contribute</a> :: <a
 href="https://github.com/timm/bnbad/issues">issues</a> :: <a
+href="LICENSE.md">license</a> :: <a
+href="CONTRIBUTING.md">contribute</a> :: <a
 href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
 <br>
@@ -22,6 +23,7 @@ src="https://zenodo.org/badge/263210595.svg" alt="DOI"></a><a
      href='https://coveralls.io/github/aiez/lua?branch=master'> <img i
 src='https://coveralls.io/repos/github/aiez/eg/badge.svg?branch=master' alt='Coverage Status' /></a></p>
 
+<hr>
 
 <img  align=right width=400 
 src="docs/letscook.png">
