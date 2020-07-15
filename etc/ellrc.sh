@@ -13,6 +13,10 @@ For options, use 'b -h'
 EOF
 echo  -n "$(tput sgr0)"
 
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+alias ls='ls -GFh'
+
 e()      { vi $Ell/bnbad/__init__.py; }
 here()   { cd $1; basename `pwd`; }
 reload() { . $Ell/etc/ellrc.sh; }
@@ -31,7 +35,7 @@ alias b="pypy3 $Ell/bnbad/__init__.py"
 alias gg="git pull"
 alias gs="git status"
 alias gp="git commit -am 'saving'; git push; git status"
-PROMPT_COMMAND='echo -ne "Ell:$(git branch 2>/dev/null | grep '^*' | colrm 1 2) ";PS1="$(here ..)/$(here .) \!>\e[m "'
+PROMPT_COMMAND='echo -ne "☘  ️Ell:$(git branch 2>/dev/null | grep '^*' | colrm 1 2) ";PS1="$(here ..)/$(here .) \!>\e[m "'
   
 want=$Ell/.travisyml
 [ -f "$want" ] || cat<<'EOF'>$want
