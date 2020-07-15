@@ -635,17 +635,23 @@ class Bore(Cluster):
 
 class DecisionList(Thing):
   def __init__(i, t, lvl=my.H):
-    print(&#34;::&#34;,lvl,len(t.rows))
+    i.t=t
+    i.leaf = None
     if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
       b = Bore(t)
-      split = b.key()
-      i.col = split._ranges.get
-      i.leaf, i.kid = t.clone(), t.clone()
+      i.split = b.key()
+      i.col = i.split._ranges.get
+      i.leaf, kid = t.clone(), t.clone()
       for row in t.rows:
-        (i.leaf if split.matches(row) else i.kid).add(row)
-      print(len(i.leaf.rows), len(i.kid.rows))
-      DecisionList(i.kid, lvl-1)
-  def show(i): pass
+        (i.leaf if i.split.matches(row) else kid).add(row)
+      i.kid = DecisionList(kid, lvl-1)
+  def show(i,pre=&#34;  &#34;): 
+    if i.leaf:
+      print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
+           &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
+      i.kid.show(pre=&#34;el&#34;)
+    else:
+     print(&#34;else&#34;, i.t.status(), len(i.t.rows))
 
 class Range(Thing):
   def __init__(i,what,ranges):
@@ -693,7 +699,6 @@ class Ranges(Thing):
     i.bin  = lambda: Range(txt,i)
     i.all  = i.bin()
     i.ranges = (i.nums if Magic.nump(txt) else i.syms)(a)
-    a = []
   def syms(i,a):
     &#34;When discretizing symbols, Generate one range for each symbol.&#34;
     d  = {}
@@ -937,7 +942,8 @@ def test_bore():
   print(&#34;all&#34;,t.status())
   k = b.key()
   print(&#34;SCORE&#34;,k._ranges.txt,k.s()) #print(&#34;KEY&#34;,b.key())
-  DecisionList(t)
+  for _ in range(1):
+     DecisionList(t).show()
 
 def _range0(xy):
   &#34;Worker for the tests&#34;
@@ -1288,7 +1294,8 @@ def test_bore():
   print(&#34;all&#34;,t.status())
   k = b.key()
   print(&#34;SCORE&#34;,k._ranges.txt,k.s()) #print(&#34;KEY&#34;,b.key())
-  DecisionList(t)</code></pre>
+  for _ in range(1):
+     DecisionList(t).show()</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_bye"><code class="name flex">
@@ -1830,17 +1837,23 @@ pprint-ing that dictionary.</p></div>
 </summary>
 <pre><code class="python">class DecisionList(Thing):
   def __init__(i, t, lvl=my.H):
-    print(&#34;::&#34;,lvl,len(t.rows))
+    i.t=t
+    i.leaf = None
     if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
       b = Bore(t)
-      split = b.key()
-      i.col = split._ranges.get
-      i.leaf, i.kid = t.clone(), t.clone()
+      i.split = b.key()
+      i.col = i.split._ranges.get
+      i.leaf, kid = t.clone(), t.clone()
       for row in t.rows:
-        (i.leaf if split.matches(row) else i.kid).add(row)
-      print(len(i.leaf.rows), len(i.kid.rows))
-      DecisionList(i.kid, lvl-1)
-  def show(i): pass</code></pre>
+        (i.leaf if i.split.matches(row) else kid).add(row)
+      i.kid = DecisionList(kid, lvl-1)
+  def show(i,pre=&#34;  &#34;): 
+    if i.leaf:
+      print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
+           &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
+      i.kid.show(pre=&#34;el&#34;)
+    else:
+     print(&#34;else&#34;, i.t.status(), len(i.t.rows))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1849,7 +1862,8 @@ pprint-ing that dictionary.</p></div>
 <h3>Methods</h3>
 <dl>
 <dt id="bnbad.DecisionList.show"><code class="name flex">
-<span>def <span class="ident">show</span></span>(<span>i)</span>
+<span>def <span class="ident">show</span></span>(<span>i, pre='
+')</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -1857,7 +1871,13 @@ pprint-ing that dictionary.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def show(i): pass</code></pre>
+<pre><code class="python">def show(i,pre=&#34;  &#34;): 
+  if i.leaf:
+    print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
+         &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
+    i.kid.show(pre=&#34;el&#34;)
+  else:
+   print(&#34;else&#34;, i.t.status(), len(i.t.rows))</code></pre>
 </details>
 </dd>
 </dl>
@@ -2356,7 +2376,6 @@ desired <code>y</code> (which is called the <code>goal</code>.</p></div>
     i.bin  = lambda: Range(txt,i)
     i.all  = i.bin()
     i.ranges = (i.nums if Magic.nump(txt) else i.syms)(a)
-    a = []
   def syms(i,a):
     &#34;When discretizing symbols, Generate one range for each symbol.&#34;
     d  = {}
