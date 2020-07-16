@@ -144,6 +144,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 import traceback,argparse,random,pprint,math,sys,re,os
+from copy import deepcopy as kopy
 
 def help(): 
   """
@@ -157,12 +158,16 @@ def help():
     h("use at most 'd' rows for distance calcs",        d= 256),
     h("merge ranges whose scores differ by less that F",e= 0.05),
     h("separation of poles (f=1 means 'max distance')", f= .9),
-    h("decision list leaf, minimum size",               M= 10),
-    h("decision list maximum height",                   H= 4),
-    h("decision lists, ratio of negative examples",     N= 4),
+    h("decision list: minimum leaf size",               M= 10),
+    h("decision list: maximum height",                   H= 4),
+    h("decision list: ratio of negative examples",     N= 4),
     h("coefficient for distance" ,                      p= 2),
     h("random number seed" ,                            r = 1),
     h("tree leaves must be at least n**s in size" ,     s= 0.5),
+    h("stats: Cliff's Delta 'dull'",                    Sdull=[.147,.33,.474]),
+    h("stats: Coehn 'd'",                               Scohen=0.2),
+    h("stats: number of boostrap samples",              Sb=500),
+    h("stats: bootstrap confidences",                   Sconf=0.01),
     h("training data (arff format",                     train= "train.csv"),
     h("testing data (csv format)",                      test=  "test.csv"),
     h("List all tests.",                                L = False),
@@ -232,10 +237,6 @@ class Magic:
     "Thing to minimize"
     return "<" in s
   
-#---------------------------------------------------------
-### Thing
-# Python objects have *very* uninformative print strings.
-# `Thing`s know how to present themselves.
 class Thing:
   """
   All my classes are Things that pretty print themselves
@@ -603,6 +604,13 @@ def cols(src):
     todo = todo or [n for n,s in enumerate(a) if not "?"in s]
     yield [ a[n] for n in todo]
 
+def pairs(lst):
+  "Return the i-th and i+1-th item in a list."
+  last=lst[0]
+  for i in lst[1:]:
+    yield last,i
+    last = i
+
 def shuffle(lst):
   "Return a shuffled list."
   random.shuffle(lst)
@@ -643,6 +651,520 @@ def dprint(d, pre="",skip="_"):
   return pre+'{'+", ".join([('%s=%s' % (k,q(v))) 
                              for k,v in l]) +'}'
 
+def perc(a,p=[.25,.5,.75]):
+  ls = sprted(a)
+  return [ l[int(p0 * len(a))] for p0 in p ]
+
+def xtile(lst,lo=0,hi=1,
+             width = 50,
+             chops = [0.1 ,0.3,0.5,0.7,0.9],
+             marks = [" " ,".","."," "," "],
+             bar   = "",
+             star  = "o",
+             show  = " %5.3f"):
+    """
+    Pretty print a large list of numbers.
+    Take a list of numbers, sort them,
+    then print them as a
+    horizontal
+    xtile chart (in ascii format). The default is a
+    contracted _quintile_ that shows the
+    10,30,50,70,90 breaks in the data (but this can be
+    changed- see the optional flags of the function).
+    """
+    def at(p): 
+      return ordered[int(len(lst)*p)]
+    def norm(x): 
+      return int(width*float((x - lo))/(hi - lo+0.00001))
+    def pretty(lst):
+      return ', '.join([show % x for x in lst])
+    ordered = sorted(lst)
+    what    = [at(p)   for p in chops]
+    where   = [norm(n) for n in  what]
+    out     = [" "] * width
+    marks1 = marks[:]
+    for one,two in pairs(where):
+      for i in range(one,two):
+        out[i] = marks1[0]
+      marks1 = marks1[1:]
+    if bar:  out[int(width/2)]  = bar
+    if star: out[norm(at(0.5))] = star
+    return ''.join(out) +  "," +  pretty(what)
+ 
+def rxs(d, width = 50,
+           show  = "%5.0f",
+           chops = [0.1 ,0.3,0.5,0.7,0.9],
+           marks = [" " ,".",".","."," "]):
+  """
+  Manager for a set of treatment results.
+  Given a dictionary of values, sort the values by their median
+  then iteratively merge together adjacent similar items.
+  """
+  def merge(lst, lvl=0):
+    """
+    Do one pass, see what we can combine.
+    If nothing, then print  `lst`. Else, recurse.
+    """
+    j,tmp = 0,[]
+    while j < len(lst):
+       x = lst[j]
+       if j < len(lst) - 1: 
+         y = lst[j+1]
+         if abs(x.med - y.med) <= tiny or x == y:
+           tmp += [x+y] # merge x and y
+           j   += 2
+           continue
+       tmp += [x]
+       j   += 1
+    if len(tmp) < len(lst):
+       return merge(tmp, lvl+1) 
+    else:
+       for n,group in enumerate(lst):
+         for rx in group.parts:
+           rx.rank = n
+           print(n, rx) 
+       return lst
+  #-------------------------------
+  p    = lambda n: a[ int( n*len(a) )]
+  a    = sorted([x for k in d for x in d[k]])
+  tiny = (p(.9) - p(.2))/2.56 * my.Scohen
+  return merge(sorted([Rx(rx    = k,    all = d[k], 
+                          lo    = a[0], hi  = a[-1],
+                          show  = show,
+                          width = width,
+                          chops = chops,
+                          marks = marks) 
+                    for k in d]))
+
+ 
+class Rx(Thing):
+  """
+  A treatment "`Rx`" is a label (`i.rx`) and a set of 
+  values (`i.all`).  
+  
+  Similar treatments can be grouped together
+  by the [`rxs`](#bnbad.rxs) function
+  into sets of values with the same `rank`
+  Things in the same rank are statistically 
+  indistinguishable, as judged by all three of:
+
+  1. A very fast non-parametric `D` test 
+      - Sort the numns, ignore divisions less that
+        30% of "spread" (90th-10th percentile range); 
+  2. A (slightly more thorough) non-parametric effect 
+     size test (the Cliff's Delta);
+      -  Two lists are different if, usually, 
+         things from one list do not fall into the middle 
+         of the other.
+  3. (very thorough) non-parametric 
+     significance test (the Bootstrap);
+      - See if hundreds of sample-with-replacements
+        sets from two lists and  different properties to 
+        the overall list.
+  
+  Of the above, the third is far slower than the rest. Often, if it is
+  omitted, the results are often the same as just using 1+2.  So when
+  each treatment has 1000s of values, it would be reasonable to skip
+  it. Without bootstrapping,  256 treatments with 1000 values
+  can be sorted in less than 2 seconds. But with that skipping
+  that same process takes half an hour.
+  """
+  def __init__(i, rx="", all=[], lo=0,hi=1,  
+                         width = 50,
+                         show  = "%5.0f",
+                         chops = [0.1 ,0.3,0.5,0.7,0.9],
+                         marks = [" " ,"-"," ","-"," "]):
+    i.rx   = rx
+    i.all  = sorted([x for x in all if x != "?"])
+    i.lo   = min(i.all[0],lo)
+    i.hi   = max(i.all[-1],hi)
+    i.n    = len(i.all)
+    i.med  = i.all[int(i.n/2)]
+    i.parts= [i]
+    i.rank = 0
+    i.width,i.chops,i.marks,i.show = width,chops,marks,show
+  def __lt__(i,j): 
+    "Treatments are sorted on their `med` value."
+    return i.med < j.med
+  def __eq__(i,j):
+    """
+    Two treatments are statistically indistinguishable
+    if a non-parametric effect size test (`cliffsDelta`)
+    and a non-parametric significance test (`bootstrap`)
+    say that there are no differences between them.
+    """
+    return i.cliffsDelta(j) and  i.bootstrap(j)
+  def __add__(i,j):
+    "Treatments can be combined"
+    k =  Rx(all = i.all + j.all,
+                  lo  = min(i.lo, j.lo), 
+                  hi  = max(i.hi, j.hi))
+    k.parts = i.parts + j.parts
+    return k
+  def __repr__(i):
+    "Treatments can be printed."
+    return '%10s %s' % (i.rx, xtile(i.all, i.lo, i.hi,
+                                    show = i.show,
+                                    width = i.width,
+                                    chops = i.chops,
+                                    marks = i.marks))
+
+  def cliffsDelta(i,j, dull=my.Sdull):
+    """
+    For every item in `lst1`, find its position in `lst2` Two lists are
+    different if, usually, things from one list do not fall into the
+    middle of the other.
+  
+    This code employees a few tricks to make all this run fast (e..g
+    pre-sort the lists, work over `runs` of same values).
+    """
+    def runs(lst):
+      for j,two in enumerate(lst):
+        if j == 0: one,i = two,0
+        if one!=two:
+          yield j - i,one
+          i = j
+        one=two
+      yield j - i + 1,two
+    # --- end runs function ---------------------
+    lst1, lst2 = i.all, j.all
+    m, n = len(lst1), len(lst2)
+    lst2 = sorted(lst2)
+    j = more = less = 0
+    for repeats,x in runs(sorted(lst1)):
+      while j <= (n - 1) and lst2[j] <  x: j += 1
+      more += j*repeats
+      while j <= (n - 1) and lst2[j] == x: j += 1
+      less += (n - j)*repeats
+    d= (more - less) / (m*n)
+    return abs(d)  <= dull
+  
+  def bootstrap(i,j,onf=my.Sconf,b=my.Sb):
+    """
+    Two  lists y0,z0 are the same if the same patterns can be seen in
+    all of them, as well as in 100s to 1000s  sub-samples from each.
+    From p220 to 223 of the Efron text  'introduction to the bootstrap'.
+    
+    This function checks for  different properties between (a) the two
+    lists and (b) hundreds of sample-with-replacements sets.
+    """
+    class Sum(): 
+      "# Quick & dirty class to summarize sets of values."
+      def __init__(i,some=[]):
+        i.sum = i.n = i.mu = 0 ; i.all=[]
+        for one in some: i.put(one)
+      def put(i,x):
+        i.all.append(x);
+        i.sum +=x; i.n += 1; i.mu = float(i.sum)/i.n
+      def __add__(i1,i2): return Sum(i1.all + i2.all)
+    def testStatistic(y,z):
+       "Define the property that we will check for."
+       tmp1 = tmp2 = 0
+       for y1 in y.all: tmp1 += (y1 - y.mu)**2
+       for z1 in z.all: tmp2 += (z1 - z.mu)**2
+       s1    = float(tmp1)/(y.n - 1)
+       s2    = float(tmp2)/(z.n - 1)
+       delta = z.mu - y.mu
+       if s1+s2:
+         delta =  delta/((s1/y.n + s2/z.n)**0.5)
+       return delta
+    def one(lst): 
+      "Sampling with replacement."
+      return lst[ int(random.uniform(0,len(lst))) ]
+    #--------------
+    y0, z0 = i.all, j.all
+    y,z  = Sum(y0), Sum(z0)
+    x    = y + z
+    baseline = testStatistic(y,z)
+    yhat = [y1 - y.mu + x.mu for y1 in y.all]
+    zhat = [z1 - z.mu + x.mu for z1 in z.all]
+    bigger = 0
+    for i in range(b):
+      if testStatistic(Sum([one(yhat) for _ in yhat]),
+                       Sum([one(zhat) for _ in zhat])) > baseline:
+        bigger += 1
+    return bigger / b >= conf
+
+class X(Thing):
+  """
+  Class for holding knowledge about some variable `X`. 
+  Instances of this class:
+
+  - Know their `lo` and `hi` value;
+  - Know that if `hi` is missing, to just use `lo`;
+  - Know how to calculate a value within a legal range.
+  - Know how to cache that value (so we can use it over and over again)
+  - Know how to check new values
+  - Know how to combine themselves 
+  """
+  def __init__(i, lo,hi=None): 
+    i.lo = lo
+    i.hi = lo if hi==None else hi
+    i.lo0, i.hi0 = i.lo, i.hi
+    i.x  = None
+  def ok(i,z): 
+    return i.lo0 <= z <= i.hi0
+  def __call__(i):
+    if i.x == None: i.x = i.get()
+    return i.x
+  def __iadd__(i,j): 
+    lo = j.lo
+    hi = j.lo if j.hi==None else j.hi
+    if i.ok(lo) and i.ok(hi):
+      i.lo, i.hi, i.x  = lo, hi, None
+      return i
+    raise IndexError('out of bounds %s %s' % (lo, hi))
+
+class F(X): 
+  "Floats"
+  def get(i): return random.uniform(i.lo, i.hi)
+
+class I(X): 
+  "Integers"
+  def get(i): return random.randint(i.lo, i.hi)
+
+class Cocomo(Thing):
+  """
+  This code predicts:
+  
+  1. Time in months to complete a project (and a month is 152 hours of
+  work and includes all management support tasks associated with the coding).
+  2. The risk associated with the current project decisions.
+     This [risk model](cocrisk) is calculated from a set of rules that add a "risk value" for
+  every "bad smell" within the current project settings.
+  
+  The standard COCOMO effort model assumes that:
+  -  Effort is exponential on size of code
+  - Within the exponent there are set of scale factors that increase effort exponentially
+  - Outside the exponent there are set of effort multipliers that change effort in a linear manner
+    - either linearly increasing  or linearly decreasing.
+  
+  This code extends the standard COCOMO effort model as follows:
+  - This code comes with a set of mitigations that might improve a project.
+    It is a sample manner:
+    - To loop over all those mitigations, trying each for a particular project. 
+    - Define and test your own mitigations.
+  - Many of the internal parameters of COCOMO are not known with any certainty.
+    -  So this model represents all such internals as a range of options.
+    - By running this estimated, say, 1000 times, you can get an estimate of the range of possible values.
+  
+  ## Attributes
+  
+  This code also for the easy extension of the model.  If you think
+  that other factors do (or do not) influence effort in an exponential
+  or liner manner, then it is simple to extend this code with your
+  preferred set of attributes.
+  
+  ### Scale Factors
+  if _more_ then exponential _more_ effort i
+  
+  |What| Notes|
+  |----|------|
+  | Flex | development flexibility|
+  |Arch| architecture or risk resolution |
+  |Pmat| process maturity |
+  |Prec| precedentedness|
+  |Team|team cohesion|
+  
+  ### Positive Effort Multipliers
+  If more, then linearly more effort 
+  
+  |What| Notes|
+  |----|------|
+  |cplx | product complexity|
+  |data| database size (DB bytes/SLOC) |
+  |docu| documentation|
+  |pvol| platform volatility (frequency of major changes/ frequency of minor changes )|
+  |rely| required reliability |
+  |ruse |required reuse|
+  |stor| required % of available RAM
+  |time |required % of available CPU
+  
+  ### Negative Effort Multipliers
+  If more, then linearly more effort 
+  
+  
+  |What| Notes|
+  |----|------|
+  |acap|analyst capability|
+  |aexp|applications experience |
+  |ltex| language and tool-set experience |
+  |pcap |programmer capability|
+  |pcon| personnel continuity (% turnover per year) |
+  |plex| platform experience|
+  |sced| dictated development schedule|
+  |site| multi-site development|
+  |tool| use of software tools|
+  
+  (For guidance on how to score projects on these scales, see tables 11,12,13,etc
+  of the [Cocomo manual](http://sunset.usc.edu/csse/affiliate/private/COCOMOII_2000/COCOMOII-040600/modelman.pdf).)
+  """
+  defaults = o(
+      misc= o( kloc = F(2,1000),
+               a    = F(2.2,9.8),
+               goal = F(0.1, 2)),
+      pos = o( rely = I(1,5),  data = I(2,5), cplx = I(1,6),
+               ruse = I(2,6),  docu = I(1,5), time = I(3,6),
+               stor = I(3,6),  pvol = I(2,5)),
+      neg = o( acap = I(1,5),  pcap = I(1,5), pcon = I(1,5),
+               aexp = I(1,5),  plex = I(1,5), ltex = I(1,5),
+               tool = I(1,5),  site = I(1,6), sced = I(1,5)),
+      sf  = o( prec = I(1,6),  flex = I(1,6), arch = I(1,6),
+               team = I(1,6),  pmat = I(1,6)))
+
+  better = o(
+    none    = o( goal=F(1)),
+    people  = o( goal=F(1),   acap=I(5), pcap=I(5),  pcon=I(5),
+                 aexp=I(5),   plex=I(5), ltex=I(5)),
+    tools   = o( goal=F(1),
+                 time=I(3),   stor=I(3), pvol=I(2),
+                 tool=I(5),   site=I(6)),
+    precFlex= o( goal=F(1),
+                 time=I(5),   flex=I(5)),
+    archResl= o( goal=F(1),
+                 arch=I(5)),
+    slower  = o( goal=F(1),
+                 sced=I(5)),
+    process = o( goal=F(1),
+                 pmat=I(5)),
+    less    = o( goal=F(0.5), data=I(2)),
+    team    = o( goal=F(1),
+                 team=I(5)),
+    worst   = o( goal=F(1),
+                 rely=I(1),   docu=I(5), 
+                 time=I(3),   cplx=I(3)))
+
+  projects = o(
+    osp    = o(goal= F(1),
+                prec=I(1,2),    flex=I(2,5), arch=I(1,3),
+                team=I(2,3),    pmat=I(1,4), stor=I(3,5),
+                ruse=I(2,4),    docu=I(2,4), acap=I(2,3),
+                pcon=I(2,3),    aexp=I(2,3), ltex=I(2,4),
+                tool=I(2,3),    sced=I(1,3), cplx=I(5,6),
+                kloc=F(75,125), data=I(3),   pvol=I(2), rely=I(5),
+                pcap=I(3),      plex=I(3),   site=I(3)),
+    osp2   = o(goal=F(1),     prec=I(3,5), pmat=I(4,5), docu=I(3,4), 
+                ltex=I(2,5), sced=I(2,4), kloc=F(75,125),
+                flex=I(3),   arch=I(4),   team=I(3), time=I(3), stor=I(3),
+                data=I(4),   pvol=I(3),   ruse=I(4), rely=I(5), acap=I(4), 
+                pcap=I(3),   pcon=I(3),   aexp=I(4), plex=I(4), tool=I(5), 
+                cplx=I(4),   site=I(6)),
+    flight = o(goal=F(1),
+                rely=I(3,5), data=I(2,3),
+                cplx=I(3,6), time=I(3,4),
+                stor=I(3,4), acap=I(3,5),
+                aexp=I(2,5), pcap=I(3,5),
+                plex=I(1,4), ltex=I(1,4),
+                tool=I(2),   sced=I(3),
+                pmat=I(2,3), kloc=F(7,418)),
+    ground = o(  goal=F(1),
+                tool=I(2),   sced=I(3),
+                rely=I(1,4), data=I(2,3), cplx=I(1,4),
+                time=I(3,4), stor=I(3,4), acap=I(3,5),
+                aexp=I(2,5), pcap=I(3,5), plex=I(1,4),
+                ltex=I(1,4), pmat=I(2,3), kloc=F(11,392)))
+
+  def __init__(i,listofdicts=[]):
+    i.x, i.y, dd = o(), o(), kopy(Cocomo.defaults)
+    # set up the defaults
+    for d in dd:
+      for k in dd[d] : i.x[k]  = dd[d][k] # can't +=: no background info
+    # apply any other constraints
+    for dict1 in listofdicts:
+      for k in dict1 :
+         try: i.x[k] += dict1[k] # now you can +=
+         except Exception as e:
+              print(k, e)
+    # ----------------------------------------------------------
+    for k in dd.misc:i.y[k]= i.x[k]()
+    for k in dd.pos: i.y[k]= F( .073,  .21)()   * (i.x[k]() -3) +1
+    for k in dd.neg: i.y[k]= F(-.178, -.078)()  * (i.x[k]() -3) +1
+    for k in dd.sf : i.y[k]= F(-1.56, -1.014)() * (i.x[k]() -6)
+    # ----------------------------------------------------------
+  def effort(i):
+    em, sf = 1, 0
+    b      = (0.85-1.1)/(9.18-2.2) * i.x.a() + 1.1+(1.1-0.8)*.5
+    for k in Cocomo.defaults.sf  : sf += i.y[k]
+    for k in Cocomo.defaults.pos : em *= i.y[k]
+    for k in Cocomo.defaults.neg : em *= i.y[k]
+    return round(i.x.a() * em * (i.x.goal()*i.x.kloc()) ** (b + 0.01*sf), 1)
+  def risk(i, r=0):
+    for k1,rules1 in rules.items():
+      for k2,m in rules1.items():
+        x  = i.x[k1]()
+        y  = i.x[k2]()
+        z  = m[x-1][y-1]
+        r += z
+    return round(100 * r / 104, 1)
+  def rules(i):
+    _ = 0
+    ne=   [      [_,_,_,1,2,_], # bad if lohi 
+                 [_,_,_,_,1,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    nw=  [       [2,1,_,_,_,_], # bad if lolo 
+                 [1,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    nw4= [       [4,2,1,_,_,_], # very bad if  lolo 
+                 [2,1,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    sw4= [       [_,_,_,_,_,_], # very bad if  hilo 
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_],
+                 [4,2,1,_,_,_],
+                 [_,_,_,_,_,_]]
+    
+    # bounded by 1..6
+    ne46= [      [_,_,_,1,2,4], # very bad if lohi
+                 [_,_,_,_,1,2],
+                 [_,_,_,_,_,1],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    sw=   [      [_,_,_,_,_,_], # bad if hilo
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_]]
+    sw26= [      [_,_,_,_,_,_], # bad if hilo
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_]]
+    sw46= [      [_,_,_,_,_,_], # very bad if hilo
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_],
+                 [4,2,1,_,_,_]]
+    
+    return dict( 
+      cplx= dict(acap=sw46, pcap=sw46, tool=sw46), #12
+      ltex= dict(pcap=nw4),  # 4
+      pmat= dict(acap=nw,   pcap=sw46), # 6
+      pvol= dict(plex=sw), #2
+      rely= dict(acap=sw4,  pcap=sw4,  pmat=sw4), # 12
+      ruse= dict(aexp=sw46, ltex=sw46),  #8
+      sced= dict(
+        cplx=ne46, time=ne46, pcap=nw4, aexp=nw4, acap=nw4,  
+        plex=nw4, ltex=nw,  pmat=nw, rely=ne, pvol=ne, tool=nw), # 34
+      stor= dict(acap=sw46, pcap=sw46), #8
+      team= dict(aexp=nw,   sced=nw,   site=nw), #6
+      time= dict(acap=sw46, pcap=sw46, tool=sw26), #10
+      tool= dict(acap=nw,   pcap=nw,   pmat=nw)) # 6
+    
+
+ 
 class Test:
   """
   Unit test manager. Stores all the tests in `Test.all`. 
@@ -668,7 +1190,6 @@ class Test:
       print( "# "+ re.sub(r"\n[ ]*","\n# ",doc) )
       print("")
       random.seed(my.r)
-      print(my.r, random.random())
       fun()
       print(Test.score("PASS"),':',fun.__name__)
     except Exception:
@@ -684,7 +1205,7 @@ class Test:
       doc = fun.__doc__ or ""
       doc = re.sub(r"\n[ ]*","",doc)
       print(f"  {name:10s} : {doc}")
-  
+ 
 #----------------------------------------------
 ### Unit Tests
 def go(fn=None,use=None):  
@@ -717,7 +1238,7 @@ def test_hetab1():
   """
   Read a small table from disk. 
   """
-  t = Tab().read("data/weather4.csv")
+  t = Tab().read("bnbad/ata/weather4.csv")
   assert( 4 == t.cols.x[0].seen["overcast"])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -728,7 +1249,7 @@ def test_hetab1():
 @go
 def test_tab2():
   "Read a larger table from disk."
-  t = Tab().read("data/auto93.csv")
+  t = Tab().read("bnbad/data/auto93.csv")
   assert(398 == len(t.rows))
 
 @go
@@ -821,7 +1342,32 @@ def test_range7():
   n = 10**2
   _range0( [[1, 0] for i in range(n)] )
 
-
+@go
+def test_rxs():
+    """
+    This demo groups and ranks five treatments
+    `x1,x2,x3,x4,x5`:
+    We will find these treatments divide into three  groups (`0,1,2`):
+  
+    0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+    0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+    1  x1 (              -o--            ), 0.490,  0.510,  0.600
+    2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+    2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+    """
+    n = 256
+    rxs(    
+        dict(
+               x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
+               x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
+               x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
+               x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
+               x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
+        width= 30,
+        show = "%.2f",
+        chops= [.25,  .5, .75],
+        marks= ["-", "-", " "])
+  
 #----------------------------------------------
 ### Main
 # Start-up commands.

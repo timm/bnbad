@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 Ell=$(cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
 
 echo  "$(tput bold) $(tput setaf 4) "; cat <<'EOF'

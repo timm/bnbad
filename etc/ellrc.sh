@@ -17,6 +17,11 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 alias ls='ls -GFh'
 
+pystall() {
+   sudo python3 $1 install
+   sudo rm -rf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info
+}
+
 e()      { vi $Ell/bnbad/__init__.py; }
 here()   { cd $1; basename `pwd`; }
 reload() { . $Ell/etc/ellrc.sh; }
