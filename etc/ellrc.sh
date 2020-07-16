@@ -31,12 +31,12 @@ doc()    {
         --html --force            \
         -o $Ell/docs               \
         -c latex_math=True  bnbad
-  mv $Ell/docs/bnbad/index.html $Ell/docs
+  mv $Ell/docs/bnbad/*.html $Ell/docs
 }
 
 alias vi="vim    -u $Ell/etc/.vimrc"
 alias tmux="tmux -f $Ell/etc/.tmuxrc"
-alias b="pypy3 $Ell/bnbad/__init__.py"
+alias b="pypy3 -m bnbad "
 alias gg="git pull"
 alias gs="git status"
 alias gp="git commit -am 'saving'; git push; git status"

@@ -36,7 +36,6 @@ class I(X):
   "Integers"
   def get(i): return random.randint(i.lo, i.hi)
 
-### Class Cocomo
 class Cocomo(Thing):
   """
   This code predicts:
