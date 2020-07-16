@@ -76,3 +76,31 @@ Run as super user
       Update just the branches that get too many anomalies (if that ever happens).
 
 
+## Usage
+
+```
+usage: __init__.py [-h] [-treeVerbose] [-b F] [-c S] [-d I] [-e F] [-f F]
+                   [-M I] [-H I] [-N I] [-p I] [-r I] [-s F] [-train S]
+                   [-test S] [-L] [-T] [-t S]
+
+
+optional arguments:
+  -h, --help    show this help message and exit
+  -treeVerbose  verbose mode for Tree
+  -b F          bin min size =len**b; e.g. -b 0.5
+  -c S          what columns to while tree building
+  -d I          use at most 'd' rows for distance calcs; e.g. -d 256
+  -e F          merge ranges whose scores differ by less that F; e.g. -e 0.05
+  -f F          separation of poles (f=1 means 'max distance'); e.g. -f 0.9
+  -M I          decision list leaf, minimum size; e.g. -M 10
+  -H I          decision list maximum height; e.g. -H 4
+  -N I          decision lists, ratio of negative examples; e.g. -N 4
+  -p I          coefficient for distance; e.g. -p 2
+  -r I          random number seed; e.g. -r 1
+  -s F          tree leaves must be at least n**s in size; e.g. -s 0.5
+  -train S      training data (arff format; e.g. -train train.csv
+  -test S       testing data (csv format); e.g. -test test.csv
+  -L            List all tests.
+  -T            Run all tests.
+  -t S          Run just the tests with names matching 'S'
+```
