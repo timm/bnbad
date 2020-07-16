@@ -1,5 +1,6 @@
 <p>
-<img src="https://img.shields.io/badge/license-mit-red"> <img 
+<a href="LICENSE.md"><img 
+src="https://img.shields.io/badge/license-mit-red"></a> <img 
 src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
      href="https://travis-ci.org/github/timm/bnbad"> <img 
 src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> <a 
