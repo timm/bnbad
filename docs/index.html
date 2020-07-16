@@ -348,7 +348,7 @@ def test_hetab1():
   &#34;&#34;&#34;
   Read a small table from disk. 
   &#34;&#34;&#34;
-  t = Tab().read(&#34;bnbad/data/weather4.csv&#34;)
+  t = Tab().read(&#34;bnbad/weather4.csv&#34;)
   assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -359,13 +359,13 @@ def test_hetab1():
 @go
 def test_tab2():
   &#34;Read a larger table from disk.&#34;
-  t = Tab().read(&#34;bnbad/data/auto93.csv&#34;)
+  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
   assert(398 == len(t.rows))
 
 @go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  t = Tab().read(&#34;data/auto93.csv&#34;)
+  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
@@ -384,7 +384,7 @@ def test_dist():
 @go
 def test_tree():
   &#34;Recursively divide the data in two.&#34;
-  t = Tab().read(&#34;data/auto93.csv&#34;)
+  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
   my.treeVerbose = True
   Tree(t,cols=&#34;y&#34;)
 
@@ -394,7 +394,7 @@ def test_bore():
   Recursively prune worst half the data 
   (down to sqrt(N) of original data).
   &#34;&#34;&#34;
-  t = Tab().read(&#34;data/auto93.csv&#34;)
+  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print(&#34;best&#34;,b.best.status())
@@ -459,11 +459,12 @@ def test_rxs():
     `x1,x2,x3,x4,x5`:
     We will find these treatments divide into three  groups (`0,1,2`):
   
-    0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
-    0  x3 (    ----o                     ), 0.230,  0.330,  0.350
-    1  x1 (              -o--            ), 0.490,  0.510,  0.600
-    2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
-    2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+        0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+        0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+        1  x1 (              -o--            ), 0.490,  0.510,  0.600
+        2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+        2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+    
     &#34;&#34;&#34;
     n = 256
     rxs(    
@@ -541,7 +542,7 @@ def test_bore():
   Recursively prune worst half the data 
   (down to sqrt(N) of original data).
   &#34;&#34;&#34;
-  t = Tab().read(&#34;data/auto93.csv&#34;)
+  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print(&#34;best&#34;,b.best.status())
@@ -583,7 +584,7 @@ def test_bye():
 <pre><code class="python">@go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  t = Tab().read(&#34;data/auto93.csv&#34;)
+  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
@@ -629,7 +630,7 @@ def test_hetab1():
   &#34;&#34;&#34;
   Read a small table from disk. 
   &#34;&#34;&#34;
-  t = Tab().read(&#34;bnbad/data/weather4.csv&#34;)
+  t = Tab().read(&#34;bnbad/weather4.csv&#34;)
   assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -758,34 +759,12 @@ def test_range7():
 <code>x1,x2,x3,x4,x5</code>:
 We will find these treatments divide into three
 groups (<code>0,1,2</code>):</p>
-<p>0
-x5 (
-----o&mdash;
-), 0.200,
-0.300,
-0.400
-0
-x3 (
-----o
-), 0.230,
-0.330,
-0.350
-1
-x1 (
--o&ndash;
-), 0.490,
-0.510,
-0.600
-2
-x2 (
-----o&ndash; ), 0.700,
-0.800,
-0.890
-2
-x4 (
-----o&ndash; ), 0.700,
-0.800,
-0.900</p></div>
+<pre><code>0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+1  x1 (              -o--            ), 0.490,  0.510,  0.600
+2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -797,11 +776,12 @@ def test_rxs():
     `x1,x2,x3,x4,x5`:
     We will find these treatments divide into three  groups (`0,1,2`):
   
-    0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
-    0  x3 (    ----o                     ), 0.230,  0.330,  0.350
-    1  x1 (              -o--            ), 0.490,  0.510,  0.600
-    2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
-    2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+        0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+        0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+        1  x1 (              -o--            ), 0.490,  0.510,  0.600
+        2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+        2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+    
     &#34;&#34;&#34;
     n = 256
     rxs(    
@@ -829,7 +809,7 @@ def test_rxs():
 <pre><code class="python">@go
 def test_tab2():
   &#34;Read a larger table from disk.&#34;
-  t = Tab().read(&#34;bnbad/data/auto93.csv&#34;)
+  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
   assert(398 == len(t.rows))</code></pre>
 </details>
 </dd>
@@ -860,7 +840,7 @@ def test_tests():
 <pre><code class="python">@go
 def test_tree():
   &#34;Recursively divide the data in two.&#34;
-  t = Tab().read(&#34;data/auto93.csv&#34;)
+  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
   my.treeVerbose = True
   Tree(t,cols=&#34;y&#34;)</code></pre>
 </details>
