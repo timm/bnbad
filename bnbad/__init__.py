@@ -1163,8 +1163,6 @@ class Cocomo(Thing):
       time= dict(acap=sw46, pcap=sw46, tool=sw26), #10
       tool= dict(acap=nw,   pcap=nw,   pmat=nw)) # 6
     
-
- 
 class Test:
   """
   Unit test manager. Stores all the tests in `Test.all`. 
