@@ -91,13 +91,12 @@ As to the other columns:
 - and _cylinders_ and _origin_ are symbolic
 
 ```csv
-cylinders, $displacement, $horsepower, <weight, >acceleration,$model, origin, >!mpg
-8, 304.0, 193, 4732, 18.5, 70, 1, 10
-8, 360, 215, 4615, 14, 70, 1, 10
-8, 307, 200, 4376, 15, 70, 1, 10
-8, 318, 210, 4382, 13.5, 70, 1, 10
-8, 429, 208, 4633, 11, 72, 1, 10
-...
+cylinders, $displacement, $horsepower, <weight, >acceleration, $model,  origin, >!mpg
+8,         304,           193,         4732,    18.5,          70,      1,      10
+8,         360,           215,         4615,    14,            70,      1,      10
+8,         307,           200,         4376,    15,            70,      1,      10
+8,         318,           210,         4382,    13.5,          70,      1,      10
+.....
 ```
 
 ```
