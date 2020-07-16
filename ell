@@ -21,5 +21,4 @@ echo  "$(tput bold) $(tput setaf 4) "; cat <<'EOF'
 EOF
 echo   "$(tput sgr0)"
 
-
-Ell="$Ell" bash --init-file $Ell/etc/ellrc.sh -i
+Ell="$Ell" bash --init-file $Ell/etc/ell.sh -i
