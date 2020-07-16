@@ -1,7 +1,8 @@
+# MIT License
+
 <img align=right width=500
 src="https://www.10duke.com/wp-content/uploads/2019/10/software-license-key.jpg">
 
-# MIT License
 
 Copyright (c) 2020 Tim Menzies
 
