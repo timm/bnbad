@@ -14,17 +14,18 @@ class Test:
   Lets you list the tests, run some of them, or all.
   """
   t,f = 0,0
-  all = []
+  all = {}
   def score(s): 
     t,f = Test.t, Test.f
     return f"#TEST {s} passes = {t-f} fails = {f}"
   def go(fn=None, use=None):
+    all =Test.all
     if fn:
-      Test.all += [fn]
+      all[fn.__name__] = fn
     elif use:
-      [Test.run(fn) for fn in Test.all if use in fn.__name__]
+      [Test.run(all[k]) for k in all if use in k]
     else: 
-      [Test.run(fn) for fn in Test.all]
+      [Test.run(all[k]) for f in all]
   def run(fun):    
     try:
       Test.t += 1
@@ -43,9 +44,10 @@ class Test:
     print("")
     print(__file__ + " -t [NAME]") 
     print("\nKnown test names:")
-    for fun in Test.all:
-      name = re.sub(r"test_","",fun.__name__)
-      doc = fun.__doc__ or ""
-      doc = re.sub(r"\n[ ]*","",doc)
-      print(f"  {name:10s} : {doc}")
+    for name,fun in Test.all.items():
+      if name != "test_tests":
+        name = re.sub(r"test_","",name)
+        doc = fun.__doc__ or ""
+        doc = re.sub(r"\n[ ]*","",doc)
+        print(f"  {name:10s} : {doc}")
  

@@ -1,3 +1,6 @@
+"""
+General Python tricks
+"""
 import random,traceback,pprint, sys, re, argparse
 
 def arg(txt,**d):
@@ -74,20 +77,33 @@ def dicts(i,seen=None):
     return i
 
 class o(Thing):
+  """
+  Fast way to initialize an instance that has no methods
+  e.g. x=o(name="tim", age=23); print(x.age)
+  """
   def __init__(i,**d) : i.__dict__.update(**d)
 
 def rows(x=None):
-  "Read a csv file from disk."
-  prep=lambda z: re.sub(r'([\n\t\r ]|#.*)','',z.strip())
+  """
+  Read csv rows from stdio or a file or a string or a list.
+  Kill any whitespace or comments.
+  """
+  def items(z):
+    for y in z: yield y
+  def strings(z):
+    for y in z.splitlines(): yield y
+  def csv(z):
+    with open(z) as fp:
+      for y in fp: yield y
+  f = sys.stdin
   if x:
-    with open(x) as f:
-      for y in f: 
-         z = prep(y)
-         if z: yield z.split(",")
-  else:
-   for y in sys.stdin: 
-         z = prep(y)
-         if z: yield z.split(",")
+    if  isinstance(x,(list,tuple)) : f = items
+    elif x[-3:]=='csv'            : f = csv
+    else                          : f = strings
+  for y in f(x): 
+     y = re.sub(r'([\n\t\r ]|#.*)','',y.strip())
+     if y:
+       yield y.strip().split(",")
 
 def cols(src):
   "Ignore columns if, on line one, the name contains '?'."
@@ -114,7 +130,7 @@ def has(i,seen=None):
   If we see the same `Thing` twice, then show it the 
   first time, after which, just show its id. Do not 
   return anything that is private;
-  i.e. anything whose name starts with "_".
+  i.e. Anything whose name starts with "_".
   """
   seen = seen or {}
   if isinstance(i,Thing): 

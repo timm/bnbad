@@ -22,9 +22,9 @@ pystall() {
    sudo rm -rf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info
 }
 
-e()      { vi $Ell/bnbad/__init__.py; }
+e()      { vi $Ell/bnbad/$1.py;   }
 here()   { cd $1; basename `pwd`; }
-reload() { . $Ell/etc/ell.sh; }
+reload() { . $Ell/etc/ell.sh;     }
 vims()   { vim -u $Ell/etc/.vimrc +PluginInstall +qall; }
 doc()    {
   pdoc3 --template-dir $Ell/docs/  \

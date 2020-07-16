@@ -15,6 +15,6 @@ Copyright (c) 2020, Tim Menzies. All rights (BSD 2-Clause license).
 """
 from .__init__ import *
 my = args(help,__doc__)
-if my.T: go()
-if my.t: go(use=my.t)
-if my.L: Test.list()
+if   my.T : go()
+elif my.t : go(use=my.t)
+else      : my.L: Test.list()

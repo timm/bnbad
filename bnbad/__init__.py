@@ -144,7 +144,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 #import random,math,sys,re,os
-#from copy    import deepcopy as kopy
+#from copy   import deepcopy as kopy
 from .lib    import *
 from .col    import *
 from .tab    import *
@@ -177,7 +177,8 @@ def test_hetab1():
   """
   Read a small table from disk. 
   """
-  t = Tab().read("bnbad/weather4.csv")
+  from .weather4 import data
+  t = Tab().read(data)
   assert( 4 == t.cols.x[0].seen["overcast"])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -188,13 +189,15 @@ def test_hetab1():
 @go
 def test_tab2():
   "Read a larger table from disk."
-  t = Tab().read("bnbad/auto93.csv")
+  from .auto93 import data
+  t = Tab().read(data)
   assert(398 == len(t.rows))
 
 @go
 def test_dist():
   "Check the distance calculations."
-  t = Tab().read("bnbad/auto93.csv")
+  from .auto93 import data
+  t = Tab().read(data)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not "?" in r1:
@@ -213,17 +216,18 @@ def test_dist():
 @go
 def test_tree():
   "Recursively divide the data in two."
-  t = Tab().read("bnbad/auto93.csv")
+  from .auto93 import data
+  t = Tab().read(data)
   my.treeVerbose = True
   Tree(t,cols="y")
 
 @go
 def test_bore():
   """
-  Recursively prune worst half the data 
-  (down to sqrt(N) of original data).
+  Recursively prune worst half the data.
   """
-  t = Tab().read("bnbad/auto93.csv")
+  from .auto93 import data
+  t = Tab().read(data)
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print("best",b.best.status())
@@ -283,27 +287,29 @@ def test_range7():
 
 @go
 def test_rxs():
-    """
-    This demo groups and ranks five treatments
-    `x1,x2,x3,x4,x5`:
-    We will find these treatments divide into three  groups (`0,1,2`):
-  
-        0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
-        0  x3 (    ----o                     ), 0.230,  0.330,  0.350
-        1  x1 (              -o--            ), 0.490,  0.510,  0.600
-        2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
-        2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
-    
-    """
-    n = 256
-    rxs(    
-        dict(
-               x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
-               x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
-               x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
-               x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
-               x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
-        width= 30,
-        show = "%.2f",
-        chops= [.25,  .5, .75],
-        marks= ["-", "-", " "])
+  "Group and ranks five treatments."
+  # We will find these treatments divide into three  groups (`0,1,2`):
+  #     0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+  #     0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+  #     1  x1 (              -o--            ), 0.490,  0.510,  0.600
+  #     2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+  #     2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+  n = 256
+  groups = rxs(dict(
+                      x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
+                      x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
+                      x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
+                      x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
+                      x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
+               width= 30, verbose=False,
+               show = "%.2f",
+               chops= [.25,  .5, .75],
+               marks= ["-", "-", " "])
+  all = [x for g in groups for x in g.parts]
+  assert(len(all) == 5)
+  assert(len(groups) == 3)
+  for n,one in enumerate(all):
+    assert(len(one.all) == 1024)
+    if n > 0:
+        assert(one.med >= all[n-1].med)
+        assert(one.rank >= all[n-1].rank)

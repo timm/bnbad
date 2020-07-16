@@ -1,5 +1,6 @@
 from .lib import *
 from .my  import *
+from .col import Magic
 
 class Ranges(Thing):
   """
