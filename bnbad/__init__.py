@@ -177,7 +177,7 @@ def test_hetab1():
   """
   Read a small table from disk. 
   """
-  t = Tab().read("bnbad/data/weather4.csv")
+  t = Tab().read("bnbad/weather4.csv")
   assert( 4 == t.cols.x[0].seen["overcast"])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -188,13 +188,13 @@ def test_hetab1():
 @go
 def test_tab2():
   "Read a larger table from disk."
-  t = Tab().read("bnbad/data/auto93.csv")
+  t = Tab().read("bnbad/auto93.csv")
   assert(398 == len(t.rows))
 
 @go
 def test_dist():
   "Check the distance calculations."
-  t = Tab().read("data/auto93.csv")
+  t = Tab().read("bnbad/auto93.csv")
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not "?" in r1:
@@ -213,7 +213,7 @@ def test_dist():
 @go
 def test_tree():
   "Recursively divide the data in two."
-  t = Tab().read("data/auto93.csv")
+  t = Tab().read("bnbad/auto93.csv")
   my.treeVerbose = True
   Tree(t,cols="y")
 
@@ -223,7 +223,7 @@ def test_bore():
   Recursively prune worst half the data 
   (down to sqrt(N) of original data).
   """
-  t = Tab().read("data/auto93.csv")
+  t = Tab().read("bnbad/auto93.csv")
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print("best",b.best.status())
