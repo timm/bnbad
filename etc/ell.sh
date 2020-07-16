@@ -24,7 +24,7 @@ pystall() {
 
 e()      { vi $Ell/bnbad/__init__.py; }
 here()   { cd $1; basename `pwd`; }
-reload() { . $Ell/etc/ellrc.sh; }
+reload() { . $Ell/etc/ell.sh; }
 vims()   { vim -u $Ell/etc/.vimrc +PluginInstall +qall; }
 doc()    {
   pdoc3 --template-dir $Ell/docs/  \
@@ -40,7 +40,7 @@ alias b="pypy3 -m bnbad "
 alias gg="git pull"
 alias gs="git status"
 alias gp="git commit -am 'saving'; git push; git status"
-PROMPT_COMMAND='echo -ne "👹 $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
+PROMPT_COMMAND='echo -ne "🔆 $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
   
 want=$Ell/.travisyml
 [ -f "$want" ] || cat<<'EOF'>$want
