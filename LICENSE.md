@@ -1,3 +1,6 @@
+<img align=right width=300
+src="https://www.coolebaytools.com/wp-content/uploads/contact-me-e1366236957601.jpg">
+
 # MIT License
 
 Copyright (c) 2020 Tim Menzies
