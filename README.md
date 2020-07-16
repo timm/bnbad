@@ -78,6 +78,28 @@ Run as super user
 
 ## Usage
 
+### Command-Line Usage
+
+Step1: prepare a data file whose first line shows what
+are the numbers, what are the symbols, and what
+goals are to be
+minimized or maximized. For example, here we want to
+maximize _acceleration_ and miles per hour (_mpg_) and minimize _weight_.
+As to the other columns:
+
+-  _$displacement_ and _$horsepower_ and _$model_ are numeric
+- and _cylinders_ and _origin_ are symboic
+
+```
+cylinders, $displacement, $horsepower, <weight, >acceleration,$model, origin, >!mpg
+8, 304.0, 193, 4732, 18.5, 70, 1, 10
+8, 360, 215, 4615, 14, 70, 1, 10
+8, 307, 200, 4376, 15, 70, 1, 10
+8, 318, 210, 4382, 13.5, 70, 1, 10
+8, 429, 208, 4633, 11, 72, 1, 10
+...
+```
+
 ```
 usage: __init__.py [-h] [-treeVerbose] [-b F] [-c S] [-d I] [-e F] [-f F]
                    [-M I] [-H I] [-N I] [-p I] [-r I] [-s F] [-train S]
