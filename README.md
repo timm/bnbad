@@ -1,8 +1,8 @@
 <p align=center> 
 <img src="https://img.shields.io/badge/license-mit-red"> <img 
 src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
-     href="https://travis-ci.org/github/sehero/lua"> <img 
-src="https://travis-ci.org/aiez/eg.svg?branch=master"></a> <a 
+     href="https://travis-ci.org/github/timm/bnbad"> <img 
+src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> <a 
 href="https://doi.org/10.5281/zenodo.3947026"><img 
 src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> <a
      href='https://coveralls.io/github/aiez/lua?branch=master'> <img 
