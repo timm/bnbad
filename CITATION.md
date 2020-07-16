@@ -7,11 +7,11 @@ July, 2020
 
 ```bibtex
 @article{timm:bnbad,
-   title     = {BnBAD: Explicable Mulit-objective Optimization},
-   DOI       = {10.5281/zenodo.3947026}, 
-   publisher = {Zenodo}, 
-   author    = {Tim Menzies}, 
-   year      = {2020}, 
-   month     = {Jul}
+  title     = {BnBAD: Explicable Mulit-objective Optimization},
+  DOI       = {10.5281/zenodo.3947026}, 
+  author    = {Tim Menzies}, 
+  publisher = {Zenodo}, 
+  year      = {2020}, 
+  month     = {Jul}
 }
 ```
