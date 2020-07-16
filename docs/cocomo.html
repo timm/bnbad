@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.3" />
+<title>bnbad.cocomo API documentation</title>
+<meta name="description" content="This code predicts: …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{xline-height:1.5em;line-height:1.2em;font-family:Arial}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>bnbad.cocomo</code></h1>
+</header>
+<section id="section-intro">
+<p>This code predicts:</p>
+<ol>
+<li>Time in months to complete a project (and a month is 152 hours of
+work and includes all management support tasks associated with the coding).</li>
+<li>The risk associated with the current project decisions.
+This <a href="cocrisk">risk model</a> is calculated from a set of rules that add a "risk value" for
+every "bad smell" within the current project settings.</li>
+</ol>
+<p>The standard COCOMO effort model assumes that:
+-
+Effort is exponential on size of code
+- Within the exponent there are set of scale factors that increase effort exponentially
+- Outside the exponent there are set of effort multipliers that change effort in a linear manner
+- either linearly increasing
+or linearly decreasing.</p>
+<p>This code extends the standard COCOMO effort model as follows:
+- This code comes with a set of mitigations that might improve a project.
+It is a sample manner:
+- To loop over all those mitigations, trying each for a particular project.
+- Define and test your own mitigations.
+- Many of the internal parameters of COCOMO are not known with any certainty.
+-
+So this model represents all such internals as a range of options.
+- By running this estimated, say, 1000 times, you can get an estimate of the range of possible values.</p>
+<h2 id="attributes">Attributes</h2>
+<p>This code also for the easy extension of the model.
+If you think
+that other factors do (or do not) influence effort in an exponential
+or liner manner, then it is simple to extend this code with your
+preferred set of attributes.</p>
+<h3 id="scale-factors">Scale Factors</h3>
+<p>if <em>more</em> then exponential <em>more</em> effort i</p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flex</td>
+<td>development flexibility</td>
+</tr>
+<tr>
+<td>Arch</td>
+<td>architecture or risk resolution</td>
+</tr>
+<tr>
+<td>Pmat</td>
+<td>process maturity</td>
+</tr>
+<tr>
+<td>Prec</td>
+<td>precedentedness</td>
+</tr>
+<tr>
+<td>Team</td>
+<td>team cohesion</td>
+</tr>
+</tbody>
+</table>
+<h3 id="positive-effort-multipliers">Positive Effort Multipliers</h3>
+<p>If more, then linearly more effort </p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cplx</td>
+<td>product complexity</td>
+</tr>
+<tr>
+<td>data</td>
+<td>database size (DB bytes/SLOC)</td>
+</tr>
+<tr>
+<td>docu</td>
+<td>documentation</td>
+</tr>
+<tr>
+<td>pvol</td>
+<td>platform volatility (frequency of major changes/ frequency of minor changes )</td>
+</tr>
+<tr>
+<td>rely</td>
+<td>required reliability</td>
+</tr>
+<tr>
+<td>ruse</td>
+<td>required reuse</td>
+</tr>
+<tr>
+<td>stor</td>
+<td>required % of available RAM</td>
+</tr>
+<tr>
+<td>time</td>
+<td>required % of available CPU</td>
+</tr>
+</tbody>
+</table>
+<h3 id="negative-effort-multipliers">Negative Effort Multipliers</h3>
+<p>If more, then linearly more effort </p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>acap</td>
+<td>analyst capability</td>
+</tr>
+<tr>
+<td>aexp</td>
+<td>applications experience</td>
+</tr>
+<tr>
+<td>ltex</td>
+<td>language and tool-set experience</td>
+</tr>
+<tr>
+<td>pcap</td>
+<td>programmer capability</td>
+</tr>
+<tr>
+<td>pcon</td>
+<td>personnel continuity (% turnover per year)</td>
+</tr>
+<tr>
+<td>plex</td>
+<td>platform experience</td>
+</tr>
+<tr>
+<td>sced</td>
+<td>dictated development schedule</td>
+</tr>
+<tr>
+<td>site</td>
+<td>multi-site development</td>
+</tr>
+<tr>
+<td>tool</td>
+<td>use of software tools</td>
+</tr>
+</tbody>
+</table>
+<p>(For guidance on how to score projects on these scales, see tables 11,12,13,etc
+of the <a href="http://sunset.usc.edu/csse/affiliate/private/COCOMOII_2000/COCOMOII-040600/modelman.pdf">Cocomo manual</a>.)</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+This code predicts:
+
+1. Time in months to complete a project (and a month is 152 hours of
+work and includes all management support tasks associated with the coding).
+2. The risk associated with the current project decisions.
+   This [risk model](cocrisk) is calculated from a set of rules that add a &#34;risk value&#34; for
+every &#34;bad smell&#34; within the current project settings.
+
+The standard COCOMO effort model assumes that:
+-  Effort is exponential on size of code
+- Within the exponent there are set of scale factors that increase effort exponentially
+- Outside the exponent there are set of effort multipliers that change effort in a linear manner
+  - either linearly increasing  or linearly decreasing.
+
+This code extends the standard COCOMO effort model as follows:
+- This code comes with a set of mitigations that might improve a project.
+  It is a sample manner:
+  - To loop over all those mitigations, trying each for a particular project. 
+  - Define and test your own mitigations.
+- Many of the internal parameters of COCOMO are not known with any certainty.
+  -  So this model represents all such internals as a range of options.
+  - By running this estimated, say, 1000 times, you can get an estimate of the range of possible values.
+
+## Attributes
+
+This code also for the easy extension of the model.  If you think
+that other factors do (or do not) influence effort in an exponential
+or liner manner, then it is simple to extend this code with your
+preferred set of attributes.
+
+### Scale Factors
+if _more_ then exponential _more_ effort i
+
+|What| Notes|
+|----|------|
+| Flex | development flexibility|
+|Arch| architecture or risk resolution |
+|Pmat| process maturity |
+|Prec| precedentedness|
+|Team|team cohesion|
+
+### Positive Effort Multipliers
+If more, then linearly more effort 
+
+|What| Notes|
+|----|------|
+|cplx | product complexity|
+|data| database size (DB bytes/SLOC) |
+|docu| documentation|
+|pvol| platform volatility (frequency of major changes/ frequency of minor changes )|
+|rely| required reliability |
+|ruse |required reuse|
+|stor| required % of available RAM
+|time |required % of available CPU
+
+### Negative Effort Multipliers
+If more, then linearly more effort 
+
+
+|What| Notes|
+|----|------|
+|acap|analyst capability|
+|aexp|applications experience |
+|ltex| language and tool-set experience |
+|pcap |programmer capability|
+|pcon| personnel continuity (% turnover per year) |
+|plex| platform experience|
+|sced| dictated development schedule|
+|site| multi-site development|
+|tool| use of software tools|
+
+(For guidance on how to score projects on these scales, see tables 11,12,13,etc
+of the [Cocomo manual](http://sunset.usc.edu/csse/affiliate/private/COCOMOII_2000/COCOMOII-040600/modelman.pdf).)
+&#34;&#34;&#34;
+from .lib import *
+from .my  import *
+
+defaults = o(
+    misc= o( kloc = F(2,1000),
+             a    = F(2.2,9.8),
+             goal = F(0.1, 2)),
+    pos = o( rely = I(1,5),  data = I(2,5), cplx = I(1,6),
+             ruse = I(2,6),  docu = I(1,5), time = I(3,6),
+             stor = I(3,6),  pvol = I(2,5)),
+    neg = o( acap = I(1,5),  pcap = I(1,5), pcon = I(1,5),
+             aexp = I(1,5),  plex = I(1,5), ltex = I(1,5),
+             tool = I(1,5),  site = I(1,6), sced = I(1,5)),
+    sf  = o( prec = I(1,6),  flex = I(1,6), arch = I(1,6),
+             team = I(1,6),  pmat = I(1,6)))
+
+better = o(
+  none    = o( goal=F(1)),
+  people  = o( goal=F(1),   acap=I(5), pcap=I(5),  pcon=I(5),
+               aexp=I(5),   plex=I(5), ltex=I(5)),
+  tools   = o( goal=F(1),
+               time=I(3),   stor=I(3), pvol=I(2),
+               tool=I(5),   site=I(6)),
+  precFlex= o( goal=F(1),
+               time=I(5),   flex=I(5)),
+  archResl= o( goal=F(1),
+               arch=I(5)),
+  slower  = o( goal=F(1),
+               sced=I(5)),
+  process = o( goal=F(1),
+               pmat=I(5)),
+  less    = o( goal=F(0.5), data=I(2)),
+  team    = o( goal=F(1),
+               team=I(5)),
+  worst   = o( goal=F(1),
+               rely=I(1),   docu=I(5), 
+               time=I(3),   cplx=I(3)))
+
+projects = o(
+  osp    = o(goal= F(1),
+              prec=I(1,2),    flex=I(2,5), arch=I(1,3),
+              team=I(2,3),    pmat=I(1,4), stor=I(3,5),
+              ruse=I(2,4),    docu=I(2,4), acap=I(2,3),
+              pcon=I(2,3),    aexp=I(2,3), ltex=I(2,4),
+              tool=I(2,3),    sced=I(1,3), cplx=I(5,6),
+              kloc=F(75,125), data=I(3),   pvol=I(2), rely=I(5),
+              pcap=I(3),      plex=I(3),   site=I(3)),
+  osp2   = o(goal=F(1),     prec=I(3,5), pmat=I(4,5), docu=I(3,4), 
+              ltex=I(2,5), sced=I(2,4), kloc=F(75,125),
+              flex=I(3),   arch=I(4),   team=I(3), time=I(3), stor=I(3),
+              data=I(4),   pvol=I(3),   ruse=I(4), rely=I(5), acap=I(4), 
+              pcap=I(3),   pcon=I(3),   aexp=I(4), plex=I(4), tool=I(5), 
+              cplx=I(4),   site=I(6)),
+  flight = o(goal=F(1),
+              rely=I(3,5), data=I(2,3),
+              cplx=I(3,6), time=I(3,4),
+              stor=I(3,4), acap=I(3,5),
+              aexp=I(2,5), pcap=I(3,5),
+              plex=I(1,4), ltex=I(1,4),
+              tool=I(2),   sced=I(3),
+              pmat=I(2,3), kloc=F(7,418)),
+  ground = o(  goal=F(1),
+              tool=I(2),   sced=I(3),
+              rely=I(1,4), data=I(2,3), cplx=I(1,4),
+              time=I(3,4), stor=I(3,4), acap=I(3,5),
+              aexp=I(2,5), pcap=I(3,5), plex=I(1,4),
+              ltex=I(1,4), pmat=I(2,3), kloc=F(11,392)))
+_ = 0
+ne=   [      [_,_,_,1,2,_], # bad if lohi 
+             [_,_,_,_,1,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_]]
+nw=  [       [2,1,_,_,_,_], # bad if lolo 
+             [1,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_]]
+nw4= [       [4,2,1,_,_,_], # very bad if  lolo 
+             [2,1,_,_,_,_],
+             [1,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_]]
+sw4= [       [_,_,_,_,_,_], # very bad if  hilo 
+             [_,_,_,_,_,_],
+             [1,_,_,_,_,_],
+             [2,1,_,_,_,_],
+             [4,2,1,_,_,_],
+             [_,_,_,_,_,_]]
+
+# bounded by 1..6
+ne46= [      [_,_,_,1,2,4], # very bad if lohi
+             [_,_,_,_,1,2],
+             [_,_,_,_,_,1],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_]]
+sw=   [      [_,_,_,_,_,_], # bad if hilo
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [1,_,_,_,_,_],
+             [2,1,_,_,_,_]]
+sw26= [      [_,_,_,_,_,_], # bad if hilo
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [1,_,_,_,_,_],
+             [2,1,_,_,_,_]]
+sw46= [      [_,_,_,_,_,_], # very bad if hilo
+             [_,_,_,_,_,_],
+             [_,_,_,_,_,_],
+             [1,_,_,_,_,_],
+             [2,1,_,_,_,_],
+             [4,2,1,_,_,_]]
+ 
+rules = dict( 
+      cplx= dict(acap=sw46, pcap=sw46, tool=sw46), #12
+      ltex= dict(pcap=nw4),  # 4
+      pmat= dict(acap=nw,   pcap=sw46), # 6
+      pvol= dict(plex=sw), #2
+      rely= dict(acap=sw4,  pcap=sw4,  pmat=sw4), # 12
+      ruse= dict(aexp=sw46, ltex=sw46),  #8
+      sced= dict(
+        cplx=ne46, time=ne46, pcap=nw4, aexp=nw4, acap=nw4,  
+        plex=nw4, ltex=nw,  pmat=nw, rely=ne, pvol=ne, tool=nw), # 34
+      stor= dict(acap=sw46, pcap=sw46), #8
+      team= dict(aexp=nw,   sced=nw,   site=nw), #6
+      time= dict(acap=sw46, pcap=sw46, tool=sw26), #10
+      tool= dict(acap=nw,   pcap=nw,   pmat=nw)) # 6
+
+class Cocomo(Thing):
+  def __init__(i,listofdicts=[]):
+    i.x, i.y, dd = o(), o(), kopy(Cocomo.defaults)
+    # set up the defaults
+    for d in dd:
+      for k in dd[d] : i.x[k]  = dd[d][k] # can&#39;t +=: no background info
+    # apply any other constraints
+    for dict1 in listofdicts:
+      for k in dict1 :
+         try: i.x[k] += dict1[k] # now you can +=
+         except Exception as e:
+              print(k, e)
+    # ----------------------------------------------------------
+    for k in dd.misc:i.y[k]= i.x[k]()
+    for k in dd.pos: i.y[k]= F( .073,  .21)()   * (i.x[k]() -3) +1
+    for k in dd.neg: i.y[k]= F(-.178, -.078)()  * (i.x[k]() -3) +1
+    for k in dd.sf : i.y[k]= F(-1.56, -1.014)() * (i.x[k]() -6)
+    # ----------------------------------------------------------
+  def effort(i):
+    em, sf = 1, 0
+    b      = (0.85-1.1)/(9.18-2.2) * i.x.a() + 1.1+(1.1-0.8)*.5
+    for k in Cocomo.defaults.sf  : sf += i.y[k]
+    for k in Cocomo.defaults.pos : em *= i.y[k]
+    for k in Cocomo.defaults.neg : em *= i.y[k]
+    return round(i.x.a() * em * (i.x.goal()*i.x.kloc()) ** (b + 0.01*sf), 1)
+  def risk(i, r=0):
+    for k1,rules1 in rules.items():
+      for k2,m in rules1.items():
+        x  = i.x[k1]()
+        y  = i.x[k2]()
+        z  = m[x-1][y-1]
+        r += z
+    return round(100 * r / 104, 1)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="bnbad.cocomo.Cocomo"><code class="flex name class">
+<span>class <span class="ident">Cocomo</span></span>
+<span>(</span><span>listofdicts=[])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Cocomo(Thing):
+  def __init__(i,listofdicts=[]):
+    i.x, i.y, dd = o(), o(), kopy(Cocomo.defaults)
+    # set up the defaults
+    for d in dd:
+      for k in dd[d] : i.x[k]  = dd[d][k] # can&#39;t +=: no background info
+    # apply any other constraints
+    for dict1 in listofdicts:
+      for k in dict1 :
+         try: i.x[k] += dict1[k] # now you can +=
+         except Exception as e:
+              print(k, e)
+    # ----------------------------------------------------------
+    for k in dd.misc:i.y[k]= i.x[k]()
+    for k in dd.pos: i.y[k]= F( .073,  .21)()   * (i.x[k]() -3) +1
+    for k in dd.neg: i.y[k]= F(-.178, -.078)()  * (i.x[k]() -3) +1
+    for k in dd.sf : i.y[k]= F(-1.56, -1.014)() * (i.x[k]() -6)
+    # ----------------------------------------------------------
+  def effort(i):
+    em, sf = 1, 0
+    b      = (0.85-1.1)/(9.18-2.2) * i.x.a() + 1.1+(1.1-0.8)*.5
+    for k in Cocomo.defaults.sf  : sf += i.y[k]
+    for k in Cocomo.defaults.pos : em *= i.y[k]
+    for k in Cocomo.defaults.neg : em *= i.y[k]
+    return round(i.x.a() * em * (i.x.goal()*i.x.kloc()) ** (b + 0.01*sf), 1)
+  def risk(i, r=0):
+    for k1,rules1 in rules.items():
+      for k2,m in rules1.items():
+        x  = i.x[k1]()
+        y  = i.x[k2]()
+        z  = m[x-1][y-1]
+        r += z
+    return round(100 * r / 104, 1)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.lib.Thing" href="lib.html#bnbad.lib.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.cocomo.Cocomo.effort"><code class="name flex">
+<span>def <span class="ident">effort</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def effort(i):
+  em, sf = 1, 0
+  b      = (0.85-1.1)/(9.18-2.2) * i.x.a() + 1.1+(1.1-0.8)*.5
+  for k in Cocomo.defaults.sf  : sf += i.y[k]
+  for k in Cocomo.defaults.pos : em *= i.y[k]
+  for k in Cocomo.defaults.neg : em *= i.y[k]
+  return round(i.x.a() * em * (i.x.goal()*i.x.kloc()) ** (b + 0.01*sf), 1)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.cocomo.Cocomo.risk"><code class="name flex">
+<span>def <span class="ident">risk</span></span>(<span>i, r=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def risk(i, r=0):
+  for k1,rules1 in rules.items():
+    for k2,m in rules1.items():
+      x  = i.x[k1]()
+      y  = i.x[k2]()
+      z  = m[x-1][y-1]
+      r += z
+  return round(100 * r / 104, 1)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<center>
+<img src="letscook.png" width=500>
+<p><a href="#license">&copy; 2020</a>, Tim Menzies<br>
+<a href="mailto:timm@ieee.org">timm@ieee.org</a><br>
+<a href="http://menzies.us">http://menzies.us</a>
+</p>
+<p>
+"Give me the fruitful error any time,
+full of seeds, bursting with its own
+corrections. You can keep your sterile
+truth for yourself."
+-&nbsp;Vilfredo&nbsp;Pareto</p>
+<hr>
+</center>
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#attributes">Attributes</a><ul>
+<li><a href="#scale-factors">Scale Factors</a></li>
+<li><a href="#positive-effort-multipliers">Positive Effort Multipliers</a></li>
+<li><a href="#negative-effort-multipliers">Negative Effort Multipliers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="bnbad" href="index.html">bnbad</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="bnbad.cocomo.Cocomo" href="#bnbad.cocomo.Cocomo">Cocomo</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.cocomo.Cocomo.effort" href="#bnbad.cocomo.Cocomo.effort">effort</a></code></li>
+<li><code><a title="bnbad.cocomo.Cocomo.risk" href="#bnbad.cocomo.Cocomo.risk">risk</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3</a>.</p>
+</footer>
+</body>
+</html>
