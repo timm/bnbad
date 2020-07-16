@@ -9,7 +9,7 @@ src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> <a
 src='https://coveralls.io/repos/github/aiez/eg/badge.svg?branch=master' 
 alt='Coverage Status' /></a></p>
 
-<h1 align=center><a href="/README.md#top">Break 'n Bad</a></h1>
+<h1 align=center>Break 'n Bad</h1>
 <h3 align=center> Fast, explicable, multi-objective optimization</h3> 
 <p align=center>
 <a
