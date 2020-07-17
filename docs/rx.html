@@ -33,7 +33,8 @@ from .my import *
 def rxs(d, width = 50,
            show  = &#34;%5.0f&#34;,
            chops = [0.1 ,0.3,0.5,0.7,0.9],
-           marks = [&#34; &#34; ,&#34;.&#34;,&#34;.&#34;,&#34;.&#34;,&#34; &#34;]):
+           marks = [&#34; &#34; ,&#34;.&#34;,&#34;.&#34;,&#34;.&#34;,&#34; &#34;],
+           verbose  = True):
   &#34;&#34;&#34;
   Manager for a set of treatment results.
   Given a dictionary of values, sort the values by their median
@@ -61,7 +62,7 @@ def rxs(d, width = 50,
        for n,group in enumerate(lst):
          for rx in group.parts:
            rx.rank = n
-           print(n, rx) 
+           if verbose: print(n, rx) 
        return lst
   #-------------------------------
   p    = lambda n: a[ int( n*len(a) )]
@@ -233,7 +234,7 @@ class Rx(Thing):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="bnbad.rx.rxs"><code class="name flex">
-<span>def <span class="ident">rxs</span></span>(<span>d, width=50, show='%5.0f', chops=[0.1, 0.3, 0.5, 0.7, 0.9], marks=[' ', '.', '.', '.', ' '])</span>
+<span>def <span class="ident">rxs</span></span>(<span>d, width=50, show='%5.0f', chops=[0.1, 0.3, 0.5, 0.7, 0.9], marks=[' ', '.', '.', '.', ' '], verbose=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Manager for a set of treatment results.
@@ -246,7 +247,8 @@ then iteratively merge together adjacent similar items.</p></div>
 <pre><code class="python">def rxs(d, width = 50,
            show  = &#34;%5.0f&#34;,
            chops = [0.1 ,0.3,0.5,0.7,0.9],
-           marks = [&#34; &#34; ,&#34;.&#34;,&#34;.&#34;,&#34;.&#34;,&#34; &#34;]):
+           marks = [&#34; &#34; ,&#34;.&#34;,&#34;.&#34;,&#34;.&#34;,&#34; &#34;],
+           verbose  = True):
   &#34;&#34;&#34;
   Manager for a set of treatment results.
   Given a dictionary of values, sort the values by their median
@@ -274,7 +276,7 @@ then iteratively merge together adjacent similar items.</p></div>
        for n,group in enumerate(lst):
          for rx in group.parts:
            rx.rank = n
-           print(n, rx) 
+           if verbose: print(n, rx) 
        return lst
   #-------------------------------
   p    = lambda n: a[ int( n*len(a) )]

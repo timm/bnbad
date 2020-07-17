@@ -43,23 +43,24 @@ class Test:
   Lets you list the tests, run some of them, or all.
   &#34;&#34;&#34;
   t,f = 0,0
-  all = []
+  all = {}
   def score(s): 
     t,f = Test.t, Test.f
     return f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;
   def go(fn=None, use=None):
+    all =Test.all
     if fn:
-      Test.all += [fn]
+      all[fn.__name__] = fn
     elif use:
-      [Test.run(fn) for fn in Test.all if use in fn.__name__]
+      [Test.run(all[k]) for k in all if use in k]
     else: 
-      [Test.run(fn) for fn in Test.all]
+      [Test.run(all[k]) for f in all]
   def run(fun):    
     try:
       Test.t += 1
       print(&#34;### &#34;,fun.__name__)
       doc = fun.__doc__ or &#34;&#34;
-      print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc) )
+      print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
       print(&#34;&#34;)
       random.seed(my.r)
       fun()
@@ -72,11 +73,14 @@ class Test:
     print(&#34;&#34;)
     print(__file__ + &#34; -t [NAME]&#34;) 
     print(&#34;\nKnown test names:&#34;)
-    for fun in Test.all:
-      name = re.sub(r&#34;test_&#34;,&#34;&#34;,fun.__name__)
-      doc = fun.__doc__ or &#34;&#34;
-      doc = re.sub(r&#34;\n[ ]*&#34;,&#34;&#34;,doc)
-      print(f&#34;  {name:10s} : {doc}&#34;)
+    for name,fun in Test.all.items():
+      if name != &#34;test_tests&#34;:
+        name = re.sub(r&#34;test_&#34;,&#34;&#34;,name)
+        doc = fun.__doc__ or &#34;&#34;
+        doc = doc.split(&#34;\n&#34;)[0]
+        doc = re.sub(r&#34;\n[ ]+&#34;,&#34;&#34;,doc)
+        doc = re.sub(r&#34;^[ ]+&#34;,&#34;&#34;,doc)
+        print(f&#34;  {name:10s} : {doc}&#34;)
  </code></pre>
 </details>
 </section>
@@ -126,23 +130,24 @@ Lets you list the tests, run some of them, or all.</p></div>
   Lets you list the tests, run some of them, or all.
   &#34;&#34;&#34;
   t,f = 0,0
-  all = []
+  all = {}
   def score(s): 
     t,f = Test.t, Test.f
     return f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;
   def go(fn=None, use=None):
+    all =Test.all
     if fn:
-      Test.all += [fn]
+      all[fn.__name__] = fn
     elif use:
-      [Test.run(fn) for fn in Test.all if use in fn.__name__]
+      [Test.run(all[k]) for k in all if use in k]
     else: 
-      [Test.run(fn) for fn in Test.all]
+      [Test.run(all[k]) for f in all]
   def run(fun):    
     try:
       Test.t += 1
       print(&#34;### &#34;,fun.__name__)
       doc = fun.__doc__ or &#34;&#34;
-      print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc) )
+      print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
       print(&#34;&#34;)
       random.seed(my.r)
       fun()
@@ -155,11 +160,14 @@ Lets you list the tests, run some of them, or all.</p></div>
     print(&#34;&#34;)
     print(__file__ + &#34; -t [NAME]&#34;) 
     print(&#34;\nKnown test names:&#34;)
-    for fun in Test.all:
-      name = re.sub(r&#34;test_&#34;,&#34;&#34;,fun.__name__)
-      doc = fun.__doc__ or &#34;&#34;
-      doc = re.sub(r&#34;\n[ ]*&#34;,&#34;&#34;,doc)
-      print(f&#34;  {name:10s} : {doc}&#34;)</code></pre>
+    for name,fun in Test.all.items():
+      if name != &#34;test_tests&#34;:
+        name = re.sub(r&#34;test_&#34;,&#34;&#34;,name)
+        doc = fun.__doc__ or &#34;&#34;
+        doc = doc.split(&#34;\n&#34;)[0]
+        doc = re.sub(r&#34;\n[ ]+&#34;,&#34;&#34;,doc)
+        doc = re.sub(r&#34;^[ ]+&#34;,&#34;&#34;,doc)
+        print(f&#34;  {name:10s} : {doc}&#34;)</code></pre>
 </details>
 <h3>Class variables</h3>
 <dl>
@@ -188,12 +196,13 @@ Lets you list the tests, run some of them, or all.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def go(fn=None, use=None):
+  all =Test.all
   if fn:
-    Test.all += [fn]
+    all[fn.__name__] = fn
   elif use:
-    [Test.run(fn) for fn in Test.all if use in fn.__name__]
+    [Test.run(all[k]) for k in all if use in k]
   else: 
-    [Test.run(fn) for fn in Test.all]</code></pre>
+    [Test.run(all[k]) for f in all]</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test.Test.list"><code class="name flex">
@@ -209,11 +218,14 @@ Lets you list the tests, run some of them, or all.</p></div>
   print(&#34;&#34;)
   print(__file__ + &#34; -t [NAME]&#34;) 
   print(&#34;\nKnown test names:&#34;)
-  for fun in Test.all:
-    name = re.sub(r&#34;test_&#34;,&#34;&#34;,fun.__name__)
-    doc = fun.__doc__ or &#34;&#34;
-    doc = re.sub(r&#34;\n[ ]*&#34;,&#34;&#34;,doc)
-    print(f&#34;  {name:10s} : {doc}&#34;)</code></pre>
+  for name,fun in Test.all.items():
+    if name != &#34;test_tests&#34;:
+      name = re.sub(r&#34;test_&#34;,&#34;&#34;,name)
+      doc = fun.__doc__ or &#34;&#34;
+      doc = doc.split(&#34;\n&#34;)[0]
+      doc = re.sub(r&#34;\n[ ]+&#34;,&#34;&#34;,doc)
+      doc = re.sub(r&#34;^[ ]+&#34;,&#34;&#34;,doc)
+      print(f&#34;  {name:10s} : {doc}&#34;)</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test.Test.run"><code class="name flex">
@@ -230,7 +242,7 @@ Lets you list the tests, run some of them, or all.</p></div>
     Test.t += 1
     print(&#34;### &#34;,fun.__name__)
     doc = fun.__doc__ or &#34;&#34;
-    print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc) )
+    print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
     print(&#34;&#34;)
     random.seed(my.r)
     fun()

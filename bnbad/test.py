@@ -25,21 +25,20 @@ class Test:
     elif use:
       [Test.run(all[k]) for k in all if use in k]
     else: 
-      [Test.run(all[k]) for f in all]
+      [Test.run(all[k]) for k in all]
   def run(fun):    
     try:
       Test.t += 1
       print("### ",fun.__name__)
       doc = fun.__doc__ or ""
-      print( "# "+ re.sub(r"\n[ ]*","\n# ",doc) )
-      print("")
+      print( "# "+ re.sub(r"\n[ ]*","\n# ",doc.split("\n")[0]))
       random.seed(my.r)
       fun()
-      print(Test.score("PASS"),':',fun.__name__)
+      print("#TEST PASS:",fun.__name__)
     except Exception:
       Test.f += 1
       print(traceback.format_exc())
-      print(Test.score("FAIL"),':',fun.__name__)
+      print(Test.score("FAIL"),':',fun.__name__,"!!!!!!!!!!")
   def list():
     print("")
     print(__file__ + " -t [NAME]") 
@@ -48,6 +47,8 @@ class Test:
       if name != "test_tests":
         name = re.sub(r"test_","",name)
         doc = fun.__doc__ or ""
-        doc = re.sub(r"\n[ ]*","",doc)
+        doc = doc.split("\n")[0]
+        doc = re.sub(r"\n[ ]+","",doc)
+        doc = re.sub(r"^[ ]+","",doc)
         print(f"  {name:10s} : {doc}")
  

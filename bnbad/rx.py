@@ -33,7 +33,7 @@ def rxs(d, width = 50,
        for n,group in enumerate(lst):
          for rx in group.parts:
            rx.rank = n
-           if verbose: print(n, rx) 
+           if verbose: print(f"{n:2.0f}, {rx}") 
        return lst
   #-------------------------------
   p    = lambda n: a[ int( n*len(a) )]
@@ -114,7 +114,7 @@ class Rx(Thing):
     return k
   def __repr__(i):
     "Treatments can be printed."
-    return '%10s %s' % (i.rx, xtile(i.all, i.lo, i.hi,
+    return '%8s, %s' % (i.rx, xtile(i.all, i.lo, i.hi,
                                     show = i.show,
                                     width = i.width,
                                     chops = i.chops,

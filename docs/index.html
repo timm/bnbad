@@ -314,8 +314,9 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 &#34;&#34;&#34;
 
+import os
 #import random,math,sys,re,os
-#from copy    import deepcopy as kopy
+#from copy   import deepcopy as kopy
 from .lib    import *
 from .col    import *
 from .tab    import *
@@ -333,22 +334,16 @@ def test_tests():
 @go
 def test_bye():    
   &#34;Commit and push Github files.&#34;
-  def run(s): print(s); os.system(s)
+  def run(s): print(s); assert( 0 == os.system(s))
   run(&#34;git commit -am commit&#34;)
   run(&#34;git push&#34;)
   run(&#34;git status&#34;)
 
 @go
-def test_hello(): 
-  &#34;Simple test1.&#34;
-  print(about()[0])
-
-@go
 def test_hetab1():
-  &#34;&#34;&#34;
-  Read a small table from disk. 
-  &#34;&#34;&#34;
-  t = Tab().read(&#34;bnbad/weather4.csv&#34;)
+  &#34;Read a small table from disk.&#34;
+  from .weather4 import data
+  t = Tab().read(data)
   assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -359,13 +354,15 @@ def test_hetab1():
 @go
 def test_tab2():
   &#34;Read a larger table from disk.&#34;
-  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
+  from .auto93 import data
+  t = Tab().read(data)
   assert(398 == len(t.rows))
 
 @go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
+  from .auto93 import data
+  t = Tab().read(data)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
@@ -384,17 +381,18 @@ def test_dist():
 @go
 def test_tree():
   &#34;Recursively divide the data in two.&#34;
-  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
+  from .auto93 import data
+  t = Tab().read(data)
   my.treeVerbose = True
   Tree(t,cols=&#34;y&#34;)
 
 @go
 def test_bore():
+  &#34;&#34;&#34;\
+  Recursively prune worst half the data.
   &#34;&#34;&#34;
-  Recursively prune worst half the data 
-  (down to sqrt(N) of original data).
-  &#34;&#34;&#34;
-  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
+  from .auto93 import data
+  t = Tab().read(data)
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print(&#34;best&#34;,b.best.status())
@@ -454,42 +452,53 @@ def test_range7():
 
 @go
 def test_rxs():
-    &#34;&#34;&#34;
-    This demo groups and ranks five treatments
-    `x1,x2,x3,x4,x5`:
-    We will find these treatments divide into three  groups (`0,1,2`):
+  &#34;&#34;&#34;\
+  Group and ranks five treatments.
   
-        0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
-        0  x3 (    ----o                     ), 0.230,  0.330,  0.350
-        1  x1 (              -o--            ), 0.490,  0.510,  0.600
-        2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
-        2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
-    
-    &#34;&#34;&#34;
-    n = 256
-    rxs(    
-        dict(
-               x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
-               x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
-               x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
-               x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
-               x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
-        width= 30,
-        show = &#34;%.2f&#34;,
-        chops= [.25,  .5, .75],
-        marks= [&#34;-&#34;, &#34;-&#34;, &#34; &#34;])</code></pre>
+  We will find these treatments divide into three  groups (`0,1,2`):
+
+       0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+       0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+       1  x1 (              -o--            ), 0.490,  0.510,  0.600
+       2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+       2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+
+  &#34;&#34;&#34;
+  n = 256
+  groups = rxs(dict(
+                      x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
+                      x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
+                      x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
+                      x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
+                      x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
+               width= 30, verbose=False,
+               show = &#34;%.2f&#34;,
+               chops= [.25,  .5, .75],
+               marks= [&#34;-&#34;, &#34;-&#34;, &#34; &#34;])
+  all = [x for g in groups for x in g.parts]
+  assert(len(all) == 5)
+  assert(len(groups) == 3)
+  for n,one in enumerate(all):
+    assert(len(one.all) == 1024)
+    if n &gt; 0:
+        assert(one.med &gt;= all[n-1].med)
+        assert(one.rank &gt;= all[n-1].rank)</code></pre>
 </details>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
 <dl>
+<dt><code class="name"><a title="bnbad.auto93" href="auto93.html">bnbad.auto93</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
 <dt><code class="name"><a title="bnbad.col" href="col.html">bnbad.col</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
 <dt><code class="name"><a title="bnbad.lib" href="lib.html">bnbad.lib</a></code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>General Python tricks</p></div>
 </dd>
 <dt><code class="name"><a title="bnbad.my" href="my.html">bnbad.my</a></code></dt>
 <dd>
@@ -508,6 +517,10 @@ def test_rxs():
 <div class="desc"></div>
 </dd>
 <dt><code class="name"><a title="bnbad.test" href="test.html">bnbad.test</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="bnbad.weather4" href="weather4.html">bnbad.weather4</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -530,19 +543,18 @@ def test_rxs():
 <span>def <span class="ident">test_bore</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Recursively prune worst half the data
-(down to sqrt(N) of original data).</p></div>
+<div class="desc"><p>Recursively prune worst half the data.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@go
 def test_bore():
+  &#34;&#34;&#34;\
+  Recursively prune worst half the data.
   &#34;&#34;&#34;
-  Recursively prune worst half the data 
-  (down to sqrt(N) of original data).
-  &#34;&#34;&#34;
-  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
+  from .auto93 import data
+  t = Tab().read(data)
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print(&#34;best&#34;,b.best.status())
@@ -566,7 +578,7 @@ def test_bore():
 <pre><code class="python">@go
 def test_bye():    
   &#34;Commit and push Github files.&#34;
-  def run(s): print(s); os.system(s)
+  def run(s): print(s); assert( 0 == os.system(s))
   run(&#34;git commit -am commit&#34;)
   run(&#34;git push&#34;)
   run(&#34;git status&#34;)</code></pre>
@@ -584,7 +596,8 @@ def test_bye():
 <pre><code class="python">@go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
+  from .auto93 import data
+  t = Tab().read(data)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
@@ -601,21 +614,6 @@ def test_dist():
     print(*d.poles())</code></pre>
 </details>
 </dd>
-<dt id="bnbad.test_hello"><code class="name flex">
-<span>def <span class="ident">test_hello</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Simple test1.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@go
-def test_hello(): 
-  &#34;Simple test1.&#34;
-  print(about()[0])</code></pre>
-</details>
-</dd>
 <dt id="bnbad.test_hetab1"><code class="name flex">
 <span>def <span class="ident">test_hetab1</span></span>(<span>)</span>
 </code></dt>
@@ -627,10 +625,9 @@ def test_hello():
 </summary>
 <pre><code class="python">@go
 def test_hetab1():
-  &#34;&#34;&#34;
-  Read a small table from disk. 
-  &#34;&#34;&#34;
-  t = Tab().read(&#34;bnbad/weather4.csv&#34;)
+  &#34;Read a small table from disk.&#34;
+  from .weather4 import data
+  t = Tab().read(data)
   assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -755,15 +752,14 @@ def test_range7():
 <span>def <span class="ident">test_rxs</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This demo groups and ranks five treatments
-<code>x1,x2,x3,x4,x5</code>:
-We will find these treatments divide into three
+<div class="desc"><p>Group and ranks five treatments.</p>
+<p>We will find these treatments divide into three
 groups (<code>0,1,2</code>):</p>
-<pre><code>0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
-0  x3 (    ----o                     ), 0.230,  0.330,  0.350
-1  x1 (              -o--            ), 0.490,  0.510,  0.600
-2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
-2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+<pre><code> 0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+ 0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+ 1  x1 (              -o--            ), 0.490,  0.510,  0.600
+ 2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+ 2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
 </code></pre></div>
 <details class="source">
 <summary>
@@ -771,30 +767,37 @@ groups (<code>0,1,2</code>):</p>
 </summary>
 <pre><code class="python">@go
 def test_rxs():
-    &#34;&#34;&#34;
-    This demo groups and ranks five treatments
-    `x1,x2,x3,x4,x5`:
-    We will find these treatments divide into three  groups (`0,1,2`):
+  &#34;&#34;&#34;\
+  Group and ranks five treatments.
   
-        0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
-        0  x3 (    ----o                     ), 0.230,  0.330,  0.350
-        1  x1 (              -o--            ), 0.490,  0.510,  0.600
-        2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
-        2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
-    
-    &#34;&#34;&#34;
-    n = 256
-    rxs(    
-        dict(
-               x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
-               x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
-               x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
-               x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
-               x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
-        width= 30,
-        show = &#34;%.2f&#34;,
-        chops= [.25,  .5, .75],
-        marks= [&#34;-&#34;, &#34;-&#34;, &#34; &#34;])</code></pre>
+  We will find these treatments divide into three  groups (`0,1,2`):
+
+       0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+       0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+       1  x1 (              -o--            ), 0.490,  0.510,  0.600
+       2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+       2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+
+  &#34;&#34;&#34;
+  n = 256
+  groups = rxs(dict(
+                      x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
+                      x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
+                      x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
+                      x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
+                      x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
+               width= 30, verbose=False,
+               show = &#34;%.2f&#34;,
+               chops= [.25,  .5, .75],
+               marks= [&#34;-&#34;, &#34;-&#34;, &#34; &#34;])
+  all = [x for g in groups for x in g.parts]
+  assert(len(all) == 5)
+  assert(len(groups) == 3)
+  for n,one in enumerate(all):
+    assert(len(one.all) == 1024)
+    if n &gt; 0:
+        assert(one.med &gt;= all[n-1].med)
+        assert(one.rank &gt;= all[n-1].rank)</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_tab2"><code class="name flex">
@@ -809,7 +812,8 @@ def test_rxs():
 <pre><code class="python">@go
 def test_tab2():
   &#34;Read a larger table from disk.&#34;
-  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
+  from .auto93 import data
+  t = Tab().read(data)
   assert(398 == len(t.rows))</code></pre>
 </details>
 </dd>
@@ -840,7 +844,8 @@ def test_tests():
 <pre><code class="python">@go
 def test_tree():
   &#34;Recursively divide the data in two.&#34;
-  t = Tab().read(&#34;bnbad/auto93.csv&#34;)
+  from .auto93 import data
+  t = Tab().read(data)
   my.treeVerbose = True
   Tree(t,cols=&#34;y&#34;)</code></pre>
 </details>
@@ -879,6 +884,7 @@ truth for yourself."
 <ul id="index">
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
+<li><code><a title="bnbad.auto93" href="auto93.html">bnbad.auto93</a></code></li>
 <li><code><a title="bnbad.col" href="col.html">bnbad.col</a></code></li>
 <li><code><a title="bnbad.lib" href="lib.html">bnbad.lib</a></code></li>
 <li><code><a title="bnbad.my" href="my.html">bnbad.my</a></code></li>
@@ -886,6 +892,7 @@ truth for yourself."
 <li><code><a title="bnbad.rx" href="rx.html">bnbad.rx</a></code></li>
 <li><code><a title="bnbad.tab" href="tab.html">bnbad.tab</a></code></li>
 <li><code><a title="bnbad.test" href="test.html">bnbad.test</a></code></li>
+<li><code><a title="bnbad.weather4" href="weather4.html">bnbad.weather4</a></code></li>
 <li><code><a title="bnbad.x" href="x.html">bnbad.x</a></code></li>
 <li><code><a title="bnbad.xomo" href="xomo.html">bnbad.xomo</a></code></li>
 </ul>
@@ -895,7 +902,6 @@ truth for yourself."
 <li><code><a title="bnbad.test_bore" href="#bnbad.test_bore">test_bore</a></code></li>
 <li><code><a title="bnbad.test_bye" href="#bnbad.test_bye">test_bye</a></code></li>
 <li><code><a title="bnbad.test_dist" href="#bnbad.test_dist">test_dist</a></code></li>
-<li><code><a title="bnbad.test_hello" href="#bnbad.test_hello">test_hello</a></code></li>
 <li><code><a title="bnbad.test_hetab1" href="#bnbad.test_hetab1">test_hetab1</a></code></li>
 <li><code><a title="bnbad.test_range1" href="#bnbad.test_range1">test_range1</a></code></li>
 <li><code><a title="bnbad.test_range2" href="#bnbad.test_range2">test_range2</a></code></li>

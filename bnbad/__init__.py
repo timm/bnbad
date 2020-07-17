@@ -169,15 +169,8 @@ def test_bye():
   run("git status")
 
 @go
-def test_hello(): 
-  "Simple test1."
-  print(about()[0])
-
-@go
 def test_hetab1():
-  """
-  Read a small table from disk. 
-  """
+  "Read a small table from disk."
   from .weather4 import data
   t = Tab().read(data)
   assert( 4 == t.cols.x[0].seen["overcast"])
@@ -185,8 +178,7 @@ def test_hetab1():
   assert(14 == len(t.rows))
   assert( 4 == len(t.cols.all))
   assert( 3 == len(t.cols.syms))
-  print(t)
-
+  assert(0)
 @go
 def test_tab2():
   "Read a larger table from disk."
@@ -224,7 +216,7 @@ def test_tree():
 
 @go
 def test_bore():
-  """
+  """\
   Recursively prune worst half the data.
   """
   from .auto93 import data
@@ -288,13 +280,18 @@ def test_range7():
 
 @go
 def test_rxs():
-  "Group and ranks five treatments."
-  # We will find these treatments divide into three  groups (`0,1,2`):
-  #     0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
-  #     0  x3 (    ----o                     ), 0.230,  0.330,  0.350
-  #     1  x1 (              -o--            ), 0.490,  0.510,  0.600
-  #     2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
-  #     2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+  """\
+  Group and ranks five treatments.
+  
+  We will find these treatments divide into three  groups (`0,1,2`):
+
+       0,       x5,   --o--             ,0.20, 0.30, 0.40
+       0,       x3,    --o              ,0.23, 0.33, 0.35
+       1,       x1,          -o-        ,0.49, 0.51, 0.60
+       2,       x2,               ---o- ,0.70, 0.80, 0.89
+       2,       x4,               ---o- ,0.70, 0.80, 0.90
+
+  """
   n = 256
   groups = rxs(dict(
                       x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
@@ -302,7 +299,7 @@ def test_rxs():
                       x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
                       x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
                       x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
-               width= 30, verbose=False,
+               width= 20, verbose=False,
                show = "%.2f",
                chops= [.25,  .5, .75],
                marks= ["-", "-", " "])
