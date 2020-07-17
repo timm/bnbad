@@ -36,7 +36,7 @@ doc()    {
 
 alias vi="vim    -u $Ell/etc/.vimrc"
 alias tmux="tmux -f $Ell/etc/.tmuxrc"
-alias b="python3 -m bnbad "
+alias b="pypy3 -m bnbad "
 alias gg="git pull"
 alias gs="git status"
 alias gp="git commit -am 'saving'; git push; git status"
