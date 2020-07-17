@@ -71,7 +71,10 @@ class Dist(Thing):
 class Cluster(Thing): pass
 
 class Tree(Cluster):
-  def __init__(i, t, cols=my.c, lo=None, lvl=0):
+  def __init__(i, t, cols=my.c, lo=None, lvl=0,_root=None):
+    if not _root:
+      i.leaves = []
+      _root = i
     lo = lo or 2*len(t.rows)**my.s
     if len(t.rows) > lo:
       if my.treeVerbose:
@@ -84,9 +87,10 @@ class Tree(Cluster):
       [i.kids[x >= i.mid].add(r)     for x,r in zip(xs, t.rows)]
       if len(i.kids[0].rows) < len(t.rows) and \
          len(i.kids[1].rows) < len(t.rows) :
-         [ Tree(kid, cols=cols, lo=lo, lvl=lvl+1) 
+         [ Tree(kid, cols=cols, lo=lo, lvl=lvl+1,_root=_root) 
             for kid in i.kids ]
     else:
+       _root.leaves += [t]
        if my.treeVerbose:
          print(('| '*lvl) + str(len(t.rows)),t.status())
       
@@ -141,9 +145,12 @@ class Bore(Cluster):
      return out 
 
 class DecisionList(Thing):
-  def __init__(i, t, lvl=my.H):
+  def __init__(i, t, lvl=my.H, _up=None, _root=None):
     i.t=t
     i.leaf = None
+    _root = _root or i
+    if i is _root: i.leaves=[]
+    i.up  = _up
     if lvl > 0 and len(t.rows) >= my.M: 
       b = Bore(t)
       i.split = b.key()
@@ -151,7 +158,9 @@ class DecisionList(Thing):
       i.leaf, kid = t.clone(), t.clone()
       for row in t.rows:
         (i.leaf if i.split.matches(row) else kid).add(row)
-      i.kid = DecisionList(kid, lvl-1)
+      i.kid = DecisionList(kid, lvl-1,_up=1,_root=_root)
+    else:
+      _root.leaves += [t]
   def show(i,pre="  "): 
     if i.leaf:
       print(pre+"if", i.split._ranges.txt," in ",i.split.lo, "..",i.split.hi,

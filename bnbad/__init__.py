@@ -204,12 +204,12 @@ def test_dist():
     r2 = n[ 0][1]
     r3 = n[-1][1]
     r4 = d.faraway(r1)
-    print("")
-    print(r1)
-    print(r2, f'{d.dist(r1,r2):.3f}')
-    print(r4, f'{d.dist(r1,r4):.3f}')
-    print(r3, f'{d.dist(r1,r3):.3f}')
-    print(*d.poles())
+    d1=d.dist(r1,r2)
+    d2= d.dist(r1,r4)
+    d3= d.dist(r1,r3)
+    assert(d1 <= d2 <= d3)
+    assert(0.2 <= d2 <=d3)
+    assert(len(d.poles())==3)
 
 @go
 def test_tree():
@@ -217,7 +217,9 @@ def test_tree():
   from .auto93 import data
   t = Tab().read(data)
   my.treeVerbose = True
-  Tree(t,cols="y")
+  t=Tree(t,cols="y")
+  assert(15 == len(t.leaves))
+   
 
 @go
 def test_bore():
@@ -232,7 +234,7 @@ def test_bore():
   print("rest",b.rest.status())
   print("all",t.status())
   k = b.key()
-  print("SCORE",k._ranges.txt,k.s()) #print("KEY",b.key())
+  assert(k.s() > 0.69)
   for _ in range(1):
      DecisionList(t).show()
 
