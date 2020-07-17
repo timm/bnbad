@@ -62,7 +62,7 @@ def rxs(d, width = 50,
        for n,group in enumerate(lst):
          for rx in group.parts:
            rx.rank = n
-           if verbose: print(n, rx) 
+           if verbose: print(f&#34;{n:2.0f}, {rx}&#34;) 
        return lst
   #-------------------------------
   p    = lambda n: a[ int( n*len(a) )]
@@ -143,7 +143,7 @@ class Rx(Thing):
     return k
   def __repr__(i):
     &#34;Treatments can be printed.&#34;
-    return &#39;%10s %s&#39; % (i.rx, xtile(i.all, i.lo, i.hi,
+    return &#39;%8s, %s&#39; % (i.rx, xtile(i.all, i.lo, i.hi,
                                     show = i.show,
                                     width = i.width,
                                     chops = i.chops,
@@ -276,7 +276,7 @@ then iteratively merge together adjacent similar items.</p></div>
        for n,group in enumerate(lst):
          for rx in group.parts:
            rx.rank = n
-           if verbose: print(n, rx) 
+           if verbose: print(f&#34;{n:2.0f}, {rx}&#34;) 
        return lst
   #-------------------------------
   p    = lambda n: a[ int( n*len(a) )]
@@ -409,7 +409,7 @@ that same process takes half an hour.</p></div>
     return k
   def __repr__(i):
     &#34;Treatments can be printed.&#34;
-    return &#39;%10s %s&#39; % (i.rx, xtile(i.all, i.lo, i.hi,
+    return &#39;%8s, %s&#39; % (i.rx, xtile(i.all, i.lo, i.hi,
                                     show = i.show,
                                     width = i.width,
                                     chops = i.chops,

@@ -29,6 +29,9 @@
 </summary>
 <pre><code class="python">from .lib import *
 from .my import *
+from termcolor import colored
+
+
 
 def go(fn=None,use=None):  
   &#34;&#34;&#34;
@@ -44,9 +47,9 @@ class Test:
   &#34;&#34;&#34;
   t,f = 0,0
   all = {}
-  def score(s): 
+  def score(s,color): 
     t,f = Test.t, Test.f
-    return f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;
+    return colored(f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;,color)
   def go(fn=None, use=None):
     all =Test.all
     if fn:
@@ -54,21 +57,20 @@ class Test:
     elif use:
       [Test.run(all[k]) for k in all if use in k]
     else: 
-      [Test.run(all[k]) for f in all]
+      [Test.run(all[k]) for k in all]
   def run(fun):    
     try:
       Test.t += 1
       print(&#34;### &#34;,fun.__name__)
       doc = fun.__doc__ or &#34;&#34;
       print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
-      print(&#34;&#34;)
       random.seed(my.r)
       fun()
-      print(Test.score(&#34;PASS&#34;),&#39;:&#39;,fun.__name__)
+      print(Test.score(&#34;PASS&#34;,&#34;green&#34;),&#39;:&#39;,fun.__name__)
     except Exception:
       Test.f += 1
       print(traceback.format_exc())
-      print(Test.score(&#34;FAIL&#34;),&#39;:&#39;,fun.__name__)
+      print(Test.score(&#34;FAIL&#34;,&#34;red&#34;),&#39;:&#39;,fun.__name__)
   def list():
     print(&#34;&#34;)
     print(__file__ + &#34; -t [NAME]&#34;) 
@@ -131,9 +133,9 @@ Lets you list the tests, run some of them, or all.</p></div>
   &#34;&#34;&#34;
   t,f = 0,0
   all = {}
-  def score(s): 
+  def score(s,color): 
     t,f = Test.t, Test.f
-    return f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;
+    return colored(f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;,color)
   def go(fn=None, use=None):
     all =Test.all
     if fn:
@@ -141,21 +143,20 @@ Lets you list the tests, run some of them, or all.</p></div>
     elif use:
       [Test.run(all[k]) for k in all if use in k]
     else: 
-      [Test.run(all[k]) for f in all]
+      [Test.run(all[k]) for k in all]
   def run(fun):    
     try:
       Test.t += 1
       print(&#34;### &#34;,fun.__name__)
       doc = fun.__doc__ or &#34;&#34;
       print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
-      print(&#34;&#34;)
       random.seed(my.r)
       fun()
-      print(Test.score(&#34;PASS&#34;),&#39;:&#39;,fun.__name__)
+      print(Test.score(&#34;PASS&#34;,&#34;green&#34;),&#39;:&#39;,fun.__name__)
     except Exception:
       Test.f += 1
       print(traceback.format_exc())
-      print(Test.score(&#34;FAIL&#34;),&#39;:&#39;,fun.__name__)
+      print(Test.score(&#34;FAIL&#34;,&#34;red&#34;),&#39;:&#39;,fun.__name__)
   def list():
     print(&#34;&#34;)
     print(__file__ + &#34; -t [NAME]&#34;) 
@@ -202,7 +203,7 @@ Lets you list the tests, run some of them, or all.</p></div>
   elif use:
     [Test.run(all[k]) for k in all if use in k]
   else: 
-    [Test.run(all[k]) for f in all]</code></pre>
+    [Test.run(all[k]) for k in all]</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test.Test.list"><code class="name flex">
@@ -243,18 +244,17 @@ Lets you list the tests, run some of them, or all.</p></div>
     print(&#34;### &#34;,fun.__name__)
     doc = fun.__doc__ or &#34;&#34;
     print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
-    print(&#34;&#34;)
     random.seed(my.r)
     fun()
-    print(Test.score(&#34;PASS&#34;),&#39;:&#39;,fun.__name__)
+    print(Test.score(&#34;PASS&#34;,&#34;green&#34;),&#39;:&#39;,fun.__name__)
   except Exception:
     Test.f += 1
     print(traceback.format_exc())
-    print(Test.score(&#34;FAIL&#34;),&#39;:&#39;,fun.__name__)</code></pre>
+    print(Test.score(&#34;FAIL&#34;,&#34;red&#34;),&#39;:&#39;,fun.__name__)</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test.Test.score"><code class="name flex">
-<span>def <span class="ident">score</span></span>(<span>s)</span>
+<span>def <span class="ident">score</span></span>(<span>s, color)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -262,9 +262,9 @@ Lets you list the tests, run some of them, or all.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def score(s): 
+<pre><code class="python">def score(s,color): 
   t,f = Test.t, Test.f
-  return f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;</code></pre>
+  return colored(f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;,color)</code></pre>
 </details>
 </dd>
 </dl>
