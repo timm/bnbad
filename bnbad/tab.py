@@ -1,6 +1,7 @@
 from .lib import *
 from .my  import *
 from .col import *
+from .ranges import *
 import math
 
 class Tab(Thing):
