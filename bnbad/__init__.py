@@ -143,6 +143,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
+import os
 #import random,math,sys,re,os
 #from copy   import deepcopy as kopy
 from .lib    import *
