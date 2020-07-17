@@ -163,7 +163,7 @@ def test_tests():
 @go
 def test_bye():    
   "Commit and push Github files."
-  def run(s): print(s); os.system(s)
+  def run(s): print(s); print(os.system(s))
   run("git commit -am commit")
   run("git push")
   run("git status")
