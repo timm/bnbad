@@ -1,6 +1,7 @@
 from .lib import *
 from .my  import *
 from .col import *
+import math
 
 class Tab(Thing):
   def __init__(i,rows=[]):
