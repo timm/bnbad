@@ -29,6 +29,6 @@ setup(
       ],
       keywords='cluster contrast multi-objective-optimization decision-tree',
       license='MIT',
-      install_requires=[],
+      install_requires=['pypy3', 'termcolor'],
 )
 
