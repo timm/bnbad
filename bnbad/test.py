@@ -1,10 +1,8 @@
 from .lib import *
 from .my import *
-from colorama import Fore
-from colorama import Style
+from termcolor import colored
 
-def green(x): return "f{Fore.GREEN}{x}{Style.RESET_ALL}"
-def red(x): return "f{Fore.RED}{x}{Style.RESET_ALL}"
+
 
 def go(fn=None,use=None):  
   """
@@ -39,11 +37,11 @@ class Test:
       print( "# "+ re.sub(r"\n[ ]*","\n# ",doc.split("\n")[0]))
       random.seed(my.r)
       fun()
-      print(Test.score(green("PASS")),':',fun.__name__)
+      print(Test.score(colored("PASS","green")),':',fun.__name__)
     except Exception:
       Test.f += 1
       print(traceback.format_exc())
-      print(Test.score(red("FAIL")),':',fun.__name__)
+      print(Test.score(colored("FAIL","red")),':',fun.__name__)
   def list():
     print("")
     print(__file__ + " -t [NAME]") 
