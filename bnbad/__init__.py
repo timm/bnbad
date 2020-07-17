@@ -161,6 +161,11 @@ def test_tests():
   Test.list()
 
 @go
+def test_fail():
+  "Test the test engine with one failure"
+  assert(0)
+
+@go
 def test_bye():    
   "Commit and push Github files."
   def run(s): print(s); assert( 0 == os.system(s))
@@ -178,7 +183,7 @@ def test_hetab1():
   assert(14 == len(t.rows))
   assert( 4 == len(t.cols.all))
   assert( 3 == len(t.cols.syms))
-  assert(0)
+
 @go
 def test_tab2():
   "Read a larger table from disk."
