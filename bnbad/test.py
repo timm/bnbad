@@ -18,9 +18,9 @@ class Test:
   """
   t,f = 0,0
   all = {}
-  def score(s): 
+  def score(s,color): 
     t,f = Test.t, Test.f
-    return f"#TEST {s} passes = {t-f} fails = {f}"
+    return colored(f"#TEST {s} passes = {t-f} fails = {f}",color)
   def go(fn=None, use=None):
     all =Test.all
     if fn:
@@ -37,11 +37,11 @@ class Test:
       print( "# "+ re.sub(r"\n[ ]*","\n# ",doc.split("\n")[0]))
       random.seed(my.r)
       fun()
-      print(Test.score(colored("PASS","green")),':',fun.__name__)
+      print(Test.score("PASS","green"),':',fun.__name__)
     except Exception:
       Test.f += 1
       print(traceback.format_exc())
-      print(Test.score(colored("FAIL","red")),':',fun.__name__)
+      print(Test.score("FAIL","red"),':',fun.__name__)
   def list():
     print("")
     print(__file__ + " -t [NAME]") 
