@@ -213,10 +213,49 @@ def test_dist():
 
 @go
 def test_tree():
-  "Recursively divide the data in two."
+  """\
+  Recursively divide the data in two.
+
+  If you call this after setting `my.treeVerbose=True`
+  then this tree will get printed. Note the leaf
+  four lines from the bottom, marked with "`*`".
+  This is cluster is "best" (least `weight`,
+  most `acceleration`, most `mph`).
+
+         398
+         | 211
+         | | 57
+         | | | 30 {4526.53, 13.65, 10.33}
+         | | | 27 {4094.56, 11.41, 11.11}
+         | | 154
+         | | | 65
+         | | | | 32 {3482.34, 13.34, 20.00}
+         | | | | 33 {4022.91, 14.76, 20.00}
+         | | | 89
+         | | | | 47
+         | | | | | 26 {2893.35, 15.22, 20.00}
+         | | | | | 21 {2591.00, 14.82, 20.00}
+         | | | | 42
+         | | | | | 25 {3158.60, 16.80, 20.00}
+         | | | | | 17 {3396.71, 19.74, 20.00}
+         | 187
+         | | 104
+         | | | 86
+         | | | | 48
+         | | | | | 23 {2230.26, 16.53, 30.00}
+         | | | | | 25 {2671.64, 14.84, 30.00}
+         | | | | 38 {2428.71, 19.29, 30.00}
+         | | | 18 {2289.94, 17.08, 20.00}
+         | | 83
+       * | | | 35 {1982.63, 17.23, 39.43} 
+         | | | 48
+         | | | | 21 {2308.19, 13.83, 31.43}
+         | | | | 27 {2069.67, 15.44, 30.37}
+
+  """
   from .data import auto93
   t = Tab().read(auto93)
-  my.treeVerbose = True
+  my.treeVerbose = False
   t=Tree(t,cols="y")
   assert(15 == len(t.leaves))
 

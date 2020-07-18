@@ -32,9 +32,9 @@ class Test:
   def run(fun):    
     try:
       Test.t += 1
-      print("### ",fun.__name__)
       doc = fun.__doc__ or ""
-      print( "# "+ re.sub(r"\n[ ]*","\n# ",doc.split("\n")[0]))
+      print("# ",fun.__name__,
+            re.sub(r"\n[ ]*","\n# ",doc.split("\n")[0]))
       random.seed(my.r)
       fun()
       print(Test.score("PASS","green"),':',fun.__name__)
