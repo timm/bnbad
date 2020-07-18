@@ -13,7 +13,7 @@ truth for yourself."
 
 <p>
 <a href="http://github.com/timm/bnbad"><img                     src="github.png" width=40>Github</a>
-<a href="https://github.com/timm/bnbad/archive/master.zip"><img src="zip.png" width=40>zip</a>
+<a href="https://github.com/timm/bnbad/archive/master.zip"><img src="zip.png" width=40>zip</a> <br>
 <a href="https://travis-ci.org/github/timm/bnbad"><img          src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a>
 <a href="https://doi.org/10.5281/zenodo.3947026"><img           src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 </p>
