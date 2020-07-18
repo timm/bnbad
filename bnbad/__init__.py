@@ -176,8 +176,8 @@ def test_bye():
 @go
 def test_hetab1():
   "Read a small table from disk."
-  from .weather4 import data
-  t = Tab().read(data)
+  import data
+  t = Tab().read(data.weather4)
   assert( 4 == t.cols.x[0].seen["overcast"])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -187,15 +187,15 @@ def test_hetab1():
 @go
 def test_tab2():
   "Read a larger table from disk."
-  from .auto93 import data
-  t = Tab().read(data)
+  import data
+  t = Tab().read(data.auto93)
   assert(398 == len(t.rows))
 
 @go
 def test_dist():
   "Check the distance calculations."
-  from .auto93 import data
-  t = Tab().read(data)
+  import data
+  t = Tab().read(data.auto93)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not "?" in r1:
@@ -226,8 +226,8 @@ def test_bore():
   """\
   Recursively prune worst half the data.
   """
-  from .auto93 import data
-  t = Tab().read(data)
+  import data
+  t = Tab().read(data.auto93)
   b = Bore(t)
   print([col.txt for col in t.cols.y.values()])
   print("best",b.best.status())

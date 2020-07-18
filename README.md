@@ -46,9 +46,22 @@ BnBAD might be a useful choice when:
 
 ## Install
 
-Run as super user
+Download the repo or the zip from http://github.com/timm/bnbad
 
-    sudo python3 setup.py install
+In the same directory as the `setup.py` file....
+
+Install pypy3:
+
+    brew install pypy3      # mac os/x
+    sudo apt install pypy3  # unix
+
+Install support packages into the pypy3 space:
+
+    pip_pypy3 install colorterm 
+
+Install `bnbad` using `setup.py`:
+
+    python3 setup.py install
 
 ## Technical Notes: 
 
@@ -74,7 +87,6 @@ Run as super user
     - _Stream mining_: Stop learning while the anomaly detector is not
       triggering. Track the anomalies seen each branch of the decision list.
       Update just the branches that get too many anomalies (if that ever happens).
-
 
 ## Usage
 
