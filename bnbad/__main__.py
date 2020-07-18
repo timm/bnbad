@@ -11,10 +11,13 @@ Nearly all this processing takes loglinear time.
             |    5 | Better  
             :------:  
 
-Copyright (c) 2020, Tim Menzies. All rights (BSD 2-Clause license).
 """
 from .__init__ import *
 my = args(help,__doc__)
 if   my.T : go()
-elif my.t : go(use=my.t)
+elif my.t : 
+   print(888888); 
+   print(999,  my.V)
+   go(use=my.t)
+   print(777)
 else      : my.L: Test.list()

@@ -216,11 +216,15 @@ def test_tree():
   """\
   Recursively divide the data in two.
 
-  If you call this after setting `my.treeVerbose=True`
-  then this tree will get printed. Note the leaf
-  four lines from the bottom, marked with "`*`".
-  This is cluster is "best" (least `weight`,
-  most `acceleration`, most `mph`).
+  When working on `auto93`, the goals are
+  
+      ['<weight', '>acceleration', '>!mpg']
+
+  which to say, minimize `weight`, maximize `acceleration` and
+  `mpg`.  If you call this after setting `my.treeVerbose=True` then
+  this tree will get printed. Note the leaf four lines from the
+  bottom, marked with "`*`".  This is cluster is "best" (least
+  `weight`, most `acceleration`, most `mph`).
 
          398
          | 211
@@ -263,18 +267,46 @@ def test_tree():
 def test_bore():
   """\
   Recursively prune worst half the data.
+
+   When working on `auto93`, the goals are
+  
+      ['<weight', '>acceleration', '>!mpg']
+
+  then this finds a `best` cluster of
+
+       {2492.5, 19.7, 34.1}
+
+  A random sample of the remaining data is then
+  collected into `rest` which has median goal
+  scores of:
+
+      {3012.2, 15.2, 22.9}
+
+  Then we run a rule learner that generates a decision
+  list that seperates `best` from `rest`.
+
+      if   $displacement  in   68 .. 105 then {2055.9, 16.9, 32.1} 
+      elif $displacement  in  107 .. 140 then {2533.1, 15.9, 26.6} 
+      elif $displacement  in  141 .. 200 then {2910.2, 16.2, 24.2} 
+      elif $horsepower    in   72 .. 139 then {3437.2, 16.3, 19.9} 
+      else {4201.2, 12.5, 14.2} 
+
   """
   from .data import auto93
   t = Tab().read(auto93)
   b = Bore(t)
-  print([col.txt for col in t.cols.y.values()])
-  print("best",b.best.status())
-  print("rest",b.rest.status())
-  print("all",t.status())
+  print("my-----",my.V)
+  if my.V:
+    print([col.txt for col in t.cols.y.values()])
+    print("best",b.best.status())
+    print("rest",b.rest.status())
+    print("all",t.status())
   k = b.key()
   assert(k.s() > 0.69)
-  for _ in range(1):
-     DecisionList(t).show()
+  print("11",my.V)
+  if my.V:
+    for _ in range(1):
+      DecisionList(t).show()
 
 def _range0(xy):
   "Worker for the tests"
