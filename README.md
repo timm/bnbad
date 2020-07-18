@@ -56,11 +56,12 @@ Install pypy3:
 Install support packages into the pypy3 space:
 
     pip3      install colorterm rerun
-    pip_pypy3 install colorterm rerun
+    pip_pypy3 install colorterm rerun # optional.. if you want speed
 
 Install `bnbad` using `setup.py`:
 
     python3 setup.py install
+    pypy3   setup.py install # optional.. if you want speed
 
 ## Technical Notes: 
 
