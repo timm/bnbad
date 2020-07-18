@@ -34,27 +34,28 @@ def help():
   Define options.
   &#34;&#34;&#34;
   return [
-    arg(&#34;verbose mode for Tree&#34;,                          treeVerbose= False),
-    arg(&#34;bin min size =len**b&#34;,                           b= .5),
-    arg(&#34;what columns to while tree building &#34; ,          c= [&#34;x&#34;,&#34;y&#34;]),
-    arg(&#34;use at most &#39;d&#39; rows for distance calcs&#34;,        d= 256),
-    arg(&#34;merge ranges whose scores differ by less that F&#34;,e= 0.05),
-    arg(&#34;separation of poles (f=1 means &#39;max distance&#39;)&#34;, f= .9),
-    arg(&#34;decision list: minimum leaf size&#34;,               M= 10),
+    arg(&#34;verbose mode for Tree&#34;,                           treeVerbose= False),
+    arg(&#34;bin min size =len**b&#34;,                            b= .5),
+    arg(&#34;what columns to while tree building&#34;,             c= [&#34;x&#34;,&#34;y&#34;]),
+    arg(&#34;use at most &#39;d&#39; rows for distance calcs&#34;,         d= 256),
+    arg(&#34;merge ranges whose scores differ by less that F&#34;, e= 0.05),
+    arg(&#34;separation of poles (f=1 means &#39;max distance&#39;)&#34;,  f= .9),
+    arg(&#34;decision list: minimum leaf size&#34;,                M= 10),
     arg(&#34;decision list: maximum height&#34;,                   H= 4),
-    arg(&#34;decision list: ratio of negative examples&#34;,     N= 4),
-    arg(&#34;coefficient for distance&#34; ,                      p= 2),
-    arg(&#34;random number seed&#34; ,                            r = 1),
-    arg(&#34;tree leaves must be at least n**s in size&#34; ,     s= 0.5),
-    arg(&#34;stats: Cliff&#39;s Delta &#39;dull&#39;&#34;,                    Sdull=[.147,.33,.474]),
-    arg(&#34;stats: Coehn &#39;d&#39;&#34;,                               Scohen=0.2),
-    arg(&#34;stats: number of boostrap samples&#34;,              Sb=500),
-    arg(&#34;stats: bootstrap confidences&#34;,                   Sconf=0.01),
-    arg(&#34;training data (arff format&#34;,                     train= &#34;train.csv&#34;),
-    arg(&#34;testing data (csv format)&#34;,                      test=  &#34;test.csv&#34;),
-    arg(&#34;List all tests.&#34;,                                L = False),
-    arg(&#34;Run all tests.&#34;,                                 T = False),
-    arg(&#34;Run just the tests with names matching &#39;S&#39;&#34;,     t= &#34;&#34;)
+    arg(&#34;decision list: ratio of negative examples&#34;,       N= 4),
+    arg(&#34;coefficient for distance&#34;,                        p= 2),
+    arg(&#34;random number seed&#34;,                              r = 1),
+    arg(&#34;tree leaves must be at least n**s in size&#34;,       s= 0.5),
+    arg(&#34;stats: Cliff&#39;s Delta &#39;dull&#39;&#34;,                     Sdull=[.147,.33,.474]),
+    arg(&#34;stats: Coehn &#39;d&#39;&#34;,                                Scohen=0.2),
+    arg(&#34;stats: number of boostrap samples&#34;,               Sb=500),
+    arg(&#34;stats: bootstrap confidences&#34;,                    Sconf=0.01),
+    arg(&#34;training data (arff format&#34;,                      train= &#34;train.csv&#34;),
+    arg(&#34;testing data (csv format)&#34;,                       test=  &#34;test.csv&#34;),
+    arg(&#34;List all tests&#34;,                                  L= False),
+    arg(&#34;Run all tests&#34;,                                   T= False),
+    arg(&#34;Verbose mode&#34;,                                    V= False),
+    arg(&#34;Run just the tests with names matching &#39;S&#39;&#34;,      t= &#34;&#34;)
   ]
 
 my  = o(**{k:d for k,d,_ in help()})</code></pre>
@@ -81,27 +82,28 @@ my  = o(**{k:d for k,d,_ in help()})</code></pre>
   Define options.
   &#34;&#34;&#34;
   return [
-    arg(&#34;verbose mode for Tree&#34;,                          treeVerbose= False),
-    arg(&#34;bin min size =len**b&#34;,                           b= .5),
-    arg(&#34;what columns to while tree building &#34; ,          c= [&#34;x&#34;,&#34;y&#34;]),
-    arg(&#34;use at most &#39;d&#39; rows for distance calcs&#34;,        d= 256),
-    arg(&#34;merge ranges whose scores differ by less that F&#34;,e= 0.05),
-    arg(&#34;separation of poles (f=1 means &#39;max distance&#39;)&#34;, f= .9),
-    arg(&#34;decision list: minimum leaf size&#34;,               M= 10),
+    arg(&#34;verbose mode for Tree&#34;,                           treeVerbose= False),
+    arg(&#34;bin min size =len**b&#34;,                            b= .5),
+    arg(&#34;what columns to while tree building&#34;,             c= [&#34;x&#34;,&#34;y&#34;]),
+    arg(&#34;use at most &#39;d&#39; rows for distance calcs&#34;,         d= 256),
+    arg(&#34;merge ranges whose scores differ by less that F&#34;, e= 0.05),
+    arg(&#34;separation of poles (f=1 means &#39;max distance&#39;)&#34;,  f= .9),
+    arg(&#34;decision list: minimum leaf size&#34;,                M= 10),
     arg(&#34;decision list: maximum height&#34;,                   H= 4),
-    arg(&#34;decision list: ratio of negative examples&#34;,     N= 4),
-    arg(&#34;coefficient for distance&#34; ,                      p= 2),
-    arg(&#34;random number seed&#34; ,                            r = 1),
-    arg(&#34;tree leaves must be at least n**s in size&#34; ,     s= 0.5),
-    arg(&#34;stats: Cliff&#39;s Delta &#39;dull&#39;&#34;,                    Sdull=[.147,.33,.474]),
-    arg(&#34;stats: Coehn &#39;d&#39;&#34;,                               Scohen=0.2),
-    arg(&#34;stats: number of boostrap samples&#34;,              Sb=500),
-    arg(&#34;stats: bootstrap confidences&#34;,                   Sconf=0.01),
-    arg(&#34;training data (arff format&#34;,                     train= &#34;train.csv&#34;),
-    arg(&#34;testing data (csv format)&#34;,                      test=  &#34;test.csv&#34;),
-    arg(&#34;List all tests.&#34;,                                L = False),
-    arg(&#34;Run all tests.&#34;,                                 T = False),
-    arg(&#34;Run just the tests with names matching &#39;S&#39;&#34;,     t= &#34;&#34;)
+    arg(&#34;decision list: ratio of negative examples&#34;,       N= 4),
+    arg(&#34;coefficient for distance&#34;,                        p= 2),
+    arg(&#34;random number seed&#34;,                              r = 1),
+    arg(&#34;tree leaves must be at least n**s in size&#34;,       s= 0.5),
+    arg(&#34;stats: Cliff&#39;s Delta &#39;dull&#39;&#34;,                     Sdull=[.147,.33,.474]),
+    arg(&#34;stats: Coehn &#39;d&#39;&#34;,                                Scohen=0.2),
+    arg(&#34;stats: number of boostrap samples&#34;,               Sb=500),
+    arg(&#34;stats: bootstrap confidences&#34;,                    Sconf=0.01),
+    arg(&#34;training data (arff format&#34;,                      train= &#34;train.csv&#34;),
+    arg(&#34;testing data (csv format)&#34;,                       test=  &#34;test.csv&#34;),
+    arg(&#34;List all tests&#34;,                                  L= False),
+    arg(&#34;Run all tests&#34;,                                   T= False),
+    arg(&#34;Verbose mode&#34;,                                    V= False),
+    arg(&#34;Run just the tests with names matching &#39;S&#39;&#34;,      t= &#34;&#34;)
   ]</code></pre>
 </details>
 </dd>
@@ -123,8 +125,14 @@ full of seeds, bursting with its own
 corrections. You can keep your sterile
 truth for yourself."
 -&nbsp;Vilfredo&nbsp;Pareto</p>
-<p><a href="http://github.com/timm/bnbad"><img src="github.png" width=40> View on Github</a></p><p>
-<a href="https://github.com/timm/bnbad/archive/master.zip"><img src="zip.png" width=40> Download as zip</a>
+<p>
+<a href="http://github.com/timm/bnbad"><img
+src="github.png" width=40>Github</a>
+<a href="https://github.com/timm/bnbad/archive/master.zip"><img src="zip.png" width=40>zip</a>
+<a href="https://travis-ci.org/github/timm/bnbad"><img
+src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a>
+<a href="https://doi.org/10.5281/zenodo.3947026"><img
+src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 </p>
 <hr>
 </center>

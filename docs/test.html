@@ -31,8 +31,6 @@
 from .my import *
 from termcolor import colored
 
-
-
 def go(fn=None,use=None):  
   &#34;&#34;&#34;
   Decorator for test functions. 
@@ -57,19 +55,18 @@ class Test:
     elif use:
       [Test.run(all[k]) for k in all if use in k]
     else: 
-      [Test.run(all[k]) for k in all]
+      [Test.run(all[k]) for k in all if k != &#34;test_tests&#34;]
   def run(fun):    
     try:
       Test.t += 1
-      print(&#34;### &#34;,fun.__name__)
       doc = fun.__doc__ or &#34;&#34;
-      print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
+      #print(&#34;#&#34;,fun.__name__, re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
       random.seed(my.r)
       fun()
       print(Test.score(&#34;PASS&#34;,&#34;green&#34;),&#39;:&#39;,fun.__name__)
     except Exception:
       Test.f += 1
-      print(traceback.format_exc())
+      print(traceback.format_exc(limit=2))
       print(Test.score(&#34;FAIL&#34;,&#34;red&#34;),&#39;:&#39;,fun.__name__)
   def list():
     print(&#34;&#34;)
@@ -143,19 +140,18 @@ Lets you list the tests, run some of them, or all.</p></div>
     elif use:
       [Test.run(all[k]) for k in all if use in k]
     else: 
-      [Test.run(all[k]) for k in all]
+      [Test.run(all[k]) for k in all if k != &#34;test_tests&#34;]
   def run(fun):    
     try:
       Test.t += 1
-      print(&#34;### &#34;,fun.__name__)
       doc = fun.__doc__ or &#34;&#34;
-      print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
+      #print(&#34;#&#34;,fun.__name__, re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
       random.seed(my.r)
       fun()
       print(Test.score(&#34;PASS&#34;,&#34;green&#34;),&#39;:&#39;,fun.__name__)
     except Exception:
       Test.f += 1
-      print(traceback.format_exc())
+      print(traceback.format_exc(limit=2))
       print(Test.score(&#34;FAIL&#34;,&#34;red&#34;),&#39;:&#39;,fun.__name__)
   def list():
     print(&#34;&#34;)
@@ -203,7 +199,7 @@ Lets you list the tests, run some of them, or all.</p></div>
   elif use:
     [Test.run(all[k]) for k in all if use in k]
   else: 
-    [Test.run(all[k]) for k in all]</code></pre>
+    [Test.run(all[k]) for k in all if k != &#34;test_tests&#34;]</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test.Test.list"><code class="name flex">
@@ -241,15 +237,14 @@ Lets you list the tests, run some of them, or all.</p></div>
 <pre><code class="python">def run(fun):    
   try:
     Test.t += 1
-    print(&#34;### &#34;,fun.__name__)
     doc = fun.__doc__ or &#34;&#34;
-    print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
+    #print(&#34;#&#34;,fun.__name__, re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc.split(&#34;\n&#34;)[0]))
     random.seed(my.r)
     fun()
     print(Test.score(&#34;PASS&#34;,&#34;green&#34;),&#39;:&#39;,fun.__name__)
   except Exception:
     Test.f += 1
-    print(traceback.format_exc())
+    print(traceback.format_exc(limit=2))
     print(Test.score(&#34;FAIL&#34;,&#34;red&#34;),&#39;:&#39;,fun.__name__)</code></pre>
 </details>
 </dd>
@@ -285,8 +280,14 @@ full of seeds, bursting with its own
 corrections. You can keep your sterile
 truth for yourself."
 -&nbsp;Vilfredo&nbsp;Pareto</p>
-<p><a href="http://github.com/timm/bnbad"><img src="github.png" width=40> View on Github</a></p><p>
-<a href="https://github.com/timm/bnbad/archive/master.zip"><img src="zip.png" width=40> Download as zip</a>
+<p>
+<a href="http://github.com/timm/bnbad"><img
+src="github.png" width=40>Github</a>
+<a href="https://github.com/timm/bnbad/archive/master.zip"><img src="zip.png" width=40>zip</a>
+<a href="https://travis-ci.org/github/timm/bnbad"><img
+src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a>
+<a href="https://doi.org/10.5281/zenodo.3947026"><img
+src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 </p>
 <hr>
 </center>

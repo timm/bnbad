@@ -337,18 +337,10 @@ def test_fail():
   assert(0)
 
 @go
-def test_bye():    
-  &#34;Commit and push Github files.&#34;
-  def run(s): print(s); assert( 0 == os.system(s))
-  run(&#34;git commit -am commit&#34;)
-  run(&#34;git push&#34;)
-  run(&#34;git status&#34;)
-
-@go
 def test_hetab1():
   &#34;Read a small table from disk.&#34;
-  from .weather4 import data
-  t = Tab().read(data)
+  from .data import weather4
+  t = Tab().read(weather4)
   assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -358,15 +350,15 @@ def test_hetab1():
 @go
 def test_tab2():
   &#34;Read a larger table from disk.&#34;
-  from .auto93 import data
-  t = Tab().read(data)
+  from .data import auto93
+  t = Tab().read(auto93)
   assert(398 == len(t.rows))
 
 @go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  from .auto93 import data
-  t = Tab().read(data)
+  from .data import auto93
+  t = Tab().read(auto93)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
@@ -384,77 +376,154 @@ def test_dist():
 
 @go
 def test_tree():
-  &#34;Recursively divide the data in two.&#34;
-  from .auto93 import data
-  t = Tab().read(data)
-  my.treeVerbose = True
+  &#34;&#34;&#34;\
+  Recursively divide the data in two.
+
+  When working on `auto93`, the goals are
+  
+      [&#39;&lt;weight&#39;, &#39;&gt;acceleration&#39;, &#39;&gt;!mpg&#39;]
+
+  which to say, minimize `weight`, maximize `acceleration` and
+  `mpg`.  If you call this after setting `my.treeVerbose=True` then
+  this tree will get printed. Note the leaf four lines from the
+  bottom, marked with &#34;`*`&#34;.  This is cluster is &#34;best&#34; (least
+  `weight`, most `acceleration`, most `mph`).
+
+         398
+         | 211
+         | | 57
+         | | | 30 {4526.53, 13.65, 10.33}
+         | | | 27 {4094.56, 11.41, 11.11}
+         | | 154
+         | | | 65
+         | | | | 32 {3482.34, 13.34, 20.00}
+         | | | | 33 {4022.91, 14.76, 20.00}
+         | | | 89
+         | | | | 47
+         | | | | | 26 {2893.35, 15.22, 20.00}
+         | | | | | 21 {2591.00, 14.82, 20.00}
+         | | | | 42
+         | | | | | 25 {3158.60, 16.80, 20.00}
+         | | | | | 17 {3396.71, 19.74, 20.00}
+         | 187
+         | | 104
+         | | | 86
+         | | | | 48
+         | | | | | 23 {2230.26, 16.53, 30.00}
+         | | | | | 25 {2671.64, 14.84, 30.00}
+         | | | | 38 {2428.71, 19.29, 30.00}
+         | | | 18 {2289.94, 17.08, 20.00}
+         | | 83
+       * | | | 35 {1982.63, 17.23, 39.43} 
+         | | | 48
+         | | | | 21 {2308.19, 13.83, 31.43}
+         | | | | 27 {2069.67, 15.44, 30.37}
+
+  &#34;&#34;&#34;
+  from .data import auto93
+  t = Tab().read(auto93)
+  my.treeVerbose = False
   t=Tree(t,cols=&#34;y&#34;)
   assert(15 == len(t.leaves))
-   
 
 @go
 def test_bore():
   &#34;&#34;&#34;\
   Recursively prune worst half the data.
+
+   When working on `auto93`, the goals are
+  
+      [&#39;&lt;weight&#39;, &#39;&gt;acceleration&#39;, &#39;&gt;!mpg&#39;]
+
+  then this finds a `best` cluster of
+
+       {2492.5, 19.7, 34.1}
+
+  A random sample of the remaining data is then
+  collected into `rest` which has median goal
+  scores of:
+
+      {3012.2, 15.2, 22.9}
+
+  Then we run a rule learner that generates a decision
+  list that seperates `best` from `rest`.
+
+      if   $displacement  in   68 .. 105 then {2055.9, 16.9, 32.1} 
+      elif $displacement  in  107 .. 140 then {2533.1, 15.9, 26.6} 
+      elif $displacement  in  141 .. 200 then {2910.2, 16.2, 24.2} 
+      elif $horsepower    in   72 .. 139 then {3437.2, 16.3, 19.9} 
+      else {4201.2, 12.5, 14.2} 
+
   &#34;&#34;&#34;
-  from .auto93 import data
-  t = Tab().read(data)
+  verbose = False
+  from .data import auto93
+  t = Tab().read(auto93)
   b = Bore(t)
-  print([col.txt for col in t.cols.y.values()])
-  print(&#34;best&#34;,b.best.status())
-  print(&#34;rest&#34;,b.rest.status())
-  print(&#34;all&#34;,t.status())
+  if verbose: #my.V:
+    print([col.txt for col in t.cols.y.values()])
+    print(&#34;best&#34;,b.best.status())
+    print(&#34;rest&#34;,b.rest.status())
+    print(&#34;all&#34;,t.status())
+  midBest = b.best.mid()
+  midRest = b.rest.mid()
+  assert( t.better(midBest, midRest))
   k = b.key()
   assert(k.s() &gt; 0.69)
-  for _ in range(1):
-     DecisionList(t).show()
+  d = DecisionList(t)
+  assert(5 == len(d.leaves))
+  if verbose: #my.V:
+    for _ in range(1):
+      d.show()
 
-def _range0(xy):
+def _range0(n,xy):
   &#34;Worker for the tests&#34;
-  for r in Ranges(&#34;$t&#34;,xy).ranges:
-     print (&#34;::&#34;,r.gen, 2**r.gen, r.lo, r.hi, r.n,r.s())
+  verbose = False
+  assert( n == len(Ranges(&#34;$t&#34;,xy).ranges))
+  if verbose:
+    for r in Ranges(&#34;$t&#34;,xy).ranges:
+       print (&#34;::&#34;,r.gen, 2**r.gen, r.lo, r.hi, r.n,r.s())
 
 @go
 def test_range1():
   &#34;Two ranges, equal size&#34;
   n = 10
-  _range0([[i,i&gt;n] for i in range(n*2)])
+  _range0(2,[[i,i&gt;n] for i in range(n*2)])
 
 @go
 def test_range2():
   &#34;4 ranges&#34;
   n = 10**4
-  _range0( [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.7*n ] for i in range(n)])
+  _range0(4, [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.7*n ] for i in range(n)])
 
 @go
 def test_range3():
   &#34;5 ranges&#34;
   n = 10**4
-  _range0( [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.6*n and i&lt;.7*n] for i in range(n)])
+  _range0(5, [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.6*n and i&lt;.7*n] for i in range(n)])
 
 @go
 def test_range4():
   &#34;random noise: only 1 range&#34;
   n = 10**3
-  _range0( [[i, 0 if random.random() &lt; 0.5 else 1] for i in range(n)])
+  _range0(1, [[i, 0 if random.random() &lt; 0.5 else 1] for i in range(n)])
 
 @go
 def test_range5():
   &#34;random noise: only 1 range&#34;
   n = 10**3
-  _range0( [[i, 0] for i in range(n)])
+  _range0(1, [[i, 0] for i in range(n)])
 
 @go
 def test_range6():
   &#34;3 ranges&#34;
   n = 10**3
-  _range0( [[i, i&gt; .4*n and i &lt; .6*n] for i in range(n)] )
+  _range0(3, [[i, i&gt; .4*n and i &lt; .6*n] for i in range(n)] )
 
 @go
 def test_range7():
   &#34;singletons: 1 range&#34;
   n = 10**2
-  _range0( [[1, 0] for i in range(n)] )
+  _range0(1, [[1, 0] for i in range(n)] )
 
 @go
 def test_rxs():
@@ -494,11 +563,11 @@ def test_rxs():
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
 <dl>
-<dt><code class="name"><a title="bnbad.auto93" href="auto93.html">bnbad.auto93</a></code></dt>
+<dt><code class="name"><a title="bnbad.col" href="col.html">bnbad.col</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt><code class="name"><a title="bnbad.col" href="col.html">bnbad.col</a></code></dt>
+<dt><code class="name"><a title="bnbad.data" href="data.html">bnbad.data</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -526,10 +595,6 @@ def test_rxs():
 <dd>
 <div class="desc"></div>
 </dd>
-<dt><code class="name"><a title="bnbad.weather4" href="weather4.html">bnbad.weather4</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
 <dt><code class="name"><a title="bnbad.x" href="x.html">bnbad.x</a></code></dt>
 <dd>
 <div class="desc"></div>
@@ -549,7 +614,26 @@ def test_rxs():
 <span>def <span class="ident">test_bore</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Recursively prune worst half the data.</p></div>
+<div class="desc"><p>Recursively prune worst half the data.</p>
+<p>When working on <code>auto93</code>, the goals are</p>
+<pre><code>['&lt;weight', '&gt;acceleration', '&gt;!mpg']
+</code></pre>
+<p>then this finds a <code>best</code> cluster of</p>
+<pre><code> {2492.5, 19.7, 34.1}
+</code></pre>
+<p>A random sample of the remaining data is then
+collected into <code>rest</code> which has median goal
+scores of:</p>
+<pre><code>{3012.2, 15.2, 22.9}
+</code></pre>
+<p>Then we run a rule learner that generates a decision
+list that seperates <code>best</code> from <code>rest</code>.</p>
+<pre><code>if   $displacement  in   68 .. 105 then {2055.9, 16.9, 32.1} 
+elif $displacement  in  107 .. 140 then {2533.1, 15.9, 26.6} 
+elif $displacement  in  141 .. 200 then {2910.2, 16.2, 24.2} 
+elif $horsepower    in   72 .. 139 then {3437.2, 16.3, 19.9} 
+else {4201.2, 12.5, 14.2}
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -558,36 +642,50 @@ def test_rxs():
 def test_bore():
   &#34;&#34;&#34;\
   Recursively prune worst half the data.
+
+   When working on `auto93`, the goals are
+  
+      [&#39;&lt;weight&#39;, &#39;&gt;acceleration&#39;, &#39;&gt;!mpg&#39;]
+
+  then this finds a `best` cluster of
+
+       {2492.5, 19.7, 34.1}
+
+  A random sample of the remaining data is then
+  collected into `rest` which has median goal
+  scores of:
+
+      {3012.2, 15.2, 22.9}
+
+  Then we run a rule learner that generates a decision
+  list that seperates `best` from `rest`.
+
+      if   $displacement  in   68 .. 105 then {2055.9, 16.9, 32.1} 
+      elif $displacement  in  107 .. 140 then {2533.1, 15.9, 26.6} 
+      elif $displacement  in  141 .. 200 then {2910.2, 16.2, 24.2} 
+      elif $horsepower    in   72 .. 139 then {3437.2, 16.3, 19.9} 
+      else {4201.2, 12.5, 14.2} 
+
   &#34;&#34;&#34;
-  from .auto93 import data
-  t = Tab().read(data)
+  verbose = False
+  from .data import auto93
+  t = Tab().read(auto93)
   b = Bore(t)
-  print([col.txt for col in t.cols.y.values()])
-  print(&#34;best&#34;,b.best.status())
-  print(&#34;rest&#34;,b.rest.status())
-  print(&#34;all&#34;,t.status())
+  if verbose: #my.V:
+    print([col.txt for col in t.cols.y.values()])
+    print(&#34;best&#34;,b.best.status())
+    print(&#34;rest&#34;,b.rest.status())
+    print(&#34;all&#34;,t.status())
+  midBest = b.best.mid()
+  midRest = b.rest.mid()
+  assert( t.better(midBest, midRest))
   k = b.key()
   assert(k.s() &gt; 0.69)
-  for _ in range(1):
-     DecisionList(t).show()</code></pre>
-</details>
-</dd>
-<dt id="bnbad.test_bye"><code class="name flex">
-<span>def <span class="ident">test_bye</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Commit and push Github files.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@go
-def test_bye():    
-  &#34;Commit and push Github files.&#34;
-  def run(s): print(s); assert( 0 == os.system(s))
-  run(&#34;git commit -am commit&#34;)
-  run(&#34;git push&#34;)
-  run(&#34;git status&#34;)</code></pre>
+  d = DecisionList(t)
+  assert(5 == len(d.leaves))
+  if verbose: #my.V:
+    for _ in range(1):
+      d.show()</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_dist"><code class="name flex">
@@ -602,8 +700,8 @@ def test_bye():
 <pre><code class="python">@go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  from .auto93 import data
-  t = Tab().read(data)
+  from .data import auto93
+  t = Tab().read(auto93)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
@@ -647,8 +745,8 @@ def test_fail():
 <pre><code class="python">@go
 def test_hetab1():
   &#34;Read a small table from disk.&#34;
-  from .weather4 import data
-  t = Tab().read(data)
+  from .data import weather4
+  t = Tab().read(weather4)
   assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
@@ -669,7 +767,7 @@ def test_hetab1():
 def test_range1():
   &#34;Two ranges, equal size&#34;
   n = 10
-  _range0([[i,i&gt;n] for i in range(n*2)])</code></pre>
+  _range0(2,[[i,i&gt;n] for i in range(n*2)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range2"><code class="name flex">
@@ -685,7 +783,7 @@ def test_range1():
 def test_range2():
   &#34;4 ranges&#34;
   n = 10**4
-  _range0( [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.7*n ] for i in range(n)])</code></pre>
+  _range0(4, [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.7*n ] for i in range(n)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range3"><code class="name flex">
@@ -701,7 +799,7 @@ def test_range2():
 def test_range3():
   &#34;5 ranges&#34;
   n = 10**4
-  _range0( [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.6*n and i&lt;.7*n] for i in range(n)])</code></pre>
+  _range0(5, [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.6*n and i&lt;.7*n] for i in range(n)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range4"><code class="name flex">
@@ -717,7 +815,7 @@ def test_range3():
 def test_range4():
   &#34;random noise: only 1 range&#34;
   n = 10**3
-  _range0( [[i, 0 if random.random() &lt; 0.5 else 1] for i in range(n)])</code></pre>
+  _range0(1, [[i, 0 if random.random() &lt; 0.5 else 1] for i in range(n)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range5"><code class="name flex">
@@ -733,7 +831,7 @@ def test_range4():
 def test_range5():
   &#34;random noise: only 1 range&#34;
   n = 10**3
-  _range0( [[i, 0] for i in range(n)])</code></pre>
+  _range0(1, [[i, 0] for i in range(n)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range6"><code class="name flex">
@@ -749,7 +847,7 @@ def test_range5():
 def test_range6():
   &#34;3 ranges&#34;
   n = 10**3
-  _range0( [[i, i&gt; .4*n and i &lt; .6*n] for i in range(n)] )</code></pre>
+  _range0(3, [[i, i&gt; .4*n and i &lt; .6*n] for i in range(n)] )</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range7"><code class="name flex">
@@ -765,7 +863,7 @@ def test_range6():
 def test_range7():
   &#34;singletons: 1 range&#34;
   n = 10**2
-  _range0( [[1, 0] for i in range(n)] )</code></pre>
+  _range0(1, [[1, 0] for i in range(n)] )</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_rxs"><code class="name flex">
@@ -832,8 +930,8 @@ def test_rxs():
 <pre><code class="python">@go
 def test_tab2():
   &#34;Read a larger table from disk.&#34;
-  from .auto93 import data
-  t = Tab().read(data)
+  from .data import auto93
+  t = Tab().read(auto93)
   assert(398 == len(t.rows))</code></pre>
 </details>
 </dd>
@@ -856,17 +954,100 @@ def test_tests():
 <span>def <span class="ident">test_tree</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Recursively divide the data in two.</p></div>
+<div class="desc"><p>Recursively divide the data in two.</p>
+<p>When working on <code>auto93</code>, the goals are</p>
+<pre><code>['&lt;weight', '&gt;acceleration', '&gt;!mpg']
+</code></pre>
+<p>which to say, minimize <code>weight</code>, maximize <code>acceleration</code> and
+<code>mpg</code>.
+If you call this after setting <code>my.treeVerbose=True</code> then
+this tree will get printed. Note the leaf four lines from the
+bottom, marked with "<code>*</code>".
+This is cluster is "best" (least
+<code>weight</code>, most <code>acceleration</code>, most <code>mph</code>).</p>
+<pre><code>   398
+   | 211
+   | | 57
+   | | | 30 {4526.53, 13.65, 10.33}
+   | | | 27 {4094.56, 11.41, 11.11}
+   | | 154
+   | | | 65
+   | | | | 32 {3482.34, 13.34, 20.00}
+   | | | | 33 {4022.91, 14.76, 20.00}
+   | | | 89
+   | | | | 47
+   | | | | | 26 {2893.35, 15.22, 20.00}
+   | | | | | 21 {2591.00, 14.82, 20.00}
+   | | | | 42
+   | | | | | 25 {3158.60, 16.80, 20.00}
+   | | | | | 17 {3396.71, 19.74, 20.00}
+   | 187
+   | | 104
+   | | | 86
+   | | | | 48
+   | | | | | 23 {2230.26, 16.53, 30.00}
+   | | | | | 25 {2671.64, 14.84, 30.00}
+   | | | | 38 {2428.71, 19.29, 30.00}
+   | | | 18 {2289.94, 17.08, 20.00}
+   | | 83
+ * | | | 35 {1982.63, 17.23, 39.43} 
+   | | | 48
+   | | | | 21 {2308.19, 13.83, 31.43}
+   | | | | 27 {2069.67, 15.44, 30.37}
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@go
 def test_tree():
-  &#34;Recursively divide the data in two.&#34;
-  from .auto93 import data
-  t = Tab().read(data)
-  my.treeVerbose = True
+  &#34;&#34;&#34;\
+  Recursively divide the data in two.
+
+  When working on `auto93`, the goals are
+  
+      [&#39;&lt;weight&#39;, &#39;&gt;acceleration&#39;, &#39;&gt;!mpg&#39;]
+
+  which to say, minimize `weight`, maximize `acceleration` and
+  `mpg`.  If you call this after setting `my.treeVerbose=True` then
+  this tree will get printed. Note the leaf four lines from the
+  bottom, marked with &#34;`*`&#34;.  This is cluster is &#34;best&#34; (least
+  `weight`, most `acceleration`, most `mph`).
+
+         398
+         | 211
+         | | 57
+         | | | 30 {4526.53, 13.65, 10.33}
+         | | | 27 {4094.56, 11.41, 11.11}
+         | | 154
+         | | | 65
+         | | | | 32 {3482.34, 13.34, 20.00}
+         | | | | 33 {4022.91, 14.76, 20.00}
+         | | | 89
+         | | | | 47
+         | | | | | 26 {2893.35, 15.22, 20.00}
+         | | | | | 21 {2591.00, 14.82, 20.00}
+         | | | | 42
+         | | | | | 25 {3158.60, 16.80, 20.00}
+         | | | | | 17 {3396.71, 19.74, 20.00}
+         | 187
+         | | 104
+         | | | 86
+         | | | | 48
+         | | | | | 23 {2230.26, 16.53, 30.00}
+         | | | | | 25 {2671.64, 14.84, 30.00}
+         | | | | 38 {2428.71, 19.29, 30.00}
+         | | | 18 {2289.94, 17.08, 20.00}
+         | | 83
+       * | | | 35 {1982.63, 17.23, 39.43} 
+         | | | 48
+         | | | | 21 {2308.19, 13.83, 31.43}
+         | | | | 27 {2069.67, 15.44, 30.37}
+
+  &#34;&#34;&#34;
+  from .data import auto93
+  t = Tab().read(auto93)
+  my.treeVerbose = False
   t=Tree(t,cols=&#34;y&#34;)
   assert(15 == len(t.leaves))</code></pre>
 </details>
@@ -889,8 +1070,14 @@ full of seeds, bursting with its own
 corrections. You can keep your sterile
 truth for yourself."
 -&nbsp;Vilfredo&nbsp;Pareto</p>
-<p><a href="http://github.com/timm/bnbad"><img src="github.png" width=40> View on Github</a></p><p>
-<a href="https://github.com/timm/bnbad/archive/master.zip"><img src="zip.png" width=40> Download as zip</a>
+<p>
+<a href="http://github.com/timm/bnbad"><img
+src="github.png" width=40>Github</a>
+<a href="https://github.com/timm/bnbad/archive/master.zip"><img src="zip.png" width=40>zip</a>
+<a href="https://travis-ci.org/github/timm/bnbad"><img
+src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a>
+<a href="https://doi.org/10.5281/zenodo.3947026"><img
+src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 </p>
 <hr>
 </center>
@@ -905,15 +1092,14 @@ truth for yourself."
 <ul id="index">
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
-<li><code><a title="bnbad.auto93" href="auto93.html">bnbad.auto93</a></code></li>
 <li><code><a title="bnbad.col" href="col.html">bnbad.col</a></code></li>
+<li><code><a title="bnbad.data" href="data.html">bnbad.data</a></code></li>
 <li><code><a title="bnbad.lib" href="lib.html">bnbad.lib</a></code></li>
 <li><code><a title="bnbad.my" href="my.html">bnbad.my</a></code></li>
 <li><code><a title="bnbad.ranges" href="ranges.html">bnbad.ranges</a></code></li>
 <li><code><a title="bnbad.rx" href="rx.html">bnbad.rx</a></code></li>
 <li><code><a title="bnbad.tab" href="tab.html">bnbad.tab</a></code></li>
 <li><code><a title="bnbad.test" href="test.html">bnbad.test</a></code></li>
-<li><code><a title="bnbad.weather4" href="weather4.html">bnbad.weather4</a></code></li>
 <li><code><a title="bnbad.x" href="x.html">bnbad.x</a></code></li>
 <li><code><a title="bnbad.xomo" href="xomo.html">bnbad.xomo</a></code></li>
 </ul>
@@ -921,7 +1107,6 @@ truth for yourself."
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
 <li><code><a title="bnbad.test_bore" href="#bnbad.test_bore">test_bore</a></code></li>
-<li><code><a title="bnbad.test_bye" href="#bnbad.test_bye">test_bye</a></code></li>
 <li><code><a title="bnbad.test_dist" href="#bnbad.test_dist">test_dist</a></code></li>
 <li><code><a title="bnbad.test_fail" href="#bnbad.test_fail">test_fail</a></code></li>
 <li><code><a title="bnbad.test_hetab1" href="#bnbad.test_hetab1">test_hetab1</a></code></li>
