@@ -9,6 +9,7 @@ def go(fn=None,use=None):
   Decorator for test functions. 
   Adds the function to `Test.all`.
   """
+  print("my go-----", "V", my.V, "p", my.p)
   Test.go(fn=fn,use=use); return fn
 
 class Test:
@@ -25,20 +26,19 @@ class Test:
     all =Test.all
     if fn:
       all[fn.__name__] = fn
-    elif use:
-      print(444, my)
+    elif use=="t":
+      print("use my-----", "V", my.V, "p", my.p)
       [Test.run(all[k]) for k in all if use in k]
     else: 
       [Test.run(all[k]) for k in all]
   def run(fun):    
-    print("run",my)
+    #print("run",my)
     try:
       Test.t += 1
       doc = fun.__doc__ or ""
       print("# ",fun.__name__,
             re.sub(r"\n[ ]*","\n# ",doc.split("\n")[0]))
       random.seed(my.r)
-      print(my)
       fun()
       print(Test.score("PASS","green"),':',fun.__name__)
     except Exception:

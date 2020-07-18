@@ -21,7 +21,7 @@ def arg(txt,**d):
     break
   default = val[0] if isinstance(val,list)  else val
   if val == False:
-    return key,default,dict(help=txt, action='store_false',default=True)
+    return key,default,dict(help=txt, action='store_true')
   else:
     m,t = "S",str
     if isinstance(default,int)  : m,t= "I",int
@@ -43,7 +43,6 @@ def args(f,hello=""):
   parser = argparse.ArgumentParser(description = before,
              formatter_class = argparse.RawDescriptionHelpFormatter)
   for key, _,args in lst:
-    print(key,args)
     parser.add_argument("-"+key,**args)
   return parser.parse_args()
 

@@ -17,7 +17,7 @@ my = args(help,__doc__)
 if   my.T : go()
 elif my.t : 
    print(888888); 
-   print(999,  my.V)
-   go(use=my.t)
+   print("my-----", "V", my.V, "p", my.p)
+   go(use="t")
    print(777)
 else      : my.L: Test.list()

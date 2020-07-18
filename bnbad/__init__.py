@@ -295,7 +295,7 @@ def test_bore():
   from .data import auto93
   t = Tab().read(auto93)
   b = Bore(t)
-  print("my-----",my.V)
+  print("my-----", "V", my.V, "p", my.p)
   if my.V:
     print([col.txt for col in t.cols.y.values()])
     print("best",b.best.status())
