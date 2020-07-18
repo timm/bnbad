@@ -352,7 +352,7 @@ def test_range6():
 def test_range7():
   "singletons: 1 range"
   n = 10**2
-  _range0(1, [[1, 0] for i in range(n)] )
+  _range0(2, [[1, 0] for i in range(n)] )
 
 @go
 def test_rxs():
