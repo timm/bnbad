@@ -166,14 +166,6 @@ def test_fail():
   assert(0)
 
 @go
-def test_bye():    
-  "Commit and push Github files."
-  def run(s): print(s); assert( 0 == os.system(s))
-  run("git commit -am commit")
-  run("git push")
-  run("git status")
-
-@go
 def test_hetab1():
   "Read a small table from disk."
   from .data import weather4
@@ -312,52 +304,55 @@ def test_bore():
     for _ in range(1):
       d.show()
 
-def _range0(xy):
+def _range0(n,xy):
   "Worker for the tests"
-  for r in Ranges("$t",xy).ranges:
-     print ("::",r.gen, 2**r.gen, r.lo, r.hi, r.n,r.s())
+  verbose = False
+  assert( n == len(Ranges("$t",xy).ranges))
+  if verbose:
+    for r in Ranges("$t",xy).ranges:
+       print ("::",r.gen, 2**r.gen, r.lo, r.hi, r.n,r.s())
 
 @go
 def test_range1():
   "Two ranges, equal size"
   n = 10
-  _range0([[i,i>n] for i in range(n*2)])
+  _range0(2,[[i,i>n] for i in range(n*2)])
 
 @go
 def test_range2():
   "4 ranges"
   n = 10**4
-  _range0( [[i, i > .1*n and i<.2*n or i>.7*n ] for i in range(n)])
+  _range0(4, [[i, i > .1*n and i<.2*n or i>.7*n ] for i in range(n)])
 
 @go
 def test_range3():
   "5 ranges"
   n = 10**4
-  _range0( [[i, i > .1*n and i<.2*n or i>.6*n and i<.7*n] for i in range(n)])
+  _range0(5, [[i, i > .1*n and i<.2*n or i>.6*n and i<.7*n] for i in range(n)])
 
 @go
 def test_range4():
   "random noise: only 1 range"
   n = 10**3
-  _range0( [[i, 0 if random.random() < 0.5 else 1] for i in range(n)])
+  _range0(1, [[i, 0 if random.random() < 0.5 else 1] for i in range(n)])
 
 @go
 def test_range5():
   "random noise: only 1 range"
   n = 10**3
-  _range0( [[i, 0] for i in range(n)])
+  _range0(1, [[i, 0] for i in range(n)])
 
 @go
 def test_range6():
   "3 ranges"
   n = 10**3
-  _range0( [[i, i> .4*n and i < .6*n] for i in range(n)] )
+  _range0(3, [[i, i> .4*n and i < .6*n] for i in range(n)] )
 
 @go
 def test_range7():
   "singletons: 1 range"
   n = 10**2
-  _range0( [[1, 0] for i in range(n)] )
+  _range0(1, [[1, 0] for i in range(n)] )
 
 @go
 def test_rxs():

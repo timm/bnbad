@@ -26,20 +26,18 @@ class Test:
     elif use:
       [Test.run(all[k]) for k in all if use in k]
     else: 
-      [Test.run(all[k]) for k in all]
+      [Test.run(all[k]) for k in all if k != "test_tests"]
   def run(fun):    
-    #print("run",my)
     try:
       Test.t += 1
       doc = fun.__doc__ or ""
-      print("# ",fun.__name__,
-            re.sub(r"\n[ ]*","\n# ",doc.split("\n")[0]))
+      #print("#",fun.__name__, re.sub(r"\n[ ]*","\n# ",doc.split("\n")[0]))
       random.seed(my.r)
       fun()
       print(Test.score("PASS","green"),':',fun.__name__)
     except Exception:
       Test.f += 1
-      print(traceback.format_exc())
+      print(traceback.format_exc(limit=2))
       print(Test.score("FAIL","red"),':',fun.__name__)
   def list():
     print("")

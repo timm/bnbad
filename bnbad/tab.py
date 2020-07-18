@@ -130,7 +130,7 @@ class Bore(Cluster):
      return i.div(kid,lo)
    def key(i):
      "Return the key range that most selects for best."
-     best  = my.e
+     best  = my.e 
      bests = i.best.rows
      rests = i.rest.rows
      rests = shuffle(rests)[ :my.N*len(bests) ]

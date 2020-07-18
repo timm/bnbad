@@ -21,6 +21,9 @@ pystall() {
    sudo python3 $1 install
    sudo rm -rf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info
 }
+spy()    {
+  rerun --verbose --ignore=myoutputdir "pypy3 -m bnbad -T"
+}
 
 e()      { vi $Ell/bnbad/$1.py;   }
 here()   { cd $1; basename `pwd`; }
