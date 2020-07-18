@@ -2,14 +2,11 @@ from .lib import *
 from .my import *
 from termcolor import colored
 
-
-
 def go(fn=None,use=None):  
   """
   Decorator for test functions. 
   Adds the function to `Test.all`.
   """
-  print("my go-----", "V", my.V, "p", my.p)
   Test.go(fn=fn,use=use); return fn
 
 class Test:
@@ -26,8 +23,7 @@ class Test:
     all =Test.all
     if fn:
       all[fn.__name__] = fn
-    elif use=="t":
-      print("use my-----", "V", my.V, "p", my.p)
+    elif use:
       [Test.run(all[k]) for k in all if use in k]
     else: 
       [Test.run(all[k]) for k in all]

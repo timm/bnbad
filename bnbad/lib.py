@@ -45,6 +45,7 @@ def args(f,hello=""):
   for key, _,args in lst:
     parser.add_argument("-"+key,**args)
   return parser.parse_args()
+  #return  {arg: getattr(all, arg) for arg in vars(all)}
 
 class Thing:
   """

@@ -292,21 +292,25 @@ def test_bore():
       else {4201.2, 12.5, 14.2} 
 
   """
+  verbose = False
   from .data import auto93
   t = Tab().read(auto93)
   b = Bore(t)
-  print("my-----", "V", my.V, "p", my.p)
-  if my.V:
+  if verbose: #my.V:
     print([col.txt for col in t.cols.y.values()])
     print("best",b.best.status())
     print("rest",b.rest.status())
     print("all",t.status())
+  midBest = b.best.mid()
+  midRest = b.rest.mid()
+  assert( t.better(midBest, midRest))
   k = b.key()
   assert(k.s() > 0.69)
-  print("11",my.V)
-  if my.V:
+  d = DecisionList(t)
+  assert(5 == len(d.leaves))
+  if verbose: #my.V:
     for _ in range(1):
-      DecisionList(t).show()
+      d.show()
 
 def _range0(xy):
   "Worker for the tests"

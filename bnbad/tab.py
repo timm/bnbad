@@ -148,8 +148,9 @@ class DecisionList(Thing):
   def __init__(i, t, lvl=my.H, _up=None, _root=None):
     i.t=t
     i.leaf = None
-    _root = _root or i
-    if i is _root: i.leaves=[]
+    if not _root:
+      _root   = i
+      i.leaves = []
     i.up  = _up
     if lvl > 0 and len(t.rows) >= my.M: 
       b = Bore(t)
@@ -158,7 +159,8 @@ class DecisionList(Thing):
       i.leaf, kid = t.clone(), t.clone()
       for row in t.rows:
         (i.leaf if i.split.matches(row) else kid).add(row)
-      i.kid = DecisionList(kid, lvl-1,_up=1,_root=_root)
+      i.kid = DecisionList(kid, lvl-1,_up=1,_root = _root)
+      _root.leaves += [i.leaf]
     else:
       _root.leaves += [t]
   def show(i,pre="  "): 

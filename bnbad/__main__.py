@@ -15,9 +15,5 @@ Nearly all this processing takes loglinear time.
 from .__init__ import *
 my = args(help,__doc__)
 if   my.T : go()
-elif my.t : 
-   print(888888); 
-   print("my-----", "V", my.V, "p", my.p)
-   go(use="t")
-   print(777)
+elif my.t : go(use=my.t)
 else      : my.L: Test.list()
