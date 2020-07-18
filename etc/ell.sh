@@ -22,7 +22,7 @@ pystall() {
    sudo rm -rf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info
 }
 spy()    {
-  rerun --verbose --ignore=myoutputdir "pypy3 -m bnbad -T"
+  rerun --verbose --ignore=myoutputdir "sh $Ell/etc/tests.sh"
 }
 
 e()      { vi $Ell/bnbad/$1.py;   }

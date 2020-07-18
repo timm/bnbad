@@ -13,7 +13,8 @@ Nearly all this processing takes loglinear time.
 
 """
 from .__init__ import *
+import sys
 my = args(help,__doc__)
-if   my.T : go()
+if   my.T : go(); sys.exit(abs(Test.f - 1))
 elif my.t : go(use=my.t)
 else      : my.L: Test.list()
