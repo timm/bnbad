@@ -8,3 +8,5 @@ script:
   - pwd
   - ls
   - python3 -m bnbad -T
+after_success:
+  - codecov # submit coverage
