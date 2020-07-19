@@ -22,6 +22,7 @@ href="CONTACT.md">contact</a>
 <a href="http://menzies.us/bnbad"><img 
    src="docs/readdocs.png" width=175></a>
 </p>
+<hr>
 <img  align=right width=400 src="docs/letscook.png">
 
 
