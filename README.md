@@ -3,8 +3,6 @@
 <p align=center>
 <a href="http://menzies.us/bnbad"><img 
    src="docs/readdocs.png" width=175></a>
-</p>
-<p align=center>
 <a
 href="#install">install</a> :: <a
 href="https://github.com/timm/bnbad/issues">issues</a> :: <a
@@ -12,8 +10,7 @@ href="LICENSE.md">license</a> :: <a
 href="CONTRIBUTING.md">contribute</a> :: <a
 href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
-</p>
-<p align=center>
+<br>
 <a href="LICENSE.md"><img 
 src="https://img.shields.io/badge/license-mit-red"></a> <img 
 src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
