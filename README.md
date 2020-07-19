@@ -1,10 +1,10 @@
-<h1 xalign=center>BnBAD (break 'n bad)</h3>
-<h3 xalign=center> Fast, explicable, multi-objective optimization</h3> 
-<p xalign=center>
+<h1 align=center>BnBAD (break 'n bad)</h3>
+<h3 align=center> Fast, explicable, multi-objective optimization</h3> 
+<p align=center>
 <a href="http://menzies.us/bnbad"><img 
    src="docs/readdocs.png" width=175></a>
 </p>
-<p xalign=center>
+<p align=center>
 <a
 href="#install">install</a> :: <a
 href="https://github.com/timm/bnbad/issues">issues</a> :: <a
@@ -13,7 +13,7 @@ href="CONTRIBUTING.md">contribute</a> :: <a
 href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
 </p>
-<p xalign=center>
+<p align=center>
 <a href="LICENSE.md"><img 
 src="https://img.shields.io/badge/license-mit-red"></a> <img 
 src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
