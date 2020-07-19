@@ -1,6 +1,6 @@
-<h3 align=center> BnBAD (break 'n bad): fast, 
+<h3 xalign=center> BnBAD (break 'n bad): fast, 
 explicable, multi-objective reasoning</h3> 
-<p align=center>
+<p xalign=center>
 <a href="LICENSE.md"><img 
 src="https://img.shields.io/badge/license-mit-red"></a> <img 
 src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
@@ -9,7 +9,7 @@ src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> <a
 href="https://doi.org/10.5281/zenodo.3947026"><img 
 src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 </p>
-<p align=center>
+<p xalign=center>
 <a
 href="#install">install</a> :: <a
 href="https://github.com/timm/bnbad/issues">issues</a> :: <a
@@ -19,7 +19,7 @@ href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
 </p>
 
-<p align=center>
+<p xalign=center>
 <a href="http://menzies.us/bnbad"><img 
    src="docs/readdocs.png" border=1 width=100></a>
 </p>
