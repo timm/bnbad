@@ -27,8 +27,11 @@ href="CONTACT.md">contact</a>
 
 
 BnBAD is a multi-objective optimizer
-that reasons by breaking up problems into regions of `bad` and
-`better`, then looks for ways on how to jump between those regions.
+that reasons by:
+
+1. breaking up problems into regions of `bad` and
+`better`;
+2.  then looks for ways on how to jump between those regions.
 
 BnBAD might be a useful choice when:
 
