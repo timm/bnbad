@@ -1,15 +1,7 @@
-<h3 xalign=center> BnBAD (break 'n bad): fast, 
+<h3xalign=center> BnBAD (break 'n bad): fast, 
 explicable, multi-objective reasoning</h3> 
-<p xalign=center>
-<a href="LICENSE.md"><img 
-src="https://img.shields.io/badge/license-mit-red"></a> <img 
-src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
-     href="https://travis-ci.org/github/timm/bnbad"> <img 
-src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> <a
-href="https://doi.org/10.5281/zenodo.3947026"><img 
-src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
-</p>
-<p xalign=center>
+
+<p align=center>
 <a
 href="http://menzies.us/bnbad">read the docs</a> :: <a
 href="#install">install</a> :: <a
@@ -20,7 +12,16 @@ href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
 </p>
 
-<hr>
+<p align=center>
+<a href="LICENSE.md"><img 
+src="https://img.shields.io/badge/license-mit-red"></a> <img 
+src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
+     href="https://travis-ci.org/github/timm/bnbad"> <img 
+src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> <a
+href="https://doi.org/10.5281/zenodo.3947026"><img 
+src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
+</p>
+
 <img  align=right width=400 src="docs/letscook.png">
 
 
