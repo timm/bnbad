@@ -7,7 +7,7 @@ src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> <a
 href="https://doi.org/10.5281/zenodo.3947026"><img 
 src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 </p>
-<h3 align=center> Fast, explicable, multi-objective optimization</h3> 
+<h3 align=center> Bnbad (break 'n bad): fast, explicable, multi-objective optimization</h3> 
 <p align=center>
 <a
 href="#install">install</a> :: <a
