@@ -7,6 +7,13 @@ src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> <a
 href="https://doi.org/10.5281/zenodo.3947026"><img 
 src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 </p>
+
+<h1 align=center>BnBAD (break 'n bad)</h3>
+<h3 align=center> Fast, explicable, multi-objective optimization</h3> 
+<p align=center>
+<a href="http://menzies.us/bnbad"><img 
+   src="docs/readdocs.png" width=175></a>
+</p>
 <p align=center>
 <a
 href="#install">install</a> :: <a
@@ -15,13 +22,6 @@ href="LICENSE.md">license</a> :: <a
 href="CONTRIBUTING.md">contribute</a> :: <a
 href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
-</p>
-
-<h1 align=center>BnBAD (break 'n bad)</h3>
-<h3 align=center> Fast, explicable, multi-objective optimization</h3> 
-<p align=center>
-<a href="http://menzies.us/bnbad"><img 
-   src="docs/readdocs.png" width=175></a>
 </p>
 <hr>
 
