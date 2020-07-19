@@ -77,13 +77,8 @@ class Tree(Cluster):
     i.dist   = Dist(t, cols = t.cols.__dict__[cols])
     i.root   = TreeNode(t,None,i,lvl=0)
     for j in i.leaves:
-      dom = 0
-      js = j.t.mid()
-      for k in i.leaves:
-        if id(j) != id(k):
-          ks = k.t.mid()
-          dom += t.better(js, ks)
-      j.dom = dom
+      j.dom = sum([t.better(j.t.mid(), k.t.mid()) 
+                   for k in i.leaves])
   def show(i): 
     "Show the tree."
     print(', '.join([c.txt for c in i.root.t.cols.y.values()]))
@@ -91,34 +86,19 @@ class Tree(Cluster):
     i.root.show("")          
   def bore(i):
     "Return the best leaf and some of the rest."
-    i.leaves = sorted(i.leaves, key=lambda z: z.dom)
+    i.leaves = sorted(i.leaves, key=lambda z: -1*z.dom)
     best = i.leaves[0].t
-    rest = []
-    for leaf in i.leaves[1:]:
-      rest += leaf.t.rows
+    rest = [row for leaf in i.leaves[1:] for row in leaf.t.rows]
     rest = shuffle(rest)[ :len(best.rows)*my.N ]
-    return best, i.root.t.clone(rows)
-  def key(i):
-    "Return the key range that most selects for best."
-    best = my.e 
-    bests,rests = i.bore()
-    for  col in best.cols.x.values():
-      all  = []
-      all += [[row[col.pos], True]  for row in bests]
-      all += [[row[col.pos], False] for row in rests]
-      for one in Ranges(col.txt, all,
-                        get = col.pos).ranges:
-        if one.s() > best:
-          best, out = one.s(), one
-    return out 
+    return best, i.root.t.clone(rest), i.leaves[-1].t
 
 class TreeNode:
   def __init__(i, t, _up, _root, lvl): 
-    i.t       = t
-    i._up     = _up       
-    i.kids    = []
-    i._root   = _root
-    i.l, i.r  = None, None
+    i.t      = t
+    i._up    = _up       
+    i.kids   = []
+    i._root  = _root
+    i.l, i.r = None, None
     i.c, i.mid, i.dom = 0, 0, 0
     if len(t.rows) < _root.lo:
        i._root.leaves += [i]
@@ -146,23 +126,43 @@ class TreeNode:
     for kid in  i.kids: kid.show(pre + "|  ")
 
 class DecisionList(Thing):
-  def show(i): i.root.show(i,"") 
-  def __init__(i, t,_up=None, lvl=my.H):
-    i.t, i._up, i.leaf = t, _up,  None
-    if lvl > 0 and len(t.rows) >= my.M: 
-      i.split = Tree(t).key()
-      i.col   = i.split._ranges.get
-      i.leaf, kid = t.clone(), t.clone()
-      for row in t.rows:
-        (i.leaf if i.split.matches(row) else kid).add(row)
-      i.kid = DecisionList(kid, up,  lvl-1)
-  def show(i,pre):
-    if i.leaf:
-      print( pre+"if", i.split._ranges.txt," in ",
-             i.split.lo, "..",i.split.hi,
-             "then",  i.leaf.status(), i.dom )
+  def __init__(i, ok,bad,_up=None, lvl=my.H):
+    """\
+    What range best selects for `ok` while avoiding `bad`?
+    Split on that decision.  Recurse.
+    """
+    i.kid, i._up, i.leaf = None, _up,  ok.clone()
+    m = len(ok.rows) + len(bad.rows)
+    if lvl > 0 and len(ok.rows)  >=  my.M: 
+      i.decide, i.col, i.txt = i.decision(ok, bad)
+      ok1  = ok.clone()
+      bad1 = ok.clone()
+      for row in ok.rows:
+        (i.leaf if i.decide.matches(row) else ok1).add(row)
+      for row in bad.rows:
+        (i.leaf if i.decide.matches(row) else bad1).add(row)
+      i.kid = DecisionList(ok1, bad1, _up=i,  lvl=lvl-1)
+    else:
+      for row in ok.rows : i.leaf.add(row)
+      for row in bad.rows: i.leaf.add(row)
+  def decision(i,ok,bad):
+    """Return the  range and column that 
+    best selects for `ok` while avoiding `bad`."""
+    best, out = 0, None
+    for col in ok.cols.x.values():
+      all  = [[row[ col.pos ], True ] for row in ok.rows]
+      all += [[row[ col.pos ], False] for row in bad.rows]
+      for one in Ranges(col.txt, all, get = col.pos).ranges:
+        if one.s() > best + my.e:
+          best, out = one.s(), one
+    return out, out._ranges.get, out._ranges.txt
+  def show(i,pre=""):
+    if i.kid:
+      print( pre+"if", i.txt," in ",
+             i.decide.lo, "..",i.decide.hi,
+             "then",  i.leaf.status(), len(i.leaf.rows))
       i.kid.show(pre=pre + "|  ")
     else:
-     print("else", i.t.status(), i.dom)
-
- 
+      m = len(i.leaf.rows)
+      if m > 0:
+        print("else", i.leaf.status(), len(i.leaf.rows))

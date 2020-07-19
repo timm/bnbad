@@ -253,7 +253,7 @@ def test_tree():
   my.treeVerbose = True
   t=Tree(t,cols="y")
   assert(15 == len(t.leaves))
-  t.show()
+  #t.show()
 
 @go
 def test_bore():
@@ -287,14 +287,20 @@ def test_bore():
   verbose = True
   from .data import auto93
   t  = Tab().read(auto93)
-  best, rest = Tree(t).bore()
+  best, rest,worst = Tree(t).bore()
   if verbose: #my.V:
     print([col.txt for col in t.cols.y.values()])
+    print("all", t.status())
     print("best", best.status())
     print("rest", rest.status())
   midBest = best.mid()
   midRest = rest.mid()
   assert( t.better(midBest, midRest))
+  d1= DecisionList(best,rest)
+  d1.show()
+  d2= DecisionList(worst,best)
+  d2.show()
+  return True
   k = b.key()
   assert(k.s() > 0.69)
   d = DecisionList(t)
