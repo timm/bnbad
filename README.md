@@ -11,7 +11,8 @@ href="LICENSE.md">license</a> :: <a
 href="CONTRIBUTING.md">contribute</a> :: <a
 href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
-<br>
+</p>
+<p align=center>
 <a href="LICENSE.md"><img 
 src="https://img.shields.io/badge/license-mit-red"></a> <img 
 src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
