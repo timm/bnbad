@@ -21,7 +21,7 @@ href="CONTACT.md">contact</a>
 <h3 align=center> Fast, explicable, multi-objective optimization</h3> 
 <p align=center>
 <a href="http://menzies.us/bnbad"><img 
-   src="docs/readdocs.png" width=350></a>
+   src="docs/readdocs.png" width=250></a>
 </p>
 <hr>
 
