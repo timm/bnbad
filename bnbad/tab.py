@@ -85,10 +85,32 @@ class Tree(Cluster):
           dom += t.better(js, ks)
       j.dom = dom
   def show(i): 
+    "Show the tree."
     print(', '.join([c.txt for c in i.root.t.cols.y.values()]))
     print(i.root.t.status())
     i.root.show("")          
-          
+  def bore(i):
+    "Return the best leaf and some of the rest."
+    i.leaves = sorted(i.leaves, key=lambda z: z.dom)
+    best = i.leaves[0].t
+    rest = []
+    for leaf in i.leaves[1:]:
+      rest += leaf.t.rows
+    rest = shuffle(rest)[ :len(best.rows)*my.N ]
+    return best, i.root.t.clone(rows)
+  def key(i):
+    "Return the key range that most selects for best."
+    best = my.e 
+    bests,rests = i.bore()
+    for  col in best.cols.x.values():
+      all  = []
+      all += [[row[col.pos], True]  for row in bests]
+      all += [[row[col.pos], False] for row in rests]
+      for one in Ranges(col.txt, all,
+                        get = col.pos).ranges:
+        if one.s() > best:
+          best, out = one.s(), one
+    return out 
 
 class TreeNode:
   def __init__(i, t, _up, _root, lvl): 
@@ -122,78 +144,18 @@ class TreeNode:
       dom   = int(100*i.dom/len(i._root.leaves))
       print(f"{s} [{i.id}] {i.t.status()}{stars} {dom} %")
     for kid in  i.kids: kid.show(pre + "|  ")
-      
-class Bore(Cluster):
-   """
-   Multi-objective clustering to find `best` rows;
-   i.e. those that tend to dominate everything else.
-   """
-   def __init__(i, t) :
-     i.rest = t.clone()
-     i.best = i.div(t, 2*len(t.rows)**my.s)
-   def div(i,t,lo):
-     """  
-     Perform a top-down recursive division 
-     of data, based on their
-     `y values, as follows:
-    
-     - Find two distant rows .
-     - Check which one is best.
-     - Divide the rows into those nearer `best` or `rest`
-     - Add the `rest` to `i.rest`, recurse on the `best`.
-     - Stop when less than `N**.s` rows.
-       Return the surviving `best' ranges.
-     """
-     if len(t.rows) < lo: return  t
-     d     = Dist(t,cols=t.cols.y)
-     l,r,c = d.poles()
-     xs    = [d.project(row,l,r,c) for row in t.rows]
-     mid   = sum(xs) / len(xs)
-     kid   = t.clone()
-     if t.better(l, r):
-       for x,row in zip(xs, t.rows):
-         (kid if x < mid else i.rest).add(row)
-     else:
-       for x,row in zip(xs, t.rows):
-         (kid if x >=  mid else i.rest).add(row)
-     return i.div(kid,lo)
-   def key(i):
-     "Return the key range that most selects for best."
-     best  = my.e 
-     bests = i.best.rows
-     rests = i.rest.rows
-     rests = shuffle(rests)[ :my.N*len(bests) ]
-     for  col in i.best.cols.x.values():
-       all  = []
-       all += [[r[col.pos], True]  for r in bests]
-       all += [[r[col.pos], False] for r in rests]
-       for one in Ranges(col.txt, all,
-                         get = col.pos).ranges:
-         if one.s() > best:
-           best, out = one.s(), one
-     return out 
 
 class DecisionList(Thing):
-  def __init__(i, t):
-    i.leaves = []
-    i.root   = DecisionListNode(t,None,i,lvl=my.H)
   def show(i): i.root.show(i,"") 
-
-class DecisionListNode:
-  def __init__(i,t, up, root, lvl):
-    i._up, i._root, i.leaf = up, root, None
-    i.t, i.dom = t, 0
+  def __init__(i, t,_up=None, lvl=my.H):
+    i.t, i._up, i.leaf = t, _up,  None
     if lvl > 0 and len(t.rows) >= my.M: 
-      b = Bore(t)
-      i.split = b.key()
-      i.col = i.split._ranges.get
+      i.split = Tree(t).key()
+      i.col   = i.split._ranges.get
       i.leaf, kid = t.clone(), t.clone()
       for row in t.rows:
         (i.leaf if i.split.matches(row) else kid).add(row)
-      i._root.leaves += [i.leaf]
-      i.kid = DecisionListNode(kid, up, root, lvl-1)
-    else:
-      i._root.leaves += [i]
+      i.kid = DecisionList(kid, up,  lvl-1)
   def show(i,pre):
     if i.leaf:
       print( pre+"if", i.split._ranges.txt," in ",

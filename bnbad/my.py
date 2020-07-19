@@ -5,7 +5,6 @@ def help():
   Define options.
   """
   return [
-    arg("verbose mode for Tree",                           treeVerbose= False),
     arg("bin min size =len**b",                            b= .5),
     arg("what columns to while tree building",             c= ["x","y"]),
     arg("use at most 'd' rows for distance calcs",         d= 256),

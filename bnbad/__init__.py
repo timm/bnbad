@@ -286,14 +286,14 @@ def test_bore():
   """
   verbose = True
   from .data import auto93
-  t = Tab().read(auto93)
-  b = Bore(t)
+  t  = Tab().read(auto93)
+  best, rest = Tree(t).bore()
   if verbose: #my.V:
     print([col.txt for col in t.cols.y.values()])
-    print("best",b.best.status())
-    print("rest",b.rest.status())
-  midBest = b.best.mid()
-  midRest = b.rest.mid()
+    print("best", best.status())
+    print("rest", rest.status())
+  midBest = best.mid()
+  midRest = rest.mid()
   assert( t.better(midBest, midRest))
   k = b.key()
   assert(k.s() > 0.69)
