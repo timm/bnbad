@@ -1,4 +1,4 @@
-<h3xalign=center> BnBAD (break 'n bad): fast, 
+<h3 align=center> BnBAD (break 'n bad): fast, 
 explicable, multi-objective reasoning</h3> 
 
 <p align=center>
@@ -21,6 +21,8 @@ src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> <a
 href="https://doi.org/10.5281/zenodo.3947026"><img 
 src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 </p>
+
+<hr>
 
 <img  align=right width=400 src="docs/letscook.png">
 
