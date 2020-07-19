@@ -74,39 +74,54 @@ class Tree(Cluster):
   def __init__(i,t, cols=my.c):
     i.lo     = 2*len(t.rows)**my.s
     i.leaves = []
-    i.dist   = Dist(t,cols= t.cols.__dict__[cols])
+    i.dist   = Dist(t, cols = t.cols.__dict__[cols])
     i.root   = TreeNode(t,None,i,lvl=0)
     for j in i.leaves:
       dom = 0
-      js = j.mid()
+      js = j.t.mid()
       for k in i.leaves:
         if id(j) != id(k):
-          ks = k.mid()
+          ks = k.t.mid()
           dom += t.better(js, ks)
-          
+      j.dom = dom
+  def show(i): 
+    print(', '.join([c.txt for c in i.root.t.cols.y.values()]))
+    print(i.root.t.status())
+    i.root.show("")          
           
 
 class TreeNode:
-  def __init__(i, t, _up,_root, lvl): 
-    i.kids            = []
-    i.l, i.r          = None, None
+  def __init__(i, t, _up, _root, lvl): 
+    i.t       = t
+    i._up     = _up       
+    i.kids    = []
+    i._root   = _root
+    i.l, i.r  = None, None
     i.c, i.mid, i.dom = 0, 0, 0
-    if my.treeVerbose:
-      print(('| '*lvl) + str(len(t.rows)))
     if len(t.rows) < _root.lo:
-       _root.leaves += [i]
+       i._root.leaves += [i]
+       i.id = len(i._root.leaves) - 1
     else:
-      d  = _root.dist
+      d  = i._root.dist
       i.l,i.r,i.c = d.poles()
-      xs          = [d.project(r,i.l,i.r,i.c) for r in t.rows]
-      i.mid       = sum(xs) / len(xs)
-      i.kids      = [t.clone(), t.clone()]
+      xs     = [d.project(r,i.l,i.r,i.c) for r in t.rows]
+      i.mid  = sum(xs) / len(xs)
+      tables = [t.clone(), t.clone()]
       for x,r in zip(xs, t.rows):
-        i.kids[x >= i.mid].add(r) 
-      if len(i.kids[0].rows) < len(t.rows) and \
-         len(i.kids[1].rows) < len(t.rows) :
-         for kid in i.kids:
-           TreeNode(kid, i, _root, lvl+1)
+        tables[x >= i.mid].add(r) 
+      if len(tables[0].rows) < len(t.rows) and \
+         len(tables[1].rows) < len(t.rows) :
+         for t1 in tables:
+           i.kids += [TreeNode(t1, i, _root, lvl+1)]
+  def show(i,pre):
+    s = f"{pre}{len(i.t.rows)}"
+    if i.kids:
+      print(s)
+    else:
+      stars = "*"*int(10*i.dom/len(i._root.leaves))
+      dom   = int(100*i.dom/len(i._root.leaves))
+      print(f"{s} [{i.id}] {i.t.status()}{stars} {dom} %")
+    for kid in  i.kids: kid.show(pre + "|  ")
       
 class Bore(Cluster):
    """

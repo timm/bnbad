@@ -239,7 +239,6 @@ def test_tree():
          | | | 86
          | | | | 48
          | | | | | 23 {2230.26, 16.53, 30.00}
-         | | | | | 25 {2671.64, 14.84, 30.00}
          | | | | 38 {2428.71, 19.29, 30.00}
          | | | 18 {2289.94, 17.08, 20.00}
          | | 83
@@ -253,8 +252,8 @@ def test_tree():
   t = Tab().read(auto93)
   my.treeVerbose = True
   t=Tree(t,cols="y")
-  print(100, len(t.leaves))
   assert(15 == len(t.leaves))
+  t.show()
 
 @go
 def test_bore():
@@ -285,7 +284,7 @@ def test_bore():
       else {4201.2, 12.5, 14.2} 
 
   """
-  verbose = False
+  verbose = True
   from .data import auto93
   t = Tab().read(auto93)
   b = Bore(t)
@@ -293,7 +292,6 @@ def test_bore():
     print([col.txt for col in t.cols.y.values()])
     print("best",b.best.status())
     print("rest",b.rest.status())
-    print("all",t.status())
   midBest = b.best.mid()
   midRest = b.rest.mid()
   assert( t.better(midBest, midRest))
@@ -301,7 +299,7 @@ def test_bore():
   assert(k.s() > 0.69)
   d = DecisionList(t)
   assert(5 == len(d.leaves))
-  if verbose: #my.V:
+  if False: #my.V:
     for _ in range(1):
       d.show()
 

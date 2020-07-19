@@ -1,4 +1,5 @@
-<h3 align=center> BnBAD (break 'n bad): fast, explicable, multi-objective optimization</h3> 
+<h3 align=center> BnBAD (break 'n bad): fast, 
+explicable, multi-objective reasoning</h3> 
 <p align=center>
 <a href="LICENSE.md"><img 
 src="https://img.shields.io/badge/license-mit-red"></a> <img 
