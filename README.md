@@ -3,7 +3,8 @@
 <p align=center>
 <a href="http://menzies.us/bnbad"><img 
    src="docs/readdocs.png" width=175></a>
-<br>
+</p>
+<p align=center>
 <a
 href="#install">install</a> :: <a
 href="https://github.com/timm/bnbad/issues">issues</a> :: <a
