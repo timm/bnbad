@@ -1,4 +1,4 @@
-<p>
+<p align=center>
 <a href="LICENSE.md"><img 
 src="https://img.shields.io/badge/license-mit-red"></a> <img 
 src="https://img.shields.io/badge/purpose-ai,se-blueviolet"> <a 
@@ -7,12 +7,8 @@ src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> <a
 href="https://doi.org/10.5281/zenodo.3947026"><img 
 src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 </p>
-
-<h1 xalign=center>BnBAD (break 'n bad)</h3>
-<h3 xalign=center> Fast, explicable, multi-objective optimization</h3> 
-<p xalign=center>
+<p align=center>
 <a
-href="http://menzies.us/bnbad">docs</a> :: <a
 href="#install">install</a> :: <a
 href="https://github.com/timm/bnbad/issues">issues</a> :: <a
 href="LICENSE.md">license</a> :: <a
@@ -21,9 +17,15 @@ href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
 </p>
 
+<h1 align=center>BnBAD (break 'n bad)</h3>
+<h3 align=center> Fast, explicable, multi-objective optimization</h3> 
+<p align=center>
+<a href="http://menzies.us/bnbad"><img 
+   src="docs/readdocs.ong" width=350></a>
+</p>
 <hr>
-<img  align=right width=400 
-src="docs/letscook.png">
+
+<img  align=right width=400 src="docs/letscook.png">
 
 
 BnBAD is a multi-objective optimizer

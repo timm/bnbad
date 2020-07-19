@@ -3,8 +3,10 @@ src="https://live.staticflickr.com/1070/1430045001_7dd540ff1a_b.jpg">
 
 # Cite as ...
 
-T. Menzies.   _BnBAD: Explicable Multi-objective Optimization_,  July, 2020 
-
+T. Menzies,      
+_BnBAD_:
+Explicable Multi-objective Optimization_,   
+July, 2020
 
 ```bibtex
 @article{timm:bnbad,

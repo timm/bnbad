@@ -1,6 +1,7 @@
 from .lib import *
 from .my import *
 from termcolor import colored
+import re
 
 def go(fn=None,use=None):  
   """
@@ -33,11 +34,11 @@ class Test:
       doc = fun.__doc__ or ""
       random.seed(my.r)
       fun()
-      print(Test.score("💚","green")+fun.__name__)
+      print(Test.score("💚","green")+re.sub(r"test_","",fun.__name__))
     except Exception:
       Test.f += 1
-      print(traceback.format_exc(limit=2))
-      print(Test.score("💔" ,"red")+fun.__name__)
+      print(traceback.format_exc())
+      print(Test.score("💔" ,"red")+re.sub(r"test_","",fun.__name__))
   def list():
     print("")
     print(__file__ + " -t [NAME]") 

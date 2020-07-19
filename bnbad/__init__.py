@@ -251,8 +251,9 @@ def test_tree():
   """
   from .data import auto93
   t = Tab().read(auto93)
-  my.treeVerbose = False
+  my.treeVerbose = True
   t=Tree(t,cols="y")
+  print(100, len(t.leaves))
   assert(15 == len(t.leaves))
 
 @go

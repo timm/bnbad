@@ -9,7 +9,7 @@ echo  "$(tput bold) $(tput setaf 3) "; cat <<'EOF'
            :------:
 
 To update your vim packages, use 'vims'.
-For options, use 'b -h'
+For options, use 'b -h'$ brew install neofetch
 EOF
 echo  -n "$(tput sgr0)"
 
@@ -25,6 +25,7 @@ spy()    {
   rerun --verbose --ignore=myoutputdir "sh $Ell/etc/tests.sh"
 }
 
+matrix() { nice -20 cmatrix -b -C cyan;   }
 e()      { vi $Ell/bnbad/$1.py;   }
 here()   { cd $1; basename `pwd`; }
 reload() { . $Ell/etc/ell.sh;     }

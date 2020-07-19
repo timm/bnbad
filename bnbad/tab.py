@@ -71,28 +71,42 @@ class Dist(Thing):
 class Cluster(Thing): pass
 
 class Tree(Cluster):
-  def __init__(i, t, cols=my.c, lo=None, lvl=0,_root=None):
-    if not _root:
-      i.leaves = []
-      _root = i
-    lo = lo or 2*len(t.rows)**my.s
-    if len(t.rows) > lo:
-      if my.treeVerbose:
-        print(('| '*lvl) + str(len(t.rows)))
-      i.d         = Dist(t,cols=t.cols.__dict__[cols])
-      i.l,i.r,i.c = i.d.poles()
-      xs          = [i.d.project(r,i.l,i.r,i.c) for r in t.rows]
+  def __init__(i,t, cols=my.c):
+    i.lo     = 2*len(t.rows)**my.s
+    i.leaves = []
+    i.dist   = Dist(t,cols= t.cols.__dict__[cols])
+    i.root   = TreeNode(t,None,i,lvl=0)
+    for j in i.leaves:
+      dom = 0
+      js = j.mid()
+      for k in i.leaves:
+        if id(j) != id(k):
+          ks = k.mid()
+          dom += t.better(js, ks)
+          
+          
+
+class TreeNode:
+  def __init__(i, t, _up,_root, lvl): 
+    i.kids            = []
+    i.l, i.r          = None, None
+    i.c, i.mid, i.dom = 0, 0, 0
+    if my.treeVerbose:
+      print(('| '*lvl) + str(len(t.rows)))
+    if len(t.rows) < _root.lo:
+       _root.leaves += [i]
+    else:
+      d  = _root.dist
+      i.l,i.r,i.c = d.poles()
+      xs          = [d.project(r,i.l,i.r,i.c) for r in t.rows]
       i.mid       = sum(xs) / len(xs)
-      i.kids      = [t.clone(),t.clone()]
-      [i.kids[x >= i.mid].add(r)     for x,r in zip(xs, t.rows)]
+      i.kids      = [t.clone(), t.clone()]
+      for x,r in zip(xs, t.rows):
+        i.kids[x >= i.mid].add(r) 
       if len(i.kids[0].rows) < len(t.rows) and \
          len(i.kids[1].rows) < len(t.rows) :
-         [ Tree(kid, cols=cols, lo=lo, lvl=lvl+1,_root=_root) 
-            for kid in i.kids ]
-    else:
-       _root.leaves += [t]
-       if my.treeVerbose:
-         print(('| '*lvl) + str(len(t.rows)),t.status())
+         for kid in i.kids:
+           TreeNode(kid, i, _root, lvl+1)
       
 class Bore(Cluster):
    """
@@ -145,13 +159,15 @@ class Bore(Cluster):
      return out 
 
 class DecisionList(Thing):
-  def __init__(i, t, lvl=my.H, _up=None, _root=None):
-    i.t=t
-    i.leaf = None
-    if not _root:
-      _root   = i
-      i.leaves = []
-    i.up  = _up
+  def __init__(i, t):
+    i.leaves = []
+    i.root   = DecisionListNode(t,None,i,lvl=my.H)
+  def show(i): i.root.show(i,"") 
+
+class DecisionListNode:
+  def __init__(i,t, up, root, lvl):
+    i._up, i._root, i.leaf = up, root, None
+    i.t, i.dom = t, 0
     if lvl > 0 and len(t.rows) >= my.M: 
       b = Bore(t)
       i.split = b.key()
@@ -159,16 +175,17 @@ class DecisionList(Thing):
       i.leaf, kid = t.clone(), t.clone()
       for row in t.rows:
         (i.leaf if i.split.matches(row) else kid).add(row)
-      i.kid = DecisionList(kid, lvl-1,_up=1,_root = _root)
-      _root.leaves += [i.leaf]
+      i._root.leaves += [i.leaf]
+      i.kid = DecisionListNode(kid, up, root, lvl-1)
     else:
-      _root.leaves += [t]
-  def show(i,pre="  "): 
+      i._root.leaves += [i]
+  def show(i,pre):
     if i.leaf:
-      print(pre+"if", i.split._ranges.txt," in ",i.split.lo, "..",i.split.hi,
-           "then",  i.leaf.status(), len(i.leaf.rows))
-      i.kid.show(pre="el")
+      print( pre+"if", i.split._ranges.txt," in ",
+             i.split.lo, "..",i.split.hi,
+             "then",  i.leaf.status(), i.dom )
+      i.kid.show(pre=pre + "|  ")
     else:
-     print("else", i.t.status(), len(i.t.rows))
+     print("else", i.t.status(), i.dom)
 
-
+ 
