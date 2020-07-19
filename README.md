@@ -1,5 +1,7 @@
 <h1 align=center> BnBAD (break 'n bad)</h3> 
-<img  align=center width=300 src="docs/letscook.png">
+<p align=center
+<img  width=300 src="docs/letscook.png">
+</p>
 <h3 align=center> Fast, explicable, multi-objective reasoning</h3> 
 
 <p align=center>
