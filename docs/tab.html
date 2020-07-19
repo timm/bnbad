@@ -100,105 +100,101 @@ class Dist(Thing):
 class Cluster(Thing): pass
 
 class Tree(Cluster):
-  def __init__(i, t, cols=my.c, lo=None, lvl=0,_root=None):
-    if not _root:
-      i.leaves = []
-      _root = i
-    lo = lo or 2*len(t.rows)**my.s
-    if len(t.rows) &gt; lo:
-      if my.treeVerbose:
-        print((&#39;| &#39;*lvl) + str(len(t.rows)))
-      i.d         = Dist(t,cols=t.cols.__dict__[cols])
-      i.l,i.r,i.c = i.d.poles()
-      xs          = [i.d.project(r,i.l,i.r,i.c) for r in t.rows]
-      i.mid       = sum(xs) / len(xs)
-      i.kids      = [t.clone(),t.clone()]
-      [i.kids[x &gt;= i.mid].add(r)     for x,r in zip(xs, t.rows)]
-      if len(i.kids[0].rows) &lt; len(t.rows) and \
-         len(i.kids[1].rows) &lt; len(t.rows) :
-         [ Tree(kid, cols=cols, lo=lo, lvl=lvl+1,_root=_root) 
-            for kid in i.kids ]
+  def __init__(i,t, cols=my.c):
+    i.lo     = 2*len(t.rows)**my.s
+    i.leaves = []
+    i.dist   = Dist(t, cols = t.cols.__dict__[cols])
+    i.root   = TreeNode(t,None,i,lvl=0)
+    for j in i.leaves:
+      dom = 0
+      js = j.t.mid()
+      for k in i.leaves:
+        if id(j) != id(k):
+          ks = k.t.mid()
+          dom += t.better(js, ks)
+      j.dom = dom
+  def show(i): 
+    &#34;Show the tree.&#34;
+    print(&#39;, &#39;.join([c.txt for c in i.root.t.cols.y.values()]))
+    print(i.root.t.status())
+    i.root.show(&#34;&#34;)          
+  def bore(i):
+    &#34;Return the best leaf and some of the rest.&#34;
+    i.leaves = sorted(i.leaves, key=lambda z: z.dom)
+    best = i.leaves[0].t
+    rest = []
+    for leaf in i.leaves[1:]:
+      rest += leaf.t.rows
+    rest = shuffle(rest)[ :len(best.rows)*my.N ]
+    return best, i.root.t.clone(rows)
+  def key(i):
+    &#34;Return the key range that most selects for best.&#34;
+    best = my.e 
+    bests,rests = i.bore()
+    for  col in best.cols.x.values():
+      all  = []
+      all += [[row[col.pos], True]  for row in bests]
+      all += [[row[col.pos], False] for row in rests]
+      for one in Ranges(col.txt, all,
+                        get = col.pos).ranges:
+        if one.s() &gt; best:
+          best, out = one.s(), one
+    return out 
+
+class TreeNode:
+  def __init__(i, t, _up, _root, lvl): 
+    i.t       = t
+    i._up     = _up       
+    i.kids    = []
+    i._root   = _root
+    i.l, i.r  = None, None
+    i.c, i.mid, i.dom = 0, 0, 0
+    if len(t.rows) &lt; _root.lo:
+       i._root.leaves += [i]
+       i.id = len(i._root.leaves) - 1
     else:
-       _root.leaves += [t]
-       if my.treeVerbose:
-         print((&#39;| &#39;*lvl) + str(len(t.rows)),t.status())
-      
-class Bore(Cluster):
-   &#34;&#34;&#34;
-   Multi-objective clustering to find `best` rows;
-   i.e. those that tend to dominate everything else.
-   &#34;&#34;&#34;
-   def __init__(i, t) :
-     i.rest = t.clone()
-     i.best = i.div(t, 2*len(t.rows)**my.s)
-   def div(i,t,lo):
-     &#34;&#34;&#34;  
-     Perform a top-down recursive division 
-     of data, based on their
-     `y values, as follows:
-    
-     - Find two distant rows .
-     - Check which one is best.
-     - Divide the rows into those nearer `best` or `rest`
-     - Add the `rest` to `i.rest`, recurse on the `best`.
-     - Stop when less than `N**.s` rows.
-       Return the surviving `best&#39; ranges.
-     &#34;&#34;&#34;
-     if len(t.rows) &lt; lo: return  t
-     d     = Dist(t,cols=t.cols.y)
-     l,r,c = d.poles()
-     xs    = [d.project(row,l,r,c) for row in t.rows]
-     mid   = sum(xs) / len(xs)
-     kid   = t.clone()
-     if t.better(l, r):
-       for x,row in zip(xs, t.rows):
-         (kid if x &lt; mid else i.rest).add(row)
-     else:
-       for x,row in zip(xs, t.rows):
-         (kid if x &gt;=  mid else i.rest).add(row)
-     return i.div(kid,lo)
-   def key(i):
-     &#34;Return the key range that most selects for best.&#34;
-     best  = my.e 
-     bests = i.best.rows
-     rests = i.rest.rows
-     rests = shuffle(rests)[ :my.N*len(bests) ]
-     for  col in i.best.cols.x.values():
-       all  = []
-       all += [[r[col.pos], True]  for r in bests]
-       all += [[r[col.pos], False] for r in rests]
-       for one in Ranges(col.txt, all,
-                         get = col.pos).ranges:
-         if one.s() &gt; best:
-           best, out = one.s(), one
-     return out 
+      d  = i._root.dist
+      i.l,i.r,i.c = d.poles()
+      xs     = [d.project(r,i.l,i.r,i.c) for r in t.rows]
+      i.mid  = sum(xs) / len(xs)
+      tables = [t.clone(), t.clone()]
+      for x,r in zip(xs, t.rows):
+        tables[x &gt;= i.mid].add(r) 
+      if len(tables[0].rows) &lt; len(t.rows) and \
+         len(tables[1].rows) &lt; len(t.rows) :
+         for t1 in tables:
+           i.kids += [TreeNode(t1, i, _root, lvl+1)]
+  def show(i,pre):
+    s = f&#34;{pre}{len(i.t.rows)}&#34;
+    if i.kids:
+      print(s)
+    else:
+      stars = &#34;*&#34;*int(10*i.dom/len(i._root.leaves))
+      dom   = int(100*i.dom/len(i._root.leaves))
+      print(f&#34;{s} [{i.id}] {i.t.status()}{stars} {dom} %&#34;)
+    for kid in  i.kids: kid.show(pre + &#34;|  &#34;)
 
 class DecisionList(Thing):
-  def __init__(i, t, lvl=my.H, _up=None, _root=None):
-    i.t=t
-    i.leaf = None
-    if not _root:
-      _root   = i
-      i.leaves = []
-    i.up  = _up
+  def show(i): i.root.show(i,&#34;&#34;) 
+  def __init__(i, t,_up=None, lvl=my.H):
+    i.t, i._up, i.leaf = t, _up,  None
     if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
-      b = Bore(t)
-      i.split = b.key()
-      i.col = i.split._ranges.get
+      i.split = Tree(t).key()
+      i.col   = i.split._ranges.get
       i.leaf, kid = t.clone(), t.clone()
       for row in t.rows:
         (i.leaf if i.split.matches(row) else kid).add(row)
-      i.kid = DecisionList(kid, lvl-1,_up=1,_root = _root)
-      _root.leaves += [i.leaf]
-    else:
-      _root.leaves += [t]
-  def show(i,pre=&#34;  &#34;): 
+      i.kid = DecisionList(kid, up,  lvl-1)
+  def show(i,pre):
     if i.leaf:
-      print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
-           &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
-      i.kid.show(pre=&#34;el&#34;)
+      print( pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,
+             i.split.lo, &#34;..&#34;,i.split.hi,
+             &#34;then&#34;,  i.leaf.status(), i.dom )
+      i.kid.show(pre=pre + &#34;|  &#34;)
     else:
-     print(&#34;else&#34;, i.t.status(), len(i.t.rows))</code></pre>
+     print(&#34;else&#34;, i.t.status(), i.dom)
+
+ </code></pre>
 </details>
 </section>
 <section>
@@ -210,149 +206,6 @@ class DecisionList(Thing):
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="bnbad.tab.Bore"><code class="flex name class">
-<span>class <span class="ident">Bore</span></span>
-<span>(</span><span>t)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Multi-objective clustering to find <code>best</code> rows;
-i.e. those that tend to dominate everything else.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Bore(Cluster):
-   &#34;&#34;&#34;
-   Multi-objective clustering to find `best` rows;
-   i.e. those that tend to dominate everything else.
-   &#34;&#34;&#34;
-   def __init__(i, t) :
-     i.rest = t.clone()
-     i.best = i.div(t, 2*len(t.rows)**my.s)
-   def div(i,t,lo):
-     &#34;&#34;&#34;  
-     Perform a top-down recursive division 
-     of data, based on their
-     `y values, as follows:
-    
-     - Find two distant rows .
-     - Check which one is best.
-     - Divide the rows into those nearer `best` or `rest`
-     - Add the `rest` to `i.rest`, recurse on the `best`.
-     - Stop when less than `N**.s` rows.
-       Return the surviving `best&#39; ranges.
-     &#34;&#34;&#34;
-     if len(t.rows) &lt; lo: return  t
-     d     = Dist(t,cols=t.cols.y)
-     l,r,c = d.poles()
-     xs    = [d.project(row,l,r,c) for row in t.rows]
-     mid   = sum(xs) / len(xs)
-     kid   = t.clone()
-     if t.better(l, r):
-       for x,row in zip(xs, t.rows):
-         (kid if x &lt; mid else i.rest).add(row)
-     else:
-       for x,row in zip(xs, t.rows):
-         (kid if x &gt;=  mid else i.rest).add(row)
-     return i.div(kid,lo)
-   def key(i):
-     &#34;Return the key range that most selects for best.&#34;
-     best  = my.e 
-     bests = i.best.rows
-     rests = i.rest.rows
-     rests = shuffle(rests)[ :my.N*len(bests) ]
-     for  col in i.best.cols.x.values():
-       all  = []
-       all += [[r[col.pos], True]  for r in bests]
-       all += [[r[col.pos], False] for r in rests]
-       for one in Ranges(col.txt, all,
-                         get = col.pos).ranges:
-         if one.s() &gt; best:
-           best, out = one.s(), one
-     return out </code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="bnbad.tab.Cluster" href="#bnbad.tab.Cluster">Cluster</a></li>
-<li><a title="bnbad.lib.Thing" href="lib.html#bnbad.lib.Thing">Thing</a></li>
-</ul>
-<h3>Methods</h3>
-<dl>
-<dt id="bnbad.tab.Bore.div"><code class="name flex">
-<span>def <span class="ident">div</span></span>(<span>i, t, lo)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Perform a top-down recursive division
-of data, based on their
-`y values, as follows:</p>
-<ul>
-<li>Find two distant rows .</li>
-<li>Check which one is best.</li>
-<li>Divide the rows into those nearer <code>best</code> or <code>rest</code></li>
-<li>Add the <code>rest</code> to <code>i.rest</code>, recurse on the <code>best</code>.</li>
-<li>Stop when less than <code>N**.s</code> rows.
-Return the surviving `best' ranges.</li>
-</ul></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def div(i,t,lo):
-  &#34;&#34;&#34;  
-  Perform a top-down recursive division 
-  of data, based on their
-  `y values, as follows:
- 
-  - Find two distant rows .
-  - Check which one is best.
-  - Divide the rows into those nearer `best` or `rest`
-  - Add the `rest` to `i.rest`, recurse on the `best`.
-  - Stop when less than `N**.s` rows.
-    Return the surviving `best&#39; ranges.
-  &#34;&#34;&#34;
-  if len(t.rows) &lt; lo: return  t
-  d     = Dist(t,cols=t.cols.y)
-  l,r,c = d.poles()
-  xs    = [d.project(row,l,r,c) for row in t.rows]
-  mid   = sum(xs) / len(xs)
-  kid   = t.clone()
-  if t.better(l, r):
-    for x,row in zip(xs, t.rows):
-      (kid if x &lt; mid else i.rest).add(row)
-  else:
-    for x,row in zip(xs, t.rows):
-      (kid if x &gt;=  mid else i.rest).add(row)
-  return i.div(kid,lo)</code></pre>
-</details>
-</dd>
-<dt id="bnbad.tab.Bore.key"><code class="name flex">
-<span>def <span class="ident">key</span></span>(<span>i)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Return the key range that most selects for best.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def key(i):
-  &#34;Return the key range that most selects for best.&#34;
-  best  = my.e 
-  bests = i.best.rows
-  rests = i.rest.rows
-  rests = shuffle(rests)[ :my.N*len(bests) ]
-  for  col in i.best.cols.x.values():
-    all  = []
-    all += [[r[col.pos], True]  for r in bests]
-    all += [[r[col.pos], False] for r in rests]
-    for one in Ranges(col.txt, all,
-                      get = col.pos).ranges:
-      if one.s() &gt; best:
-        best, out = one.s(), one
-  return out </code></pre>
-</details>
-</dd>
-</dl>
-</dd>
 <dt id="bnbad.tab.Cluster"><code class="flex name class">
 <span>class <span class="ident">Cluster</span></span>
 </code></dt>
@@ -372,7 +225,6 @@ pprint-ing that dictionary.</p></div>
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
-<li><a title="bnbad.tab.Bore" href="#bnbad.tab.Bore">Bore</a></li>
 <li><a title="bnbad.tab.Tree" href="#bnbad.tab.Tree">Tree</a></li>
 </ul>
 </dd>
@@ -389,31 +241,24 @@ pprint-ing that dictionary.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class DecisionList(Thing):
-  def __init__(i, t, lvl=my.H, _up=None, _root=None):
-    i.t=t
-    i.leaf = None
-    if not _root:
-      _root   = i
-      i.leaves = []
-    i.up  = _up
+  def show(i): i.root.show(i,&#34;&#34;) 
+  def __init__(i, t,_up=None, lvl=my.H):
+    i.t, i._up, i.leaf = t, _up,  None
     if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
-      b = Bore(t)
-      i.split = b.key()
-      i.col = i.split._ranges.get
+      i.split = Tree(t).key()
+      i.col   = i.split._ranges.get
       i.leaf, kid = t.clone(), t.clone()
       for row in t.rows:
         (i.leaf if i.split.matches(row) else kid).add(row)
-      i.kid = DecisionList(kid, lvl-1,_up=1,_root = _root)
-      _root.leaves += [i.leaf]
-    else:
-      _root.leaves += [t]
-  def show(i,pre=&#34;  &#34;): 
+      i.kid = DecisionList(kid, up,  lvl-1)
+  def show(i,pre):
     if i.leaf:
-      print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
-           &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
-      i.kid.show(pre=&#34;el&#34;)
+      print( pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,
+             i.split.lo, &#34;..&#34;,i.split.hi,
+             &#34;then&#34;,  i.leaf.status(), i.dom )
+      i.kid.show(pre=pre + &#34;|  &#34;)
     else:
-     print(&#34;else&#34;, i.t.status(), len(i.t.rows))</code></pre>
+     print(&#34;else&#34;, i.t.status(), i.dom)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -422,8 +267,7 @@ pprint-ing that dictionary.</p></div>
 <h3>Methods</h3>
 <dl>
 <dt id="bnbad.tab.DecisionList.show"><code class="name flex">
-<span>def <span class="ident">show</span></span>(<span>i, pre='
-')</span>
+<span>def <span class="ident">show</span></span>(<span>i, pre)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -431,13 +275,14 @@ pprint-ing that dictionary.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def show(i,pre=&#34;  &#34;): 
+<pre><code class="python">def show(i,pre):
   if i.leaf:
-    print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
-         &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
-    i.kid.show(pre=&#34;el&#34;)
+    print( pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,
+           i.split.lo, &#34;..&#34;,i.split.hi,
+           &#34;then&#34;,  i.leaf.status(), i.dom )
+    i.kid.show(pre=pre + &#34;|  &#34;)
   else:
-   print(&#34;else&#34;, i.t.status(), len(i.t.rows))</code></pre>
+   print(&#34;else&#34;, i.t.status(), i.dom)</code></pre>
 </details>
 </dd>
 </dl>
@@ -730,7 +575,7 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.tab.Tree"><code class="flex name class">
 <span>class <span class="ident">Tree</span></span>
-<span>(</span><span>t, cols='x', lo=None, lvl=0)</span>
+<span>(</span><span>t, cols='x')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>All my classes are Things that pretty print themselves
@@ -741,34 +586,182 @@ pprint-ing that dictionary.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Tree(Cluster):
-  def __init__(i, t, cols=my.c, lo=None, lvl=0,_root=None):
-    if not _root:
-      i.leaves = []
-      _root = i
-    lo = lo or 2*len(t.rows)**my.s
-    if len(t.rows) &gt; lo:
-      if my.treeVerbose:
-        print((&#39;| &#39;*lvl) + str(len(t.rows)))
-      i.d         = Dist(t,cols=t.cols.__dict__[cols])
-      i.l,i.r,i.c = i.d.poles()
-      xs          = [i.d.project(r,i.l,i.r,i.c) for r in t.rows]
-      i.mid       = sum(xs) / len(xs)
-      i.kids      = [t.clone(),t.clone()]
-      [i.kids[x &gt;= i.mid].add(r)     for x,r in zip(xs, t.rows)]
-      if len(i.kids[0].rows) &lt; len(t.rows) and \
-         len(i.kids[1].rows) &lt; len(t.rows) :
-         [ Tree(kid, cols=cols, lo=lo, lvl=lvl+1,_root=_root) 
-            for kid in i.kids ]
-    else:
-       _root.leaves += [t]
-       if my.treeVerbose:
-         print((&#39;| &#39;*lvl) + str(len(t.rows)),t.status())</code></pre>
+  def __init__(i,t, cols=my.c):
+    i.lo     = 2*len(t.rows)**my.s
+    i.leaves = []
+    i.dist   = Dist(t, cols = t.cols.__dict__[cols])
+    i.root   = TreeNode(t,None,i,lvl=0)
+    for j in i.leaves:
+      dom = 0
+      js = j.t.mid()
+      for k in i.leaves:
+        if id(j) != id(k):
+          ks = k.t.mid()
+          dom += t.better(js, ks)
+      j.dom = dom
+  def show(i): 
+    &#34;Show the tree.&#34;
+    print(&#39;, &#39;.join([c.txt for c in i.root.t.cols.y.values()]))
+    print(i.root.t.status())
+    i.root.show(&#34;&#34;)          
+  def bore(i):
+    &#34;Return the best leaf and some of the rest.&#34;
+    i.leaves = sorted(i.leaves, key=lambda z: z.dom)
+    best = i.leaves[0].t
+    rest = []
+    for leaf in i.leaves[1:]:
+      rest += leaf.t.rows
+    rest = shuffle(rest)[ :len(best.rows)*my.N ]
+    return best, i.root.t.clone(rows)
+  def key(i):
+    &#34;Return the key range that most selects for best.&#34;
+    best = my.e 
+    bests,rests = i.bore()
+    for  col in best.cols.x.values():
+      all  = []
+      all += [[row[col.pos], True]  for row in bests]
+      all += [[row[col.pos], False] for row in rests]
+      for one in Ranges(col.txt, all,
+                        get = col.pos).ranges:
+        if one.s() &gt; best:
+          best, out = one.s(), one
+    return out </code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="bnbad.tab.Cluster" href="#bnbad.tab.Cluster">Cluster</a></li>
 <li><a title="bnbad.lib.Thing" href="lib.html#bnbad.lib.Thing">Thing</a></li>
 </ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.tab.Tree.bore"><code class="name flex">
+<span>def <span class="ident">bore</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the best leaf and some of the rest.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def bore(i):
+  &#34;Return the best leaf and some of the rest.&#34;
+  i.leaves = sorted(i.leaves, key=lambda z: z.dom)
+  best = i.leaves[0].t
+  rest = []
+  for leaf in i.leaves[1:]:
+    rest += leaf.t.rows
+  rest = shuffle(rest)[ :len(best.rows)*my.N ]
+  return best, i.root.t.clone(rows)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.tab.Tree.key"><code class="name flex">
+<span>def <span class="ident">key</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the key range that most selects for best.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def key(i):
+  &#34;Return the key range that most selects for best.&#34;
+  best = my.e 
+  bests,rests = i.bore()
+  for  col in best.cols.x.values():
+    all  = []
+    all += [[row[col.pos], True]  for row in bests]
+    all += [[row[col.pos], False] for row in rests]
+    for one in Ranges(col.txt, all,
+                      get = col.pos).ranges:
+      if one.s() &gt; best:
+        best, out = one.s(), one
+  return out </code></pre>
+</details>
+</dd>
+<dt id="bnbad.tab.Tree.show"><code class="name flex">
+<span>def <span class="ident">show</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Show the tree.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show(i): 
+  &#34;Show the tree.&#34;
+  print(&#39;, &#39;.join([c.txt for c in i.root.t.cols.y.values()]))
+  print(i.root.t.status())
+  i.root.show(&#34;&#34;)          </code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.tab.TreeNode"><code class="flex name class">
+<span>class <span class="ident">TreeNode</span></span>
+<span>(</span><span>t, _up, _root, lvl)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TreeNode:
+  def __init__(i, t, _up, _root, lvl): 
+    i.t       = t
+    i._up     = _up       
+    i.kids    = []
+    i._root   = _root
+    i.l, i.r  = None, None
+    i.c, i.mid, i.dom = 0, 0, 0
+    if len(t.rows) &lt; _root.lo:
+       i._root.leaves += [i]
+       i.id = len(i._root.leaves) - 1
+    else:
+      d  = i._root.dist
+      i.l,i.r,i.c = d.poles()
+      xs     = [d.project(r,i.l,i.r,i.c) for r in t.rows]
+      i.mid  = sum(xs) / len(xs)
+      tables = [t.clone(), t.clone()]
+      for x,r in zip(xs, t.rows):
+        tables[x &gt;= i.mid].add(r) 
+      if len(tables[0].rows) &lt; len(t.rows) and \
+         len(tables[1].rows) &lt; len(t.rows) :
+         for t1 in tables:
+           i.kids += [TreeNode(t1, i, _root, lvl+1)]
+  def show(i,pre):
+    s = f&#34;{pre}{len(i.t.rows)}&#34;
+    if i.kids:
+      print(s)
+    else:
+      stars = &#34;*&#34;*int(10*i.dom/len(i._root.leaves))
+      dom   = int(100*i.dom/len(i._root.leaves))
+      print(f&#34;{s} [{i.id}] {i.t.status()}{stars} {dom} %&#34;)
+    for kid in  i.kids: kid.show(pre + &#34;|  &#34;)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.tab.TreeNode.show"><code class="name flex">
+<span>def <span class="ident">show</span></span>(<span>i, pre)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show(i,pre):
+  s = f&#34;{pre}{len(i.t.rows)}&#34;
+  if i.kids:
+    print(s)
+  else:
+    stars = &#34;*&#34;*int(10*i.dom/len(i._root.leaves))
+    dom   = int(100*i.dom/len(i._root.leaves))
+    print(f&#34;{s} [{i.id}] {i.t.status()}{stars} {dom} %&#34;)
+  for kid in  i.kids: kid.show(pre + &#34;|  &#34;)</code></pre>
+</details>
+</dd>
+</dl>
 </dd>
 </dl>
 </section>
@@ -788,8 +781,8 @@ truth for yourself."
 -&nbsp;Vilfredo&nbsp;Pareto</p>
 <p>
 <a href="http://github.com/timm/bnbad">
-<img src="github.png" width=40> Github</a>
-<a href="https://github.com/timm/bnbad/archive/master.zip"> <img src="zip.png" width=40> Zip</a> </p><p>
+<img src="github.png" width=40></a>
+<a href="https://github.com/timm/bnbad/archive/master.zip"> <img src="zip.png" width=40></a> </p><p>
 <a href="https://doi.org/10.5281/zenodo.3947026">
 <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> </p><p>
 <a href="https://travis-ci.org/github/timm/bnbad">
@@ -808,13 +801,6 @@ truth for yourself."
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
-<li>
-<h4><code><a title="bnbad.tab.Bore" href="#bnbad.tab.Bore">Bore</a></code></h4>
-<ul class="">
-<li><code><a title="bnbad.tab.Bore.div" href="#bnbad.tab.Bore.div">div</a></code></li>
-<li><code><a title="bnbad.tab.Bore.key" href="#bnbad.tab.Bore.key">key</a></code></li>
-</ul>
-</li>
 <li>
 <h4><code><a title="bnbad.tab.Cluster" href="#bnbad.tab.Cluster">Cluster</a></code></h4>
 </li>
@@ -848,6 +834,17 @@ truth for yourself."
 </li>
 <li>
 <h4><code><a title="bnbad.tab.Tree" href="#bnbad.tab.Tree">Tree</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.tab.Tree.bore" href="#bnbad.tab.Tree.bore">bore</a></code></li>
+<li><code><a title="bnbad.tab.Tree.key" href="#bnbad.tab.Tree.key">key</a></code></li>
+<li><code><a title="bnbad.tab.Tree.show" href="#bnbad.tab.Tree.show">show</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.tab.TreeNode" href="#bnbad.tab.TreeNode">TreeNode</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.tab.TreeNode.show" href="#bnbad.tab.TreeNode.show">show</a></code></li>
+</ul>
 </li>
 </ul>
 </li>

@@ -410,7 +410,6 @@ def test_tree():
          | | | 86
          | | | | 48
          | | | | | 23 {2230.26, 16.53, 30.00}
-         | | | | | 25 {2671.64, 14.84, 30.00}
          | | | | 38 {2428.71, 19.29, 30.00}
          | | | 18 {2289.94, 17.08, 20.00}
          | | 83
@@ -422,9 +421,10 @@ def test_tree():
   &#34;&#34;&#34;
   from .data import auto93
   t = Tab().read(auto93)
-  my.treeVerbose = False
+  my.treeVerbose = True
   t=Tree(t,cols=&#34;y&#34;)
   assert(15 == len(t.leaves))
+  t.show()
 
 @go
 def test_bore():
@@ -455,23 +455,22 @@ def test_bore():
       else {4201.2, 12.5, 14.2} 
 
   &#34;&#34;&#34;
-  verbose = False
+  verbose = True
   from .data import auto93
-  t = Tab().read(auto93)
-  b = Bore(t)
+  t  = Tab().read(auto93)
+  best, rest = Tree(t).bore()
   if verbose: #my.V:
     print([col.txt for col in t.cols.y.values()])
-    print(&#34;best&#34;,b.best.status())
-    print(&#34;rest&#34;,b.rest.status())
-    print(&#34;all&#34;,t.status())
-  midBest = b.best.mid()
-  midRest = b.rest.mid()
+    print(&#34;best&#34;, best.status())
+    print(&#34;rest&#34;, rest.status())
+  midBest = best.mid()
+  midRest = rest.mid()
   assert( t.better(midBest, midRest))
   k = b.key()
   assert(k.s() &gt; 0.69)
   d = DecisionList(t)
   assert(5 == len(d.leaves))
-  if verbose: #my.V:
+  if False: #my.V:
     for _ in range(1):
       d.show()
 
@@ -667,23 +666,22 @@ def test_bore():
       else {4201.2, 12.5, 14.2} 
 
   &#34;&#34;&#34;
-  verbose = False
+  verbose = True
   from .data import auto93
-  t = Tab().read(auto93)
-  b = Bore(t)
+  t  = Tab().read(auto93)
+  best, rest = Tree(t).bore()
   if verbose: #my.V:
     print([col.txt for col in t.cols.y.values()])
-    print(&#34;best&#34;,b.best.status())
-    print(&#34;rest&#34;,b.rest.status())
-    print(&#34;all&#34;,t.status())
-  midBest = b.best.mid()
-  midRest = b.rest.mid()
+    print(&#34;best&#34;, best.status())
+    print(&#34;rest&#34;, rest.status())
+  midBest = best.mid()
+  midRest = rest.mid()
   assert( t.better(midBest, midRest))
   k = b.key()
   assert(k.s() &gt; 0.69)
   d = DecisionList(t)
   assert(5 == len(d.leaves))
-  if verbose: #my.V:
+  if False: #my.V:
     for _ in range(1):
       d.show()</code></pre>
 </details>
@@ -986,7 +984,6 @@ This is cluster is "best" (least
    | | | 86
    | | | | 48
    | | | | | 23 {2230.26, 16.53, 30.00}
-   | | | | | 25 {2671.64, 14.84, 30.00}
    | | | | 38 {2428.71, 19.29, 30.00}
    | | | 18 {2289.94, 17.08, 20.00}
    | | 83
@@ -1035,7 +1032,6 @@ def test_tree():
          | | | 86
          | | | | 48
          | | | | | 23 {2230.26, 16.53, 30.00}
-         | | | | | 25 {2671.64, 14.84, 30.00}
          | | | | 38 {2428.71, 19.29, 30.00}
          | | | 18 {2289.94, 17.08, 20.00}
          | | 83
@@ -1047,9 +1043,10 @@ def test_tree():
   &#34;&#34;&#34;
   from .data import auto93
   t = Tab().read(auto93)
-  my.treeVerbose = False
+  my.treeVerbose = True
   t=Tree(t,cols=&#34;y&#34;)
-  assert(15 == len(t.leaves))</code></pre>
+  assert(15 == len(t.leaves))
+  t.show()</code></pre>
 </details>
 </dd>
 </dl>
@@ -1072,8 +1069,8 @@ truth for yourself."
 -&nbsp;Vilfredo&nbsp;Pareto</p>
 <p>
 <a href="http://github.com/timm/bnbad">
-<img src="github.png" width=40> Github</a>
-<a href="https://github.com/timm/bnbad/archive/master.zip"> <img src="zip.png" width=40> Zip</a> </p><p>
+<img src="github.png" width=40></a>
+<a href="https://github.com/timm/bnbad/archive/master.zip"> <img src="zip.png" width=40></a> </p><p>
 <a href="https://doi.org/10.5281/zenodo.3947026">
 <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> </p><p>
 <a href="https://travis-ci.org/github/timm/bnbad">
