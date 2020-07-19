@@ -1,4 +1,5 @@
 <h1 align=center> BnBAD (break 'n bad)</h3> 
+<img  align=center =300 src="docs/letscook.png">
 <h3 align=center> Fast, explicable, multi-objective reasoning</h3> 
 
 <p align=center>
@@ -24,7 +25,6 @@ src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
 
 <hr>
 
-<img  align=right width=400 src="docs/letscook.png">
 
 
 BnBAD is a multi-objective optimizer
@@ -33,6 +33,16 @@ that reasons by:
 1. breaking up problems into regions of `bad` and
 `better`;
 2.  then looks for ways on how to jump between those regions.
+
+```
+:-------:  
+| Ba    | Bad <----.  planning= (better - bad)
+|    56 |          |  monitor = (bad - better)
+:-------:------:   |  
+        | B    |   v  
+        |    5 | Better  
+        :------:
+```
 
 BnBAD might be a useful choice when:
 
