@@ -1,4 +1,4 @@
-<h3 align=center> BnBAD (break 'n bad)</h3> 
+<h1 align=center> BnBAD (break 'n bad)</h3> 
 <h3 align=center> Fast, explicable, multi-objective reasoning</h3> 
 
 <p align=center>
