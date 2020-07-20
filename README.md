@@ -134,36 +134,30 @@ optimizer to explore trade-offs between those equations.
 Here is what linear regression tells us:
 
 ```txt
-mpg = -0.6599 * cylinders +
-      -0.016  * displacement +
-      -0.0627 * horsepower +
-       0.6251 * model +
-       1.2385 * origin +
-     -12.3701
+mpg =         -0.6599 * cylinders +
+              -0.016  * displacement +
+              -0.0627 * horsepower +
+               0.6251 * model +
+               1.2385 * origin + -12.3701
 
-acceleration =  0.009 * displacement +
-              -0.0712 * horsepower +
-              21.2507
+acceleration = 0.009  * displacement +
+              -0.0712 * horsepower + 21.2507
 
-weight = 62.3829 * cylinders +
-          5.128  * displacement +
-          4.3461 * horsepower +
-         13.836  * model +
-        -49.7531 * origin +
-         211.281 
+weight =      62.3829 * cylinders +
+               5.128  * displacement +
+               4.3461 * horsepower +
+              13.836  * model +
+             -49.7531 * origin + 211.281 
 ```
+But with BnBAD, we can learn a much, much simpler model. First, we recursively
+cluster the data based on the three goal scores.  For each leaf,
+we write down the mean goal scores. For example, for the first leaf 
+(labelled `[0]`):
 
-
-<div class="bg-gray">
-  .text-gray-dark on .bg-gray
-</div>
-
-But with BnBAD, we can learn a much simpler model. First, we recursively
-cluster the data based on the three goal scores. 
+- <weight, >acceleration, >!mpg
+- is 3452.97, 15.04, 20
 
 ```txt
-<weight, >acceleration, >!mpg
-{2970.42, 15.57, 23.84}
 398
 |  211
 |  |  121
@@ -195,13 +189,32 @@ cluster the data based on the three goal scores.
 |  |  |  34 [14] {2030.09, 17.05, 40.29}********* 93 %
 ```
 
-['<weight', '>acceleration', '>!mpg']
-all {2970.42, 15.57, 23.84}
-best {2267.46, 16.79, 31.92}
-rest {3152.31, 15.12, 21.54}
+The last leaf, (labelled `[14]`) is "best" since it
+dominates 93% of the other nodes
+(where "dominates" is a measure of "better" across the goals).
 
+BnBAD reports a decision list that hows how to select this best
+node from everything else:
+
+```txt
+% best rule
 if cylinders  in  4 .. 4 then {2270.90, 16.66, 29.70} 67
 else {3724.51, 14.17, 17.14} 63
+```
 
+Another thing we do is ask what take us from the best to worst leaf  (labelled `[7]`).
+That decision list is:
+
+```txt
 if cylinders  in  8 .. 8 then {4311.71, 11.57, 12.29} 35
 else {2267.46, 16.79, 31.92} 26
+```
+
+So what is being said here is that:
+
+- Eight cylinder cars are heavier and slower. 
+- Four cylinder cars and lighter and more nimble. 
+
+Obvious, right? But here's the important thing-- the number of cylinders effects everything else. That effect is very clear from the decision lists,
+but that is not clear from the regression equations.
+
