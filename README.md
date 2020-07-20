@@ -104,55 +104,34 @@ Install `bnbad` using `setup.py`:
       triggering. Track the anomalies seen each branch of the decision list.
       Update just the branches that get too many anomalies (if that ever happens).
 
-## Usage
+## Example
 
-### Command-Line Usage
+Here, we show how a clustered-based analysis
+can dramatically simpligy multi-objective reasoning.
 
-Step1: prepare a data file whose first line shows what
-are the numbers, what are the symbols, and what
-goals are to be
-minimized or maximized. For example, here we want to
-maximize _acceleration_ and miles per hour (_mpg_) and minimize _weight_.
-As to the other columns:
+Here's a data set where the first line names the columns. In that line "`$`"
+denotes numerics and "`>`" and "`<`" denotes goals we want to maximize or
+minimize (respectively).  Hence:
 
--  _$displacement_ and _$horsepower_ and _$model_ are numeric
-- and _cylinders_ and _origin_ are symbolic
+-  _$displacement_ and _$horsepower_ and _$model_ are numeric;
+- _cylinders_ and _origin_ are symbolic;
+- We want to mimimize `_weight_` and maximize `_acceleration_`
 
-```csv
-cylinders, $displacement, $horsepower, <weight, >acceleration, $model,  origin, >!mpg
+```txt
+cylinders, $displacement, $horsepower, <weight, >acceleration, $model,  origin, >mpg
 8,         304,           193,         4732,    18.5,          70,      1,      10
 8,         360,           215,         4615,    14,            70,      1,      10
 8,         307,           200,         4376,    15,            70,      1,      10
 8,         318,           210,         4382,    13.5,          70,      1,      10
-.....
+...
+300+ more rows
 ```
 
-```
-usage: __init__.py [-h] [-treeVerbose] [-b F] [-c S] [-d I] [-e F] [-f F]
-                   [-M I] [-H I] [-N I] [-p I] [-r I] [-s F] [-train S]
-                   [-test S] [-L] [-T] [-t S]
+Without BnBAD, using classical methods, we might 
+(a) learn one equation for each goal; (b) then use some multi-objective
+optimizer to explore trade-offs between those equations.
 
-
-optional arguments:
-  -h, --help    show this help message and exit
-  -treeVerbose  verbose mode for Tree
-  -b F          bin min size =len**b; e.g. -b 0.5
-  -c S          what columns to while tree building
-  -d I          use at most 'd' rows for distance calcs; e.g. -d 256
-  -e F          merge ranges whose scores differ by less that F; e.g. -e 0.05
-  -f F          separation of poles (f=1 means 'max distance'); e.g. -f 0.9
-  -M I          decision list leaf, minimum size; e.g. -M 10
-  -H I          decision list maximum height; e.g. -H 4
-  -N I          decision lists, ratio of negative examples; e.g. -N 4
-  -p I          coefficient for distance; e.g. -p 2
-  -r I          random number seed; e.g. -r 1
-  -s F          tree leaves must be at least n**s in size; e.g. -s 0.5
-  -train S      training data (arff format; e.g. -train train.csv
-  -test S       testing data (csv format); e.g. -test test.csv
-  -L            List all tests.
-  -T            Run all tests.
-  -t S          Run just the tests with names matching 'S'
-```
+Here is what linear regression tells us:
 
 ```txt
 mpg =
@@ -179,6 +158,14 @@ weight =
     -49.7531 * origin +
     211.281 
 ```
+
+
+<div class="bg-gray">
+  .text-gray-dark on .bg-gray
+</div>
+
+But with BnBAD, we can learn a much simpler model. First, we recursively
+cluster the data based on the three goal scores. 
 
 ```txt
 <weight, >acceleration, >!mpg
