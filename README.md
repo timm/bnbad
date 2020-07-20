@@ -134,29 +134,23 @@ optimizer to explore trade-offs between those equations.
 Here is what linear regression tells us:
 
 ```txt
-mpg =
+mpg = -0.6599 * cylinders +
+      -0.016  * displacement +
+      -0.0627 * horsepower +
+       0.6251 * model +
+       1.2385 * origin +
+     -12.3701
 
-     -0.6599 * cylinders +
-     -0.016  * displacement +
-     -0.0627 * horsepower +
-      0.6251 * model +
-      1.2385 * origin +
-    -12.3701
+acceleration =  0.009 * displacement +
+              -0.0712 * horsepower +
+              21.2507
 
-acceleration =
-
-      0.009  * displacement +
-     -0.0712 * horsepower +
-     21.2507
-
-weight =
-
-     62.3829 * cylinders +
-      5.128  * displacement +
-      4.3461 * horsepower +
-     13.836  * model +
-    -49.7531 * origin +
-    211.281 
+weight = 62.3829 * cylinders +
+          5.128  * displacement +
+          4.3461 * horsepower +
+         13.836  * model +
+        -49.7531 * origin +
+         211.281 
 ```
 
 
