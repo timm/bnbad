@@ -253,7 +253,7 @@ def test_tree():
   my.treeVerbose = True
   t=Tree(t,cols="y")
   assert(15 == len(t.leaves))
-  #t.show()
+  t.show()
 
 @go
 def test_bore():
