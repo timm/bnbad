@@ -2,7 +2,7 @@ from .lib import cols, rows, shuffle
 from .lib import Thing
 from .my import my
 from .col import Cols
-from .ranges import Bins, Ranges
+from .ranges import Ranges
 import math
 import random
 

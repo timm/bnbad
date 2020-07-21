@@ -21,7 +21,7 @@ def help():
       arg("stats: Coehn 'd'",                           Scohen=0.2),
       arg("stats: number of boostrap samples",               Sb=500),
       arg("stats: bootstrap confidences",                    Sconf=0.01),
-      arg("training data (arff format", t          rain="train.csv"),
+      arg("training data (arff format",           train="train.csv"),
       arg("testing data (csv format)",               test="test.csv"),
       arg("List all tests",                                  L=False),
       arg("Run all tests",                                   T=False),

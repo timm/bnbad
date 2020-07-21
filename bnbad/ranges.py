@@ -1,7 +1,7 @@
 from .col import Magic
 from .my import my
 from .lib import *
-rom .lib import Thing
+from .lib import Thing
 
 
 class Ranges(Thing):

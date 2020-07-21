@@ -3,18 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.8.3" />
+<meta name="generator" content="pdoc 0.6.3" />
 <title>bnbad.tab API documentation</title>
 <meta name="description" content="" />
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
-<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
 <style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{xline-height:1.5em;line-height:1.2em;font-family:Arial}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
-<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+<script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML'></script>
 </head>
 <body>
 <main>
@@ -24,177 +22,206 @@
 </header>
 <section id="section-intro">
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">from .lib import *
-from .my  import *
-from .col import *
-from .ranges import *
+<summary>Source code</summary>
+<pre><code class="python">from .lib import cols, rows, shuffle
+from .lib import Thing
+from .my import my
+from .col import Cols
+from .ranges import Ranges
 import math
+import random
+
 
 class Tab(Thing):
-  def __init__(i,rows=[]):
+  def __init__(i, rows=[]):
     i.rows, i.cols = [], Cols()
     [i.add(row) for row in rows]
-  def clone(i,rows=[]):
-    t  = Tab()
-    t  + [c.txt for c in i.cols.all] 
-    [t + row for row in  rows]
+
+  def clone(i, rows=[]):
+    t = Tab()
+    t + [c.txt for c in i.cols.all]
+    [t + row for row in rows]
     return t
-  def __add__(i,a): 
+
+  def __add__(i, a):
     return i.add(a) if i.cols.all else i.cols.header(a)
-  def add(i,a): 
+
+  def add(i, a):
     i.rows += [[c + a[c.pos] for c in i.cols.all]]
-  def read(i,data=None): 
+
+  def read(i, data=None):
     [i + row for row in cols(rows(data))]
     return i
-  def pairs(i,col):
-    return Bins(col.pos,i.rows, lambda z: z[col.pos], 
-                                lambda z: i.cols.klass(z))
+
+  def pairs(i, col):
+    return Bins(col.pos, i.rows, lambda z: z[col.pos],
+                lambda z: i.cols.klass(z))
+
   def status(i):
-    return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid()) 
-                     for c in i.cols.y.values()]) + &#39;}&#39;
+    return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid())
+                            for c in i.cols.y.values()]) + &#39;}&#39;
+
   def mid(i):
-    return [ col.mid() for col in i.cols.all ]
-  def better(i,row1,row2):
-    s1,s2,n = 0,0,len(i.cols.y)+0.0001
+    return [col.mid() for col in i.cols.all]
+
+  def better(i, row1, row2):
+    s1, s2, n = 0, 0, len(i.cols.y)+0.0001
     for c in i.cols.y.values():
-      x   = c.norm( row1[c.pos] )
-      y   = c.norm( row2[c.pos] )
+      x = c.norm(row1[c.pos])
+      y = c.norm(row2[c.pos])
       s1 -= math.e**(c.w*(x-y)/n)
       s2 -= math.e**(c.w*(y-x)/n)
     return s1/n &lt; s2/n
 
+
 class Dist(Thing):
-  def __init__(i, t,cols=None, rows=None, p=my.p):
-    i.t= t
-    i.p= p
+  def __init__(i, t, cols=None, rows=None, p=my.p):
+    i.t = t
+    i.p = p
     i.cols = cols or t.cols.x
     i.rows = rows or shuffle(t.rows)[:my.d]
-  def dist(i,row1,row2):
+
+  def dist(i, row1, row2):
     d = 0
     for col in i.cols.values():
-      inc = col.dist( row1[col.pos], row2[col.pos] )
-      d  += inc**my.p
+      inc = col.dist(row1[col.pos], row2[col.pos])
+      d += inc**my.p
     return (d/len(i.cols))**(1/my.p)
-  def neighbors(i,r1):
-    a = [(i.dist(r1,r2),r2) for r2 in i.rows if id(r1) != id(r2)]
-    return sorted(a, key = lambda z: z[0])
-  def faraway(i,row):
-     a= i.neighbors(row)
-     return a[ int( len(a) * my.f ) ][1]
-  def poles(i):
-     tmp   = random.choice(i.rows)
-     left  = i.faraway(tmp)
-     right = i.faraway(left)
-     return left, right, i.dist(left,right)
-  def project(i,row, left,right,c):
-     a = i.dist(row,left)
-     b = i.dist(row,right)
-     d = (a**2 + c**2 - b**2) / (2*c)
-     if d&gt;1: d= 1
-     if d&lt;0: d= 0
-     return d
 
-class Cluster(Thing): pass
+  def neighbors(i, r1):
+    a = [(i.dist(r1, r2), r2) for r2 in i.rows if id(r1) != id(r2)]
+    return sorted(a, key=lambda z: z[0])
+
+  def faraway(i, row):
+    a = i.neighbors(row)
+    return a[int(len(a) * my.f)][1]
+
+  def poles(i):
+    tmp = random.choice(i.rows)
+    left = i.faraway(tmp)
+    right = i.faraway(left)
+    return left, right, i.dist(left, right)
+
+  def project(i, row, left, right, c):
+    a = i.dist(row, left)
+    b = i.dist(row, right)
+    d = (a**2 + c**2 - b**2) / (2*c)
+    if d &gt; 1:
+      d = 1
+    if d &lt; 0:
+      d = 0
+    return d
+
+
+class Cluster(Thing):
+  pass
+
 
 class Tree(Cluster):
-  def __init__(i,t, cols=my.c):
-    i.lo     = 2*len(t.rows)**my.s
+  def __init__(i, t, cols=my.c):
+    i.lo = 2*len(t.rows)**my.s
     i.leaves = []
-    i.dist   = Dist(t, cols = t.cols.__dict__[cols])
-    i.root   = TreeNode(t,None,i,lvl=0)
+    i.dist = Dist(t, cols=t.cols.__dict__[cols])
+    i.root = TreeNode(t, None, i, lvl=0)
     for j in i.leaves:
-      dom = 0
-      js = j.t.mid()
-      for k in i.leaves:
-        if id(j) != id(k):
-          ks = k.t.mid()
-          dom += t.better(js, ks)
-      j.dom = dom
-  def show(i): 
+      j.dom = sum([t.better(j.t.mid(), k.t.mid())
+                   for k in i.leaves])
+
+  def show(i):
     &#34;Show the tree.&#34;
     print(&#39;, &#39;.join([c.txt for c in i.root.t.cols.y.values()]))
     print(i.root.t.status())
-    i.root.show(&#34;&#34;)          
+    i.root.show(&#34;&#34;)
+
   def bore(i):
     &#34;Return the best leaf and some of the rest.&#34;
-    i.leaves = sorted(i.leaves, key=lambda z: z.dom)
+    i.leaves = sorted(i.leaves, key=lambda z: -1*z.dom)
     best = i.leaves[0].t
-    rest = []
-    for leaf in i.leaves[1:]:
-      rest += leaf.t.rows
-    rest = shuffle(rest)[ :len(best.rows)*my.N ]
-    return best, i.root.t.clone(rows)
-  def key(i):
-    &#34;Return the key range that most selects for best.&#34;
-    best = my.e 
-    bests,rests = i.bore()
-    for  col in best.cols.x.values():
-      all  = []
-      all += [[row[col.pos], True]  for row in bests]
-      all += [[row[col.pos], False] for row in rests]
-      for one in Ranges(col.txt, all,
-                        get = col.pos).ranges:
-        if one.s() &gt; best:
-          best, out = one.s(), one
-    return out 
+    rest = [row for leaf in i.leaves[1:] for row in leaf.t.rows]
+    rest = shuffle(rest)[:len(best.rows)*my.N]
+    return best, i.root.t.clone(rest), i.leaves[-1].t
+
 
 class TreeNode:
-  def __init__(i, t, _up, _root, lvl): 
-    i.t       = t
-    i._up     = _up       
-    i.kids    = []
-    i._root   = _root
-    i.l, i.r  = None, None
+  def __init__(i, t, _up, _root, lvl):
+    i.t = t
+    i._up = _up
+    i.kids = []
+    i._root = _root
+    i.l, i.r = None, None
     i.c, i.mid, i.dom = 0, 0, 0
     if len(t.rows) &lt; _root.lo:
-       i._root.leaves += [i]
-       i.id = len(i._root.leaves) - 1
+      i._root.leaves += [i]
+      i.id = len(i._root.leaves) - 1
     else:
-      d  = i._root.dist
-      i.l,i.r,i.c = d.poles()
-      xs     = [d.project(r,i.l,i.r,i.c) for r in t.rows]
-      i.mid  = sum(xs) / len(xs)
+      d = i._root.dist
+      i.l, i.r, i.c = d.poles()
+      xs = [d.project(r, i.l, i.r, i.c) for r in t.rows]
+      i.mid = sum(xs) / len(xs)
       tables = [t.clone(), t.clone()]
-      for x,r in zip(xs, t.rows):
-        tables[x &gt;= i.mid].add(r) 
+      for x, r in zip(xs, t.rows):
+        tables[x &gt;= i.mid].add(r)
       if len(tables[0].rows) &lt; len(t.rows) and \
-         len(tables[1].rows) &lt; len(t.rows) :
-         for t1 in tables:
-           i.kids += [TreeNode(t1, i, _root, lvl+1)]
-  def show(i,pre):
+         len(tables[1].rows) &lt; len(t.rows):
+        for t1 in tables:
+          i.kids += [TreeNode(t1, i, _root, lvl+1)]
+
+  def show(i, pre):
     s = f&#34;{pre}{len(i.t.rows)}&#34;
     if i.kids:
       print(s)
     else:
       stars = &#34;*&#34;*int(10*i.dom/len(i._root.leaves))
-      dom   = int(100*i.dom/len(i._root.leaves))
+      dom = int(100*i.dom/len(i._root.leaves))
       print(f&#34;{s} [{i.id}] {i.t.status()}{stars} {dom} %&#34;)
-    for kid in  i.kids: kid.show(pre + &#34;|  &#34;)
+    for kid in i.kids:
+      kid.show(pre + &#34;|  &#34;)
+
 
 class DecisionList(Thing):
-  def show(i): i.root.show(i,&#34;&#34;) 
-  def __init__(i, t,_up=None, lvl=my.H):
-    i.t, i._up, i.leaf = t, _up,  None
-    if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
-      i.split = Tree(t).key()
-      i.col   = i.split._ranges.get
-      i.leaf, kid = t.clone(), t.clone()
-      for row in t.rows:
-        (i.leaf if i.split.matches(row) else kid).add(row)
-      i.kid = DecisionList(kid, up,  lvl-1)
-  def show(i,pre):
-    if i.leaf:
-      print( pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,
-             i.split.lo, &#34;..&#34;,i.split.hi,
-             &#34;then&#34;,  i.leaf.status(), i.dom )
+  def __init__(i, ok, bad, _up=None, lvl=my.H):
+    &#34;&#34;&#34;\
+    What range best selects for `ok` while avoiding `bad`?
+    Split on that decision.  Recurse.
+    &#34;&#34;&#34;
+    i.kid, i._up, i.leaf = None, _up,  ok.clone()
+    if lvl &gt; 0 and len(ok.rows) &gt;= my.M:
+      i.decide, i.col, i.txt = i.decision(ok, bad)
+      ok1 = ok.clone()
+      bad1 = ok.clone()
+      for row in ok.rows:
+        (i.leaf if i.decide.matches(row) else ok1).add(row)
+      for row in bad.rows:
+        (i.leaf if i.decide.matches(row) else bad1).add(row)
+      i.kid = DecisionList(ok1, bad1, _up=i,  lvl=lvl-1)
+    else:
+      for row in ok.rows:
+        i.leaf.add(row)
+      for row in bad.rows:
+        i.leaf.add(row)
+
+  def decision(i, ok, bad):
+    &#34;&#34;&#34;Return the range and column that
+    best selects for `ok` while avoiding `bad`.&#34;&#34;&#34;
+    best, out = 0, None
+    for col in ok.cols.x.values():
+      all = [[row[col.pos], True] for row in ok.rows]
+      all += [[row[col.pos], False] for row in bad.rows]
+      for one in Ranges(col.txt, all, get=col.pos).ranges:
+        if one.s() &gt; best + my.e:
+          best, out = one.s(), one
+    return out, out._ranges.get, out._ranges.txt
+
+  def show(i, pre=&#34;&#34;):
+    if i.kid:
+      print(pre+&#34;if&#34;, i.txt, &#34; in &#34;,
+            i.decide.lo, &#34;..&#34;, i.decide.hi,
+            &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
       i.kid.show(pre=pre + &#34;|  &#34;)
     else:
-     print(&#34;else&#34;, i.t.status(), i.dom)
-
- </code></pre>
+      m = len(i.leaf.rows)
+      if m &gt; 0:
+        print(&#34;else&#34;, i.leaf.status(), len(i.leaf.rows))</code></pre>
 </details>
 </section>
 <section>
@@ -208,16 +235,16 @@ class DecisionList(Thing):
 <dl>
 <dt id="bnbad.tab.Cluster"><code class="flex name class">
 <span>class <span class="ident">Cluster</span></span>
+<span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Cluster(Thing): pass</code></pre>
+<summary>Source code</summary>
+<pre><code class="python">class Cluster(Thing):
+  pass</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -230,35 +257,61 @@ pprint-ing that dictionary.</p></div>
 </dd>
 <dt id="bnbad.tab.DecisionList"><code class="flex name class">
 <span>class <span class="ident">DecisionList</span></span>
-<span>(</span><span>t, lvl=4)</span>
+<span>(</span><span>i, ok, bad, lvl=4)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p>
+<p>What range best selects for <code>ok</code> while avoiding <code>bad</code>?
+Split on that decision.
+Recurse.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class DecisionList(Thing):
-  def show(i): i.root.show(i,&#34;&#34;) 
-  def __init__(i, t,_up=None, lvl=my.H):
-    i.t, i._up, i.leaf = t, _up,  None
-    if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
-      i.split = Tree(t).key()
-      i.col   = i.split._ranges.get
-      i.leaf, kid = t.clone(), t.clone()
-      for row in t.rows:
-        (i.leaf if i.split.matches(row) else kid).add(row)
-      i.kid = DecisionList(kid, up,  lvl-1)
-  def show(i,pre):
-    if i.leaf:
-      print( pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,
-             i.split.lo, &#34;..&#34;,i.split.hi,
-             &#34;then&#34;,  i.leaf.status(), i.dom )
+  def __init__(i, ok, bad, _up=None, lvl=my.H):
+    &#34;&#34;&#34;\
+    What range best selects for `ok` while avoiding `bad`?
+    Split on that decision.  Recurse.
+    &#34;&#34;&#34;
+    i.kid, i._up, i.leaf = None, _up,  ok.clone()
+    if lvl &gt; 0 and len(ok.rows) &gt;= my.M:
+      i.decide, i.col, i.txt = i.decision(ok, bad)
+      ok1 = ok.clone()
+      bad1 = ok.clone()
+      for row in ok.rows:
+        (i.leaf if i.decide.matches(row) else ok1).add(row)
+      for row in bad.rows:
+        (i.leaf if i.decide.matches(row) else bad1).add(row)
+      i.kid = DecisionList(ok1, bad1, _up=i,  lvl=lvl-1)
+    else:
+      for row in ok.rows:
+        i.leaf.add(row)
+      for row in bad.rows:
+        i.leaf.add(row)
+
+  def decision(i, ok, bad):
+    &#34;&#34;&#34;Return the range and column that
+    best selects for `ok` while avoiding `bad`.&#34;&#34;&#34;
+    best, out = 0, None
+    for col in ok.cols.x.values():
+      all = [[row[col.pos], True] for row in ok.rows]
+      all += [[row[col.pos], False] for row in bad.rows]
+      for one in Ranges(col.txt, all, get=col.pos).ranges:
+        if one.s() &gt; best + my.e:
+          best, out = one.s(), one
+    return out, out._ranges.get, out._ranges.txt
+
+  def show(i, pre=&#34;&#34;):
+    if i.kid:
+      print(pre+&#34;if&#34;, i.txt, &#34; in &#34;,
+            i.decide.lo, &#34;..&#34;, i.decide.hi,
+            &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
       i.kid.show(pre=pre + &#34;|  &#34;)
     else:
-     print(&#34;else&#34;, i.t.status(), i.dom)</code></pre>
+      m = len(i.leaf.rows)
+      if m &gt; 0:
+        print(&#34;else&#34;, i.leaf.status(), len(i.leaf.rows))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -266,69 +319,95 @@ pprint-ing that dictionary.</p></div>
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="bnbad.tab.DecisionList.show"><code class="name flex">
-<span>def <span class="ident">show</span></span>(<span>i, pre)</span>
+<dt id="bnbad.tab.DecisionList.decision"><code class="name flex">
+<span>def <span class="ident">decision</span></span>(<span>i, ok, bad)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"><p>Return the range and column that
+best selects for <code>ok</code> while avoiding <code>bad</code>.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def show(i,pre):
-  if i.leaf:
-    print( pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,
-           i.split.lo, &#34;..&#34;,i.split.hi,
-           &#34;then&#34;,  i.leaf.status(), i.dom )
+<summary>Source code</summary>
+<pre><code class="python">def decision(i, ok, bad):
+  &#34;&#34;&#34;Return the range and column that
+  best selects for `ok` while avoiding `bad`.&#34;&#34;&#34;
+  best, out = 0, None
+  for col in ok.cols.x.values():
+    all = [[row[col.pos], True] for row in ok.rows]
+    all += [[row[col.pos], False] for row in bad.rows]
+    for one in Ranges(col.txt, all, get=col.pos).ranges:
+      if one.s() &gt; best + my.e:
+        best, out = one.s(), one
+  return out, out._ranges.get, out._ranges.txt</code></pre>
+</details>
+</dd>
+<dt id="bnbad.tab.DecisionList.show"><code class="name flex">
+<span>def <span class="ident">show</span></span>(<span>i, pre='')</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def show(i, pre=&#34;&#34;):
+  if i.kid:
+    print(pre+&#34;if&#34;, i.txt, &#34; in &#34;,
+          i.decide.lo, &#34;..&#34;, i.decide.hi,
+          &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
     i.kid.show(pre=pre + &#34;|  &#34;)
   else:
-   print(&#34;else&#34;, i.t.status(), i.dom)</code></pre>
+    m = len(i.leaf.rows)
+    if m &gt; 0:
+      print(&#34;else&#34;, i.leaf.status(), len(i.leaf.rows))</code></pre>
 </details>
 </dd>
 </dl>
 </dd>
 <dt id="bnbad.tab.Dist"><code class="flex name class">
 <span>class <span class="ident">Dist</span></span>
-<span>(</span><span>t, cols=None, rows=None, p=2)</span>
+<span>(</span><span>i, t, cols=None, rows=None, p=2)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Dist(Thing):
-  def __init__(i, t,cols=None, rows=None, p=my.p):
-    i.t= t
-    i.p= p
+  def __init__(i, t, cols=None, rows=None, p=my.p):
+    i.t = t
+    i.p = p
     i.cols = cols or t.cols.x
     i.rows = rows or shuffle(t.rows)[:my.d]
-  def dist(i,row1,row2):
+
+  def dist(i, row1, row2):
     d = 0
     for col in i.cols.values():
-      inc = col.dist( row1[col.pos], row2[col.pos] )
-      d  += inc**my.p
+      inc = col.dist(row1[col.pos], row2[col.pos])
+      d += inc**my.p
     return (d/len(i.cols))**(1/my.p)
-  def neighbors(i,r1):
-    a = [(i.dist(r1,r2),r2) for r2 in i.rows if id(r1) != id(r2)]
-    return sorted(a, key = lambda z: z[0])
-  def faraway(i,row):
-     a= i.neighbors(row)
-     return a[ int( len(a) * my.f ) ][1]
+
+  def neighbors(i, r1):
+    a = [(i.dist(r1, r2), r2) for r2 in i.rows if id(r1) != id(r2)]
+    return sorted(a, key=lambda z: z[0])
+
+  def faraway(i, row):
+    a = i.neighbors(row)
+    return a[int(len(a) * my.f)][1]
+
   def poles(i):
-     tmp   = random.choice(i.rows)
-     left  = i.faraway(tmp)
-     right = i.faraway(left)
-     return left, right, i.dist(left,right)
-  def project(i,row, left,right,c):
-     a = i.dist(row,left)
-     b = i.dist(row,right)
-     d = (a**2 + c**2 - b**2) / (2*c)
-     if d&gt;1: d= 1
-     if d&lt;0: d= 0
-     return d</code></pre>
+    tmp = random.choice(i.rows)
+    left = i.faraway(tmp)
+    right = i.faraway(left)
+    return left, right, i.dist(left, right)
+
+  def project(i, row, left, right, c):
+    a = i.dist(row, left)
+    b = i.dist(row, right)
+    d = (a**2 + c**2 - b**2) / (2*c)
+    if d &gt; 1:
+      d = 1
+    if d &lt; 0:
+      d = 0
+    return d</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -340,16 +419,14 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">dist</span></span>(<span>i, row1, row2)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def dist(i,row1,row2):
+<summary>Source code</summary>
+<pre><code class="python">def dist(i, row1, row2):
   d = 0
   for col in i.cols.values():
-    inc = col.dist( row1[col.pos], row2[col.pos] )
-    d  += inc**my.p
+    inc = col.dist(row1[col.pos], row2[col.pos])
+    d += inc**my.p
   return (d/len(i.cols))**(1/my.p)</code></pre>
 </details>
 </dd>
@@ -357,107 +434,107 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">faraway</span></span>(<span>i, row)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def faraway(i,row):
-   a= i.neighbors(row)
-   return a[ int( len(a) * my.f ) ][1]</code></pre>
+<summary>Source code</summary>
+<pre><code class="python">def faraway(i, row):
+  a = i.neighbors(row)
+  return a[int(len(a) * my.f)][1]</code></pre>
 </details>
 </dd>
 <dt id="bnbad.tab.Dist.neighbors"><code class="name flex">
 <span>def <span class="ident">neighbors</span></span>(<span>i, r1)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def neighbors(i,r1):
-  a = [(i.dist(r1,r2),r2) for r2 in i.rows if id(r1) != id(r2)]
-  return sorted(a, key = lambda z: z[0])</code></pre>
+<summary>Source code</summary>
+<pre><code class="python">def neighbors(i, r1):
+  a = [(i.dist(r1, r2), r2) for r2 in i.rows if id(r1) != id(r2)]
+  return sorted(a, key=lambda z: z[0])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.tab.Dist.poles"><code class="name flex">
 <span>def <span class="ident">poles</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def poles(i):
-   tmp   = random.choice(i.rows)
-   left  = i.faraway(tmp)
-   right = i.faraway(left)
-   return left, right, i.dist(left,right)</code></pre>
+  tmp = random.choice(i.rows)
+  left = i.faraway(tmp)
+  right = i.faraway(left)
+  return left, right, i.dist(left, right)</code></pre>
 </details>
 </dd>
 <dt id="bnbad.tab.Dist.project"><code class="name flex">
 <span>def <span class="ident">project</span></span>(<span>i, row, left, right, c)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def project(i,row, left,right,c):
-   a = i.dist(row,left)
-   b = i.dist(row,right)
-   d = (a**2 + c**2 - b**2) / (2*c)
-   if d&gt;1: d= 1
-   if d&lt;0: d= 0
-   return d</code></pre>
+<summary>Source code</summary>
+<pre><code class="python">def project(i, row, left, right, c):
+  a = i.dist(row, left)
+  b = i.dist(row, right)
+  d = (a**2 + c**2 - b**2) / (2*c)
+  if d &gt; 1:
+    d = 1
+  if d &lt; 0:
+    d = 0
+  return d</code></pre>
 </details>
 </dd>
 </dl>
 </dd>
 <dt id="bnbad.tab.Tab"><code class="flex name class">
 <span>class <span class="ident">Tab</span></span>
-<span>(</span><span>rows=[])</span>
+<span>(</span><span>i, rows=[])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Tab(Thing):
-  def __init__(i,rows=[]):
+  def __init__(i, rows=[]):
     i.rows, i.cols = [], Cols()
     [i.add(row) for row in rows]
-  def clone(i,rows=[]):
-    t  = Tab()
-    t  + [c.txt for c in i.cols.all] 
-    [t + row for row in  rows]
+
+  def clone(i, rows=[]):
+    t = Tab()
+    t + [c.txt for c in i.cols.all]
+    [t + row for row in rows]
     return t
-  def __add__(i,a): 
+
+  def __add__(i, a):
     return i.add(a) if i.cols.all else i.cols.header(a)
-  def add(i,a): 
+
+  def add(i, a):
     i.rows += [[c + a[c.pos] for c in i.cols.all]]
-  def read(i,data=None): 
+
+  def read(i, data=None):
     [i + row for row in cols(rows(data))]
     return i
-  def pairs(i,col):
-    return Bins(col.pos,i.rows, lambda z: z[col.pos], 
-                                lambda z: i.cols.klass(z))
+
+  def pairs(i, col):
+    return Bins(col.pos, i.rows, lambda z: z[col.pos],
+                lambda z: i.cols.klass(z))
+
   def status(i):
-    return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid()) 
-                     for c in i.cols.y.values()]) + &#39;}&#39;
+    return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid())
+                            for c in i.cols.y.values()]) + &#39;}&#39;
+
   def mid(i):
-    return [ col.mid() for col in i.cols.all ]
-  def better(i,row1,row2):
-    s1,s2,n = 0,0,len(i.cols.y)+0.0001
+    return [col.mid() for col in i.cols.all]
+
+  def better(i, row1, row2):
+    s1, s2, n = 0, 0, len(i.cols.y)+0.0001
     for c in i.cols.y.values():
-      x   = c.norm( row1[c.pos] )
-      y   = c.norm( row2[c.pos] )
+      x = c.norm(row1[c.pos])
+      y = c.norm(row2[c.pos])
       s1 -= math.e**(c.w*(x-y)/n)
       s2 -= math.e**(c.w*(y-x)/n)
     return s1/n &lt; s2/n</code></pre>
@@ -472,12 +549,10 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">add</span></span>(<span>i, a)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def add(i,a): 
+<summary>Source code</summary>
+<pre><code class="python">def add(i, a):
   i.rows += [[c + a[c.pos] for c in i.cols.all]]</code></pre>
 </details>
 </dd>
@@ -485,16 +560,14 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">better</span></span>(<span>i, row1, row2)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def better(i,row1,row2):
-  s1,s2,n = 0,0,len(i.cols.y)+0.0001
+<summary>Source code</summary>
+<pre><code class="python">def better(i, row1, row2):
+  s1, s2, n = 0, 0, len(i.cols.y)+0.0001
   for c in i.cols.y.values():
-    x   = c.norm( row1[c.pos] )
-    y   = c.norm( row2[c.pos] )
+    x = c.norm(row1[c.pos])
+    y = c.norm(row2[c.pos])
     s1 -= math.e**(c.w*(x-y)/n)
     s2 -= math.e**(c.w*(y-x)/n)
   return s1/n &lt; s2/n</code></pre>
@@ -504,15 +577,13 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">clone</span></span>(<span>i, rows=[])</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def clone(i,rows=[]):
-  t  = Tab()
-  t  + [c.txt for c in i.cols.all] 
-  [t + row for row in  rows]
+<summary>Source code</summary>
+<pre><code class="python">def clone(i, rows=[]):
+  t = Tab()
+  t + [c.txt for c in i.cols.all]
+  [t + row for row in rows]
   return t</code></pre>
 </details>
 </dd>
@@ -520,39 +591,33 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">mid</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def mid(i):
-  return [ col.mid() for col in i.cols.all ]</code></pre>
+  return [col.mid() for col in i.cols.all]</code></pre>
 </details>
 </dd>
 <dt id="bnbad.tab.Tab.pairs"><code class="name flex">
 <span>def <span class="ident">pairs</span></span>(<span>i, col)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def pairs(i,col):
-  return Bins(col.pos,i.rows, lambda z: z[col.pos], 
-                              lambda z: i.cols.klass(z))</code></pre>
+<summary>Source code</summary>
+<pre><code class="python">def pairs(i, col):
+  return Bins(col.pos, i.rows, lambda z: z[col.pos],
+              lambda z: i.cols.klass(z))</code></pre>
 </details>
 </dd>
 <dt id="bnbad.tab.Tab.read"><code class="name flex">
 <span>def <span class="ident">read</span></span>(<span>i, data=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def read(i,data=None): 
+<summary>Source code</summary>
+<pre><code class="python">def read(i, data=None):
   [i + row for row in cols(rows(data))]
   return i</code></pre>
 </details>
@@ -561,71 +626,49 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">status</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def status(i):
-  return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid()) 
-                   for c in i.cols.y.values()]) + &#39;}&#39;</code></pre>
+  return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid())
+                          for c in i.cols.y.values()]) + &#39;}&#39;</code></pre>
 </details>
 </dd>
 </dl>
 </dd>
 <dt id="bnbad.tab.Tree"><code class="flex name class">
 <span>class <span class="ident">Tree</span></span>
-<span>(</span><span>t, cols='x')</span>
+<span>(</span><span>i, t, cols='x')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>All my classes are Things that pretty print themselves
+<section class="desc"><p>All my classes are Things that pretty print themselves
 by reporting themselves as nested dictionaries then
-pprint-ing that dictionary.</p></div>
+pprint-ing that dictionary.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class Tree(Cluster):
-  def __init__(i,t, cols=my.c):
-    i.lo     = 2*len(t.rows)**my.s
+  def __init__(i, t, cols=my.c):
+    i.lo = 2*len(t.rows)**my.s
     i.leaves = []
-    i.dist   = Dist(t, cols = t.cols.__dict__[cols])
-    i.root   = TreeNode(t,None,i,lvl=0)
+    i.dist = Dist(t, cols=t.cols.__dict__[cols])
+    i.root = TreeNode(t, None, i, lvl=0)
     for j in i.leaves:
-      dom = 0
-      js = j.t.mid()
-      for k in i.leaves:
-        if id(j) != id(k):
-          ks = k.t.mid()
-          dom += t.better(js, ks)
-      j.dom = dom
-  def show(i): 
+      j.dom = sum([t.better(j.t.mid(), k.t.mid())
+                   for k in i.leaves])
+
+  def show(i):
     &#34;Show the tree.&#34;
     print(&#39;, &#39;.join([c.txt for c in i.root.t.cols.y.values()]))
     print(i.root.t.status())
-    i.root.show(&#34;&#34;)          
+    i.root.show(&#34;&#34;)
+
   def bore(i):
     &#34;Return the best leaf and some of the rest.&#34;
-    i.leaves = sorted(i.leaves, key=lambda z: z.dom)
+    i.leaves = sorted(i.leaves, key=lambda z: -1*z.dom)
     best = i.leaves[0].t
-    rest = []
-    for leaf in i.leaves[1:]:
-      rest += leaf.t.rows
-    rest = shuffle(rest)[ :len(best.rows)*my.N ]
-    return best, i.root.t.clone(rows)
-  def key(i):
-    &#34;Return the key range that most selects for best.&#34;
-    best = my.e 
-    bests,rests = i.bore()
-    for  col in best.cols.x.values():
-      all  = []
-      all += [[row[col.pos], True]  for row in bests]
-      all += [[row[col.pos], False] for row in rests]
-      for one in Ranges(col.txt, all,
-                        get = col.pos).ranges:
-        if one.s() &gt; best:
-          best, out = one.s(), one
-    return out </code></pre>
+    rest = [row for leaf in i.leaves[1:] for row in leaf.t.rows]
+    rest = shuffle(rest)[:len(best.rows)*my.N]
+    return best, i.root.t.clone(rest), i.leaves[-1].t</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -638,106 +681,76 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">bore</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return the best leaf and some of the rest.</p></div>
+<section class="desc"><p>Return the best leaf and some of the rest.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">def bore(i):
   &#34;Return the best leaf and some of the rest.&#34;
-  i.leaves = sorted(i.leaves, key=lambda z: z.dom)
+  i.leaves = sorted(i.leaves, key=lambda z: -1*z.dom)
   best = i.leaves[0].t
-  rest = []
-  for leaf in i.leaves[1:]:
-    rest += leaf.t.rows
-  rest = shuffle(rest)[ :len(best.rows)*my.N ]
-  return best, i.root.t.clone(rows)</code></pre>
-</details>
-</dd>
-<dt id="bnbad.tab.Tree.key"><code class="name flex">
-<span>def <span class="ident">key</span></span>(<span>i)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Return the key range that most selects for best.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def key(i):
-  &#34;Return the key range that most selects for best.&#34;
-  best = my.e 
-  bests,rests = i.bore()
-  for  col in best.cols.x.values():
-    all  = []
-    all += [[row[col.pos], True]  for row in bests]
-    all += [[row[col.pos], False] for row in rests]
-    for one in Ranges(col.txt, all,
-                      get = col.pos).ranges:
-      if one.s() &gt; best:
-        best, out = one.s(), one
-  return out </code></pre>
+  rest = [row for leaf in i.leaves[1:] for row in leaf.t.rows]
+  rest = shuffle(rest)[:len(best.rows)*my.N]
+  return best, i.root.t.clone(rest), i.leaves[-1].t</code></pre>
 </details>
 </dd>
 <dt id="bnbad.tab.Tree.show"><code class="name flex">
 <span>def <span class="ident">show</span></span>(<span>i)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Show the tree.</p></div>
+<section class="desc"><p>Show the tree.</p></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def show(i): 
+<summary>Source code</summary>
+<pre><code class="python">def show(i):
   &#34;Show the tree.&#34;
   print(&#39;, &#39;.join([c.txt for c in i.root.t.cols.y.values()]))
   print(i.root.t.status())
-  i.root.show(&#34;&#34;)          </code></pre>
+  i.root.show(&#34;&#34;)</code></pre>
 </details>
 </dd>
 </dl>
 </dd>
 <dt id="bnbad.tab.TreeNode"><code class="flex name class">
 <span>class <span class="ident">TreeNode</span></span>
-<span>(</span><span>t, _up, _root, lvl)</span>
+<span>(</span><span>i, t, _up, _root, lvl)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
+<summary>Source code</summary>
 <pre><code class="python">class TreeNode:
-  def __init__(i, t, _up, _root, lvl): 
-    i.t       = t
-    i._up     = _up       
-    i.kids    = []
-    i._root   = _root
-    i.l, i.r  = None, None
+  def __init__(i, t, _up, _root, lvl):
+    i.t = t
+    i._up = _up
+    i.kids = []
+    i._root = _root
+    i.l, i.r = None, None
     i.c, i.mid, i.dom = 0, 0, 0
     if len(t.rows) &lt; _root.lo:
-       i._root.leaves += [i]
-       i.id = len(i._root.leaves) - 1
+      i._root.leaves += [i]
+      i.id = len(i._root.leaves) - 1
     else:
-      d  = i._root.dist
-      i.l,i.r,i.c = d.poles()
-      xs     = [d.project(r,i.l,i.r,i.c) for r in t.rows]
-      i.mid  = sum(xs) / len(xs)
+      d = i._root.dist
+      i.l, i.r, i.c = d.poles()
+      xs = [d.project(r, i.l, i.r, i.c) for r in t.rows]
+      i.mid = sum(xs) / len(xs)
       tables = [t.clone(), t.clone()]
-      for x,r in zip(xs, t.rows):
-        tables[x &gt;= i.mid].add(r) 
+      for x, r in zip(xs, t.rows):
+        tables[x &gt;= i.mid].add(r)
       if len(tables[0].rows) &lt; len(t.rows) and \
-         len(tables[1].rows) &lt; len(t.rows) :
-         for t1 in tables:
-           i.kids += [TreeNode(t1, i, _root, lvl+1)]
-  def show(i,pre):
+         len(tables[1].rows) &lt; len(t.rows):
+        for t1 in tables:
+          i.kids += [TreeNode(t1, i, _root, lvl+1)]
+
+  def show(i, pre):
     s = f&#34;{pre}{len(i.t.rows)}&#34;
     if i.kids:
       print(s)
     else:
       stars = &#34;*&#34;*int(10*i.dom/len(i._root.leaves))
-      dom   = int(100*i.dom/len(i._root.leaves))
+      dom = int(100*i.dom/len(i._root.leaves))
       print(f&#34;{s} [{i.id}] {i.t.status()}{stars} {dom} %&#34;)
-    for kid in  i.kids: kid.show(pre + &#34;|  &#34;)</code></pre>
+    for kid in i.kids:
+      kid.show(pre + &#34;|  &#34;)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -745,20 +758,19 @@ pprint-ing that dictionary.</p></div>
 <span>def <span class="ident">show</span></span>(<span>i, pre)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<section class="desc"></section>
 <details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def show(i,pre):
+<summary>Source code</summary>
+<pre><code class="python">def show(i, pre):
   s = f&#34;{pre}{len(i.t.rows)}&#34;
   if i.kids:
     print(s)
   else:
     stars = &#34;*&#34;*int(10*i.dom/len(i._root.leaves))
-    dom   = int(100*i.dom/len(i._root.leaves))
+    dom = int(100*i.dom/len(i._root.leaves))
     print(f&#34;{s} [{i.id}] {i.t.status()}{stars} {dom} %&#34;)
-  for kid in  i.kids: kid.show(pre + &#34;|  &#34;)</code></pre>
+  for kid in i.kids:
+    kid.show(pre + &#34;|  &#34;)</code></pre>
 </details>
 </dd>
 </dl>
@@ -807,6 +819,7 @@ truth for yourself."
 <li>
 <h4><code><a title="bnbad.tab.DecisionList" href="#bnbad.tab.DecisionList">DecisionList</a></code></h4>
 <ul class="">
+<li><code><a title="bnbad.tab.DecisionList.decision" href="#bnbad.tab.DecisionList.decision">decision</a></code></li>
 <li><code><a title="bnbad.tab.DecisionList.show" href="#bnbad.tab.DecisionList.show">show</a></code></li>
 </ul>
 </li>
@@ -836,7 +849,6 @@ truth for yourself."
 <h4><code><a title="bnbad.tab.Tree" href="#bnbad.tab.Tree">Tree</a></code></h4>
 <ul class="">
 <li><code><a title="bnbad.tab.Tree.bore" href="#bnbad.tab.Tree.bore">bore</a></code></li>
-<li><code><a title="bnbad.tab.Tree.key" href="#bnbad.tab.Tree.key">key</a></code></li>
 <li><code><a title="bnbad.tab.Tree.show" href="#bnbad.tab.Tree.show">show</a></code></li>
 </ul>
 </li>
@@ -852,7 +864,9 @@ truth for yourself."
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
 </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
 </body>
 </html>
