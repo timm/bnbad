@@ -146,35 +146,39 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import os
 #import random,math,sys,re,os
 #from copy   import deepcopy as kopy
-from .lib    import *
-from .col    import *
-from .tab    import *
-from .my     import *
-from .rx     import *
+from .lib import *
+from .col import *
+from .tab import *
+from .my import *
+from .rx import *
 from .ranges import *
-from .xomo   import *
-from .test   import *
+from .xomo import *
+from .test import *
+
 
 @go
 def test_tests():
   "List all tests."
   Test.list()
 
+
 @go
 def test_fail():
   "Test the test engine with one failure"
   assert(0)
+
 
 @go
 def test_hetab1():
   "Read a small table from disk."
   from .data import weather4
   t = Tab().read(weather4)
-  assert( 4 == t.cols.x[0].seen["overcast"])
+  assert(4 == t.cols.x[0].seen["overcast"])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
-  assert( 4 == len(t.cols.all))
-  assert( 3 == len(t.cols.syms))
+  assert(4 == len(t.cols.all))
+  assert(3 == len(t.cols.syms))
+
 
 @go
 def test_tab2():
@@ -182,6 +186,7 @@ def test_tab2():
   from .data import auto93
   t = Tab().read(auto93)
   assert(398 == len(t.rows))
+
 
 @go
 def test_dist():
@@ -191,17 +196,18 @@ def test_dist():
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not "?" in r1:
-       assert(d.dist(r1,r1) == 0)
+      assert(d.dist(r1, r1) == 0)
     n = d.neighbors(r1)
-    r2 = n[ 0][1]
+    r2 = n[0][1]
     r3 = n[-1][1]
     r4 = d.faraway(r1)
-    d1=d.dist(r1,r2)
-    d2= d.dist(r1,r4)
-    d3= d.dist(r1,r3)
+    d1 = d.dist(r1, r2)
+    d2 = d.dist(r1, r4)
+    d3 = d.dist(r1, r3)
     assert(d1 <= d2 <= d3)
-    assert(0.2 <= d2 <=d3)
-    assert(len(d.poles())==3)
+    assert(0.2 <= d2 <= d3)
+    assert(len(d.poles()) == 3)
+
 
 @go
 def test_tree():
@@ -209,7 +215,7 @@ def test_tree():
   Recursively divide the data in two.
 
   When working on `auto93`, the goals are
-  
+
       ['<weight', '>acceleration', '>!mpg']
 
   which to say, minimize `weight`, maximize `acceleration` and
@@ -251,9 +257,10 @@ def test_tree():
   from .data import auto93
   t = Tab().read(auto93)
   my.treeVerbose = True
-  t=Tree(t,cols="y")
+  t = Tree(t, cols="y")
   assert(15 == len(t.leaves))
   t.show()
+
 
 @go
 def test_bore():
@@ -261,7 +268,7 @@ def test_bore():
   Recursively prune worst half the data.
 
    When working on `auto93`, the goals are
-  
+
       ['<weight', '>acceleration', '>!mpg']
 
   then this finds a `best` cluster of
@@ -286,60 +293,69 @@ def test_bore():
   """
   verbose = True
   from .data import auto93
-  t  = Tab().read(auto93)
-  best, rest,worst = Tree(t).bore()
-  if verbose: #my.V:
+  t = Tab().read(auto93)
+  best, rest, worst = Tree(t).bore()
+  if verbose:  # my.V:
     print([col.txt for col in t.cols.y.values()])
     print("all", t.status())
     print("best", best.status())
     print("rest", rest.status())
   midBest = best.mid()
   midRest = rest.mid()
-  assert( t.better(midBest, midRest))
-  d1= DecisionList(best,rest)
+  assert(t.better(midBest, midRest))
+  d1 = DecisionList(best, rest)
   d1.show()
-  d2= DecisionList(worst,best)
+  d2 = DecisionList(worst, best)
   d2.show()
   return True
   k = b.key()
   assert(k.s() > 0.69)
   d = DecisionList(t)
   assert(5 == len(d.leaves))
-  if False: #my.V:
+  if False:  # my.V:
     for _ in range(1):
       d.show()
 
-def _range0(n,xy):
+
+def _range0(n, xy):
   "Worker for the tests"
   verbose = False
-  assert( n == len(Ranges("$t",xy).ranges))
+  assert(n == len(Ranges("$t", xy).ranges))
   if verbose:
-    for r in Ranges("$t",xy).ranges:
-       print ("::",r.gen, 2**r.gen, r.lo, r.hi, r.n,r.s())
+    for r in Ranges("$t", xy).ranges:
+      print("::", r.gen, 2**r.gen, r.lo, r.hi, r.n, r.s())
+
 
 @go
 def test_range1():
   "Two ranges, equal size"
   n = 10
-  _range0(2,[[i,i>n] for i in range(n*2)])
+  _range0(2, [[i, i > n] for i in range(n*2)])
+
 
 @go
 def test_range2():
   "4 ranges"
   n = 10**4
-  _range0(4, [[i, i > .1*n and i<.2*n or i>.7*n ] for i in range(n)])
+  _range0(4, [[i, i > .1*n and i < .2*n or i > .7*n]
+              for i in range(n)])
+
 
 @go
 def test_range3():
   "5 ranges"
   n = 10**4
-  _range0(5, [[i, i > .1*n and i<.2*n or i>.6*n and i<.7*n] for i in range(n)])
+  _range0(5, [[i, i > .1*n and i < .2*n or i > .6*n and i < .7*n]
+              for i in range(n)])
+
 
 @go
 def test_range4():
   "random noise: only 1 range"
   n = 10**3
-  _range0(1, [[i, 0 if random.random() < 0.5 else 1] for i in range(n)])
+  _range0(1, [[i, 0 if random.random() < 0.5 else 1]
+              for i in range(n)])
+
 
 @go
 def test_range5():
@@ -347,23 +363,26 @@ def test_range5():
   n = 10**3
   _range0(1, [[i, 0] for i in range(n)])
 
+
 @go
 def test_range6():
   "3 ranges"
   n = 10**3
-  _range0(3, [[i, i> .4*n and i < .6*n] for i in range(n)] )
+  _range0(3, [[i, i > .4*n and i < .6*n] for i in range(n)])
+
 
 @go
 def test_range7():
   "singletons: 1 range"
   n = 10**2
-  _range0(1, [[1, 0] for i in range(n)] )
+  _range0(1, [[1, 0] for i in range(n)])
+
 
 @go
 def test_rxs():
   """\
   Group and ranks five treatments.
-  
+
   We will find these treatments divide into three  groups (`0,1,2`):
 
        0,       x5,   --o--             ,0.20, 0.30, 0.40
@@ -375,20 +394,20 @@ def test_rxs():
   """
   n = 256
   groups = rxs(dict(
-                      x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
-                      x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
-                      x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
-                      x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
-                      x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
-               width= 20, verbose=False,
-               show = "%.2f",
-               chops= [.25,  .5, .75],
-               marks= ["-", "-", " "])
+      x1=[0.34, 0.49, 0.51, 0.6]*n,
+      x2=[0.6, 0.7, 0.8, 0.89]*n,
+      x3=[0.13, 0.23, 0.33, 0.35]*n,
+      x4=[0.6, 0.7,  0.8, 0.9]*n,
+      x5=[0.1, 0.2,  0.3, 0.4]*n),
+      width=20, verbose=False,
+      show="%.2f",
+      chops=[.25,  .5, .75],
+      marks=["-", "-", " "])
   all = [x for g in groups for x in g.parts]
   assert(len(all) == 5)
   assert(len(groups) == 3)
-  for n,one in enumerate(all):
+  for n, one in enumerate(all):
     assert(len(one.all) == 1024)
     if n > 0:
-        assert(one.med >= all[n-1].med)
-        assert(one.rank >= all[n-1].rank)
+      assert(one.med >= all[n-1].med)
+      assert(one.rank >= all[n-1].rank)

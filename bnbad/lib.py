@@ -1,9 +1,15 @@
 """
 General Python tricks
 """
-import random,traceback,pprint, sys, re, argparse
+import random
+import traceback
+import pprint
+import sys
+import re
+import argparse
 
-def arg(txt,**d):
+
+def arg(txt, **d):
   """
   Support code for Command-line Options. Argument
   types are inferred by peeking at the default.
@@ -19,33 +25,37 @@ def arg(txt,**d):
     key = k
     val = d[k]
     break
-  default = val[0] if isinstance(val,list)  else val
+  default = val[0] if isinstance(val, list) else val
   if val == False:
-    return key,default,dict(help=txt, action='store_true')
+    return key, default, dict(help=txt, action='store_true')
   else:
-    m,t = "S",str
-    if isinstance(default,int)  : m,t= "I",int
-    if isinstance(default,float): m,t= "F",float
-    if isinstance(val,list):
-      return key,default,dict(help=txt, choices=val,          
-                      default=default, metavar=m ,type=t)
+    m, t = "S", str
+    if isinstance(default, int):
+      m, t = "I", int
+    if isinstance(default, float):
+      m, t = "F", float
+    if isinstance(val, list):
+      return key, default, dict(help=txt, choices=val,
+                                default=default, metavar=m, type=t)
     else:
-      eg = "; e.g. -%s %s"%(key,val) if val != "" else ""
-      return key,default, dict(help=txt + eg,
-                      default=default, metavar=m, type=t)
-  
-def args(f,hello=""):
+      eg = "; e.g. -%s %s" % (key, val) if val != "" else ""
+      return key, default, dict(help=txt + eg,
+                                default=default, metavar=m, type=t)
+
+
+def args(f, hello=""):
   """
   Link to Python's command line option processor.
   """
   lst = f()
-  before = re.sub(r"\n  ","\n", hello)
-  parser = argparse.ArgumentParser(description = before,
-             formatter_class = argparse.RawDescriptionHelpFormatter)
-  for key, _,args in lst:
-    parser.add_argument("-"+key,**args)
+  before = re.sub(r"\n  ", "\n", hello)
+  parser = argparse.ArgumentParser(description=before,
+                                   formatter_class=argparse.RawDescriptionHelpFormatter)
+  for key, _, args in lst:
+    parser.add_argument("-"+key, **args)
   return parser.parse_args()
-  #return  {arg: getattr(all, arg) for arg in vars(all)}
+  # return  {arg: getattr(all, arg) for arg in vars(all)}
+
 
 class Thing:
   """
@@ -54,35 +64,39 @@ class Thing:
   pprint-ing that dictionary.
   """
   def __repr__(i):
-     return re.sub(r"'",' ', 
-                   pprint.pformat(dicts(i.__dict__),compact=True))
+    return re.sub(r"'", ' ',
+                  pprint.pformat(dicts(i.__dict__), compact=True))
 
-def dicts(i,seen=None):
+
+def dicts(i, seen=None):
   """
   This is a tool used by `Thing`.
   Converts `i` into a nested dictionary, then pretty-prints that.
   """
-  if isinstance(i,(tuple,list)): 
-    return [ dicts(v,seen) for v in i ]
-  elif isinstance(i,dict): 
-    return { k:dicts(i[k], seen) for k in i if str(k)[0] !="_"}
-  elif isinstance(i,Thing): 
+  if isinstance(i, (tuple, list)):
+    return [dicts(v, seen) for v in i]
+  elif isinstance(i, dict):
+    return {k: dicts(i[k], seen) for k in i if str(k)[0] != "_"}
+  elif isinstance(i, Thing):
     seen = seen or {}
-    j =id(i) % 128021 # ids are LONG; show them shorter.
-    if i in seen: return f"#:{j}"
-    seen[i]=i
-    d=dicts(i.__dict__,seen)
+    j = id(i) % 128021  # ids are LONG; show them shorter.
+    if i in seen:
+      return f"#:{j}"
+    seen[i] = i
+    d = dicts(i.__dict__, seen)
     d["#"] = j
     return d
   else:
     return i
+
 
 class o(Thing):
   """
   Fast way to initialize an instance that has no methods
   e.g. x=o(name="tim", age=23); print(x.age)
   """
-  def __init__(i,**d) : i.__dict__.update(**d)
+  def __init__(i, **d): i.__dict__.update(**d)
+
 
 def rows(x=None):
   """
@@ -90,42 +104,54 @@ def rows(x=None):
   Kill any whitespace or comments.
   """
   def items(z):
-    for y in z: yield y
+    for y in z:
+      yield y
+
   def strings(z):
-    for y in z.splitlines(): yield y
+    for y in z.splitlines():
+      yield y
+
   def csv(z):
     with open(z) as fp:
-      for y in fp: yield y
+      for y in fp:
+        yield y
   f = sys.stdin
   if x:
-    if  isinstance(x,(list,tuple)) : f = items
-    elif x[-3:]=='csv'            : f = csv
-    else                          : f = strings
-  for y in f(x): 
-     y = re.sub(r'([\n\t\r ]|#.*)','',y.strip())
-     if y:
-       yield y.strip().split(",")
+    if isinstance(x, (list, tuple)):
+      f = items
+    elif x[-3:] == 'csv':
+      f = csv
+    else:
+      f = strings
+  for y in f(x):
+    y = re.sub(r'([\n\t\r ]|#.*)', '', y.strip())
+    if y:
+      yield y.strip().split(",")
+
 
 def cols(src):
   "Ignore columns if, on line one, the name contains '?'."
   todo = None
   for a in src:
-    todo = todo or [n for n,s in enumerate(a) if not "?"in s]
-    yield [ a[n] for n in todo]
+    todo = todo or [n for n, s in enumerate(a) if not "?" in s]
+    yield [a[n] for n in todo]
+
 
 def pairs(lst):
   "Return the i-th and i+1-th item in a list."
-  last=lst[0]
+  last = lst[0]
   for i in lst[1:]:
-    yield last,i
+    yield last, i
     last = i
+
 
 def shuffle(lst):
   "Return a shuffled list."
   random.shuffle(lst)
   return lst
 
-def has(i,seen=None):
+
+def has(i, seen=None):
   """
   Report a nested object as a set of nested lists.
   If we see the same `Thing` twice, then show it the 
@@ -134,69 +160,78 @@ def has(i,seen=None):
   i.e. Anything whose name starts with "_".
   """
   seen = seen or {}
-  if isinstance(i,Thing): 
-     j =id(i) % 128021
-     if i in seen: return f"#:{j}"
-     seen[i]=i
-     d=has(i.__dict__,seen)
-     d["#"] = j
-     return d
-  if isinstance(i,(tuple,list)): 
-     return [ has(v,seen) for v in i ]
-  if isinstance(i,dict): 
-     return { k:has(i[k], seen) for k in i if str(k)[0] !="_"}
+  if isinstance(i, Thing):
+    j = id(i) % 128021
+    if i in seen:
+      return f"#:{j}"
+    seen[i] = i
+    d = has(i.__dict__, seen)
+    d["#"] = j
+    return d
+  if isinstance(i, (tuple, list)):
+    return [has(v, seen) for v in i]
+  if isinstance(i, dict):
+    return {k: has(i[k], seen) for k in i if str(k)[0] != "_"}
   return i
 
-def dprint(d, pre="",skip="_"):
+
+def dprint(d, pre="", skip="_"):
   """
   Pretty print a dictionary, sorted by keys, ignoring 
   private slots (those that start with '_'_).
   """
   def q(z):
-    if isinstance(z,float): return "%5.3f" % z
-    if callable(z): return "f(%s)" % z.__name__
+    if isinstance(z, float):
+      return "%5.3f" % z
+    if callable(z):
+      return "f(%s)" % z.__name__
     return str(z)
-  l = sorted([(k,d[k]) for k in d if k[0] != skip])
-  return pre+'{'+", ".join([('%s=%s' % (k,q(v))) 
-                             for k,v in l]) +'}'
+  l = sorted([(k, d[k]) for k in d if k[0] != skip])
+  return pre+'{'+", ".join([('%s=%s' % (k, q(v)))
+                            for k, v in l]) + '}'
 
-def perc(a,p=[.25,.5,.75]):
+
+def perc(a, p=[.25, .5, .75]):
   ls = sprted(a)
-  return [ l[int(p0 * len(a))] for p0 in p ]
+  return [l[int(p0 * len(a))] for p0 in p]
 
-def xtile(lst,lo=0,hi=1,
-             width = 50,
-             chops = [0.1 ,0.3,0.5,0.7,0.9],
-             marks = [" " ,".","."," "," "],
-             bar   = "",
-             star  = "o",
-             show  = " %5.3f"):
-    """
-    Pretty print a large list of numbers.
-    Take a list of numbers, sort them,
-    then print them as a
-    horizontal
-    xtile chart (in ascii format). The default is a
-    contracted _quintile_ that shows the
-    10,30,50,70,90 breaks in the data (but this can be
-    changed- see the optional flags of the function).
-    """
-    def at(p): 
-      return ordered[int(len(lst)*p)]
-    def norm(x): 
-      return int(width*float((x - lo))/(hi - lo+0.00001))
-    def pretty(lst):
-      return ', '.join([show % x for x in lst])
-    ordered = sorted(lst)
-    what    = [at(p)   for p in chops]
-    where   = [norm(n) for n in  what]
-    out     = [" "] * width
-    marks1 = marks[:]
-    for one,two in pairs(where):
-      for i in range(one,two):
-        out[i] = marks1[0]
-      marks1 = marks1[1:]
-    if bar:  out[int(width/2)]  = bar
-    if star: out[norm(at(0.5))] = star
-    return ''.join(out) +  "," +  pretty(what)
 
+def xtile(lst, lo=0, hi=1,
+          width=50,
+          chops=[0.1, 0.3, 0.5, 0.7, 0.9],
+          marks=[" ", ".", ".", " ", " "],
+          bar="",
+          star="o",
+          show=" %5.3f"):
+  """
+  Pretty print a large list of numbers.
+  Take a list of numbers, sort them,
+  then print them as a
+  horizontal
+  xtile chart (in ascii format). The default is a
+  contracted _quintile_ that shows the
+  10,30,50,70,90 breaks in the data (but this can be
+  changed- see the optional flags of the function).
+  """
+  def at(p):
+    return ordered[int(len(lst)*p)]
+
+  def norm(x):
+    return int(width*float((x - lo))/(hi - lo+0.00001))
+
+  def pretty(lst):
+    return ', '.join([show % x for x in lst])
+  ordered = sorted(lst)
+  what = [at(p) for p in chops]
+  where = [norm(n) for n in what]
+  out = [" "] * width
+  marks1 = marks[:]
+  for one, two in pairs(where):
+    for i in range(one, two):
+      out[i] = marks1[0]
+    marks1 = marks1[1:]
+  if bar:
+    out[int(width/2)] = bar
+  if star:
+    out[norm(at(0.5))] = star
+  return ''.join(out) + "," + pretty(what)

@@ -1,5 +1,6 @@
 from .lib import *
 
+
 class X(Thing):
   """
   Class for holding knowledge about some variable `X`. 
@@ -12,28 +13,34 @@ class X(Thing):
   - Know how to check new values
   - Know how to combine themselves 
   """
-  def __init__(i, lo,hi=None): 
+  def __init__(i, lo, hi=None):
     i.lo = lo
-    i.hi = lo if hi==None else hi
+    i.hi = lo if hi == None else hi
     i.lo0, i.hi0 = i.lo, i.hi
-    i.x  = None
-  def ok(i,z): 
+    i.x = None
+
+  def ok(i, z):
     return i.lo0 <= z <= i.hi0
+
   def __call__(i):
-    if i.x == None: i.x = i.get()
+    if i.x == None:
+      i.x = i.get()
     return i.x
-  def __iadd__(i,j): 
+
+  def __iadd__(i, j):
     lo = j.lo
-    hi = j.lo if j.hi==None else j.hi
+    hi = j.lo if j.hi == None else j.hi
     if i.ok(lo) and i.ok(hi):
-      i.lo, i.hi, i.x  = lo, hi, None
+      i.lo, i.hi, i.x = lo, hi, None
       return i
     raise IndexError('out of bounds %s %s' % (lo, hi))
 
-class F(X): 
+
+class F(X):
   "Floats"
   def get(i): return random.uniform(i.lo, i.hi)
 
-class I(X): 
+
+class I(X):
   "Integers"
   def get(i): return random.randint(i.lo, i.hi)

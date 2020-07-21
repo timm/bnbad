@@ -1,4 +1,4 @@
-weather4="""
+weather4 = """
 outlook,$temp,?$humid,wind,!play        
 sunny, 85, 85,  FALSE, no 
 sunny, 80, 90, TRUE, no
@@ -16,7 +16,7 @@ overcast, 81, 75, FALSE, yes
 rainy, 71, 91, TRUE, no
 """
 
-auto93="""
+auto93 = """
 cylinders, $displacement, $horsepower, <weight, >acceleration,$model, origin, >!mpg
 8, 304.0, 193, 4732, 18.5, 70, 1, 10
 8, 360, 215, 4615, 14, 70, 1, 10
