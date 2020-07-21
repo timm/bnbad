@@ -46,16 +46,18 @@ alias gs="git status"
 alias gp="git commit -am 'saving'; git push; git status"
 PROMPT_COMMAND='echo -ne "🔆 $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
   
-want=$Ell/.travisyml
+want=$Ell/.travis.yml
 [ -f "$want" ] || cat<<'EOF'>$want
 language: python
 python:
-  - "3.7"
+  - "3.8"
 cache: pip
 install:
-  - pip install -r requirements.txt
+  - pip3 install -r requirements.txt
 script:
-  - python tests.py
+  - pwd
+  - ls
+  - python3 -m bnbad -T
 EOF
 
 mkdir -p $Ell/etc
@@ -156,9 +158,11 @@ Plugin 'ap/vim-buftabline'
 Plugin 'junegunn/fzf.vim'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'nvie/vim-flake8'
 Plugin 'seebi/dircolors-solarized'
 Plugin 'nequo/vim-allomancer'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'tell-k/vim-autopep8'
 Plugin 'vimwiki/vimwiki'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-markdown'
@@ -167,6 +171,11 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
+let g:autopep8_indent_size=2
+let g:autopep8_max_line_length=70
+let g:autopep8_on_save = 1
+let g:autopep8_disable_show_diff=1
+autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
 colorscheme jellybeans
 map <C-o> :NERDTreeToggle<CR>
 nnoremap <Leader><space> :noh<cr>
