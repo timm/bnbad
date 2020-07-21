@@ -114,6 +114,10 @@ which can be categoriesed into
 - `x` values:
  - which can be numeric or symbolic.
 
+Details:
+
+<img src="design.png">
+
 ## License
 
 MIT License
