@@ -17,6 +17,14 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 alias ls='ls -GFh'
 
+uml() {
+  cd $Ell/bnbad
+  sudo pip3 install pylint
+  pyreverse -o dot -p bnbad .
+  sed  's/^}/rankdir=RL}/' classes_bnbad.dot  > tmp.dot
+  dot -Tpng tmp.dot > ../docs/design.png
+}
+
 pystall() {
    sudo python3 $1 install
    sudo rm -rf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info

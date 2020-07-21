@@ -218,3 +218,8 @@ So what is being said here is that:
 Obvious, right? But here's the important thing-- the number of cylinders effects everything else. That effect is very clear from the decision lists,
 but that is not clear from the regression equations.
 
+## Classes
+
+For information on the following design, [read the docs](http://menzies.us/bnbad).
+
+<img src="docs/design.png">
