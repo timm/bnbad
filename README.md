@@ -17,10 +17,10 @@ href="CONTACT.md">contact</a>
 
 <p align=center>
 <a href="https://doi.org/10.5281/zenodo.3947026"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> 
-<img src="https://img.shields.io/badge/syntax-pyflake8-orange">
+<a href="https://flake8.pycqa.org/en/latest/user/error-codes.html"><img src="https://img.shields.io/badge/syntax-pyflake8-orange"></a>
 <a href="https://travis-ci.org/github/timm/bnbad"><img src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> 
 <a href="https://github.com/timm/bnbad/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/license-mit-red"></a> 
-<img src="https://img.shields.io/badge/style-pep8-yellow">
+<a href="https://pep8.readthedocs.io/en/release-1.7.x/intro.html#error-codes"><img src="https://img.shields.io/badge/style-pep8-yellow"></a>
 </p>
 
 <hr>
