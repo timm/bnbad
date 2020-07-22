@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.3" />
 <title>bnbad.lib API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Misc Python functions" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
@@ -23,47 +23,248 @@
 <h1 class="title">Module <code>bnbad.lib</code></h1>
 </header>
 <section id="section-intro">
+<p>Misc Python functions</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def makeArgParseOption(txt,**d):
+<pre><code class="python">&#34;&#34;&#34;
+Misc Python functions
+&#34;&#34;&#34;
+import random
+import pprint
+import sys
+import re
+import argparse
+
+
+def arg(txt, **d):
   &#34;&#34;&#34;
   Support code for Command-line Options. Argument
   types are inferred by peeking at the default.
   Different types then lead to different kinds of options.
+  Returns
+
+     keyword,default,dictionary
+
+  where dictionary contains the arguments needed by the
+  command-line process `argparse`.
   &#34;&#34;&#34;
   for k in d:
     key = k
     val = d[k]
     break
-  default = val[0] if isinstance(val,list)  else val
-  if val is False :
-    return key,default,dict(help=txt, action=&#34;store_true&#34;)
+  default = val[0] if isinstance(val, list) else val
+  if val is False:
+    return key, default, dict(help=txt, action=&#39;store_true&#39;)
   else:
-    m,t = &#34;S&#34;,str
-    if isinstance(default,int)  : m,t= &#34;I&#34;,int
-    if isinstance(default,float): m,t= &#34;F&#34;,float
-    if isinstance(val,list):
-      return key,default,dict(help=txt, choices=val,          
-                      default=default, metavar=m ,type=t)
+    m, t = &#34;S&#34;, str
+    if isinstance(default, int):
+      m, t = &#34;I&#34;, int
+    if isinstance(default, float):
+      m, t = &#34;F&#34;, float
+    if isinstance(val, list):
+      return key, default, dict(help=txt, choices=val,
+                                default=default, metavar=m, type=t)
     else:
-      eg = &#34;; e.g. -%s %s&#34;%(key,val) if val != &#34;&#34; else &#34;&#34;
-      return key,default, dict(help=txt + eg,
-                      default=default, metavar=m, type=t)
-  
-def args(f):
+      eg = &#34;; e.g. -%s %s&#34; % (key, val) if val != &#34;&#34; else &#34;&#34;
+      return key, default, dict(help=txt + eg,
+                                default=default, metavar=m, type=t)
+
+
+def args(f, hello=&#34;&#34;):
   &#34;&#34;&#34;
   Link to Python&#39;s command line option processor.
   &#34;&#34;&#34;
   lst = f()
-  before = re.sub(r&#34;\n  &#34;,&#34;\n&#34;, __doc__)
-  before = before.split(&#39;\n\n&#39;)[0]
-  parser = argparse.ArgumentParser(description = before,
-             formatter_class = argparse.RawDescriptionHelpFormatter)
-  for key, _,args in lst:
-    parser.add_argument(&#34;-&#34;+key,**args)
-  return parser.parse_args()</code></pre>
+  before = re.sub(r&#34;\n  &#34;, &#34;\n&#34;, hello)
+  parser = argparse.ArgumentParser(
+      description=before,
+      formatter_class=argparse.RawDescriptionHelpFormatter)
+  for key, _, args in lst:
+    parser.add_argument(&#34;-&#34;+key, **args)
+  return parser.parse_args()
+  # return  {arg: getattr(all, arg) for arg in vars(all)}
+
+
+class Thing:
+  &#34;&#34;&#34;
+  All my classes are Things that pretty print themselves
+  by reporting themselves as nested dictionaries then
+  pprint-ing that dictionary.
+  &#34;&#34;&#34;
+  def __repr__(i):
+    return re.sub(r&#34;&#39;&#34;, &#39; &#39;,
+                  pprint.pformat(dicts(i.__dict__), compact=True))
+
+
+def dicts(i, seen=None):
+  &#34;&#34;&#34;
+  This is a tool used by `Thing`.
+  Converts `i` into a nested dictionary, then pretty-prints that.
+  &#34;&#34;&#34;
+  if isinstance(i, (tuple, list)):
+    return [dicts(v, seen) for v in i]
+  elif isinstance(i, dict):
+    return {k: dicts(i[k], seen) for k in i if str(k)[0] != &#34;_&#34;}
+  elif isinstance(i, Thing):
+    seen = seen or {}
+    j = id(i) % 128021  # ids are LONG; show them shorter.
+    if i in seen:
+      return f&#34;#:{j}&#34;
+    seen[i] = i
+    d = dicts(i.__dict__, seen)
+    d[&#34;#&#34;] = j
+    return d
+  else:
+    return i
+
+
+class o(Thing):
+  &#34;&#34;&#34;
+  Fast way to initialize an instance that has no methods
+  e.g. x=o(name=&#34;tim&#34;, age=23); print(x.age)
+  &#34;&#34;&#34;
+  def __init__(i, **d): i.__dict__.update(**d)
+
+
+def rows(x=None):
+  &#34;&#34;&#34;
+  Read csv rows from stdio or a file or a string or a list.
+  Kill any whitespace or comments.
+  &#34;&#34;&#34;
+  def items(z):
+    for y in z:
+      yield y
+
+  def strings(z):
+    for y in z.splitlines():
+      yield y
+
+  def csv(z):
+    with open(z) as fp:
+      for y in fp:
+        yield y
+  f = sys.stdin
+  if x:
+    if isinstance(x, (list, tuple)):
+      f = items
+    elif x[-3:] == &#39;csv&#39;:
+      f = csv
+    else:
+      f = strings
+  for y in f(x):
+    y = re.sub(r&#39;([\n\t\r ]|#.*)&#39;, &#39;&#39;, y.strip())
+    if y:
+      yield y.strip().split(&#34;,&#34;)
+
+
+def cols(src):
+  &#34;Ignore columns if, on line one, the name contains &#39;?&#39;.&#34;
+  todo = None
+  for a in src:
+    todo = todo or [n for n, s in enumerate(a) if &#34;?&#34; not in s]
+    yield [a[n] for n in todo]
+
+
+def pairs(lst):
+  &#34;Return the i-th and i+1-th item in a list.&#34;
+  last = lst[0]
+  for i in lst[1:]:
+    yield last, i
+    last = i
+
+
+def shuffle(lst):
+  &#34;Return a shuffled list.&#34;
+  random.shuffle(lst)
+  return lst
+
+
+def has(i, seen=None):
+  &#34;&#34;&#34;
+  Report a nested object as a set of nested lists.
+  If we see the same `Thing` twice, then show it the
+  first time, after which, just show its id. Do not
+  return anything that is private;
+  i.e. Anything whose name starts with &#34;_&#34;.
+  &#34;&#34;&#34;
+  seen = seen or {}
+  if isinstance(i, Thing):
+    j = id(i) % 128021
+    if i in seen:
+      return f&#34;#:{j}&#34;
+    seen[i] = i
+    d = has(i.__dict__, seen)
+    d[&#34;#&#34;] = j
+    return d
+  if isinstance(i, (tuple, list)):
+    return [has(v, seen) for v in i]
+  if isinstance(i, dict):
+    return {k: has(i[k], seen) for k in i if str(k)[0] != &#34;_&#34;}
+  return i
+
+
+def dprint(d, pre=&#34;&#34;, skip=&#34;_&#34;):
+  &#34;&#34;&#34;
+  Pretty print a dictionary, sorted by keys, ignoring
+  private slots (those that start with &#39;_&#39;_).
+  &#34;&#34;&#34;
+  def q(z):
+    if isinstance(z, float):
+      return &#34;%5.3f&#34; % z
+    if callable(z):
+      return &#34;f(%s)&#34; % z.__name__
+    return str(z)
+  lst = sorted([(k, d[k]) for k in d if k[0] != skip])
+  return pre+&#39;{&#39;+&#34;, &#34;.join([(&#39;%s=%s&#39; % (k, q(v)))
+                            for k, v in lst]) + &#39;}&#39;
+
+
+def perc(a, p=[.25, .5, .75]):
+  a = sorted(a)
+  return [a[int(p0 * len(a))] for p0 in p]
+
+
+def xtile(lst, lo=0, hi=1,
+          width=50,
+          chops=[0.1, 0.3, 0.5, 0.7, 0.9],
+          marks=[&#34; &#34;, &#34;.&#34;, &#34;.&#34;, &#34; &#34;, &#34; &#34;],
+          bar=&#34;&#34;,
+          star=&#34;o&#34;,
+          show=&#34; %5.3f&#34;):
+  &#34;&#34;&#34;
+  Pretty print a large list of numbers.
+  Take a list of numbers, sort them,
+  then print them as a
+  horizontal
+  xtile chart (in ascii format). The default is a
+  contracted _quintile_ that shows the
+  10,30,50,70,90 breaks in the data (but this can be
+  changed- see the optional flags of the function).
+  &#34;&#34;&#34;
+  def at(p):
+    return ordered[int(len(lst)*p)]
+
+  def norm(x):
+    return int(width*float((x - lo))/(hi - lo+0.00001))
+
+  def pretty(lst):
+    return &#39;, &#39;.join([show % x for x in lst])
+  ordered = sorted(lst)
+  what = [at(p) for p in chops]
+  where = [norm(n) for n in what]
+  out = [&#34; &#34;] * width
+  marks1 = marks[:]
+  for one, two in pairs(where):
+    for i in range(one, two):
+      out[i] = marks1[0]
+    marks1 = marks1[1:]
+  if bar:
+    out[int(width/2)] = bar
+  if star:
+    out[norm(at(0.5))] = star
+  return &#39;&#39;.join(out) + &#34;,&#34; + pretty(what)</code></pre>
 </details>
 </section>
 <section>
@@ -73,8 +274,57 @@ def args(f):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="bnbad.lib.arg"><code class="name flex">
+<span>def <span class="ident">arg</span></span>(<span>txt, **d)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Support code for Command-line Options. Argument
+types are inferred by peeking at the default.
+Different types then lead to different kinds of options.
+Returns</p>
+<p>keyword,default,dictionary</p>
+<p>where dictionary contains the arguments needed by the
+command-line process <code>argparse</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def arg(txt, **d):
+  &#34;&#34;&#34;
+  Support code for Command-line Options. Argument
+  types are inferred by peeking at the default.
+  Different types then lead to different kinds of options.
+  Returns
+
+     keyword,default,dictionary
+
+  where dictionary contains the arguments needed by the
+  command-line process `argparse`.
+  &#34;&#34;&#34;
+  for k in d:
+    key = k
+    val = d[k]
+    break
+  default = val[0] if isinstance(val, list) else val
+  if val is False:
+    return key, default, dict(help=txt, action=&#39;store_true&#39;)
+  else:
+    m, t = &#34;S&#34;, str
+    if isinstance(default, int):
+      m, t = &#34;I&#34;, int
+    if isinstance(default, float):
+      m, t = &#34;F&#34;, float
+    if isinstance(val, list):
+      return key, default, dict(help=txt, choices=val,
+                                default=default, metavar=m, type=t)
+    else:
+      eg = &#34;; e.g. -%s %s&#34; % (key, val) if val != &#34;&#34; else &#34;&#34;
+      return key, default, dict(help=txt + eg,
+                                default=default, metavar=m, type=t)</code></pre>
+</details>
+</dd>
 <dt id="bnbad.lib.args"><code class="name flex">
-<span>def <span class="ident">args</span></span>(<span>f)</span>
+<span>def <span class="ident">args</span></span>(<span>f, hello='')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Link to Python's command line option processor.</p></div>
@@ -82,60 +332,342 @@ def args(f):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def args(f):
+<pre><code class="python">def args(f, hello=&#34;&#34;):
   &#34;&#34;&#34;
   Link to Python&#39;s command line option processor.
   &#34;&#34;&#34;
   lst = f()
-  before = re.sub(r&#34;\n  &#34;,&#34;\n&#34;, __doc__)
-  before = before.split(&#39;\n\n&#39;)[0]
-  parser = argparse.ArgumentParser(description = before,
-             formatter_class = argparse.RawDescriptionHelpFormatter)
-  for key, _,args in lst:
-    parser.add_argument(&#34;-&#34;+key,**args)
+  before = re.sub(r&#34;\n  &#34;, &#34;\n&#34;, hello)
+  parser = argparse.ArgumentParser(
+      description=before,
+      formatter_class=argparse.RawDescriptionHelpFormatter)
+  for key, _, args in lst:
+    parser.add_argument(&#34;-&#34;+key, **args)
   return parser.parse_args()</code></pre>
 </details>
 </dd>
-<dt id="bnbad.lib.makeArgParseOption"><code class="name flex">
-<span>def <span class="ident">makeArgParseOption</span></span>(<span>txt, **d)</span>
+<dt id="bnbad.lib.cols"><code class="name flex">
+<span>def <span class="ident">cols</span></span>(<span>src)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Support code for Command-line Options. Argument
-types are inferred by peeking at the default.
-Different types then lead to different kinds of options.</p></div>
+<div class="desc"><p>Ignore columns if, on line one, the name contains '?'.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def makeArgParseOption(txt,**d):
+<pre><code class="python">def cols(src):
+  &#34;Ignore columns if, on line one, the name contains &#39;?&#39;.&#34;
+  todo = None
+  for a in src:
+    todo = todo or [n for n, s in enumerate(a) if &#34;?&#34; not in s]
+    yield [a[n] for n in todo]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.lib.dicts"><code class="name flex">
+<span>def <span class="ident">dicts</span></span>(<span>i, seen=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is a tool used by <code><a title="bnbad.lib.Thing" href="#bnbad.lib.Thing">Thing</a></code>.
+Converts <code>i</code> into a nested dictionary, then pretty-prints that.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dicts(i, seen=None):
   &#34;&#34;&#34;
-  Support code for Command-line Options. Argument
-  types are inferred by peeking at the default.
-  Different types then lead to different kinds of options.
+  This is a tool used by `Thing`.
+  Converts `i` into a nested dictionary, then pretty-prints that.
   &#34;&#34;&#34;
-  for k in d:
-    key = k
-    val = d[k]
-    break
-  default = val[0] if isinstance(val,list)  else val
-  if val is False :
-    return key,default,dict(help=txt, action=&#34;store_true&#34;)
+  if isinstance(i, (tuple, list)):
+    return [dicts(v, seen) for v in i]
+  elif isinstance(i, dict):
+    return {k: dicts(i[k], seen) for k in i if str(k)[0] != &#34;_&#34;}
+  elif isinstance(i, Thing):
+    seen = seen or {}
+    j = id(i) % 128021  # ids are LONG; show them shorter.
+    if i in seen:
+      return f&#34;#:{j}&#34;
+    seen[i] = i
+    d = dicts(i.__dict__, seen)
+    d[&#34;#&#34;] = j
+    return d
   else:
-    m,t = &#34;S&#34;,str
-    if isinstance(default,int)  : m,t= &#34;I&#34;,int
-    if isinstance(default,float): m,t= &#34;F&#34;,float
-    if isinstance(val,list):
-      return key,default,dict(help=txt, choices=val,          
-                      default=default, metavar=m ,type=t)
+    return i</code></pre>
+</details>
+</dd>
+<dt id="bnbad.lib.dprint"><code class="name flex">
+<span>def <span class="ident">dprint</span></span>(<span>d, pre='', skip='_')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Pretty print a dictionary, sorted by keys, ignoring
+private slots (those that start with '<em>'</em>).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dprint(d, pre=&#34;&#34;, skip=&#34;_&#34;):
+  &#34;&#34;&#34;
+  Pretty print a dictionary, sorted by keys, ignoring
+  private slots (those that start with &#39;_&#39;_).
+  &#34;&#34;&#34;
+  def q(z):
+    if isinstance(z, float):
+      return &#34;%5.3f&#34; % z
+    if callable(z):
+      return &#34;f(%s)&#34; % z.__name__
+    return str(z)
+  lst = sorted([(k, d[k]) for k in d if k[0] != skip])
+  return pre+&#39;{&#39;+&#34;, &#34;.join([(&#39;%s=%s&#39; % (k, q(v)))
+                            for k, v in lst]) + &#39;}&#39;</code></pre>
+</details>
+</dd>
+<dt id="bnbad.lib.has"><code class="name flex">
+<span>def <span class="ident">has</span></span>(<span>i, seen=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Report a nested object as a set of nested lists.
+If we see the same <code><a title="bnbad.lib.Thing" href="#bnbad.lib.Thing">Thing</a></code> twice, then show it the
+first time, after which, just show its id. Do not
+return anything that is private;
+i.e. Anything whose name starts with "_".</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def has(i, seen=None):
+  &#34;&#34;&#34;
+  Report a nested object as a set of nested lists.
+  If we see the same `Thing` twice, then show it the
+  first time, after which, just show its id. Do not
+  return anything that is private;
+  i.e. Anything whose name starts with &#34;_&#34;.
+  &#34;&#34;&#34;
+  seen = seen or {}
+  if isinstance(i, Thing):
+    j = id(i) % 128021
+    if i in seen:
+      return f&#34;#:{j}&#34;
+    seen[i] = i
+    d = has(i.__dict__, seen)
+    d[&#34;#&#34;] = j
+    return d
+  if isinstance(i, (tuple, list)):
+    return [has(v, seen) for v in i]
+  if isinstance(i, dict):
+    return {k: has(i[k], seen) for k in i if str(k)[0] != &#34;_&#34;}
+  return i</code></pre>
+</details>
+</dd>
+<dt id="bnbad.lib.pairs"><code class="name flex">
+<span>def <span class="ident">pairs</span></span>(<span>lst)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the i-th and i+1-th item in a list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pairs(lst):
+  &#34;Return the i-th and i+1-th item in a list.&#34;
+  last = lst[0]
+  for i in lst[1:]:
+    yield last, i
+    last = i</code></pre>
+</details>
+</dd>
+<dt id="bnbad.lib.perc"><code class="name flex">
+<span>def <span class="ident">perc</span></span>(<span>a, p=[0.25, 0.5, 0.75])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def perc(a, p=[.25, .5, .75]):
+  a = sorted(a)
+  return [a[int(p0 * len(a))] for p0 in p]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.lib.rows"><code class="name flex">
+<span>def <span class="ident">rows</span></span>(<span>x=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read csv rows from stdio or a file or a string or a list.
+Kill any whitespace or comments.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rows(x=None):
+  &#34;&#34;&#34;
+  Read csv rows from stdio or a file or a string or a list.
+  Kill any whitespace or comments.
+  &#34;&#34;&#34;
+  def items(z):
+    for y in z:
+      yield y
+
+  def strings(z):
+    for y in z.splitlines():
+      yield y
+
+  def csv(z):
+    with open(z) as fp:
+      for y in fp:
+        yield y
+  f = sys.stdin
+  if x:
+    if isinstance(x, (list, tuple)):
+      f = items
+    elif x[-3:] == &#39;csv&#39;:
+      f = csv
     else:
-      eg = &#34;; e.g. -%s %s&#34;%(key,val) if val != &#34;&#34; else &#34;&#34;
-      return key,default, dict(help=txt + eg,
-                      default=default, metavar=m, type=t)</code></pre>
+      f = strings
+  for y in f(x):
+    y = re.sub(r&#39;([\n\t\r ]|#.*)&#39;, &#39;&#39;, y.strip())
+    if y:
+      yield y.strip().split(&#34;,&#34;)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.lib.shuffle"><code class="name flex">
+<span>def <span class="ident">shuffle</span></span>(<span>lst)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a shuffled list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def shuffle(lst):
+  &#34;Return a shuffled list.&#34;
+  random.shuffle(lst)
+  return lst</code></pre>
+</details>
+</dd>
+<dt id="bnbad.lib.xtile"><code class="name flex">
+<span>def <span class="ident">xtile</span></span>(<span>lst, lo=0, hi=1, width=50, chops=[0.1, 0.3, 0.5, 0.7, 0.9], marks=[' ', '.', '.', ' ', ' '], bar='', star='o', show=' %5.3f')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Pretty print a large list of numbers.
+Take a list of numbers, sort them,
+then print them as a
+horizontal
+xtile chart (in ascii format). The default is a
+contracted <em>quintile</em> that shows the
+10,30,50,70,90 breaks in the data (but this can be
+changed- see the optional flags of the function).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def xtile(lst, lo=0, hi=1,
+          width=50,
+          chops=[0.1, 0.3, 0.5, 0.7, 0.9],
+          marks=[&#34; &#34;, &#34;.&#34;, &#34;.&#34;, &#34; &#34;, &#34; &#34;],
+          bar=&#34;&#34;,
+          star=&#34;o&#34;,
+          show=&#34; %5.3f&#34;):
+  &#34;&#34;&#34;
+  Pretty print a large list of numbers.
+  Take a list of numbers, sort them,
+  then print them as a
+  horizontal
+  xtile chart (in ascii format). The default is a
+  contracted _quintile_ that shows the
+  10,30,50,70,90 breaks in the data (but this can be
+  changed- see the optional flags of the function).
+  &#34;&#34;&#34;
+  def at(p):
+    return ordered[int(len(lst)*p)]
+
+  def norm(x):
+    return int(width*float((x - lo))/(hi - lo+0.00001))
+
+  def pretty(lst):
+    return &#39;, &#39;.join([show % x for x in lst])
+  ordered = sorted(lst)
+  what = [at(p) for p in chops]
+  where = [norm(n) for n in what]
+  out = [&#34; &#34;] * width
+  marks1 = marks[:]
+  for one, two in pairs(where):
+    for i in range(one, two):
+      out[i] = marks1[0]
+    marks1 = marks1[1:]
+  if bar:
+    out[int(width/2)] = bar
+  if star:
+    out[norm(at(0.5))] = star
+  return &#39;&#39;.join(out) + &#34;,&#34; + pretty(what)</code></pre>
 </details>
 </dd>
 </dl>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="bnbad.lib.Thing"><code class="flex name class">
+<span>class <span class="ident">Thing</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Thing:
+  &#34;&#34;&#34;
+  All my classes are Things that pretty print themselves
+  by reporting themselves as nested dictionaries then
+  pprint-ing that dictionary.
+  &#34;&#34;&#34;
+  def __repr__(i):
+    return re.sub(r&#34;&#39;&#34;, &#39; &#39;,
+                  pprint.pformat(dicts(i.__dict__), compact=True))</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="bnbad.col.Col" href="col.html#bnbad.col.Col">Col</a></li>
+<li><a title="bnbad.col.Cols" href="col.html#bnbad.col.Cols">Cols</a></li>
+<li><a title="bnbad.lib.o" href="#bnbad.lib.o">o</a></li>
+<li><a title="bnbad.ranges.Range" href="ranges.html#bnbad.ranges.Range">Range</a></li>
+<li><a title="bnbad.ranges.Ranges" href="ranges.html#bnbad.ranges.Ranges">Ranges</a></li>
+<li><a title="bnbad.rx.Rx" href="rx.html#bnbad.rx.Rx">Rx</a></li>
+<li><a title="bnbad.tab.Cluster" href="tab.html#bnbad.tab.Cluster">Cluster</a></li>
+<li><a title="bnbad.tab.DecisionList" href="tab.html#bnbad.tab.DecisionList">DecisionList</a></li>
+<li><a title="bnbad.tab.Dist" href="tab.html#bnbad.tab.Dist">Dist</a></li>
+<li><a title="bnbad.tab.Tab" href="tab.html#bnbad.tab.Tab">Tab</a></li>
+<li><a title="bnbad.x.X" href="x.html#bnbad.x.X">X</a></li>
+<li><a title="bnbad.xomo.Cocomo" href="xomo.html#bnbad.xomo.Cocomo">Cocomo</a></li>
+</ul>
+</dd>
+<dt id="bnbad.lib.o"><code class="flex name class">
+<span>class <span class="ident">o</span></span>
+<span>(</span><span>**d)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fast way to initialize an instance that has no methods
+e.g. x=o(name="tim", age=23); print(x.age)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class o(Thing):
+  &#34;&#34;&#34;
+  Fast way to initialize an instance that has no methods
+  e.g. x=o(name=&#34;tim&#34;, age=23); print(x.age)
+  &#34;&#34;&#34;
+  def __init__(i, **d): i.__dict__.update(**d)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.lib.Thing" href="#bnbad.lib.Thing">Thing</a></li>
+</ul>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -172,9 +704,28 @@ truth for yourself."
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
+<ul class="two-column">
+<li><code><a title="bnbad.lib.arg" href="#bnbad.lib.arg">arg</a></code></li>
 <li><code><a title="bnbad.lib.args" href="#bnbad.lib.args">args</a></code></li>
-<li><code><a title="bnbad.lib.makeArgParseOption" href="#bnbad.lib.makeArgParseOption">makeArgParseOption</a></code></li>
+<li><code><a title="bnbad.lib.cols" href="#bnbad.lib.cols">cols</a></code></li>
+<li><code><a title="bnbad.lib.dicts" href="#bnbad.lib.dicts">dicts</a></code></li>
+<li><code><a title="bnbad.lib.dprint" href="#bnbad.lib.dprint">dprint</a></code></li>
+<li><code><a title="bnbad.lib.has" href="#bnbad.lib.has">has</a></code></li>
+<li><code><a title="bnbad.lib.pairs" href="#bnbad.lib.pairs">pairs</a></code></li>
+<li><code><a title="bnbad.lib.perc" href="#bnbad.lib.perc">perc</a></code></li>
+<li><code><a title="bnbad.lib.rows" href="#bnbad.lib.rows">rows</a></code></li>
+<li><code><a title="bnbad.lib.shuffle" href="#bnbad.lib.shuffle">shuffle</a></code></li>
+<li><code><a title="bnbad.lib.xtile" href="#bnbad.lib.xtile">xtile</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="bnbad.lib.Thing" href="#bnbad.lib.Thing">Thing</a></code></h4>
+</li>
+<li>
+<h4><code><a title="bnbad.lib.o" href="#bnbad.lib.o">o</a></code></h4>
+</li>
 </ul>
 </li>
 </ul>

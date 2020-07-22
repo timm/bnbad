@@ -34,8 +34,9 @@ between sets of values.</p>
 Statistical tools to group, and distinguish
 between sets of values.
 &#34;&#34;&#34;
-from .lib import *
-from .my import *
+from .lib import xtile, Thing, perc
+from .my import my
+import random
 
 
 def rxs(d, width=50,
@@ -88,27 +89,27 @@ def rxs(d, width=50,
 
 class Rx(Thing):
   &#34;&#34;&#34;
-  A treatment &#34;`Rx`&#34; is a label (`i.rx`) and a set of 
-  values (`i.all`).  
+  A treatment &#34;`Rx`&#34; is a label (`i.rx`) and a set of
+  values (`i.all`).
 
   Similar treatments can be grouped together
   by the [`rxs`](#bnbad.rxs) function
   into sets of values with the same `rank`
-  Things in the same rank are statistically 
+  Things in the same rank are statistically
   indistinguishable, as judged by all three of:
 
-  1. A very fast non-parametric `D` test 
+  1. A very fast non-parametric `D` test
       - Sort the numns, ignore divisions less that
-        30% of &#34;spread&#34; (90th-10th percentile range); 
-  2. A (slightly more thorough) non-parametric effect 
+        30% of &#34;spread&#34; (90th-10th percentile range);
+  2. A (slightly more thorough) non-parametric effect
      size test (the Cliff&#39;s Delta);
-      -  Two lists are different if, usually, 
-         things from one list do not fall into the middle 
+      -  Two lists are different if, usually,
+         things from one list do not fall into the middle
          of the other.
-  3. (very thorough) non-parametric 
+  3. (very thorough) non-parametric
      significance test (the Bootstrap);
       - See if hundreds of sample-with-replacements
-        sets from two lists and  different properties to 
+        sets from two lists and  different properties to
         the overall list.
 
   Of the above, the third is far slower than the rest. Often, if it is
@@ -329,17 +330,16 @@ then iteratively merge together adjacent similar items.</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>A treatment "<code><a title="bnbad.rx.Rx" href="#bnbad.rx.Rx">Rx</a></code>" is a label (<code>i.rx</code>) and a set of
-values (<code>i.all</code>).
-</p>
+values (<code>i.all</code>).</p>
 <p>Similar treatments can be grouped together
 by the <a href="#bnbad.rxs"><code>rxs</code></a> function
 into sets of values with the same <code>rank</code>
 Things in the same rank are statistically
 indistinguishable, as judged by all three of:</p>
 <ol>
-<li>A very fast non-parametric <code>D</code> test <ul>
+<li>A very fast non-parametric <code>D</code> test<ul>
 <li>Sort the numns, ignore divisions less that
-30% of "spread" (90th-10th percentile range); </li>
+30% of "spread" (90th-10th percentile range);</li>
 </ul>
 </li>
 <li>A (slightly more thorough) non-parametric effect
@@ -372,27 +372,27 @@ that same process takes half an hour.</p></div>
 </summary>
 <pre><code class="python">class Rx(Thing):
   &#34;&#34;&#34;
-  A treatment &#34;`Rx`&#34; is a label (`i.rx`) and a set of 
-  values (`i.all`).  
+  A treatment &#34;`Rx`&#34; is a label (`i.rx`) and a set of
+  values (`i.all`).
 
   Similar treatments can be grouped together
   by the [`rxs`](#bnbad.rxs) function
   into sets of values with the same `rank`
-  Things in the same rank are statistically 
+  Things in the same rank are statistically
   indistinguishable, as judged by all three of:
 
-  1. A very fast non-parametric `D` test 
+  1. A very fast non-parametric `D` test
       - Sort the numns, ignore divisions less that
-        30% of &#34;spread&#34; (90th-10th percentile range); 
-  2. A (slightly more thorough) non-parametric effect 
+        30% of &#34;spread&#34; (90th-10th percentile range);
+  2. A (slightly more thorough) non-parametric effect
      size test (the Cliff&#39;s Delta);
-      -  Two lists are different if, usually, 
-         things from one list do not fall into the middle 
+      -  Two lists are different if, usually,
+         things from one list do not fall into the middle
          of the other.
-  3. (very thorough) non-parametric 
+  3. (very thorough) non-parametric
      significance test (the Bootstrap);
       - See if hundreds of sample-with-replacements
-        sets from two lists and  different properties to 
+        sets from two lists and  different properties to
         the overall list.
 
   Of the above, the third is far slower than the rest. Often, if it is
