@@ -15,7 +15,7 @@ truth for yourself."
 <a href="https://doi.org/10.5281/zenodo.3947026">           <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> 
 <a href="https://travis-ci.org/github/timm/bnbad">          <img src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> 
 <img src="https://img.shields.io/badge/style-pep8-red">
-<img src="https://img.shields.io/badge/style-flake8-orange">
+<img src="https://img.shields.io/badge/syntax-pyflake8-orange">
 </p>
 <a href="https://github.com/timm/bnbad/blob/master/README.md"><img src="github.png" width=40></a>
 <a href="https://github.com/timm/bnbad/archive/master.zip"> <img src="zip.png" width=40></a> </p><p>
