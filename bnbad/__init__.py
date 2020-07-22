@@ -14,7 +14,7 @@ Nearly all this processing takes loglinear time.
 
 For design details, see the "[about](about)" file.
 
-For examples of how to use the code, see the [test functions](#header-functions).
+For examples of how to use the code, see the [test functions](tests).
 """
 
 from .lib import *
