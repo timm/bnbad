@@ -1,5 +1,5 @@
 """
-## About
+## About this code
 
 Is your software ethical?  Does its own source code  holds a
 representation of user goals and  uses those at runtime to guide
