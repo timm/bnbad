@@ -12,7 +12,9 @@ Nearly all this processing takes loglinear time.
             |    5 | Better  
             :------:  
 
-For more details, see the "[about](about)" file.
+For design details, see the "[about](about)" file.
+
+For examples of how to use the code, see the [test functions](#header-functions).
 """
 
 from .lib import *
