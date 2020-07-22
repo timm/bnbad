@@ -1,3 +1,8 @@
+"""
+Divide data into ranges, then merge
+similar values.
+"""
+
 from .col import Magic
 from .my import my
 from .lib import *

@@ -1,3 +1,8 @@
+"""
+Tools to generate `Num`ber and `Sym`bolic columns, 
+generate summaries of data in columns, and to manage
+sets of columns (`Cols`).
+"""
 from .lib import *
 
 

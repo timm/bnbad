@@ -1,3 +1,7 @@
+"""
+Statistical tools to group, and distinguish
+between sets of values.
+"""
 from .lib import *
 from .my import *
 

@@ -1,3 +1,7 @@
+"""
+Config options.
+"""
+
 from .lib import *
 
 

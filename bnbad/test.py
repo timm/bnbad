@@ -1,3 +1,7 @@
+"""
+Test suite management.
+"""
+
 from .lib import *
 from .my import *
 from termcolor import colored

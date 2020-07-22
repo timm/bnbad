@@ -1,3 +1,7 @@
+"""
+Generate numbers within ranges of `lo` to `hi`.
+
+"""
 from .lib import *
 
 

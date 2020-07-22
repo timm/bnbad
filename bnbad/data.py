@@ -1,3 +1,7 @@
+"""
+Sample test data.
+"""
+
 weather4 = """
 outlook,$temp,?$humid,wind,!play        
 sunny, 85, 85,  FALSE, no 
