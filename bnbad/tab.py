@@ -1,8 +1,7 @@
 """
-Storage of rows, and summaries of each column. Also:
-
-- Methods to recursively group tables into sub-tables (recursively).  
-- Tools to find deltas between tables.
+Storage of rows, and summaries of each column. Also,
+(a) methods to recursively group tables into sub-tables (recursively);
+(b) tools to find deltas between tables.
 """
 from .lib import cols, rows, shuffle
 from .lib import Thing
