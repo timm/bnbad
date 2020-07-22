@@ -104,7 +104,7 @@ def test_tree():
          | | | | 38 {2428.71, 19.29, 30.00}
          | | | 18 {2289.94, 17.08, 20.00}
          | | 83
-       * | | | 35 {1982.63, 17.23, 39.43} 
+       * | | | 35 {1982.63, 17.23, 39.43}
          | | | 48
          | | | | 21 {2308.19, 13.83, 31.43}
          | | | | 27 {2069.67, 15.44, 30.37}
@@ -140,11 +140,11 @@ def test_bore():
   Then we run a rule learner that generates a decision
   list that seperates `best` from `rest`.
 
-      if   $displacement  in   68 .. 105 then {2055.9, 16.9, 32.1} 
-      elif $displacement  in  107 .. 140 then {2533.1, 15.9, 26.6} 
-      elif $displacement  in  141 .. 200 then {2910.2, 16.2, 24.2} 
-      elif $horsepower    in   72 .. 139 then {3437.2, 16.3, 19.9} 
-      else {4201.2, 12.5, 14.2} 
+      if   $displacement  in   68 .. 105 then {2055.9, 16.9, 32.1}
+      elif $displacement  in  107 .. 140 then {2533.1, 15.9, 26.6}
+      elif $displacement  in  141 .. 200 then {2910.2, 16.2, 24.2}
+      elif $horsepower    in   72 .. 139 then {3437.2, 16.3, 19.9}
+      else {4201.2, 12.5, 14.2}
 
   """
   verbose = True

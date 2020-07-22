@@ -1,8 +1,7 @@
 """
-General Python tricks
+Misc Python functions
 """
 import random
-import traceback
 import pprint
 import sys
 import re
@@ -26,7 +25,7 @@ def arg(txt, **d):
     val = d[k]
     break
   default = val[0] if isinstance(val, list) else val
-  if val == False:
+  if val is False:
     return key, default, dict(help=txt, action='store_true')
   else:
     m, t = "S", str
@@ -49,8 +48,9 @@ def args(f, hello=""):
   """
   lst = f()
   before = re.sub(r"\n  ", "\n", hello)
-  parser = argparse.ArgumentParser(description=before,
-                                   formatter_class=argparse.RawDescriptionHelpFormatter)
+  parser = argparse.ArgumentParser(
+      description=before,
+      formatter_class=argparse.RawDescriptionHelpFormatter)
   for key, _, args in lst:
     parser.add_argument("-"+key, **args)
   return parser.parse_args()
@@ -60,7 +60,7 @@ def args(f, hello=""):
 class Thing:
   """
   All my classes are Things that pretty print themselves
-  by reporting themselves as nested dictionaries then 
+  by reporting themselves as nested dictionaries then
   pprint-ing that dictionary.
   """
   def __repr__(i):
@@ -133,7 +133,7 @@ def cols(src):
   "Ignore columns if, on line one, the name contains '?'."
   todo = None
   for a in src:
-    todo = todo or [n for n, s in enumerate(a) if not "?" in s]
+    todo = todo or [n for n, s in enumerate(a) if "?" not in s]
     yield [a[n] for n in todo]
 
 
@@ -154,8 +154,8 @@ def shuffle(lst):
 def has(i, seen=None):
   """
   Report a nested object as a set of nested lists.
-  If we see the same `Thing` twice, then show it the 
-  first time, after which, just show its id. Do not 
+  If we see the same `Thing` twice, then show it the
+  first time, after which, just show its id. Do not
   return anything that is private;
   i.e. Anything whose name starts with "_".
   """
@@ -177,7 +177,7 @@ def has(i, seen=None):
 
 def dprint(d, pre="", skip="_"):
   """
-  Pretty print a dictionary, sorted by keys, ignoring 
+  Pretty print a dictionary, sorted by keys, ignoring
   private slots (those that start with '_'_).
   """
   def q(z):
@@ -186,14 +186,14 @@ def dprint(d, pre="", skip="_"):
     if callable(z):
       return "f(%s)" % z.__name__
     return str(z)
-  l = sorted([(k, d[k]) for k in d if k[0] != skip])
+  lst = sorted([(k, d[k]) for k in d if k[0] != skip])
   return pre+'{'+", ".join([('%s=%s' % (k, q(v)))
-                            for k, v in l]) + '}'
+                            for k, v in lst]) + '}'
 
 
 def perc(a, p=[.25, .5, .75]):
-  ls = sprted(a)
-  return [l[int(p0 * len(a))] for p0 in p]
+  a = sorted(a)
+  return [a[int(p0 * len(a))] for p0 in p]
 
 
 def xtile(lst, lo=0, hi=1,

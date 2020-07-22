@@ -3,8 +3,8 @@ Sample test data.
 """
 
 weather4 = """
-outlook,$temp,?$humid,wind,!play        
-sunny, 85, 85,  FALSE, no 
+outlook,$temp,?$humid,wind,!play
+sunny, 85, 85,  FALSE, no
 sunny, 80, 90, TRUE, no
 overcast, 83, 86, FALSE, yes
 rainy, 70, 96, FALSE, yes

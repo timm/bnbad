@@ -1,7 +1,7 @@
 #!/usr/bin/env pypy3
 """
 Optimizer, written as a data miner.  Break the data up into regions
-of 'bad' and 'better'. Find ways to jump from 'bad' to 'better'. 
+of 'bad' and 'better'. Find ways to jump from 'bad' to 'better'.
 Nearly all this processing takes loglinear time.
 
     :-------:  

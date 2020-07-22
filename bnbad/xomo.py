@@ -4,23 +4,27 @@ This code predicts:
 1. Time in months to complete a project (and a month is 152 hours of
 work and includes all management support tasks associated with the coding).
 2. The risk associated with the current project decisions.
-   This [risk model](cocrisk) is calculated from a set of rules that add a "risk value" for
+   This [risk model](cocrisk) is calculated from a set of rule
+   that add a "risk value" for
 every "bad smell" within the current project settings.
 
 The standard COCOMO effort model assumes that:
 -  Effort is exponential on size of code
-- Within the exponent there are set of scale factors that increase effort exponentially
-- Outside the exponent there are set of effort multipliers that change effort in a linear manner
+- Within the exponent there are set of scale factors that
+  increase effort exponentially
+- Outside the exponent there are set of effort multipliers
+  that change effort in a linear manner
   - either linearly increasing  or linearly decreasing.
 
 This code extends the standard COCOMO effort model as follows:
 - This code comes with a set of mitigations that might improve a project.
   It is a sample manner:
-  - To loop over all those mitigations, trying each for a particular project. 
+  - To loop over all those mitigations, trying each for a particular project.
   - Define and test your own mitigations.
 - Many of the internal parameters of COCOMO are not known with any certainty.
   -  So this model represents all such internals as a range of options.
-  - By running this estimated, say, 1000 times, you can get an estimate of the range of possible values.
+  - By running this estimated, say, 1000 times,
+    you can get an estimate of the range of possible values.
 
 ## Attributes
 
@@ -41,7 +45,7 @@ if _more_ then exponential _more_ effort i
 |Team|team cohesion|
 
 ### Positive Effort Multipliers
-If more, then linearly more effort 
+If more, then linearly more effort
 
 |What| Notes|
 |----|------|
@@ -55,7 +59,7 @@ If more, then linearly more effort
 |time |required % of available CPU
 
 ### Negative Effort Multipliers
-If more, then linearly more effort 
+If more, then linearly more effort
 
 
 |What| Notes|
@@ -73,9 +77,9 @@ If more, then linearly more effort
 (For guidance on how to score projects on these scales, see tables 11,12,13,etc
 of the [Cocomo manual](http://sunset.usc.edu/csse/affiliate/private/COCOMOII_2000/COCOMOII-040600/modelman.pdf).)
 """
-from .lib import *
-from .my import *
-from .x import *
+from .lib import o,  Thing
+from .x import F, I
+from copy import deepcopy as kopy
 
 defaults = o(
     misc=o(kloc=F(2, 1000),

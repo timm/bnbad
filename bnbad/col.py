@@ -1,14 +1,14 @@
 """
-Tools to generate `Num`ber and `Sym`bolic columns, 
+Tools to generate `Num`ber and `Sym`bolic columns,
 generate summaries of data in columns, and to manage
 sets of columns (`Cols`).
 """
-from .lib import *
+from .lib import Thing
 
 
 class Magic:
   """
-  Define magic characterss. 
+  Define magic characterss.
   Used in column headers to denote goals, klasses, numbers.
   Used also to denote things to skip (columns, specific cells).
   """
@@ -46,8 +46,8 @@ class Col(Thing):
 
 
 class Num(Col):
-  def __init__(i, *l):
-    super().__init__(*l)
+  def __init__(i, *lst):
+    super().__init__(*lst)
     i.mu, i.lo, i.hi = 0, 10**32, -10**32
 
   def mid(i): return i.mu
@@ -74,8 +74,8 @@ class Num(Col):
 
 
 class Sym(Col):
-  def __init__(i, *l):
-    super().__init__(*l)
+  def __init__(i, *lst):
+    super().__init__(*lst)
     i.seen, i.most, i.mode = {}, 0, None
 
   def mid(i): return i.mode
