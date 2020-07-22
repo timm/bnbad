@@ -3,25 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.6.3" />
+<meta name="generator" content="pdoc 0.8.3" />
 <title>bnbad API documentation</title>
 <meta name="description" content="Optimizer, written as a data miner.
 Break the data up into regions
 of &#39;bad&#39; and &#39;better&#39;. Find ways to jump from &#39;bad&#39; to &#39;better&#39;.
 Nearly all this …" />
-<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
 <style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{xline-height:1.5em;line-height:1.2em;font-family:Arial}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML'></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 </head>
 <body>
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>bnbad</code></h1>
+<h1 class="title">Package <code>bnbad</code></h1>
 </header>
 <section id="section-intro">
 <p>Optimizer, written as a data miner.
@@ -97,8 +99,8 @@ Update just the branches that get too many anomalies (if that ever happens).</li
 </li>
 </ul>
 <h2 id="classes">Classes</h2>
-<p>In my code <code>Thing</code> and <code>o</code> are basic utility classes. <code>Thing</code>s
-know how to pretty-print themselves while <code>o</code> classes are
+<p>In my code <code><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></code> and <code><a title="bnbad.o" href="#bnbad.o">o</a></code> are basic utility classes. <code><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></code>s
+know how to pretty-print themselves while <code><a title="bnbad.o" href="#bnbad.o">o</a></code> classes are
 basic containers for things with names slots (but no methods).</p>
 <pre><code> Thing
     o  
@@ -115,34 +117,32 @@ basic containers for things with names slots (but no methods).</p>
     Tab(rows)     :has 1 :to 1 :of Cols  
     Test
 </code></pre>
-<p>The real work here is done by <code>Tab</code>les.
-Such <code>Tab</code>les are the core of this design.
+<p>The real work here is done by <code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code>les.
+Such <code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code>les are the core of this design.
 When data is read from disk
-it is entered into a <code>Tab</code>le. When collecting data from some
-process, that data is incrementally written into a <code>Tab</code>le.
+it is entered into a <code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code>le. When collecting data from some
+process, that data is incrementally written into a <code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code>le.
 If we recursively cluster data, each level of that recursion
 is a table.
-into tables. that have <code>rows</code> and <code>cols</code>.
-Each row is some example of <code>y=f(x)</code> where <code>y</code> and <a title="bnbad.x" href="x.html"><code>bnbad.x</code></a>
+into tables. that have <code><a title="bnbad.rows" href="#bnbad.rows">rows()</a></code> and <code><a title="bnbad.cols" href="#bnbad.cols">cols()</a></code>.
+Each row is some example of <code>y=f(x)</code> where <code>y</code> and <code>x</code>
 can have multiple values (and when <code>|y|&gt;1</code>, then this
 then becomes a multi-objective reasoner).</p>
 <p>Our
-<code>rows</code> are just plain old Python lists. We can
+<code><a title="bnbad.rows" href="#bnbad.rows">rows()</a></code> are just plain old Python lists. We can
 compute the <code>dist</code>ance between rows as well as checking
 if the goals in one row are "better than" (also known as
 "dominates") the other.</p>
-<p><code>Col</code> objects summarize what was seen in each column. There are
-two general kinds of <code>Col</code>s (<code>Num</code>erics and <code>Sym</code>bols) and
+<p><code><a title="bnbad.Col" href="#bnbad.Col">Col</a></code> objects summarize what was seen in each column. There are
+two general kinds of <code><a title="bnbad.Col" href="#bnbad.Col">Col</a></code>s (<code><a title="bnbad.Num" href="#bnbad.Num">Num</a></code>erics and <code><a title="bnbad.Sym" href="#bnbad.Sym">Sym</a></code>bols) and
 which can be categoriesed into</p>
 <ul>
 <li><code>y</code> values:</li>
 <li>numeric goals (that we might want to maximize or minimze)</li>
 <li>symbolic gaols (that are also called <code>klass</code>es)</li>
-<li><a title="bnbad.x" href="x.html"><code>bnbad.x</code></a> values:</li>
+<li><code>x</code> values:</li>
 <li>which can be numeric or symbolic.</li>
 </ul>
-<p>Details:</p>
-<p><img src="design.png"></p>
 <h2 id="license">License</h2>
 <p>MIT License</p>
 <p>Copyright (c) 2020, Tim Menzies</p>
@@ -166,7 +166,9 @@ OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">#!/usr/bin/env pypy3
 &#34;&#34;&#34;
 Optimizer, written as a data miner.  Break the data up into regions
@@ -283,10 +285,6 @@ which can be categoriesed into
 - `x` values:
  - which can be numeric or symbolic.
 
-Details:
-
-&lt;img src=&#34;design.png&#34;&gt;
-
 ## License
 
 MIT License
@@ -316,318 +314,1213 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 &#34;&#34;&#34;
 
-import os
-#import random,math,sys,re,os
-#from copy   import deepcopy as kopy
+import traceback,argparse,random,pprint,math,sys,re,os
+from copy import deepcopy as kopy
 from .lib import *
-from .col import *
-from .tab import *
-from .my import *
-from .rx import *
-from .ranges import *
-from .xomo import *
-from .test import *
 
+def help(): 
+  &#34;&#34;&#34;
+  Define options.
+  &#34;&#34;&#34;
+  h = makeArgParseOption
+  return [
+    h(&#34;verbose mode for Tree&#34;,                          treeVerbose= False),
+    h(&#34;bin min size =len**b&#34;,                           b= .5),
+    h(&#34;what columns to while tree building &#34; ,          c= [&#34;x&#34;,&#34;y&#34;]),
+    h(&#34;use at most &#39;d&#39; rows for distance calcs&#34;,        d= 256),
+    h(&#34;merge ranges whose scores differ by less that F&#34;,e= 0.05),
+    h(&#34;separation of poles (f=1 means &#39;max distance&#39;)&#34;, f= .9),
+    h(&#34;decision list: minimum leaf size&#34;,               M= 10),
+    h(&#34;decision list: maximum height&#34;,                   H= 4),
+    h(&#34;decision list: ratio of negative examples&#34;,     N= 4),
+    h(&#34;coefficient for distance&#34; ,                      p= 2),
+    h(&#34;random number seed&#34; ,                            r = 1),
+    h(&#34;tree leaves must be at least n**s in size&#34; ,     s= 0.5),
+    h(&#34;stats: Cliff&#39;s Delta &#39;dull&#39;&#34;,                    Sdull=[.147,.33,.474]),
+    h(&#34;stats: Coehn &#39;d&#39;&#34;,                               Scohen=0.2),
+    h(&#34;stats: number of boostrap samples&#34;,              Sb=500),
+    h(&#34;stats: bootstrap confidences&#34;,                   Sconf=0.01),
+    h(&#34;training data (arff format&#34;,                     train= &#34;train.csv&#34;),
+    h(&#34;testing data (csv format)&#34;,                      test=  &#34;test.csv&#34;),
+    h(&#34;List all tests.&#34;,                                L = False),
+    h(&#34;Run all tests.&#34;,                                 T = False),
+    h(&#34;Run just the tests with names matching &#39;S&#39;&#34;,     t= &#34;&#34;)
+  ]
+
+#---------------------------------------------------------
+
+class Magic:
+  &#34;&#34;&#34;
+  Define magic characterss. 
+  Used in column headers to denote goals, klasses, numbers.
+  Used also to denote things to skip (columns, specific cells).
+  &#34;&#34;&#34;
+  def no(s): 
+    &#34;Things to skip.&#34;
+    return  s == &#34;?&#34;
+  def nump(s): 
+    &#34;Numbers.&#34;
+    return &#34;&lt;&#34; in s or &#34;$&#34; in s or &#34;&gt;&#34; in s
+  def goalp(s): 
+    &#34;Goals&#34;
+    return &#34;&lt;&#34; in s or &#34;!&#34; in s or &#34;&gt;&#34; in s
+  def klassp(s): 
+    &#34;Non-numeric goals.&#34;
+    return &#34;!&#34; in s
+  def lessp(s): 
+    &#34;Thing to minimize&#34;
+    return &#34;&lt;&#34; in s
+  
+class Thing:
+  &#34;&#34;&#34;
+  All my classes are Things that pretty print themselves
+  by reporting themselves as nested dictionaries then 
+  pprint-ing that dictionary.
+  &#34;&#34;&#34;
+  def __repr__(i):
+     return re.sub(r&#34;&#39;&#34;,&#39; &#39;, 
+                   pprint.pformat(dicts(i.__dict__),compact=True))
+
+def dicts(i,seen=None):
+  &#34;&#34;&#34;
+  This is a tool used by `Thing`.
+  Converts `i` into a nested dictionary, then pretty-prints that.
+  &#34;&#34;&#34;
+  if isinstance(i,(tuple,list)): 
+    return [ dicts(v,seen) for v in i ]
+  elif isinstance(i,dict): 
+    return { k:dicts(i[k], seen) for k in i if str(k)[0] !=&#34;_&#34;}
+  elif isinstance(i,Thing): 
+    seen = seen or {}
+    j =id(i) % 128021 # ids are LONG; show them shorter.
+    if i in seen: return f&#34;#:{j}&#34;
+    seen[i]=i
+    d=dicts(i.__dict__,seen)
+    d[&#34;#&#34;] = j
+    return d
+  else:
+    return i
+
+class o(Thing):
+  def __init__(i,**d) : i.__dict__.update(**d)
+
+my  = o(**{k:d for k,d,_ in help()})
+
+class Col(Thing):
+  def __init__(i,pos,txt):
+    i.n, i.pos, i.txt = 0, pos, txt
+    i.w = -1 if Magic.lessp(txt) else 1
+  def __add__(i,x):
+    if Magic.no(x): return x
+    i.n += 1
+    return i.add(x)
+
+class Num(Col):
+  def __init__(i, *l):
+    super().__init__(*l)
+    i.mu, i.lo, i.hi = 0, 10**32, -10**32
+  def mid(i): return i.mu
+  def add(i,x):
+    x = float(x)
+    i.lo,i.hi = min(i.lo,x), max(i.hi,x)
+    i.mu      = i.mu + (x - i.mu)/i.n
+    return x
+  def norm(i,x):
+    if Magic.no(x) : return x
+    return (x - i.lo)  / (i.hi - i.lo + 0.000001)
+  def dist(i,x,y):
+    if Magic.no(x) and Magic.no(y): return 1
+    if Magic.no(x): x = i.lo if y &gt; i.mu else i.hi
+    if Magic.no(y): y = i.lo if x &gt; i.mu else i.hi
+    return abs(i.norm(x) - i.norm(y))
+
+class Sym(Col):
+  def __init__(i, *l):
+    super().__init__(*l)
+    i.seen, i.most, i.mode = {}, 0, None
+  def mid(i): return i.mode
+  def add(i,x):
+    tmp = i.seen[x] = i.seen.get(x,0) + 1
+    if tmp &gt; i.most: i.most,i.mode = tmp,x
+    return x
+  def dist(i,x,y): 
+    return 1 if Magic.no(x) and Magic.no(y) else x != y
+ 
+class Cols(Thing):
+  def __init__(i) : 
+    i.x,i.y,i.nums,i.syms,i.all,i.klas = {},{},{},{},[],None
+  def add(i,lst): 
+    [ col.add( lst[col.pos] ) for col in i.all ]
+  def klass(i,lst): 
+    return lst[i.klas]
+  def header(i,lst):
+    for pos,txt in enumerate(lst):
+      tmp = (Num if Magic.nump(txt) else Sym)(pos,txt)
+      i.all += [tmp]
+      (i.y    if Magic.goalp(txt) else i.x)[pos] = tmp
+      (i.nums if Magic.nump(txt)  else i.syms)[pos] = tmp
+      if Magic.klassp(txt) : i.klas  = tmp
+
+class Tab(Thing):
+  def __init__(i,rows=[]):
+    i.rows, i.cols = [], Cols()
+    [i.add(row) for row in rows]
+  def clone(i,rows=[]):
+    t  = Tab()
+    t  + [c.txt for c in i.cols.all] 
+    [t + row for row in  rows]
+    return t
+  def __add__(i,a): 
+    return i.add(a) if i.cols.all else i.cols.header(a)
+  def add(i,a): 
+    i.rows += [[c + a[c.pos] for c in i.cols.all]]
+  def read(i,data=None): 
+    [i + row for row in cols(rows(data))]
+    return i
+  def pairs(i,col):
+    return Bins(col.pos,i.rows, lambda z: z[col.pos], 
+                                lambda z: i.cols.klass(z))
+  def status(i):
+    return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid()) 
+                     for c in i.cols.y.values()]) + &#39;}&#39;
+  def mid(i):
+    return [ col.mid() for col in i.cols.all ]
+  def better(i,row1,row2):
+    s1,s2,n = 0,0,len(i.cols.y)+0.0001
+    for c in i.cols.y.values():
+      x   = c.norm( row1[c.pos] )
+      y   = c.norm( row2[c.pos] )
+      s1 -= math.e**(c.w*(x-y)/n)
+      s2 -= math.e**(c.w*(y-x)/n)
+    return s1/n &lt; s2/n
+
+class Dist(Thing):
+  def __init__(i, t,cols=None, rows=None, p=my.p):
+    i.t= t
+    i.p= p
+    i.cols = cols or t.cols.x
+    i.rows = rows or shuffle(t.rows)[:my.d]
+  def dist(i,row1,row2):
+    d = 0
+    for col in i.cols.values():
+      inc = col.dist( row1[col.pos], row2[col.pos] )
+      d  += inc**my.p
+    return (d/len(i.cols))**(1/my.p)
+  def neighbors(i,r1):
+    a = [(i.dist(r1,r2),r2) for r2 in i.rows if id(r1) != id(r2)]
+    return sorted(a, key = lambda z: z[0])
+  def faraway(i,row):
+     a= i.neighbors(row)
+     return a[ int( len(a) * my.f ) ][1]
+  def poles(i):
+     tmp   = random.choice(i.rows)
+     left  = i.faraway(tmp)
+     right = i.faraway(left)
+     return left, right, i.dist(left,right)
+  def project(i,row, left,right,c):
+     a = i.dist(row,left)
+     b = i.dist(row,right)
+     d = (a**2 + c**2 - b**2) / (2*c)
+     if d&gt;1: d= 1
+     if d&lt;0: d= 0
+     return d
+
+class Cluster(Thing): pass
+
+class Tree(Cluster):
+  def __init__(i, t, cols=my.c, lo=None, lvl=0):
+    lo = lo or 2*len(t.rows)**my.s
+    if len(t.rows) &gt; lo:
+      if my.treeVerbose:
+        print((&#39;| &#39;*lvl) + str(len(t.rows)))
+      i.d         = Dist(t,cols=t.cols.__dict__[cols])
+      i.l,i.r,i.c = i.d.poles()
+      xs          = [i.d.project(r,i.l,i.r,i.c) for r in t.rows]
+      i.mid       = sum(xs) / len(xs)
+      i.kids      = [t.clone(),t.clone()]
+      [i.kids[x &gt;= i.mid].add(r)     for x,r in zip(xs, t.rows)]
+      if len(i.kids[0].rows) &lt; len(t.rows) and \
+         len(i.kids[1].rows) &lt; len(t.rows) :
+         [ Tree(kid, cols=cols, lo=lo, lvl=lvl+1) 
+            for kid in i.kids ]
+    else:
+       if my.treeVerbose:
+         print((&#39;| &#39;*lvl) + str(len(t.rows)),t.status())
+      
+class Bore(Cluster):
+   &#34;&#34;&#34;
+   Multi-objective clustering to find `best` rows;
+   i.e. those that tend to dominate everything else.
+   &#34;&#34;&#34;
+   def __init__(i, t) :
+     i.rest = t.clone()
+     i.best = i.div(t, 2*len(t.rows)**my.s)
+   def div(i,t,lo):
+     &#34;&#34;&#34;  
+     Perform a top-down recursive division 
+     of data, based on their
+     `y values, as follows:
+    
+     - Find two distant rows .
+     - Check which one is best.
+     - Divide the rows into those nearer `best` or `rest`
+     - Add the `rest` to `i.rest`, recurse on the `best`.
+     - Stop when less than `N**.s` rows.
+       Return the surviving `best&#39; ranges.
+     &#34;&#34;&#34;
+     if len(t.rows) &lt; lo: return  t
+     d     = Dist(t,cols=t.cols.y)
+     l,r,c = d.poles()
+     xs    = [d.project(row,l,r,c) for row in t.rows]
+     mid   = sum(xs) / len(xs)
+     kid   = t.clone()
+     if t.better(l, r):
+       for x,row in zip(xs, t.rows):
+         (kid if x &lt; mid else i.rest).add(row)
+     else:
+       for x,row in zip(xs, t.rows):
+         (kid if x &gt;=  mid else i.rest).add(row)
+     return i.div(kid,lo)
+   def key(i):
+     &#34;Return the key range that most selects for best.&#34;
+     best  = my.e
+     bests = i.best.rows
+     rests = i.rest.rows
+     rests = shuffle(rests)[ :my.N*len(bests) ]
+     for  col in i.best.cols.x.values():
+       all  = []
+       all += [[r[col.pos], True]  for r in bests]
+       all += [[r[col.pos], False] for r in rests]
+       for one in Ranges(col.txt, all,
+                         get = col.pos).ranges:
+         if one.s() &gt; best:
+           best, out = one.s(), one
+     return out 
+
+class DecisionList(Thing):
+  def __init__(i, t, lvl=my.H):
+    i.t=t
+    i.leaf = None
+    if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
+      b = Bore(t)
+      i.split = b.key()
+      i.col = i.split._ranges.get
+      i.leaf, kid = t.clone(), t.clone()
+      for row in t.rows:
+        (i.leaf if i.split.matches(row) else kid).add(row)
+      i.kid = DecisionList(kid, lvl-1)
+  def show(i,pre=&#34;  &#34;): 
+    if i.leaf:
+      print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
+           &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
+      i.kid.show(pre=&#34;el&#34;)
+    else:
+     print(&#34;else&#34;, i.t.status(), len(i.t.rows))
+
+class Range(Thing):
+  def __init__(i,what,ranges):
+    i.what,i._ranges = what,  ranges
+    i.n, i.yes, i.no = 0,0.0001,0.0001
+    i.lo, i.hi = None, None
+    i.gen=1
+  def matches(i, row):
+    v = row[i._ranges.get]
+    return v != &#34;?&#34; and i.lo &lt;= v and v &lt;= i.hi
+  def add(i,x,y):
+    i.n += 1
+    if y==i._ranges.goal: i.yes += 1
+    else               : i.no += 1
+    if i.lo is None or x &lt; i.lo: i.lo = x
+    if i.hi is None or x &gt; i.hi: i.hi = x
+  def merge(i,j):
+    k     = i._ranges.bin()
+    k.gen = max(i.gen,j.gen) + 1
+    k.lo  = i.lo if i.lo &lt; j.lo else j.lo
+    k.hi  = i.hi if i.hi &gt; j.hi else j.hi
+    k.n   = i.n + j.n
+    k.no  = i.no  + j.no
+    k.yes = i.yes + j.yes
+    return k
+  def better(c,a,b):
+    sa, sb, sc = a.s(), b.s(), c.s()
+    return abs(sb - sa) &lt; my.e or sc &gt;= sb and sc &gt;= sa
+  def s(i):
+    yes   = i.yes/i._ranges.all.yes 
+    no    = i.no /i._ranges.all.no
+    tmp   = yes**2/(yes+no+0.0001) 
+    return tmp if tmp &gt; my.e else 0
+
+class Ranges(Thing):
+  &#34;&#34;&#34;
+  Report how to divide a list of pairs `[x,y]` 
+  such that groups of `x` values most select for some
+  desired `y` (which is called the `goal`.
+  &#34;&#34;&#34;
+  def __init__(i,txt,a,goal=True, get=lambda z:z[0]):
+    i.txt  = txt
+    i.goal = goal
+    i.get  = get
+    i.bin  = lambda: Range(txt,i)
+    i.all  = i.bin()
+    i.ranges = (i.nums if Magic.nump(txt) else i.syms)(a)
+  def syms(i,a):
+    &#34;When discretizing symbols, Generate one range for each symbol.&#34;
+    d  = {}
+    for x1,y1 in a:
+      if Magic.no(x1): continue
+      if not x1 in d: d[x1] = i.bin()
+      d[x1].add(x1,y1)
+      i.all.add(x1,y1)
+    return d.values()
+  def nums(i,a):
+    &#34;&#34;&#34;
+    When discretizing numbers,
+    Generate lots of small ranges, then
+    merge those with similar scores.&#34;
+    &#34;&#34;&#34;
+    return i.merge( i.grow( i.pairs(a)))
+  def pairs(i,a):
+    &#34;When discretizing numbers, convert `a` into a list of x,y pairs&#34;
+    lst = [(x,y) for x,y in a if not Magic.no(x)]
+    return sorted(lst, key= lambda z:z[0])
+  def grow(i,a):
+    &#34;When discretizing numbers, divide `a` into lots of small bins.&#34;
+    min  = len(a)**my.b
+    use  = len(a) - min
+    bins = [i.bin()]
+    for j,(x,y) in enumerate(a):
+      if Magic.no(x): continue
+      if j &lt; use and bins[-1].n &gt; min:
+        bins += [i.bin()]
+      bins[-1].add(x,y)
+      i.all.add(x,y) 
+    return bins
+  def merge(i,bins):
+    &#34;&#34;&#34;
+    When discretizing numbers, 
+    merge adjacent bins if that works better than 
+    keeping them part. If any merges found, then
+    recurse to merge the merged list.
+    &#34;&#34;&#34;
+    j, tmp = 0, []
+    while j &lt; len(bins):
+       a = bins[j]
+       if j &lt; len(bins) - 1:
+          b = bins[j+1]
+          c = a.merge(b)
+          if c.better(a,b):
+             a = c
+             j += 1
+       tmp += [a]
+       j += 1
+    return i.merge(tmp) if len(tmp) &lt; len(bins) else bins
+
+#--------------------------------------------------------
+# Utils
+
+def rows(x=None):
+  &#34;Read a csv file from disk.&#34;
+  prep=lambda z: re.sub(r&#39;([\n\t\r ]|#.*)&#39;,&#39;&#39;,z.strip())
+  if x:
+    with open(x) as f:
+      for y in f: 
+         z = prep(y)
+         if z: yield z.split(&#34;,&#34;)
+  else:
+   for y in sys.stdin: 
+         z = prep(y)
+         if z: yield z.split(&#34;,&#34;)
+
+def cols(src):
+  &#34;Ignore columns if, on line one, the name contains &#39;?&#39;.&#34;
+  todo = None
+  for a in src:
+    todo = todo or [n for n,s in enumerate(a) if not &#34;?&#34;in s]
+    yield [ a[n] for n in todo]
+
+def pairs(lst):
+  &#34;Return the i-th and i+1-th item in a list.&#34;
+  last=lst[0]
+  for i in lst[1:]:
+    yield last,i
+    last = i
+
+def shuffle(lst):
+  &#34;Return a shuffled list.&#34;
+  random.shuffle(lst)
+  return lst
+
+def has(i,seen=None):
+  &#34;&#34;&#34;
+  Report a nested object as a set of nested lists.
+  If we see the same `Thing` twice, then show it the 
+  first time, after which, just show its id. Do not 
+  return anything that is private;
+  i.e. anything whose name starts with &#34;_&#34;.
+  &#34;&#34;&#34;
+  seen = seen or {}
+  if isinstance(i,Thing): 
+     j =id(i) % 128021
+     if i in seen: return f&#34;#:{j}&#34;
+     seen[i]=i
+     d=has(i.__dict__,seen)
+     d[&#34;#&#34;] = j
+     return d
+  if isinstance(i,(tuple,list)): 
+     return [ has(v,seen) for v in i ]
+  if isinstance(i,dict): 
+     return { k:has(i[k], seen) for k in i if str(k)[0] !=&#34;_&#34;}
+  return i
+
+def dprint(d, pre=&#34;&#34;,skip=&#34;_&#34;):
+  &#34;&#34;&#34;
+  Pretty print a dictionary, sorted by keys, ignoring 
+  private slots (those that start with &#39;_&#39;_).
+  &#34;&#34;&#34;
+  def q(z):
+    if isinstance(z,float): return &#34;%5.3f&#34; % z
+    if callable(z): return &#34;f(%s)&#34; % z.__name__
+    return str(z)
+  l = sorted([(k,d[k]) for k in d if k[0] != skip])
+  return pre+&#39;{&#39;+&#34;, &#34;.join([(&#39;%s=%s&#39; % (k,q(v))) 
+                             for k,v in l]) +&#39;}&#39;
+
+def perc(a,p=[.25,.5,.75]):
+  ls = sprted(a)
+  return [ l[int(p0 * len(a))] for p0 in p ]
+
+def xtile(lst,lo=0,hi=1,
+             width = 50,
+             chops = [0.1 ,0.3,0.5,0.7,0.9],
+             marks = [&#34; &#34; ,&#34;.&#34;,&#34;.&#34;,&#34; &#34;,&#34; &#34;],
+             bar   = &#34;&#34;,
+             star  = &#34;o&#34;,
+             show  = &#34; %5.3f&#34;):
+    &#34;&#34;&#34;
+    Pretty print a large list of numbers.
+    Take a list of numbers, sort them,
+    then print them as a
+    horizontal
+    xtile chart (in ascii format). The default is a
+    contracted _quintile_ that shows the
+    10,30,50,70,90 breaks in the data (but this can be
+    changed- see the optional flags of the function).
+    &#34;&#34;&#34;
+    def at(p): 
+      return ordered[int(len(lst)*p)]
+    def norm(x): 
+      return int(width*float((x - lo))/(hi - lo+0.00001))
+    def pretty(lst):
+      return &#39;, &#39;.join([show % x for x in lst])
+    ordered = sorted(lst)
+    what    = [at(p)   for p in chops]
+    where   = [norm(n) for n in  what]
+    out     = [&#34; &#34;] * width
+    marks1 = marks[:]
+    for one,two in pairs(where):
+      for i in range(one,two):
+        out[i] = marks1[0]
+      marks1 = marks1[1:]
+    if bar:  out[int(width/2)]  = bar
+    if star: out[norm(at(0.5))] = star
+    return &#39;&#39;.join(out) +  &#34;,&#34; +  pretty(what)
+ 
+def rxs(d, width = 50,
+           show  = &#34;%5.0f&#34;,
+           chops = [0.1 ,0.3,0.5,0.7,0.9],
+           marks = [&#34; &#34; ,&#34;.&#34;,&#34;.&#34;,&#34;.&#34;,&#34; &#34;]):
+  &#34;&#34;&#34;
+  Manager for a set of treatment results.
+  Given a dictionary of values, sort the values by their median
+  then iteratively merge together adjacent similar items.
+  &#34;&#34;&#34;
+  def merge(lst, lvl=0):
+    &#34;&#34;&#34;
+    Do one pass, see what we can combine.
+    If nothing, then print  `lst`. Else, recurse.
+    &#34;&#34;&#34;
+    j,tmp = 0,[]
+    while j &lt; len(lst):
+       x = lst[j]
+       if j &lt; len(lst) - 1: 
+         y = lst[j+1]
+         if abs(x.med - y.med) &lt;= tiny or x == y:
+           tmp += [x+y] # merge x and y
+           j   += 2
+           continue
+       tmp += [x]
+       j   += 1
+    if len(tmp) &lt; len(lst):
+       return merge(tmp, lvl+1) 
+    else:
+       for n,group in enumerate(lst):
+         for rx in group.parts:
+           rx.rank = n
+           print(n, rx) 
+       return lst
+  #-------------------------------
+  p    = lambda n: a[ int( n*len(a) )]
+  a    = sorted([x for k in d for x in d[k]])
+  tiny = (p(.9) - p(.2))/2.56 * my.Scohen
+  return merge(sorted([Rx(rx    = k,    all = d[k], 
+                          lo    = a[0], hi  = a[-1],
+                          show  = show,
+                          width = width,
+                          chops = chops,
+                          marks = marks) 
+                    for k in d]))
+
+ 
+class Rx(Thing):
+  &#34;&#34;&#34;
+  A treatment &#34;`Rx`&#34; is a label (`i.rx`) and a set of 
+  values (`i.all`).  
+  
+  Similar treatments can be grouped together
+  by the [`rxs`](#bnbad.rxs) function
+  into sets of values with the same `rank`
+  Things in the same rank are statistically 
+  indistinguishable, as judged by all three of:
+
+  1. A very fast non-parametric `D` test 
+      - Sort the numns, ignore divisions less that
+        30% of &#34;spread&#34; (90th-10th percentile range); 
+  2. A (slightly more thorough) non-parametric effect 
+     size test (the Cliff&#39;s Delta);
+      -  Two lists are different if, usually, 
+         things from one list do not fall into the middle 
+         of the other.
+  3. (very thorough) non-parametric 
+     significance test (the Bootstrap);
+      - See if hundreds of sample-with-replacements
+        sets from two lists and  different properties to 
+        the overall list.
+  
+  Of the above, the third is far slower than the rest. Often, if it is
+  omitted, the results are often the same as just using 1+2.  So when
+  each treatment has 1000s of values, it would be reasonable to skip
+  it. Without bootstrapping,  256 treatments with 1000 values
+  can be sorted in less than 2 seconds. But with that skipping
+  that same process takes half an hour.
+  &#34;&#34;&#34;
+  def __init__(i, rx=&#34;&#34;, all=[], lo=0,hi=1,  
+                         width = 50,
+                         show  = &#34;%5.0f&#34;,
+                         chops = [0.1 ,0.3,0.5,0.7,0.9],
+                         marks = [&#34; &#34; ,&#34;-&#34;,&#34; &#34;,&#34;-&#34;,&#34; &#34;]):
+    i.rx   = rx
+    i.all  = sorted([x for x in all if x != &#34;?&#34;])
+    i.lo   = min(i.all[0],lo)
+    i.hi   = max(i.all[-1],hi)
+    i.n    = len(i.all)
+    i.med  = i.all[int(i.n/2)]
+    i.parts= [i]
+    i.rank = 0
+    i.width,i.chops,i.marks,i.show = width,chops,marks,show
+  def __lt__(i,j): 
+    &#34;Treatments are sorted on their `med` value.&#34;
+    return i.med &lt; j.med
+  def __eq__(i,j):
+    &#34;&#34;&#34;
+    Two treatments are statistically indistinguishable
+    if a non-parametric effect size test (`cliffsDelta`)
+    and a non-parametric significance test (`bootstrap`)
+    say that there are no differences between them.
+    &#34;&#34;&#34;
+    return i.cliffsDelta(j) and  i.bootstrap(j)
+  def __add__(i,j):
+    &#34;Treatments can be combined&#34;
+    k =  Rx(all = i.all + j.all,
+                  lo  = min(i.lo, j.lo), 
+                  hi  = max(i.hi, j.hi))
+    k.parts = i.parts + j.parts
+    return k
+  def __repr__(i):
+    &#34;Treatments can be printed.&#34;
+    return &#39;%10s %s&#39; % (i.rx, xtile(i.all, i.lo, i.hi,
+                                    show = i.show,
+                                    width = i.width,
+                                    chops = i.chops,
+                                    marks = i.marks))
+
+  def cliffsDelta(i,j, dull=my.Sdull):
+    &#34;&#34;&#34;
+    For every item in `lst1`, find its position in `lst2` Two lists are
+    different if, usually, things from one list do not fall into the
+    middle of the other.
+  
+    This code employees a few tricks to make all this run fast (e..g
+    pre-sort the lists, work over `runs` of same values).
+    &#34;&#34;&#34;
+    def runs(lst):
+      for j,two in enumerate(lst):
+        if j == 0: one,i = two,0
+        if one!=two:
+          yield j - i,one
+          i = j
+        one=two
+      yield j - i + 1,two
+    # --- end runs function ---------------------
+    lst1, lst2 = i.all, j.all
+    m, n = len(lst1), len(lst2)
+    lst2 = sorted(lst2)
+    j = more = less = 0
+    for repeats,x in runs(sorted(lst1)):
+      while j &lt;= (n - 1) and lst2[j] &lt;  x: j += 1
+      more += j*repeats
+      while j &lt;= (n - 1) and lst2[j] == x: j += 1
+      less += (n - j)*repeats
+    d= (more - less) / (m*n)
+    return abs(d)  &lt;= dull
+  
+  def bootstrap(i,j,onf=my.Sconf,b=my.Sb):
+    &#34;&#34;&#34;
+    Two  lists y0,z0 are the same if the same patterns can be seen in
+    all of them, as well as in 100s to 1000s  sub-samples from each.
+    From p220 to 223 of the Efron text  &#39;introduction to the bootstrap&#39;.
+    
+    This function checks for  different properties between (a) the two
+    lists and (b) hundreds of sample-with-replacements sets.
+    &#34;&#34;&#34;
+    class Sum(): 
+      &#34;# Quick &amp; dirty class to summarize sets of values.&#34;
+      def __init__(i,some=[]):
+        i.sum = i.n = i.mu = 0 ; i.all=[]
+        for one in some: i.put(one)
+      def put(i,x):
+        i.all.append(x);
+        i.sum +=x; i.n += 1; i.mu = float(i.sum)/i.n
+      def __add__(i1,i2): return Sum(i1.all + i2.all)
+    def testStatistic(y,z):
+       &#34;Define the property that we will check for.&#34;
+       tmp1 = tmp2 = 0
+       for y1 in y.all: tmp1 += (y1 - y.mu)**2
+       for z1 in z.all: tmp2 += (z1 - z.mu)**2
+       s1    = float(tmp1)/(y.n - 1)
+       s2    = float(tmp2)/(z.n - 1)
+       delta = z.mu - y.mu
+       if s1+s2:
+         delta =  delta/((s1/y.n + s2/z.n)**0.5)
+       return delta
+    def one(lst): 
+      &#34;Sampling with replacement.&#34;
+      return lst[ int(random.uniform(0,len(lst))) ]
+    #--------------
+    y0, z0 = i.all, j.all
+    y,z  = Sum(y0), Sum(z0)
+    x    = y + z
+    baseline = testStatistic(y,z)
+    yhat = [y1 - y.mu + x.mu for y1 in y.all]
+    zhat = [z1 - z.mu + x.mu for z1 in z.all]
+    bigger = 0
+    for i in range(b):
+      if testStatistic(Sum([one(yhat) for _ in yhat]),
+                       Sum([one(zhat) for _ in zhat])) &gt; baseline:
+        bigger += 1
+    return bigger / b &gt;= conf
+
+class X(Thing):
+  &#34;&#34;&#34;
+  Class for holding knowledge about some variable `X`. 
+  Instances of this class:
+
+  - Know their `lo` and `hi` value;
+  - Know that if `hi` is missing, to just use `lo`;
+  - Know how to calculate a value within a legal range.
+  - Know how to cache that value (so we can use it over and over again)
+  - Know how to check new values
+  - Know how to combine themselves 
+  &#34;&#34;&#34;
+  def __init__(i, lo,hi=None): 
+    i.lo = lo
+    i.hi = lo if hi==None else hi
+    i.lo0, i.hi0 = i.lo, i.hi
+    i.x  = None
+  def ok(i,z): 
+    return i.lo0 &lt;= z &lt;= i.hi0
+  def __call__(i):
+    if i.x == None: i.x = i.get()
+    return i.x
+  def __iadd__(i,j): 
+    lo = j.lo
+    hi = j.lo if j.hi==None else j.hi
+    if i.ok(lo) and i.ok(hi):
+      i.lo, i.hi, i.x  = lo, hi, None
+      return i
+    raise IndexError(&#39;out of bounds %s %s&#39; % (lo, hi))
+
+class F(X): 
+  &#34;Floats&#34;
+  def get(i): return random.uniform(i.lo, i.hi)
+
+class I(X): 
+  &#34;Integers&#34;
+  def get(i): return random.randint(i.lo, i.hi)
+
+class Cocomo(Thing):
+  &#34;&#34;&#34;
+  This code predicts:
+  
+  1. Time in months to complete a project (and a month is 152 hours of
+  work and includes all management support tasks associated with the coding).
+  2. The risk associated with the current project decisions.
+     This [risk model](cocrisk) is calculated from a set of rules that add a &#34;risk value&#34; for
+  every &#34;bad smell&#34; within the current project settings.
+  
+  The standard COCOMO effort model assumes that:
+  -  Effort is exponential on size of code
+  - Within the exponent there are set of scale factors that increase effort exponentially
+  - Outside the exponent there are set of effort multipliers that change effort in a linear manner
+    - either linearly increasing  or linearly decreasing.
+  
+  This code extends the standard COCOMO effort model as follows:
+  - This code comes with a set of mitigations that might improve a project.
+    It is a sample manner:
+    - To loop over all those mitigations, trying each for a particular project. 
+    - Define and test your own mitigations.
+  - Many of the internal parameters of COCOMO are not known with any certainty.
+    -  So this model represents all such internals as a range of options.
+    - By running this estimated, say, 1000 times, you can get an estimate of the range of possible values.
+  
+  ## Attributes
+  
+  This code also for the easy extension of the model.  If you think
+  that other factors do (or do not) influence effort in an exponential
+  or liner manner, then it is simple to extend this code with your
+  preferred set of attributes.
+  
+  ### Scale Factors
+  if _more_ then exponential _more_ effort i
+  
+  |What| Notes|
+  |----|------|
+  | Flex | development flexibility|
+  |Arch| architecture or risk resolution |
+  |Pmat| process maturity |
+  |Prec| precedentedness|
+  |Team|team cohesion|
+  
+  ### Positive Effort Multipliers
+  If more, then linearly more effort 
+  
+  |What| Notes|
+  |----|------|
+  |cplx | product complexity|
+  |data| database size (DB bytes/SLOC) |
+  |docu| documentation|
+  |pvol| platform volatility (frequency of major changes/ frequency of minor changes )|
+  |rely| required reliability |
+  |ruse |required reuse|
+  |stor| required % of available RAM
+  |time |required % of available CPU
+  
+  ### Negative Effort Multipliers
+  If more, then linearly more effort 
+  
+  
+  |What| Notes|
+  |----|------|
+  |acap|analyst capability|
+  |aexp|applications experience |
+  |ltex| language and tool-set experience |
+  |pcap |programmer capability|
+  |pcon| personnel continuity (% turnover per year) |
+  |plex| platform experience|
+  |sced| dictated development schedule|
+  |site| multi-site development|
+  |tool| use of software tools|
+  
+  (For guidance on how to score projects on these scales, see tables 11,12,13,etc
+  of the [Cocomo manual](http://sunset.usc.edu/csse/affiliate/private/COCOMOII_2000/COCOMOII-040600/modelman.pdf).)
+  &#34;&#34;&#34;
+  defaults = o(
+      misc= o( kloc = F(2,1000),
+               a    = F(2.2,9.8),
+               goal = F(0.1, 2)),
+      pos = o( rely = I(1,5),  data = I(2,5), cplx = I(1,6),
+               ruse = I(2,6),  docu = I(1,5), time = I(3,6),
+               stor = I(3,6),  pvol = I(2,5)),
+      neg = o( acap = I(1,5),  pcap = I(1,5), pcon = I(1,5),
+               aexp = I(1,5),  plex = I(1,5), ltex = I(1,5),
+               tool = I(1,5),  site = I(1,6), sced = I(1,5)),
+      sf  = o( prec = I(1,6),  flex = I(1,6), arch = I(1,6),
+               team = I(1,6),  pmat = I(1,6)))
+
+  better = o(
+    none    = o( goal=F(1)),
+    people  = o( goal=F(1),   acap=I(5), pcap=I(5),  pcon=I(5),
+                 aexp=I(5),   plex=I(5), ltex=I(5)),
+    tools   = o( goal=F(1),
+                 time=I(3),   stor=I(3), pvol=I(2),
+                 tool=I(5),   site=I(6)),
+    precFlex= o( goal=F(1),
+                 time=I(5),   flex=I(5)),
+    archResl= o( goal=F(1),
+                 arch=I(5)),
+    slower  = o( goal=F(1),
+                 sced=I(5)),
+    process = o( goal=F(1),
+                 pmat=I(5)),
+    less    = o( goal=F(0.5), data=I(2)),
+    team    = o( goal=F(1),
+                 team=I(5)),
+    worst   = o( goal=F(1),
+                 rely=I(1),   docu=I(5), 
+                 time=I(3),   cplx=I(3)))
+
+  projects = o(
+    osp    = o(goal= F(1),
+                prec=I(1,2),    flex=I(2,5), arch=I(1,3),
+                team=I(2,3),    pmat=I(1,4), stor=I(3,5),
+                ruse=I(2,4),    docu=I(2,4), acap=I(2,3),
+                pcon=I(2,3),    aexp=I(2,3), ltex=I(2,4),
+                tool=I(2,3),    sced=I(1,3), cplx=I(5,6),
+                kloc=F(75,125), data=I(3),   pvol=I(2), rely=I(5),
+                pcap=I(3),      plex=I(3),   site=I(3)),
+    osp2   = o(goal=F(1),     prec=I(3,5), pmat=I(4,5), docu=I(3,4), 
+                ltex=I(2,5), sced=I(2,4), kloc=F(75,125),
+                flex=I(3),   arch=I(4),   team=I(3), time=I(3), stor=I(3),
+                data=I(4),   pvol=I(3),   ruse=I(4), rely=I(5), acap=I(4), 
+                pcap=I(3),   pcon=I(3),   aexp=I(4), plex=I(4), tool=I(5), 
+                cplx=I(4),   site=I(6)),
+    flight = o(goal=F(1),
+                rely=I(3,5), data=I(2,3),
+                cplx=I(3,6), time=I(3,4),
+                stor=I(3,4), acap=I(3,5),
+                aexp=I(2,5), pcap=I(3,5),
+                plex=I(1,4), ltex=I(1,4),
+                tool=I(2),   sced=I(3),
+                pmat=I(2,3), kloc=F(7,418)),
+    ground = o(  goal=F(1),
+                tool=I(2),   sced=I(3),
+                rely=I(1,4), data=I(2,3), cplx=I(1,4),
+                time=I(3,4), stor=I(3,4), acap=I(3,5),
+                aexp=I(2,5), pcap=I(3,5), plex=I(1,4),
+                ltex=I(1,4), pmat=I(2,3), kloc=F(11,392)))
+
+  def __init__(i,listofdicts=[]):
+    i.x, i.y, dd = o(), o(), kopy(Cocomo.defaults)
+    # set up the defaults
+    for d in dd:
+      for k in dd[d] : i.x[k]  = dd[d][k] # can&#39;t +=: no background info
+    # apply any other constraints
+    for dict1 in listofdicts:
+      for k in dict1 :
+         try: i.x[k] += dict1[k] # now you can +=
+         except Exception as e:
+              print(k, e)
+    # ----------------------------------------------------------
+    for k in dd.misc:i.y[k]= i.x[k]()
+    for k in dd.pos: i.y[k]= F( .073,  .21)()   * (i.x[k]() -3) +1
+    for k in dd.neg: i.y[k]= F(-.178, -.078)()  * (i.x[k]() -3) +1
+    for k in dd.sf : i.y[k]= F(-1.56, -1.014)() * (i.x[k]() -6)
+    # ----------------------------------------------------------
+  def effort(i):
+    em, sf = 1, 0
+    b      = (0.85-1.1)/(9.18-2.2) * i.x.a() + 1.1+(1.1-0.8)*.5
+    for k in Cocomo.defaults.sf  : sf += i.y[k]
+    for k in Cocomo.defaults.pos : em *= i.y[k]
+    for k in Cocomo.defaults.neg : em *= i.y[k]
+    return round(i.x.a() * em * (i.x.goal()*i.x.kloc()) ** (b + 0.01*sf), 1)
+  def risk(i, r=0):
+    for k1,rules1 in rules.items():
+      for k2,m in rules1.items():
+        x  = i.x[k1]()
+        y  = i.x[k2]()
+        z  = m[x-1][y-1]
+        r += z
+    return round(100 * r / 104, 1)
+  def rules(i):
+    _ = 0
+    ne=   [      [_,_,_,1,2,_], # bad if lohi 
+                 [_,_,_,_,1,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    nw=  [       [2,1,_,_,_,_], # bad if lolo 
+                 [1,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    nw4= [       [4,2,1,_,_,_], # very bad if  lolo 
+                 [2,1,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    sw4= [       [_,_,_,_,_,_], # very bad if  hilo 
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_],
+                 [4,2,1,_,_,_],
+                 [_,_,_,_,_,_]]
+    
+    # bounded by 1..6
+    ne46= [      [_,_,_,1,2,4], # very bad if lohi
+                 [_,_,_,_,1,2],
+                 [_,_,_,_,_,1],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    sw=   [      [_,_,_,_,_,_], # bad if hilo
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_]]
+    sw26= [      [_,_,_,_,_,_], # bad if hilo
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_]]
+    sw46= [      [_,_,_,_,_,_], # very bad if hilo
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_],
+                 [4,2,1,_,_,_]]
+    
+    return dict( 
+      cplx= dict(acap=sw46, pcap=sw46, tool=sw46), #12
+      ltex= dict(pcap=nw4),  # 4
+      pmat= dict(acap=nw,   pcap=sw46), # 6
+      pvol= dict(plex=sw), #2
+      rely= dict(acap=sw4,  pcap=sw4,  pmat=sw4), # 12
+      ruse= dict(aexp=sw46, ltex=sw46),  #8
+      sced= dict(
+        cplx=ne46, time=ne46, pcap=nw4, aexp=nw4, acap=nw4,  
+        plex=nw4, ltex=nw,  pmat=nw, rely=ne, pvol=ne, tool=nw), # 34
+      stor= dict(acap=sw46, pcap=sw46), #8
+      team= dict(aexp=nw,   sced=nw,   site=nw), #6
+      time= dict(acap=sw46, pcap=sw46, tool=sw26), #10
+      tool= dict(acap=nw,   pcap=nw,   pmat=nw)) # 6
+    
+class Test:
+  &#34;&#34;&#34;
+  Unit test manager. Stores all the tests in `Test.all`. 
+  Lets you list the tests, run some of them, or all.
+  &#34;&#34;&#34;
+  t,f = 0,0
+  all = []
+  def score(s): 
+    t,f = Test.t, Test.f
+    return f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;
+  def go(fn=None, use=None):
+    if fn:
+      Test.all += [fn]
+    elif use:
+      [Test.run(fn) for fn in Test.all if use in fn.__name__]
+    else: 
+      [Test.run(fn) for fn in Test.all]
+  def run(fun):    
+    try:
+      Test.t += 1
+      print(&#34;### &#34;,fun.__name__)
+      doc = fun.__doc__ or &#34;&#34;
+      print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc) )
+      print(&#34;&#34;)
+      random.seed(my.r)
+      fun()
+      print(Test.score(&#34;PASS&#34;),&#39;:&#39;,fun.__name__)
+    except Exception:
+      Test.f += 1
+      print(traceback.format_exc())
+      print(Test.score(&#34;FAIL&#34;),&#39;:&#39;,fun.__name__)
+  def list():
+    print(&#34;&#34;)
+    print(__file__ + &#34; -t [NAME]&#34;) 
+    print(&#34;\nKnown test names:&#34;)
+    for fun in Test.all:
+      name = re.sub(r&#34;test_&#34;,&#34;&#34;,fun.__name__)
+      doc = fun.__doc__ or &#34;&#34;
+      doc = re.sub(r&#34;\n[ ]*&#34;,&#34;&#34;,doc)
+      print(f&#34;  {name:10s} : {doc}&#34;)
+ 
+#----------------------------------------------
+### Unit Tests
+def go(fn=None,use=None):  
+  &#34;&#34;&#34;
+  Decorator for test functions. 
+  Adds the function to `Test.all`.
+  &#34;&#34;&#34;
+  Test.go(fn=fn,use=use); return fn
 
 @go
 def test_tests():
   &#34;List all tests.&#34;
   Test.list()
 
+@go
+def test_bye():    
+  &#34;Commit and push Github files.&#34;
+  def run(s): print(s); os.system(s)
+  run(&#34;git commit -am commit&#34;)
+  run(&#34;git push&#34;)
+  run(&#34;git status&#34;)
 
 @go
-def test_fail():
-  &#34;Test the test engine with one failure&#34;
-  assert(0)
-
+def test_hello(): 
+  &#34;Simple test1.&#34;
+  print(about()[0])
 
 @go
 def test_hetab1():
-  &#34;Read a small table from disk.&#34;
-  from .data import weather4
-  t = Tab().read(weather4)
-  assert(4 == t.cols.x[0].seen[&#34;overcast&#34;])
+  &#34;&#34;&#34;
+  Read a small table from disk. 
+  &#34;&#34;&#34;
+  t = Tab().read(&#34;bnbad/data/weather4.csv&#34;)
+  assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
-  assert(4 == len(t.cols.all))
-  assert(3 == len(t.cols.syms))
-
+  assert( 4 == len(t.cols.all))
+  assert( 3 == len(t.cols.syms))
+  print(t)
 
 @go
 def test_tab2():
   &#34;Read a larger table from disk.&#34;
-  from .data import auto93
-  t = Tab().read(auto93)
+  t = Tab().read(&#34;bnbad/data/auto93.csv&#34;)
   assert(398 == len(t.rows))
-
 
 @go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  from .data import auto93
-  t = Tab().read(auto93)
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
-      assert(d.dist(r1, r1) == 0)
+       assert(d.dist(r1,r1) == 0)
     n = d.neighbors(r1)
-    r2 = n[0][1]
+    r2 = n[ 0][1]
     r3 = n[-1][1]
     r4 = d.faraway(r1)
-    d1 = d.dist(r1, r2)
-    d2 = d.dist(r1, r4)
-    d3 = d.dist(r1, r3)
-    assert(d1 &lt;= d2 &lt;= d3)
-    assert(0.2 &lt;= d2 &lt;= d3)
-    assert(len(d.poles()) == 3)
-
+    print(&#34;&#34;)
+    print(r1)
+    print(r2, f&#39;{d.dist(r1,r2):.3f}&#39;)
+    print(r4, f&#39;{d.dist(r1,r4):.3f}&#39;)
+    print(r3, f&#39;{d.dist(r1,r3):.3f}&#39;)
+    print(*d.poles())
 
 @go
 def test_tree():
-  &#34;&#34;&#34;\
-  Recursively divide the data in two.
-
-  When working on `auto93`, the goals are
-
-      [&#39;&lt;weight&#39;, &#39;&gt;acceleration&#39;, &#39;&gt;!mpg&#39;]
-
-  which to say, minimize `weight`, maximize `acceleration` and
-  `mpg`.  If you call this after setting `my.treeVerbose=True` then
-  this tree will get printed. Note the leaf four lines from the
-  bottom, marked with &#34;`*`&#34;.  This is cluster is &#34;best&#34; (least
-  `weight`, most `acceleration`, most `mph`).
-
-         398
-         | 211
-         | | 57
-         | | | 30 {4526.53, 13.65, 10.33}
-         | | | 27 {4094.56, 11.41, 11.11}
-         | | 154
-         | | | 65
-         | | | | 32 {3482.34, 13.34, 20.00}
-         | | | | 33 {4022.91, 14.76, 20.00}
-         | | | 89
-         | | | | 47
-         | | | | | 26 {2893.35, 15.22, 20.00}
-         | | | | | 21 {2591.00, 14.82, 20.00}
-         | | | | 42
-         | | | | | 25 {3158.60, 16.80, 20.00}
-         | | | | | 17 {3396.71, 19.74, 20.00}
-         | 187
-         | | 104
-         | | | 86
-         | | | | 48
-         | | | | | 23 {2230.26, 16.53, 30.00}
-         | | | | 38 {2428.71, 19.29, 30.00}
-         | | | 18 {2289.94, 17.08, 20.00}
-         | | 83
-       * | | | 35 {1982.63, 17.23, 39.43} 
-         | | | 48
-         | | | | 21 {2308.19, 13.83, 31.43}
-         | | | | 27 {2069.67, 15.44, 30.37}
-
-  &#34;&#34;&#34;
-  from .data import auto93
-  t = Tab().read(auto93)
+  &#34;Recursively divide the data in two.&#34;
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   my.treeVerbose = True
-  t = Tree(t, cols=&#34;y&#34;)
-  assert(15 == len(t.leaves))
-  t.show()
-
+  Tree(t,cols=&#34;y&#34;)
 
 @go
 def test_bore():
-  &#34;&#34;&#34;\
-  Recursively prune worst half the data.
-
-   When working on `auto93`, the goals are
-
-      [&#39;&lt;weight&#39;, &#39;&gt;acceleration&#39;, &#39;&gt;!mpg&#39;]
-
-  then this finds a `best` cluster of
-
-       {2492.5, 19.7, 34.1}
-
-  A random sample of the remaining data is then
-  collected into `rest` which has median goal
-  scores of:
-
-      {3012.2, 15.2, 22.9}
-
-  Then we run a rule learner that generates a decision
-  list that seperates `best` from `rest`.
-
-      if   $displacement  in   68 .. 105 then {2055.9, 16.9, 32.1} 
-      elif $displacement  in  107 .. 140 then {2533.1, 15.9, 26.6} 
-      elif $displacement  in  141 .. 200 then {2910.2, 16.2, 24.2} 
-      elif $horsepower    in   72 .. 139 then {3437.2, 16.3, 19.9} 
-      else {4201.2, 12.5, 14.2} 
-
   &#34;&#34;&#34;
-  verbose = True
-  from .data import auto93
-  t = Tab().read(auto93)
-  best, rest, worst = Tree(t).bore()
-  if verbose:  # my.V:
-    print([col.txt for col in t.cols.y.values()])
-    print(&#34;all&#34;, t.status())
-    print(&#34;best&#34;, best.status())
-    print(&#34;rest&#34;, rest.status())
-  midBest = best.mid()
-  midRest = rest.mid()
-  assert(t.better(midBest, midRest))
-  d1 = DecisionList(best, rest)
-  d1.show()
-  d2 = DecisionList(worst, best)
-  d2.show()
-  return True
+  Recursively prune worst half the data 
+  (down to sqrt(N) of original data).
+  &#34;&#34;&#34;
+  t = Tab().read(&#34;data/auto93.csv&#34;)
+  b = Bore(t)
+  print([col.txt for col in t.cols.y.values()])
+  print(&#34;best&#34;,b.best.status())
+  print(&#34;rest&#34;,b.rest.status())
+  print(&#34;all&#34;,t.status())
   k = b.key()
-  assert(k.s() &gt; 0.69)
-  d = DecisionList(t)
-  assert(5 == len(d.leaves))
-  if False:  # my.V:
-    for _ in range(1):
-      d.show()
+  print(&#34;SCORE&#34;,k._ranges.txt,k.s()) #print(&#34;KEY&#34;,b.key())
+  for _ in range(1):
+     DecisionList(t).show()
 
-
-def _range0(n, xy):
+def _range0(xy):
   &#34;Worker for the tests&#34;
-  verbose = False
-  assert(n == len(Ranges(&#34;$t&#34;, xy).ranges))
-  if verbose:
-    for r in Ranges(&#34;$t&#34;, xy).ranges:
-      print(&#34;::&#34;, r.gen, 2**r.gen, r.lo, r.hi, r.n, r.s())
-
+  for r in Ranges(&#34;$t&#34;,xy).ranges:
+     print (&#34;::&#34;,r.gen, 2**r.gen, r.lo, r.hi, r.n,r.s())
 
 @go
 def test_range1():
   &#34;Two ranges, equal size&#34;
   n = 10
-  _range0(2, [[i, i &gt; n] for i in range(n*2)])
-
+  _range0([[i,i&gt;n] for i in range(n*2)])
 
 @go
 def test_range2():
   &#34;4 ranges&#34;
   n = 10**4
-  _range0(4, [[i, i &gt; .1*n and i &lt; .2*n or i &gt; .7*n]
-              for i in range(n)])
-
+  _range0( [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.7*n ] for i in range(n)])
 
 @go
 def test_range3():
   &#34;5 ranges&#34;
   n = 10**4
-  _range0(5, [[i, i &gt; .1*n and i &lt; .2*n or i &gt; .6*n and i &lt; .7*n]
-              for i in range(n)])
-
+  _range0( [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.6*n and i&lt;.7*n] for i in range(n)])
 
 @go
 def test_range4():
   &#34;random noise: only 1 range&#34;
   n = 10**3
-  _range0(1, [[i, 0 if random.random() &lt; 0.5 else 1]
-              for i in range(n)])
-
+  _range0( [[i, 0 if random.random() &lt; 0.5 else 1] for i in range(n)])
 
 @go
 def test_range5():
   &#34;random noise: only 1 range&#34;
   n = 10**3
-  _range0(1, [[i, 0] for i in range(n)])
-
+  _range0( [[i, 0] for i in range(n)])
 
 @go
 def test_range6():
   &#34;3 ranges&#34;
   n = 10**3
-  _range0(3, [[i, i &gt; .4*n and i &lt; .6*n] for i in range(n)])
-
+  _range0( [[i, i&gt; .4*n and i &lt; .6*n] for i in range(n)] )
 
 @go
 def test_range7():
   &#34;singletons: 1 range&#34;
   n = 10**2
-  _range0(1, [[1, 0] for i in range(n)])
-
+  _range0( [[1, 0] for i in range(n)] )
 
 @go
 def test_rxs():
-  &#34;&#34;&#34;\
-  Group and ranks five treatments.
+    &#34;&#34;&#34;
+    This demo groups and ranks five treatments
+    `x1,x2,x3,x4,x5`:
+    We will find these treatments divide into three  groups (`0,1,2`):
+  
+    0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+    0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+    1  x1 (              -o--            ), 0.490,  0.510,  0.600
+    2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+    2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+    &#34;&#34;&#34;
+    n = 256
+    rxs(    
+        dict(
+               x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
+               x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
+               x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
+               x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
+               x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
+        width= 30,
+        show = &#34;%.2f&#34;,
+        chops= [.25,  .5, .75],
+        marks= [&#34;-&#34;, &#34;-&#34;, &#34; &#34;])
+  
+#----------------------------------------------
+### Main
+# Start-up commands.
 
-  We will find these treatments divide into three  groups (`0,1,2`):
-
-       0,       x5,   --o--             ,0.20, 0.30, 0.40
-       0,       x3,    --o              ,0.23, 0.33, 0.35
-       1,       x1,          -o-        ,0.49, 0.51, 0.60
-       2,       x2,               ---o- ,0.70, 0.80, 0.89
-       2,       x4,               ---o- ,0.70, 0.80, 0.90
-
-  &#34;&#34;&#34;
-  n = 256
-  groups = rxs(dict(
-      x1=[0.34, 0.49, 0.51, 0.6]*n,
-      x2=[0.6, 0.7, 0.8, 0.89]*n,
-      x3=[0.13, 0.23, 0.33, 0.35]*n,
-      x4=[0.6, 0.7,  0.8, 0.9]*n,
-      x5=[0.1, 0.2,  0.3, 0.4]*n),
-      width=20, verbose=False,
-      show=&#34;%.2f&#34;,
-      chops=[.25,  .5, .75],
-      marks=[&#34;-&#34;, &#34;-&#34;, &#34; &#34;])
-  all = [x for g in groups for x in g.parts]
-  assert(len(all) == 5)
-  assert(len(groups) == 3)
-  for n, one in enumerate(all):
-    assert(len(one.all) == 1024)
-    if n &gt; 0:
-      assert(one.med &gt;= all[n-1].med)
-      assert(one.rank &gt;= all[n-1].rank)</code></pre>
+if __name__ == &#34;__main__&#34;:
+  my = args(help)
+  if my.T: go()
+  if my.t: go(use=my.t)
+  if my.L: Test.list()</code></pre>
 </details>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
 <dl>
-<dt><code class="name"><a title="bnbad.col" href="col.html">bnbad.col</a></code></dt>
+<dt><code class="name"><a title="bnbad.aa" href="aa.html">bnbad.aa</a></code></dt>
 <dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="bnbad.data" href="data.html">bnbad.data</a></code></dt>
-<dd>
-<section class="desc"></section>
+<div class="desc"></div>
 </dd>
 <dt><code class="name"><a title="bnbad.lib" href="lib.html">bnbad.lib</a></code></dt>
 <dd>
-<section class="desc"><p>General Python tricks</p></section>
-</dd>
-<dt><code class="name"><a title="bnbad.my" href="my.html">bnbad.my</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="bnbad.ranges" href="ranges.html">bnbad.ranges</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="bnbad.rx" href="rx.html">bnbad.rx</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="bnbad.tab" href="tab.html">bnbad.tab</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="bnbad.test" href="test.html">bnbad.test</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="bnbad.x" href="x.html">bnbad.x</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="bnbad.xomo" href="xomo.html">bnbad.xomo</a></code></dt>
-<dd>
-<section class="desc"><p>This code predicts: …</p></section>
+<div class="desc"></div>
 </dd>
 </dl>
 </section>
@@ -636,310 +1529,602 @@ def test_rxs():
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="bnbad.cols"><code class="name flex">
+<span>def <span class="ident">cols</span></span>(<span>src)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ignore columns if, on line one, the name contains '?'.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cols(src):
+  &#34;Ignore columns if, on line one, the name contains &#39;?&#39;.&#34;
+  todo = None
+  for a in src:
+    todo = todo or [n for n,s in enumerate(a) if not &#34;?&#34;in s]
+    yield [ a[n] for n in todo]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.dicts"><code class="name flex">
+<span>def <span class="ident">dicts</span></span>(<span>i, seen=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is a tool used by <code><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></code>.
+Converts <code>i</code> into a nested dictionary, then pretty-prints that.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dicts(i,seen=None):
+  &#34;&#34;&#34;
+  This is a tool used by `Thing`.
+  Converts `i` into a nested dictionary, then pretty-prints that.
+  &#34;&#34;&#34;
+  if isinstance(i,(tuple,list)): 
+    return [ dicts(v,seen) for v in i ]
+  elif isinstance(i,dict): 
+    return { k:dicts(i[k], seen) for k in i if str(k)[0] !=&#34;_&#34;}
+  elif isinstance(i,Thing): 
+    seen = seen or {}
+    j =id(i) % 128021 # ids are LONG; show them shorter.
+    if i in seen: return f&#34;#:{j}&#34;
+    seen[i]=i
+    d=dicts(i.__dict__,seen)
+    d[&#34;#&#34;] = j
+    return d
+  else:
+    return i</code></pre>
+</details>
+</dd>
+<dt id="bnbad.dprint"><code class="name flex">
+<span>def <span class="ident">dprint</span></span>(<span>d, pre='', skip='_')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Pretty print a dictionary, sorted by keys, ignoring
+private slots (those that start with '<em>'</em>).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dprint(d, pre=&#34;&#34;,skip=&#34;_&#34;):
+  &#34;&#34;&#34;
+  Pretty print a dictionary, sorted by keys, ignoring 
+  private slots (those that start with &#39;_&#39;_).
+  &#34;&#34;&#34;
+  def q(z):
+    if isinstance(z,float): return &#34;%5.3f&#34; % z
+    if callable(z): return &#34;f(%s)&#34; % z.__name__
+    return str(z)
+  l = sorted([(k,d[k]) for k in d if k[0] != skip])
+  return pre+&#39;{&#39;+&#34;, &#34;.join([(&#39;%s=%s&#39; % (k,q(v))) 
+                             for k,v in l]) +&#39;}&#39;</code></pre>
+</details>
+</dd>
+<dt id="bnbad.go"><code class="name flex">
+<span>def <span class="ident">go</span></span>(<span>fn=None, use=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Decorator for test functions.
+Adds the function to <code><a title="bnbad.Test.all" href="#bnbad.Test.all">Test.all</a></code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def go(fn=None,use=None):  
+  &#34;&#34;&#34;
+  Decorator for test functions. 
+  Adds the function to `Test.all`.
+  &#34;&#34;&#34;
+  Test.go(fn=fn,use=use); return fn</code></pre>
+</details>
+</dd>
+<dt id="bnbad.has"><code class="name flex">
+<span>def <span class="ident">has</span></span>(<span>i, seen=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Report a nested object as a set of nested lists.
+If we see the same <code><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></code> twice, then show it the
+first time, after which, just show its id. Do not
+return anything that is private;
+i.e. anything whose name starts with "_".</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def has(i,seen=None):
+  &#34;&#34;&#34;
+  Report a nested object as a set of nested lists.
+  If we see the same `Thing` twice, then show it the 
+  first time, after which, just show its id. Do not 
+  return anything that is private;
+  i.e. anything whose name starts with &#34;_&#34;.
+  &#34;&#34;&#34;
+  seen = seen or {}
+  if isinstance(i,Thing): 
+     j =id(i) % 128021
+     if i in seen: return f&#34;#:{j}&#34;
+     seen[i]=i
+     d=has(i.__dict__,seen)
+     d[&#34;#&#34;] = j
+     return d
+  if isinstance(i,(tuple,list)): 
+     return [ has(v,seen) for v in i ]
+  if isinstance(i,dict): 
+     return { k:has(i[k], seen) for k in i if str(k)[0] !=&#34;_&#34;}
+  return i</code></pre>
+</details>
+</dd>
+<dt id="bnbad.help"><code class="name flex">
+<span>def <span class="ident">help</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Define options.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def help(): 
+  &#34;&#34;&#34;
+  Define options.
+  &#34;&#34;&#34;
+  h = makeArgParseOption
+  return [
+    h(&#34;verbose mode for Tree&#34;,                          treeVerbose= False),
+    h(&#34;bin min size =len**b&#34;,                           b= .5),
+    h(&#34;what columns to while tree building &#34; ,          c= [&#34;x&#34;,&#34;y&#34;]),
+    h(&#34;use at most &#39;d&#39; rows for distance calcs&#34;,        d= 256),
+    h(&#34;merge ranges whose scores differ by less that F&#34;,e= 0.05),
+    h(&#34;separation of poles (f=1 means &#39;max distance&#39;)&#34;, f= .9),
+    h(&#34;decision list: minimum leaf size&#34;,               M= 10),
+    h(&#34;decision list: maximum height&#34;,                   H= 4),
+    h(&#34;decision list: ratio of negative examples&#34;,     N= 4),
+    h(&#34;coefficient for distance&#34; ,                      p= 2),
+    h(&#34;random number seed&#34; ,                            r = 1),
+    h(&#34;tree leaves must be at least n**s in size&#34; ,     s= 0.5),
+    h(&#34;stats: Cliff&#39;s Delta &#39;dull&#39;&#34;,                    Sdull=[.147,.33,.474]),
+    h(&#34;stats: Coehn &#39;d&#39;&#34;,                               Scohen=0.2),
+    h(&#34;stats: number of boostrap samples&#34;,              Sb=500),
+    h(&#34;stats: bootstrap confidences&#34;,                   Sconf=0.01),
+    h(&#34;training data (arff format&#34;,                     train= &#34;train.csv&#34;),
+    h(&#34;testing data (csv format)&#34;,                      test=  &#34;test.csv&#34;),
+    h(&#34;List all tests.&#34;,                                L = False),
+    h(&#34;Run all tests.&#34;,                                 T = False),
+    h(&#34;Run just the tests with names matching &#39;S&#39;&#34;,     t= &#34;&#34;)
+  ]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.pairs"><code class="name flex">
+<span>def <span class="ident">pairs</span></span>(<span>lst)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the i-th and i+1-th item in a list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pairs(lst):
+  &#34;Return the i-th and i+1-th item in a list.&#34;
+  last=lst[0]
+  for i in lst[1:]:
+    yield last,i
+    last = i</code></pre>
+</details>
+</dd>
+<dt id="bnbad.perc"><code class="name flex">
+<span>def <span class="ident">perc</span></span>(<span>a, p=[0.25, 0.5, 0.75])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def perc(a,p=[.25,.5,.75]):
+  ls = sprted(a)
+  return [ l[int(p0 * len(a))] for p0 in p ]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.rows"><code class="name flex">
+<span>def <span class="ident">rows</span></span>(<span>x=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read a csv file from disk.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rows(x=None):
+  &#34;Read a csv file from disk.&#34;
+  prep=lambda z: re.sub(r&#39;([\n\t\r ]|#.*)&#39;,&#39;&#39;,z.strip())
+  if x:
+    with open(x) as f:
+      for y in f: 
+         z = prep(y)
+         if z: yield z.split(&#34;,&#34;)
+  else:
+   for y in sys.stdin: 
+         z = prep(y)
+         if z: yield z.split(&#34;,&#34;)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.rxs"><code class="name flex">
+<span>def <span class="ident">rxs</span></span>(<span>d, width=50, show='%5.0f', chops=[0.1, 0.3, 0.5, 0.7, 0.9], marks=[' ', '.', '.', '.', ' '])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Manager for a set of treatment results.
+Given a dictionary of values, sort the values by their median
+then iteratively merge together adjacent similar items.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rxs(d, width = 50,
+           show  = &#34;%5.0f&#34;,
+           chops = [0.1 ,0.3,0.5,0.7,0.9],
+           marks = [&#34; &#34; ,&#34;.&#34;,&#34;.&#34;,&#34;.&#34;,&#34; &#34;]):
+  &#34;&#34;&#34;
+  Manager for a set of treatment results.
+  Given a dictionary of values, sort the values by their median
+  then iteratively merge together adjacent similar items.
+  &#34;&#34;&#34;
+  def merge(lst, lvl=0):
+    &#34;&#34;&#34;
+    Do one pass, see what we can combine.
+    If nothing, then print  `lst`. Else, recurse.
+    &#34;&#34;&#34;
+    j,tmp = 0,[]
+    while j &lt; len(lst):
+       x = lst[j]
+       if j &lt; len(lst) - 1: 
+         y = lst[j+1]
+         if abs(x.med - y.med) &lt;= tiny or x == y:
+           tmp += [x+y] # merge x and y
+           j   += 2
+           continue
+       tmp += [x]
+       j   += 1
+    if len(tmp) &lt; len(lst):
+       return merge(tmp, lvl+1) 
+    else:
+       for n,group in enumerate(lst):
+         for rx in group.parts:
+           rx.rank = n
+           print(n, rx) 
+       return lst
+  #-------------------------------
+  p    = lambda n: a[ int( n*len(a) )]
+  a    = sorted([x for k in d for x in d[k]])
+  tiny = (p(.9) - p(.2))/2.56 * my.Scohen
+  return merge(sorted([Rx(rx    = k,    all = d[k], 
+                          lo    = a[0], hi  = a[-1],
+                          show  = show,
+                          width = width,
+                          chops = chops,
+                          marks = marks) 
+                    for k in d]))</code></pre>
+</details>
+</dd>
+<dt id="bnbad.shuffle"><code class="name flex">
+<span>def <span class="ident">shuffle</span></span>(<span>lst)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a shuffled list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def shuffle(lst):
+  &#34;Return a shuffled list.&#34;
+  random.shuffle(lst)
+  return lst</code></pre>
+</details>
+</dd>
 <dt id="bnbad.test_bore"><code class="name flex">
 <span>def <span class="ident">test_bore</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Recursively prune worst half the data.</p>
-<p>When working on <code>auto93</code>, the goals are</p>
-<pre><code>['&lt;weight', '&gt;acceleration', '&gt;!mpg']
-</code></pre>
-<p>then this finds a <code>best</code> cluster of</p>
-<pre><code> {2492.5, 19.7, 34.1}
-</code></pre>
-<p>A random sample of the remaining data is then
-collected into <code>rest</code> which has median goal
-scores of:</p>
-<pre><code>{3012.2, 15.2, 22.9}
-</code></pre>
-<p>Then we run a rule learner that generates a decision
-list that seperates <code>best</code> from <code>rest</code>.</p>
-<pre><code>if   $displacement  in   68 .. 105 then {2055.9, 16.9, 32.1} 
-elif $displacement  in  107 .. 140 then {2533.1, 15.9, 26.6} 
-elif $displacement  in  141 .. 200 then {2910.2, 16.2, 24.2} 
-elif $horsepower    in   72 .. 139 then {3437.2, 16.3, 19.9} 
-else {4201.2, 12.5, 14.2}
-</code></pre></section>
+<div class="desc"><p>Recursively prune worst half the data
+(down to sqrt(N) of original data).</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_bore():
-  &#34;&#34;&#34;\
-  Recursively prune worst half the data.
-
-   When working on `auto93`, the goals are
-
-      [&#39;&lt;weight&#39;, &#39;&gt;acceleration&#39;, &#39;&gt;!mpg&#39;]
-
-  then this finds a `best` cluster of
-
-       {2492.5, 19.7, 34.1}
-
-  A random sample of the remaining data is then
-  collected into `rest` which has median goal
-  scores of:
-
-      {3012.2, 15.2, 22.9}
-
-  Then we run a rule learner that generates a decision
-  list that seperates `best` from `rest`.
-
-      if   $displacement  in   68 .. 105 then {2055.9, 16.9, 32.1} 
-      elif $displacement  in  107 .. 140 then {2533.1, 15.9, 26.6} 
-      elif $displacement  in  141 .. 200 then {2910.2, 16.2, 24.2} 
-      elif $horsepower    in   72 .. 139 then {3437.2, 16.3, 19.9} 
-      else {4201.2, 12.5, 14.2} 
-
   &#34;&#34;&#34;
-  verbose = True
-  from .data import auto93
-  t = Tab().read(auto93)
-  best, rest, worst = Tree(t).bore()
-  if verbose:  # my.V:
-    print([col.txt for col in t.cols.y.values()])
-    print(&#34;all&#34;, t.status())
-    print(&#34;best&#34;, best.status())
-    print(&#34;rest&#34;, rest.status())
-  midBest = best.mid()
-  midRest = rest.mid()
-  assert(t.better(midBest, midRest))
-  d1 = DecisionList(best, rest)
-  d1.show()
-  d2 = DecisionList(worst, best)
-  d2.show()
-  return True
+  Recursively prune worst half the data 
+  (down to sqrt(N) of original data).
+  &#34;&#34;&#34;
+  t = Tab().read(&#34;data/auto93.csv&#34;)
+  b = Bore(t)
+  print([col.txt for col in t.cols.y.values()])
+  print(&#34;best&#34;,b.best.status())
+  print(&#34;rest&#34;,b.rest.status())
+  print(&#34;all&#34;,t.status())
   k = b.key()
-  assert(k.s() &gt; 0.69)
-  d = DecisionList(t)
-  assert(5 == len(d.leaves))
-  if False:  # my.V:
-    for _ in range(1):
-      d.show()</code></pre>
+  print(&#34;SCORE&#34;,k._ranges.txt,k.s()) #print(&#34;KEY&#34;,b.key())
+  for _ in range(1):
+     DecisionList(t).show()</code></pre>
+</details>
+</dd>
+<dt id="bnbad.test_bye"><code class="name flex">
+<span>def <span class="ident">test_bye</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Commit and push Github files.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@go
+def test_bye():    
+  &#34;Commit and push Github files.&#34;
+  def run(s): print(s); os.system(s)
+  run(&#34;git commit -am commit&#34;)
+  run(&#34;git push&#34;)
+  run(&#34;git status&#34;)</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_dist"><code class="name flex">
 <span>def <span class="ident">test_dist</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Check the distance calculations.</p></section>
+<div class="desc"><p>Check the distance calculations.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_dist():
   &#34;Check the distance calculations.&#34;
-  from .data import auto93
-  t = Tab().read(auto93)
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   d = Dist(t)
   for r1 in shuffle(t.rows)[:10]:
     if not &#34;?&#34; in r1:
-      assert(d.dist(r1, r1) == 0)
+       assert(d.dist(r1,r1) == 0)
     n = d.neighbors(r1)
-    r2 = n[0][1]
+    r2 = n[ 0][1]
     r3 = n[-1][1]
     r4 = d.faraway(r1)
-    d1 = d.dist(r1, r2)
-    d2 = d.dist(r1, r4)
-    d3 = d.dist(r1, r3)
-    assert(d1 &lt;= d2 &lt;= d3)
-    assert(0.2 &lt;= d2 &lt;= d3)
-    assert(len(d.poles()) == 3)</code></pre>
+    print(&#34;&#34;)
+    print(r1)
+    print(r2, f&#39;{d.dist(r1,r2):.3f}&#39;)
+    print(r4, f&#39;{d.dist(r1,r4):.3f}&#39;)
+    print(r3, f&#39;{d.dist(r1,r3):.3f}&#39;)
+    print(*d.poles())</code></pre>
 </details>
 </dd>
-<dt id="bnbad.test_fail"><code class="name flex">
-<span>def <span class="ident">test_fail</span></span>(<span>)</span>
+<dt id="bnbad.test_hello"><code class="name flex">
+<span>def <span class="ident">test_hello</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Test the test engine with one failure</p></section>
+<div class="desc"><p>Simple test1.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
-def test_fail():
-  &#34;Test the test engine with one failure&#34;
-  assert(0)</code></pre>
+def test_hello(): 
+  &#34;Simple test1.&#34;
+  print(about()[0])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_hetab1"><code class="name flex">
 <span>def <span class="ident">test_hetab1</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Read a small table from disk.</p></section>
+<div class="desc"><p>Read a small table from disk.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_hetab1():
-  &#34;Read a small table from disk.&#34;
-  from .data import weather4
-  t = Tab().read(weather4)
-  assert(4 == t.cols.x[0].seen[&#34;overcast&#34;])
+  &#34;&#34;&#34;
+  Read a small table from disk. 
+  &#34;&#34;&#34;
+  t = Tab().read(&#34;bnbad/data/weather4.csv&#34;)
+  assert( 4 == t.cols.x[0].seen[&#34;overcast&#34;])
   assert(14 == t.cols.x[0].n)
   assert(14 == len(t.rows))
-  assert(4 == len(t.cols.all))
-  assert(3 == len(t.cols.syms))</code></pre>
+  assert( 4 == len(t.cols.all))
+  assert( 3 == len(t.cols.syms))
+  print(t)</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range1"><code class="name flex">
 <span>def <span class="ident">test_range1</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Two ranges, equal size</p></section>
+<div class="desc"><p>Two ranges, equal size</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_range1():
   &#34;Two ranges, equal size&#34;
   n = 10
-  _range0(2, [[i, i &gt; n] for i in range(n*2)])</code></pre>
+  _range0([[i,i&gt;n] for i in range(n*2)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range2"><code class="name flex">
 <span>def <span class="ident">test_range2</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>4 ranges</p></section>
+<div class="desc"><p>4 ranges</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_range2():
   &#34;4 ranges&#34;
   n = 10**4
-  _range0(4, [[i, i &gt; .1*n and i &lt; .2*n or i &gt; .7*n]
-              for i in range(n)])</code></pre>
+  _range0( [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.7*n ] for i in range(n)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range3"><code class="name flex">
 <span>def <span class="ident">test_range3</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>5 ranges</p></section>
+<div class="desc"><p>5 ranges</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_range3():
   &#34;5 ranges&#34;
   n = 10**4
-  _range0(5, [[i, i &gt; .1*n and i &lt; .2*n or i &gt; .6*n and i &lt; .7*n]
-              for i in range(n)])</code></pre>
+  _range0( [[i, i &gt; .1*n and i&lt;.2*n or i&gt;.6*n and i&lt;.7*n] for i in range(n)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range4"><code class="name flex">
 <span>def <span class="ident">test_range4</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>random noise: only 1 range</p></section>
+<div class="desc"><p>random noise: only 1 range</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_range4():
   &#34;random noise: only 1 range&#34;
   n = 10**3
-  _range0(1, [[i, 0 if random.random() &lt; 0.5 else 1]
-              for i in range(n)])</code></pre>
+  _range0( [[i, 0 if random.random() &lt; 0.5 else 1] for i in range(n)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range5"><code class="name flex">
 <span>def <span class="ident">test_range5</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>random noise: only 1 range</p></section>
+<div class="desc"><p>random noise: only 1 range</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_range5():
   &#34;random noise: only 1 range&#34;
   n = 10**3
-  _range0(1, [[i, 0] for i in range(n)])</code></pre>
+  _range0( [[i, 0] for i in range(n)])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range6"><code class="name flex">
 <span>def <span class="ident">test_range6</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>3 ranges</p></section>
+<div class="desc"><p>3 ranges</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_range6():
   &#34;3 ranges&#34;
   n = 10**3
-  _range0(3, [[i, i &gt; .4*n and i &lt; .6*n] for i in range(n)])</code></pre>
+  _range0( [[i, i&gt; .4*n and i &lt; .6*n] for i in range(n)] )</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_range7"><code class="name flex">
 <span>def <span class="ident">test_range7</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>singletons: 1 range</p></section>
+<div class="desc"><p>singletons: 1 range</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_range7():
   &#34;singletons: 1 range&#34;
   n = 10**2
-  _range0(1, [[1, 0] for i in range(n)])</code></pre>
+  _range0( [[1, 0] for i in range(n)] )</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_rxs"><code class="name flex">
 <span>def <span class="ident">test_rxs</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Group and ranks five treatments.</p>
-<p>We will find these treatments divide into three
+<div class="desc"><p>This demo groups and ranks five treatments
+<code>x1,x2,x3,x4,x5</code>:
+We will find these treatments divide into three
 groups (<code>0,1,2</code>):</p>
-<pre><code> 0,       x5,   --o--             ,0.20, 0.30, 0.40
- 0,       x3,    --o              ,0.23, 0.33, 0.35
- 1,       x1,          -o-        ,0.49, 0.51, 0.60
- 2,       x2,               ---o- ,0.70, 0.80, 0.89
- 2,       x4,               ---o- ,0.70, 0.80, 0.90
-</code></pre></section>
+<p>0
+x5 (
+----o&mdash;
+), 0.200,
+0.300,
+0.400
+0
+x3 (
+----o
+), 0.230,
+0.330,
+0.350
+1
+x1 (
+-o&ndash;
+), 0.490,
+0.510,
+0.600
+2
+x2 (
+----o&ndash; ), 0.700,
+0.800,
+0.890
+2
+x4 (
+----o&ndash; ), 0.700,
+0.800,
+0.900</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_rxs():
-  &#34;&#34;&#34;\
-  Group and ranks five treatments.
-
-  We will find these treatments divide into three  groups (`0,1,2`):
-
-       0,       x5,   --o--             ,0.20, 0.30, 0.40
-       0,       x3,    --o              ,0.23, 0.33, 0.35
-       1,       x1,          -o-        ,0.49, 0.51, 0.60
-       2,       x2,               ---o- ,0.70, 0.80, 0.89
-       2,       x4,               ---o- ,0.70, 0.80, 0.90
-
-  &#34;&#34;&#34;
-  n = 256
-  groups = rxs(dict(
-      x1=[0.34, 0.49, 0.51, 0.6]*n,
-      x2=[0.6, 0.7, 0.8, 0.89]*n,
-      x3=[0.13, 0.23, 0.33, 0.35]*n,
-      x4=[0.6, 0.7,  0.8, 0.9]*n,
-      x5=[0.1, 0.2,  0.3, 0.4]*n),
-      width=20, verbose=False,
-      show=&#34;%.2f&#34;,
-      chops=[.25,  .5, .75],
-      marks=[&#34;-&#34;, &#34;-&#34;, &#34; &#34;])
-  all = [x for g in groups for x in g.parts]
-  assert(len(all) == 5)
-  assert(len(groups) == 3)
-  for n, one in enumerate(all):
-    assert(len(one.all) == 1024)
-    if n &gt; 0:
-      assert(one.med &gt;= all[n-1].med)
-      assert(one.rank &gt;= all[n-1].rank)</code></pre>
+    &#34;&#34;&#34;
+    This demo groups and ranks five treatments
+    `x1,x2,x3,x4,x5`:
+    We will find these treatments divide into three  groups (`0,1,2`):
+  
+    0  x5 (   ----o---                   ), 0.200,  0.300,  0.400
+    0  x3 (    ----o                     ), 0.230,  0.330,  0.350
+    1  x1 (              -o--            ), 0.490,  0.510,  0.600
+    2  x2 (                      ----o-- ), 0.700,  0.800,  0.890
+    2  x4 (                      ----o-- ), 0.700,  0.800,  0.900
+    &#34;&#34;&#34;
+    n = 256
+    rxs(    
+        dict(
+               x1 = [ 0.34, 0.49 ,0.51, 0.6]*n,
+               x2 = [0.6  ,0.7 , 0.8 , 0.89]*n,
+               x3 = [0.13 ,0.23, 0.33 , 0.35]*n,
+               x4 = [0.6  ,0.7,  0.8 , 0.9]*n,
+               x5 = [0.1  ,0.2,  0.3 , 0.4]*n),
+        width= 30,
+        show = &#34;%.2f&#34;,
+        chops= [.25,  .5, .75],
+        marks= [&#34;-&#34;, &#34;-&#34;, &#34; &#34;])</code></pre>
 </details>
 </dd>
 <dt id="bnbad.test_tab2"><code class="name flex">
 <span>def <span class="ident">test_tab2</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Read a larger table from disk.</p></section>
+<div class="desc"><p>Read a larger table from disk.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_tab2():
   &#34;Read a larger table from disk.&#34;
-  from .data import auto93
-  t = Tab().read(auto93)
+  t = Tab().read(&#34;bnbad/data/auto93.csv&#34;)
   assert(398 == len(t.rows))</code></pre>
 </details>
 </dd>
@@ -947,9 +2132,11 @@ def test_tab2():
 <span>def <span class="ident">test_tests</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>List all tests.</p></section>
+<div class="desc"><p>List all tests.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_tests():
   &#34;List all tests.&#34;
@@ -960,104 +2147,2546 @@ def test_tests():
 <span>def <span class="ident">test_tree</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Recursively divide the data in two.</p>
-<p>When working on <code>auto93</code>, the goals are</p>
-<pre><code>['&lt;weight', '&gt;acceleration', '&gt;!mpg']
-</code></pre>
-<p>which to say, minimize <code>weight</code>, maximize <code>acceleration</code> and
-<code>mpg</code>.
-If you call this after setting <code>my.treeVerbose=True</code> then
-this tree will get printed. Note the leaf four lines from the
-bottom, marked with "<code>*</code>".
-This is cluster is "best" (least
-<code>weight</code>, most <code>acceleration</code>, most <code>mph</code>).</p>
-<pre><code>   398
-   | 211
-   | | 57
-   | | | 30 {4526.53, 13.65, 10.33}
-   | | | 27 {4094.56, 11.41, 11.11}
-   | | 154
-   | | | 65
-   | | | | 32 {3482.34, 13.34, 20.00}
-   | | | | 33 {4022.91, 14.76, 20.00}
-   | | | 89
-   | | | | 47
-   | | | | | 26 {2893.35, 15.22, 20.00}
-   | | | | | 21 {2591.00, 14.82, 20.00}
-   | | | | 42
-   | | | | | 25 {3158.60, 16.80, 20.00}
-   | | | | | 17 {3396.71, 19.74, 20.00}
-   | 187
-   | | 104
-   | | | 86
-   | | | | 48
-   | | | | | 23 {2230.26, 16.53, 30.00}
-   | | | | 38 {2428.71, 19.29, 30.00}
-   | | | 18 {2289.94, 17.08, 20.00}
-   | | 83
- * | | | 35 {1982.63, 17.23, 39.43} 
-   | | | 48
-   | | | | 21 {2308.19, 13.83, 31.43}
-   | | | | 27 {2069.67, 15.44, 30.37}
-</code></pre></section>
+<div class="desc"><p>Recursively divide the data in two.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">@go
 def test_tree():
-  &#34;&#34;&#34;\
-  Recursively divide the data in two.
-
-  When working on `auto93`, the goals are
-
-      [&#39;&lt;weight&#39;, &#39;&gt;acceleration&#39;, &#39;&gt;!mpg&#39;]
-
-  which to say, minimize `weight`, maximize `acceleration` and
-  `mpg`.  If you call this after setting `my.treeVerbose=True` then
-  this tree will get printed. Note the leaf four lines from the
-  bottom, marked with &#34;`*`&#34;.  This is cluster is &#34;best&#34; (least
-  `weight`, most `acceleration`, most `mph`).
-
-         398
-         | 211
-         | | 57
-         | | | 30 {4526.53, 13.65, 10.33}
-         | | | 27 {4094.56, 11.41, 11.11}
-         | | 154
-         | | | 65
-         | | | | 32 {3482.34, 13.34, 20.00}
-         | | | | 33 {4022.91, 14.76, 20.00}
-         | | | 89
-         | | | | 47
-         | | | | | 26 {2893.35, 15.22, 20.00}
-         | | | | | 21 {2591.00, 14.82, 20.00}
-         | | | | 42
-         | | | | | 25 {3158.60, 16.80, 20.00}
-         | | | | | 17 {3396.71, 19.74, 20.00}
-         | 187
-         | | 104
-         | | | 86
-         | | | | 48
-         | | | | | 23 {2230.26, 16.53, 30.00}
-         | | | | 38 {2428.71, 19.29, 30.00}
-         | | | 18 {2289.94, 17.08, 20.00}
-         | | 83
-       * | | | 35 {1982.63, 17.23, 39.43} 
-         | | | 48
-         | | | | 21 {2308.19, 13.83, 31.43}
-         | | | | 27 {2069.67, 15.44, 30.37}
-
-  &#34;&#34;&#34;
-  from .data import auto93
-  t = Tab().read(auto93)
+  &#34;Recursively divide the data in two.&#34;
+  t = Tab().read(&#34;data/auto93.csv&#34;)
   my.treeVerbose = True
-  t = Tree(t, cols=&#34;y&#34;)
-  assert(15 == len(t.leaves))
-  t.show()</code></pre>
+  Tree(t,cols=&#34;y&#34;)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.xtile"><code class="name flex">
+<span>def <span class="ident">xtile</span></span>(<span>lst, lo=0, hi=1, width=50, chops=[0.1, 0.3, 0.5, 0.7, 0.9], marks=[' ', '.', '.', ' ', ' '], bar='', star='o', show=' %5.3f')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Pretty print a large list of numbers.
+Take a list of numbers, sort them,
+then print them as a
+horizontal
+xtile chart (in ascii format). The default is a
+contracted <em>quintile</em> that shows the
+10,30,50,70,90 breaks in the data (but this can be
+changed- see the optional flags of the function).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def xtile(lst,lo=0,hi=1,
+             width = 50,
+             chops = [0.1 ,0.3,0.5,0.7,0.9],
+             marks = [&#34; &#34; ,&#34;.&#34;,&#34;.&#34;,&#34; &#34;,&#34; &#34;],
+             bar   = &#34;&#34;,
+             star  = &#34;o&#34;,
+             show  = &#34; %5.3f&#34;):
+    &#34;&#34;&#34;
+    Pretty print a large list of numbers.
+    Take a list of numbers, sort them,
+    then print them as a
+    horizontal
+    xtile chart (in ascii format). The default is a
+    contracted _quintile_ that shows the
+    10,30,50,70,90 breaks in the data (but this can be
+    changed- see the optional flags of the function).
+    &#34;&#34;&#34;
+    def at(p): 
+      return ordered[int(len(lst)*p)]
+    def norm(x): 
+      return int(width*float((x - lo))/(hi - lo+0.00001))
+    def pretty(lst):
+      return &#39;, &#39;.join([show % x for x in lst])
+    ordered = sorted(lst)
+    what    = [at(p)   for p in chops]
+    where   = [norm(n) for n in  what]
+    out     = [&#34; &#34;] * width
+    marks1 = marks[:]
+    for one,two in pairs(where):
+      for i in range(one,two):
+        out[i] = marks1[0]
+      marks1 = marks1[1:]
+    if bar:  out[int(width/2)]  = bar
+    if star: out[norm(at(0.5))] = star
+    return &#39;&#39;.join(out) +  &#34;,&#34; +  pretty(what)</code></pre>
 </details>
 </dd>
 </dl>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="bnbad.Bore"><code class="flex name class">
+<span>class <span class="ident">Bore</span></span>
+<span>(</span><span>t)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Multi-objective clustering to find <code>best</code> rows;
+i.e. those that tend to dominate everything else.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Bore(Cluster):
+   &#34;&#34;&#34;
+   Multi-objective clustering to find `best` rows;
+   i.e. those that tend to dominate everything else.
+   &#34;&#34;&#34;
+   def __init__(i, t) :
+     i.rest = t.clone()
+     i.best = i.div(t, 2*len(t.rows)**my.s)
+   def div(i,t,lo):
+     &#34;&#34;&#34;  
+     Perform a top-down recursive division 
+     of data, based on their
+     `y values, as follows:
+    
+     - Find two distant rows .
+     - Check which one is best.
+     - Divide the rows into those nearer `best` or `rest`
+     - Add the `rest` to `i.rest`, recurse on the `best`.
+     - Stop when less than `N**.s` rows.
+       Return the surviving `best&#39; ranges.
+     &#34;&#34;&#34;
+     if len(t.rows) &lt; lo: return  t
+     d     = Dist(t,cols=t.cols.y)
+     l,r,c = d.poles()
+     xs    = [d.project(row,l,r,c) for row in t.rows]
+     mid   = sum(xs) / len(xs)
+     kid   = t.clone()
+     if t.better(l, r):
+       for x,row in zip(xs, t.rows):
+         (kid if x &lt; mid else i.rest).add(row)
+     else:
+       for x,row in zip(xs, t.rows):
+         (kid if x &gt;=  mid else i.rest).add(row)
+     return i.div(kid,lo)
+   def key(i):
+     &#34;Return the key range that most selects for best.&#34;
+     best  = my.e
+     bests = i.best.rows
+     rests = i.rest.rows
+     rests = shuffle(rests)[ :my.N*len(bests) ]
+     for  col in i.best.cols.x.values():
+       all  = []
+       all += [[r[col.pos], True]  for r in bests]
+       all += [[r[col.pos], False] for r in rests]
+       for one in Ranges(col.txt, all,
+                         get = col.pos).ranges:
+         if one.s() &gt; best:
+           best, out = one.s(), one
+     return out </code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Cluster" href="#bnbad.Cluster">Cluster</a></li>
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Bore.div"><code class="name flex">
+<span>def <span class="ident">div</span></span>(<span>i, t, lo)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Perform a top-down recursive division
+of data, based on their
+`y values, as follows:</p>
+<ul>
+<li>Find two distant rows .</li>
+<li>Check which one is best.</li>
+<li>Divide the rows into those nearer <code>best</code> or <code>rest</code></li>
+<li>Add the <code>rest</code> to <code>i.rest</code>, recurse on the <code>best</code>.</li>
+<li>Stop when less than <code>N**.s</code> rows.
+Return the surviving `best' ranges.</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def div(i,t,lo):
+  &#34;&#34;&#34;  
+  Perform a top-down recursive division 
+  of data, based on their
+  `y values, as follows:
+ 
+  - Find two distant rows .
+  - Check which one is best.
+  - Divide the rows into those nearer `best` or `rest`
+  - Add the `rest` to `i.rest`, recurse on the `best`.
+  - Stop when less than `N**.s` rows.
+    Return the surviving `best&#39; ranges.
+  &#34;&#34;&#34;
+  if len(t.rows) &lt; lo: return  t
+  d     = Dist(t,cols=t.cols.y)
+  l,r,c = d.poles()
+  xs    = [d.project(row,l,r,c) for row in t.rows]
+  mid   = sum(xs) / len(xs)
+  kid   = t.clone()
+  if t.better(l, r):
+    for x,row in zip(xs, t.rows):
+      (kid if x &lt; mid else i.rest).add(row)
+  else:
+    for x,row in zip(xs, t.rows):
+      (kid if x &gt;=  mid else i.rest).add(row)
+  return i.div(kid,lo)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Bore.key"><code class="name flex">
+<span>def <span class="ident">key</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the key range that most selects for best.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def key(i):
+  &#34;Return the key range that most selects for best.&#34;
+  best  = my.e
+  bests = i.best.rows
+  rests = i.rest.rows
+  rests = shuffle(rests)[ :my.N*len(bests) ]
+  for  col in i.best.cols.x.values():
+    all  = []
+    all += [[r[col.pos], True]  for r in bests]
+    all += [[r[col.pos], False] for r in rests]
+    for one in Ranges(col.txt, all,
+                      get = col.pos).ranges:
+      if one.s() &gt; best:
+        best, out = one.s(), one
+  return out </code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Cluster"><code class="flex name class">
+<span>class <span class="ident">Cluster</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Cluster(Thing): pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="bnbad.Bore" href="#bnbad.Bore">Bore</a></li>
+<li><a title="bnbad.Tree" href="#bnbad.Tree">Tree</a></li>
+</ul>
+</dd>
+<dt id="bnbad.Cocomo"><code class="flex name class">
+<span>class <span class="ident">Cocomo</span></span>
+<span>(</span><span>listofdicts=[])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This code predicts:</p>
+<ol>
+<li>Time in months to complete a project (and a month is 152 hours of
+work and includes all management support tasks associated with the coding).</li>
+<li>The risk associated with the current project decisions.
+This <a href="cocrisk">risk model</a> is calculated from a set of rules that add a "risk value" for
+every "bad smell" within the current project settings.</li>
+</ol>
+<p>The standard COCOMO effort model assumes that:
+-
+Effort is exponential on size of code
+- Within the exponent there are set of scale factors that increase effort exponentially
+- Outside the exponent there are set of effort multipliers that change effort in a linear manner
+- either linearly increasing
+or linearly decreasing.</p>
+<p>This code extends the standard COCOMO effort model as follows:
+- This code comes with a set of mitigations that might improve a project.
+It is a sample manner:
+- To loop over all those mitigations, trying each for a particular project.
+- Define and test your own mitigations.
+- Many of the internal parameters of COCOMO are not known with any certainty.
+-
+So this model represents all such internals as a range of options.
+- By running this estimated, say, 1000 times, you can get an estimate of the range of possible values.</p>
+<h2 id="attributes">Attributes</h2>
+<p>This code also for the easy extension of the model.
+If you think
+that other factors do (or do not) influence effort in an exponential
+or liner manner, then it is simple to extend this code with your
+preferred set of attributes.</p>
+<h3 id="scale-factors">Scale Factors</h3>
+<p>if <em>more</em> then exponential <em>more</em> effort i</p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flex</td>
+<td>development flexibility</td>
+</tr>
+<tr>
+<td>Arch</td>
+<td>architecture or risk resolution</td>
+</tr>
+<tr>
+<td>Pmat</td>
+<td>process maturity</td>
+</tr>
+<tr>
+<td>Prec</td>
+<td>precedentedness</td>
+</tr>
+<tr>
+<td>Team</td>
+<td>team cohesion</td>
+</tr>
+</tbody>
+</table>
+<h3 id="positive-effort-multipliers">Positive Effort Multipliers</h3>
+<p>If more, then linearly more effort </p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cplx</td>
+<td>product complexity</td>
+</tr>
+<tr>
+<td>data</td>
+<td>database size (DB bytes/SLOC)</td>
+</tr>
+<tr>
+<td>docu</td>
+<td>documentation</td>
+</tr>
+<tr>
+<td>pvol</td>
+<td>platform volatility (frequency of major changes/ frequency of minor changes )</td>
+</tr>
+<tr>
+<td>rely</td>
+<td>required reliability</td>
+</tr>
+<tr>
+<td>ruse</td>
+<td>required reuse</td>
+</tr>
+<tr>
+<td>stor</td>
+<td>required % of available RAM</td>
+</tr>
+<tr>
+<td>time</td>
+<td>required % of available CPU</td>
+</tr>
+</tbody>
+</table>
+<h3 id="negative-effort-multipliers">Negative Effort Multipliers</h3>
+<p>If more, then linearly more effort </p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>acap</td>
+<td>analyst capability</td>
+</tr>
+<tr>
+<td>aexp</td>
+<td>applications experience</td>
+</tr>
+<tr>
+<td>ltex</td>
+<td>language and tool-set experience</td>
+</tr>
+<tr>
+<td>pcap</td>
+<td>programmer capability</td>
+</tr>
+<tr>
+<td>pcon</td>
+<td>personnel continuity (% turnover per year)</td>
+</tr>
+<tr>
+<td>plex</td>
+<td>platform experience</td>
+</tr>
+<tr>
+<td>sced</td>
+<td>dictated development schedule</td>
+</tr>
+<tr>
+<td>site</td>
+<td>multi-site development</td>
+</tr>
+<tr>
+<td>tool</td>
+<td>use of software tools</td>
+</tr>
+</tbody>
+</table>
+<p>(For guidance on how to score projects on these scales, see tables 11,12,13,etc
+of the <a href="http://sunset.usc.edu/csse/affiliate/private/COCOMOII_2000/COCOMOII-040600/modelman.pdf">Cocomo manual</a>.)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Cocomo(Thing):
+  &#34;&#34;&#34;
+  This code predicts:
+  
+  1. Time in months to complete a project (and a month is 152 hours of
+  work and includes all management support tasks associated with the coding).
+  2. The risk associated with the current project decisions.
+     This [risk model](cocrisk) is calculated from a set of rules that add a &#34;risk value&#34; for
+  every &#34;bad smell&#34; within the current project settings.
+  
+  The standard COCOMO effort model assumes that:
+  -  Effort is exponential on size of code
+  - Within the exponent there are set of scale factors that increase effort exponentially
+  - Outside the exponent there are set of effort multipliers that change effort in a linear manner
+    - either linearly increasing  or linearly decreasing.
+  
+  This code extends the standard COCOMO effort model as follows:
+  - This code comes with a set of mitigations that might improve a project.
+    It is a sample manner:
+    - To loop over all those mitigations, trying each for a particular project. 
+    - Define and test your own mitigations.
+  - Many of the internal parameters of COCOMO are not known with any certainty.
+    -  So this model represents all such internals as a range of options.
+    - By running this estimated, say, 1000 times, you can get an estimate of the range of possible values.
+  
+  ## Attributes
+  
+  This code also for the easy extension of the model.  If you think
+  that other factors do (or do not) influence effort in an exponential
+  or liner manner, then it is simple to extend this code with your
+  preferred set of attributes.
+  
+  ### Scale Factors
+  if _more_ then exponential _more_ effort i
+  
+  |What| Notes|
+  |----|------|
+  | Flex | development flexibility|
+  |Arch| architecture or risk resolution |
+  |Pmat| process maturity |
+  |Prec| precedentedness|
+  |Team|team cohesion|
+  
+  ### Positive Effort Multipliers
+  If more, then linearly more effort 
+  
+  |What| Notes|
+  |----|------|
+  |cplx | product complexity|
+  |data| database size (DB bytes/SLOC) |
+  |docu| documentation|
+  |pvol| platform volatility (frequency of major changes/ frequency of minor changes )|
+  |rely| required reliability |
+  |ruse |required reuse|
+  |stor| required % of available RAM
+  |time |required % of available CPU
+  
+  ### Negative Effort Multipliers
+  If more, then linearly more effort 
+  
+  
+  |What| Notes|
+  |----|------|
+  |acap|analyst capability|
+  |aexp|applications experience |
+  |ltex| language and tool-set experience |
+  |pcap |programmer capability|
+  |pcon| personnel continuity (% turnover per year) |
+  |plex| platform experience|
+  |sced| dictated development schedule|
+  |site| multi-site development|
+  |tool| use of software tools|
+  
+  (For guidance on how to score projects on these scales, see tables 11,12,13,etc
+  of the [Cocomo manual](http://sunset.usc.edu/csse/affiliate/private/COCOMOII_2000/COCOMOII-040600/modelman.pdf).)
+  &#34;&#34;&#34;
+  defaults = o(
+      misc= o( kloc = F(2,1000),
+               a    = F(2.2,9.8),
+               goal = F(0.1, 2)),
+      pos = o( rely = I(1,5),  data = I(2,5), cplx = I(1,6),
+               ruse = I(2,6),  docu = I(1,5), time = I(3,6),
+               stor = I(3,6),  pvol = I(2,5)),
+      neg = o( acap = I(1,5),  pcap = I(1,5), pcon = I(1,5),
+               aexp = I(1,5),  plex = I(1,5), ltex = I(1,5),
+               tool = I(1,5),  site = I(1,6), sced = I(1,5)),
+      sf  = o( prec = I(1,6),  flex = I(1,6), arch = I(1,6),
+               team = I(1,6),  pmat = I(1,6)))
+
+  better = o(
+    none    = o( goal=F(1)),
+    people  = o( goal=F(1),   acap=I(5), pcap=I(5),  pcon=I(5),
+                 aexp=I(5),   plex=I(5), ltex=I(5)),
+    tools   = o( goal=F(1),
+                 time=I(3),   stor=I(3), pvol=I(2),
+                 tool=I(5),   site=I(6)),
+    precFlex= o( goal=F(1),
+                 time=I(5),   flex=I(5)),
+    archResl= o( goal=F(1),
+                 arch=I(5)),
+    slower  = o( goal=F(1),
+                 sced=I(5)),
+    process = o( goal=F(1),
+                 pmat=I(5)),
+    less    = o( goal=F(0.5), data=I(2)),
+    team    = o( goal=F(1),
+                 team=I(5)),
+    worst   = o( goal=F(1),
+                 rely=I(1),   docu=I(5), 
+                 time=I(3),   cplx=I(3)))
+
+  projects = o(
+    osp    = o(goal= F(1),
+                prec=I(1,2),    flex=I(2,5), arch=I(1,3),
+                team=I(2,3),    pmat=I(1,4), stor=I(3,5),
+                ruse=I(2,4),    docu=I(2,4), acap=I(2,3),
+                pcon=I(2,3),    aexp=I(2,3), ltex=I(2,4),
+                tool=I(2,3),    sced=I(1,3), cplx=I(5,6),
+                kloc=F(75,125), data=I(3),   pvol=I(2), rely=I(5),
+                pcap=I(3),      plex=I(3),   site=I(3)),
+    osp2   = o(goal=F(1),     prec=I(3,5), pmat=I(4,5), docu=I(3,4), 
+                ltex=I(2,5), sced=I(2,4), kloc=F(75,125),
+                flex=I(3),   arch=I(4),   team=I(3), time=I(3), stor=I(3),
+                data=I(4),   pvol=I(3),   ruse=I(4), rely=I(5), acap=I(4), 
+                pcap=I(3),   pcon=I(3),   aexp=I(4), plex=I(4), tool=I(5), 
+                cplx=I(4),   site=I(6)),
+    flight = o(goal=F(1),
+                rely=I(3,5), data=I(2,3),
+                cplx=I(3,6), time=I(3,4),
+                stor=I(3,4), acap=I(3,5),
+                aexp=I(2,5), pcap=I(3,5),
+                plex=I(1,4), ltex=I(1,4),
+                tool=I(2),   sced=I(3),
+                pmat=I(2,3), kloc=F(7,418)),
+    ground = o(  goal=F(1),
+                tool=I(2),   sced=I(3),
+                rely=I(1,4), data=I(2,3), cplx=I(1,4),
+                time=I(3,4), stor=I(3,4), acap=I(3,5),
+                aexp=I(2,5), pcap=I(3,5), plex=I(1,4),
+                ltex=I(1,4), pmat=I(2,3), kloc=F(11,392)))
+
+  def __init__(i,listofdicts=[]):
+    i.x, i.y, dd = o(), o(), kopy(Cocomo.defaults)
+    # set up the defaults
+    for d in dd:
+      for k in dd[d] : i.x[k]  = dd[d][k] # can&#39;t +=: no background info
+    # apply any other constraints
+    for dict1 in listofdicts:
+      for k in dict1 :
+         try: i.x[k] += dict1[k] # now you can +=
+         except Exception as e:
+              print(k, e)
+    # ----------------------------------------------------------
+    for k in dd.misc:i.y[k]= i.x[k]()
+    for k in dd.pos: i.y[k]= F( .073,  .21)()   * (i.x[k]() -3) +1
+    for k in dd.neg: i.y[k]= F(-.178, -.078)()  * (i.x[k]() -3) +1
+    for k in dd.sf : i.y[k]= F(-1.56, -1.014)() * (i.x[k]() -6)
+    # ----------------------------------------------------------
+  def effort(i):
+    em, sf = 1, 0
+    b      = (0.85-1.1)/(9.18-2.2) * i.x.a() + 1.1+(1.1-0.8)*.5
+    for k in Cocomo.defaults.sf  : sf += i.y[k]
+    for k in Cocomo.defaults.pos : em *= i.y[k]
+    for k in Cocomo.defaults.neg : em *= i.y[k]
+    return round(i.x.a() * em * (i.x.goal()*i.x.kloc()) ** (b + 0.01*sf), 1)
+  def risk(i, r=0):
+    for k1,rules1 in rules.items():
+      for k2,m in rules1.items():
+        x  = i.x[k1]()
+        y  = i.x[k2]()
+        z  = m[x-1][y-1]
+        r += z
+    return round(100 * r / 104, 1)
+  def rules(i):
+    _ = 0
+    ne=   [      [_,_,_,1,2,_], # bad if lohi 
+                 [_,_,_,_,1,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    nw=  [       [2,1,_,_,_,_], # bad if lolo 
+                 [1,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    nw4= [       [4,2,1,_,_,_], # very bad if  lolo 
+                 [2,1,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    sw4= [       [_,_,_,_,_,_], # very bad if  hilo 
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_],
+                 [4,2,1,_,_,_],
+                 [_,_,_,_,_,_]]
+    
+    # bounded by 1..6
+    ne46= [      [_,_,_,1,2,4], # very bad if lohi
+                 [_,_,_,_,1,2],
+                 [_,_,_,_,_,1],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_]]
+    sw=   [      [_,_,_,_,_,_], # bad if hilo
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_]]
+    sw26= [      [_,_,_,_,_,_], # bad if hilo
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_]]
+    sw46= [      [_,_,_,_,_,_], # very bad if hilo
+                 [_,_,_,_,_,_],
+                 [_,_,_,_,_,_],
+                 [1,_,_,_,_,_],
+                 [2,1,_,_,_,_],
+                 [4,2,1,_,_,_]]
+    
+    return dict( 
+      cplx= dict(acap=sw46, pcap=sw46, tool=sw46), #12
+      ltex= dict(pcap=nw4),  # 4
+      pmat= dict(acap=nw,   pcap=sw46), # 6
+      pvol= dict(plex=sw), #2
+      rely= dict(acap=sw4,  pcap=sw4,  pmat=sw4), # 12
+      ruse= dict(aexp=sw46, ltex=sw46),  #8
+      sced= dict(
+        cplx=ne46, time=ne46, pcap=nw4, aexp=nw4, acap=nw4,  
+        plex=nw4, ltex=nw,  pmat=nw, rely=ne, pvol=ne, tool=nw), # 34
+      stor= dict(acap=sw46, pcap=sw46), #8
+      team= dict(aexp=nw,   sced=nw,   site=nw), #6
+      time= dict(acap=sw46, pcap=sw46, tool=sw26), #10
+      tool= dict(acap=nw,   pcap=nw,   pmat=nw)) # 6</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="bnbad.Cocomo.better"><code class="name">var <span class="ident">better</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="bnbad.Cocomo.defaults"><code class="name">var <span class="ident">defaults</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="bnbad.Cocomo.projects"><code class="name">var <span class="ident">projects</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Cocomo.effort"><code class="name flex">
+<span>def <span class="ident">effort</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def effort(i):
+  em, sf = 1, 0
+  b      = (0.85-1.1)/(9.18-2.2) * i.x.a() + 1.1+(1.1-0.8)*.5
+  for k in Cocomo.defaults.sf  : sf += i.y[k]
+  for k in Cocomo.defaults.pos : em *= i.y[k]
+  for k in Cocomo.defaults.neg : em *= i.y[k]
+  return round(i.x.a() * em * (i.x.goal()*i.x.kloc()) ** (b + 0.01*sf), 1)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Cocomo.risk"><code class="name flex">
+<span>def <span class="ident">risk</span></span>(<span>i, r=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def risk(i, r=0):
+  for k1,rules1 in rules.items():
+    for k2,m in rules1.items():
+      x  = i.x[k1]()
+      y  = i.x[k2]()
+      z  = m[x-1][y-1]
+      r += z
+  return round(100 * r / 104, 1)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Cocomo.rules"><code class="name flex">
+<span>def <span class="ident">rules</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rules(i):
+  _ = 0
+  ne=   [      [_,_,_,1,2,_], # bad if lohi 
+               [_,_,_,_,1,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_]]
+  nw=  [       [2,1,_,_,_,_], # bad if lolo 
+               [1,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_]]
+  nw4= [       [4,2,1,_,_,_], # very bad if  lolo 
+               [2,1,_,_,_,_],
+               [1,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_]]
+  sw4= [       [_,_,_,_,_,_], # very bad if  hilo 
+               [_,_,_,_,_,_],
+               [1,_,_,_,_,_],
+               [2,1,_,_,_,_],
+               [4,2,1,_,_,_],
+               [_,_,_,_,_,_]]
+  
+  # bounded by 1..6
+  ne46= [      [_,_,_,1,2,4], # very bad if lohi
+               [_,_,_,_,1,2],
+               [_,_,_,_,_,1],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_]]
+  sw=   [      [_,_,_,_,_,_], # bad if hilo
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [1,_,_,_,_,_],
+               [2,1,_,_,_,_]]
+  sw26= [      [_,_,_,_,_,_], # bad if hilo
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [1,_,_,_,_,_],
+               [2,1,_,_,_,_]]
+  sw46= [      [_,_,_,_,_,_], # very bad if hilo
+               [_,_,_,_,_,_],
+               [_,_,_,_,_,_],
+               [1,_,_,_,_,_],
+               [2,1,_,_,_,_],
+               [4,2,1,_,_,_]]
+  
+  return dict( 
+    cplx= dict(acap=sw46, pcap=sw46, tool=sw46), #12
+    ltex= dict(pcap=nw4),  # 4
+    pmat= dict(acap=nw,   pcap=sw46), # 6
+    pvol= dict(plex=sw), #2
+    rely= dict(acap=sw4,  pcap=sw4,  pmat=sw4), # 12
+    ruse= dict(aexp=sw46, ltex=sw46),  #8
+    sced= dict(
+      cplx=ne46, time=ne46, pcap=nw4, aexp=nw4, acap=nw4,  
+      plex=nw4, ltex=nw,  pmat=nw, rely=ne, pvol=ne, tool=nw), # 34
+    stor= dict(acap=sw46, pcap=sw46), #8
+    team= dict(aexp=nw,   sced=nw,   site=nw), #6
+    time= dict(acap=sw46, pcap=sw46, tool=sw26), #10
+    tool= dict(acap=nw,   pcap=nw,   pmat=nw)) # 6</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Col"><code class="flex name class">
+<span>class <span class="ident">Col</span></span>
+<span>(</span><span>pos, txt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Col(Thing):
+  def __init__(i,pos,txt):
+    i.n, i.pos, i.txt = 0, pos, txt
+    i.w = -1 if Magic.lessp(txt) else 1
+  def __add__(i,x):
+    if Magic.no(x): return x
+    i.n += 1
+    return i.add(x)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="bnbad.Num" href="#bnbad.Num">Num</a></li>
+<li><a title="bnbad.Sym" href="#bnbad.Sym">Sym</a></li>
+</ul>
+</dd>
+<dt id="bnbad.Cols"><code class="flex name class">
+<span>class <span class="ident">Cols</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Cols(Thing):
+  def __init__(i) : 
+    i.x,i.y,i.nums,i.syms,i.all,i.klas = {},{},{},{},[],None
+  def add(i,lst): 
+    [ col.add( lst[col.pos] ) for col in i.all ]
+  def klass(i,lst): 
+    return lst[i.klas]
+  def header(i,lst):
+    for pos,txt in enumerate(lst):
+      tmp = (Num if Magic.nump(txt) else Sym)(pos,txt)
+      i.all += [tmp]
+      (i.y    if Magic.goalp(txt) else i.x)[pos] = tmp
+      (i.nums if Magic.nump(txt)  else i.syms)[pos] = tmp
+      if Magic.klassp(txt) : i.klas  = tmp</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Cols.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>i, lst)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(i,lst): 
+  [ col.add( lst[col.pos] ) for col in i.all ]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Cols.header"><code class="name flex">
+<span>def <span class="ident">header</span></span>(<span>i, lst)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def header(i,lst):
+  for pos,txt in enumerate(lst):
+    tmp = (Num if Magic.nump(txt) else Sym)(pos,txt)
+    i.all += [tmp]
+    (i.y    if Magic.goalp(txt) else i.x)[pos] = tmp
+    (i.nums if Magic.nump(txt)  else i.syms)[pos] = tmp
+    if Magic.klassp(txt) : i.klas  = tmp</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Cols.klass"><code class="name flex">
+<span>def <span class="ident">klass</span></span>(<span>i, lst)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def klass(i,lst): 
+  return lst[i.klas]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.DecisionList"><code class="flex name class">
+<span>class <span class="ident">DecisionList</span></span>
+<span>(</span><span>t, lvl=4)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DecisionList(Thing):
+  def __init__(i, t, lvl=my.H):
+    i.t=t
+    i.leaf = None
+    if lvl &gt; 0 and len(t.rows) &gt;= my.M: 
+      b = Bore(t)
+      i.split = b.key()
+      i.col = i.split._ranges.get
+      i.leaf, kid = t.clone(), t.clone()
+      for row in t.rows:
+        (i.leaf if i.split.matches(row) else kid).add(row)
+      i.kid = DecisionList(kid, lvl-1)
+  def show(i,pre=&#34;  &#34;): 
+    if i.leaf:
+      print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
+           &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
+      i.kid.show(pre=&#34;el&#34;)
+    else:
+     print(&#34;else&#34;, i.t.status(), len(i.t.rows))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.DecisionList.show"><code class="name flex">
+<span>def <span class="ident">show</span></span>(<span>i, pre='
+')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show(i,pre=&#34;  &#34;): 
+  if i.leaf:
+    print(pre+&#34;if&#34;, i.split._ranges.txt,&#34; in &#34;,i.split.lo, &#34;..&#34;,i.split.hi,
+         &#34;then&#34;,  i.leaf.status(), len(i.leaf.rows))
+    i.kid.show(pre=&#34;el&#34;)
+  else:
+   print(&#34;else&#34;, i.t.status(), len(i.t.rows))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Dist"><code class="flex name class">
+<span>class <span class="ident">Dist</span></span>
+<span>(</span><span>t, cols=None, rows=None, p=2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Dist(Thing):
+  def __init__(i, t,cols=None, rows=None, p=my.p):
+    i.t= t
+    i.p= p
+    i.cols = cols or t.cols.x
+    i.rows = rows or shuffle(t.rows)[:my.d]
+  def dist(i,row1,row2):
+    d = 0
+    for col in i.cols.values():
+      inc = col.dist( row1[col.pos], row2[col.pos] )
+      d  += inc**my.p
+    return (d/len(i.cols))**(1/my.p)
+  def neighbors(i,r1):
+    a = [(i.dist(r1,r2),r2) for r2 in i.rows if id(r1) != id(r2)]
+    return sorted(a, key = lambda z: z[0])
+  def faraway(i,row):
+     a= i.neighbors(row)
+     return a[ int( len(a) * my.f ) ][1]
+  def poles(i):
+     tmp   = random.choice(i.rows)
+     left  = i.faraway(tmp)
+     right = i.faraway(left)
+     return left, right, i.dist(left,right)
+  def project(i,row, left,right,c):
+     a = i.dist(row,left)
+     b = i.dist(row,right)
+     d = (a**2 + c**2 - b**2) / (2*c)
+     if d&gt;1: d= 1
+     if d&lt;0: d= 0
+     return d</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Dist.dist"><code class="name flex">
+<span>def <span class="ident">dist</span></span>(<span>i, row1, row2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dist(i,row1,row2):
+  d = 0
+  for col in i.cols.values():
+    inc = col.dist( row1[col.pos], row2[col.pos] )
+    d  += inc**my.p
+  return (d/len(i.cols))**(1/my.p)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Dist.faraway"><code class="name flex">
+<span>def <span class="ident">faraway</span></span>(<span>i, row)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def faraway(i,row):
+   a= i.neighbors(row)
+   return a[ int( len(a) * my.f ) ][1]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Dist.neighbors"><code class="name flex">
+<span>def <span class="ident">neighbors</span></span>(<span>i, r1)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def neighbors(i,r1):
+  a = [(i.dist(r1,r2),r2) for r2 in i.rows if id(r1) != id(r2)]
+  return sorted(a, key = lambda z: z[0])</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Dist.poles"><code class="name flex">
+<span>def <span class="ident">poles</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def poles(i):
+   tmp   = random.choice(i.rows)
+   left  = i.faraway(tmp)
+   right = i.faraway(left)
+   return left, right, i.dist(left,right)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Dist.project"><code class="name flex">
+<span>def <span class="ident">project</span></span>(<span>i, row, left, right, c)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def project(i,row, left,right,c):
+   a = i.dist(row,left)
+   b = i.dist(row,right)
+   d = (a**2 + c**2 - b**2) / (2*c)
+   if d&gt;1: d= 1
+   if d&lt;0: d= 0
+   return d</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.F"><code class="flex name class">
+<span>class <span class="ident">F</span></span>
+<span>(</span><span>lo, hi=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Floats</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class F(X): 
+  &#34;Floats&#34;
+  def get(i): return random.uniform(i.lo, i.hi)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.X" href="#bnbad.X">X</a></li>
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.F.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get(i): return random.uniform(i.lo, i.hi)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.I"><code class="flex name class">
+<span>class <span class="ident">I</span></span>
+<span>(</span><span>lo, hi=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Integers</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class I(X): 
+  &#34;Integers&#34;
+  def get(i): return random.randint(i.lo, i.hi)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.X" href="#bnbad.X">X</a></li>
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.I.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get(i): return random.randint(i.lo, i.hi)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Magic"><code class="flex name class">
+<span>class <span class="ident">Magic</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Define magic characterss.
+Used in column headers to denote goals, klasses, numbers.
+Used also to denote things to skip (columns, specific cells).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Magic:
+  &#34;&#34;&#34;
+  Define magic characterss. 
+  Used in column headers to denote goals, klasses, numbers.
+  Used also to denote things to skip (columns, specific cells).
+  &#34;&#34;&#34;
+  def no(s): 
+    &#34;Things to skip.&#34;
+    return  s == &#34;?&#34;
+  def nump(s): 
+    &#34;Numbers.&#34;
+    return &#34;&lt;&#34; in s or &#34;$&#34; in s or &#34;&gt;&#34; in s
+  def goalp(s): 
+    &#34;Goals&#34;
+    return &#34;&lt;&#34; in s or &#34;!&#34; in s or &#34;&gt;&#34; in s
+  def klassp(s): 
+    &#34;Non-numeric goals.&#34;
+    return &#34;!&#34; in s
+  def lessp(s): 
+    &#34;Thing to minimize&#34;
+    return &#34;&lt;&#34; in s</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Magic.goalp"><code class="name flex">
+<span>def <span class="ident">goalp</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Goals</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def goalp(s): 
+  &#34;Goals&#34;
+  return &#34;&lt;&#34; in s or &#34;!&#34; in s or &#34;&gt;&#34; in s</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Magic.klassp"><code class="name flex">
+<span>def <span class="ident">klassp</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Non-numeric goals.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def klassp(s): 
+  &#34;Non-numeric goals.&#34;
+  return &#34;!&#34; in s</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Magic.lessp"><code class="name flex">
+<span>def <span class="ident">lessp</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Thing to minimize</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def lessp(s): 
+  &#34;Thing to minimize&#34;
+  return &#34;&lt;&#34; in s</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Magic.no"><code class="name flex">
+<span>def <span class="ident">no</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Things to skip.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def no(s): 
+  &#34;Things to skip.&#34;
+  return  s == &#34;?&#34;</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Magic.nump"><code class="name flex">
+<span>def <span class="ident">nump</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Numbers.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nump(s): 
+  &#34;Numbers.&#34;
+  return &#34;&lt;&#34; in s or &#34;$&#34; in s or &#34;&gt;&#34; in s</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Num"><code class="flex name class">
+<span>class <span class="ident">Num</span></span>
+<span>(</span><span>*l)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Num(Col):
+  def __init__(i, *l):
+    super().__init__(*l)
+    i.mu, i.lo, i.hi = 0, 10**32, -10**32
+  def mid(i): return i.mu
+  def add(i,x):
+    x = float(x)
+    i.lo,i.hi = min(i.lo,x), max(i.hi,x)
+    i.mu      = i.mu + (x - i.mu)/i.n
+    return x
+  def norm(i,x):
+    if Magic.no(x) : return x
+    return (x - i.lo)  / (i.hi - i.lo + 0.000001)
+  def dist(i,x,y):
+    if Magic.no(x) and Magic.no(y): return 1
+    if Magic.no(x): x = i.lo if y &gt; i.mu else i.hi
+    if Magic.no(y): y = i.lo if x &gt; i.mu else i.hi
+    return abs(i.norm(x) - i.norm(y))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Col" href="#bnbad.Col">Col</a></li>
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Num.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>i, x)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(i,x):
+  x = float(x)
+  i.lo,i.hi = min(i.lo,x), max(i.hi,x)
+  i.mu      = i.mu + (x - i.mu)/i.n
+  return x</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Num.dist"><code class="name flex">
+<span>def <span class="ident">dist</span></span>(<span>i, x, y)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dist(i,x,y):
+  if Magic.no(x) and Magic.no(y): return 1
+  if Magic.no(x): x = i.lo if y &gt; i.mu else i.hi
+  if Magic.no(y): y = i.lo if x &gt; i.mu else i.hi
+  return abs(i.norm(x) - i.norm(y))</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Num.mid"><code class="name flex">
+<span>def <span class="ident">mid</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mid(i): return i.mu</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Num.norm"><code class="name flex">
+<span>def <span class="ident">norm</span></span>(<span>i, x)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def norm(i,x):
+  if Magic.no(x) : return x
+  return (x - i.lo)  / (i.hi - i.lo + 0.000001)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Range"><code class="flex name class">
+<span>class <span class="ident">Range</span></span>
+<span>(</span><span>what, ranges)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Range(Thing):
+  def __init__(i,what,ranges):
+    i.what,i._ranges = what,  ranges
+    i.n, i.yes, i.no = 0,0.0001,0.0001
+    i.lo, i.hi = None, None
+    i.gen=1
+  def matches(i, row):
+    v = row[i._ranges.get]
+    return v != &#34;?&#34; and i.lo &lt;= v and v &lt;= i.hi
+  def add(i,x,y):
+    i.n += 1
+    if y==i._ranges.goal: i.yes += 1
+    else               : i.no += 1
+    if i.lo is None or x &lt; i.lo: i.lo = x
+    if i.hi is None or x &gt; i.hi: i.hi = x
+  def merge(i,j):
+    k     = i._ranges.bin()
+    k.gen = max(i.gen,j.gen) + 1
+    k.lo  = i.lo if i.lo &lt; j.lo else j.lo
+    k.hi  = i.hi if i.hi &gt; j.hi else j.hi
+    k.n   = i.n + j.n
+    k.no  = i.no  + j.no
+    k.yes = i.yes + j.yes
+    return k
+  def better(c,a,b):
+    sa, sb, sc = a.s(), b.s(), c.s()
+    return abs(sb - sa) &lt; my.e or sc &gt;= sb and sc &gt;= sa
+  def s(i):
+    yes   = i.yes/i._ranges.all.yes 
+    no    = i.no /i._ranges.all.no
+    tmp   = yes**2/(yes+no+0.0001) 
+    return tmp if tmp &gt; my.e else 0</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Range.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>i, x, y)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(i,x,y):
+  i.n += 1
+  if y==i._ranges.goal: i.yes += 1
+  else               : i.no += 1
+  if i.lo is None or x &lt; i.lo: i.lo = x
+  if i.hi is None or x &gt; i.hi: i.hi = x</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Range.better"><code class="name flex">
+<span>def <span class="ident">better</span></span>(<span>c, a, b)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def better(c,a,b):
+  sa, sb, sc = a.s(), b.s(), c.s()
+  return abs(sb - sa) &lt; my.e or sc &gt;= sb and sc &gt;= sa</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Range.matches"><code class="name flex">
+<span>def <span class="ident">matches</span></span>(<span>i, row)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def matches(i, row):
+  v = row[i._ranges.get]
+  return v != &#34;?&#34; and i.lo &lt;= v and v &lt;= i.hi</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Range.merge"><code class="name flex">
+<span>def <span class="ident">merge</span></span>(<span>i, j)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge(i,j):
+  k     = i._ranges.bin()
+  k.gen = max(i.gen,j.gen) + 1
+  k.lo  = i.lo if i.lo &lt; j.lo else j.lo
+  k.hi  = i.hi if i.hi &gt; j.hi else j.hi
+  k.n   = i.n + j.n
+  k.no  = i.no  + j.no
+  k.yes = i.yes + j.yes
+  return k</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Range.s"><code class="name flex">
+<span>def <span class="ident">s</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def s(i):
+  yes   = i.yes/i._ranges.all.yes 
+  no    = i.no /i._ranges.all.no
+  tmp   = yes**2/(yes+no+0.0001) 
+  return tmp if tmp &gt; my.e else 0</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Ranges"><code class="flex name class">
+<span>class <span class="ident">Ranges</span></span>
+<span>(</span><span>txt, a, goal=True, get=&lt;function Ranges.&lt;lambda&gt;&gt;)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Report how to divide a list of pairs <code>[x,y]</code>
+such that groups of <code>x</code> values most select for some
+desired <code>y</code> (which is called the <code>goal</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Ranges(Thing):
+  &#34;&#34;&#34;
+  Report how to divide a list of pairs `[x,y]` 
+  such that groups of `x` values most select for some
+  desired `y` (which is called the `goal`.
+  &#34;&#34;&#34;
+  def __init__(i,txt,a,goal=True, get=lambda z:z[0]):
+    i.txt  = txt
+    i.goal = goal
+    i.get  = get
+    i.bin  = lambda: Range(txt,i)
+    i.all  = i.bin()
+    i.ranges = (i.nums if Magic.nump(txt) else i.syms)(a)
+  def syms(i,a):
+    &#34;When discretizing symbols, Generate one range for each symbol.&#34;
+    d  = {}
+    for x1,y1 in a:
+      if Magic.no(x1): continue
+      if not x1 in d: d[x1] = i.bin()
+      d[x1].add(x1,y1)
+      i.all.add(x1,y1)
+    return d.values()
+  def nums(i,a):
+    &#34;&#34;&#34;
+    When discretizing numbers,
+    Generate lots of small ranges, then
+    merge those with similar scores.&#34;
+    &#34;&#34;&#34;
+    return i.merge( i.grow( i.pairs(a)))
+  def pairs(i,a):
+    &#34;When discretizing numbers, convert `a` into a list of x,y pairs&#34;
+    lst = [(x,y) for x,y in a if not Magic.no(x)]
+    return sorted(lst, key= lambda z:z[0])
+  def grow(i,a):
+    &#34;When discretizing numbers, divide `a` into lots of small bins.&#34;
+    min  = len(a)**my.b
+    use  = len(a) - min
+    bins = [i.bin()]
+    for j,(x,y) in enumerate(a):
+      if Magic.no(x): continue
+      if j &lt; use and bins[-1].n &gt; min:
+        bins += [i.bin()]
+      bins[-1].add(x,y)
+      i.all.add(x,y) 
+    return bins
+  def merge(i,bins):
+    &#34;&#34;&#34;
+    When discretizing numbers, 
+    merge adjacent bins if that works better than 
+    keeping them part. If any merges found, then
+    recurse to merge the merged list.
+    &#34;&#34;&#34;
+    j, tmp = 0, []
+    while j &lt; len(bins):
+       a = bins[j]
+       if j &lt; len(bins) - 1:
+          b = bins[j+1]
+          c = a.merge(b)
+          if c.better(a,b):
+             a = c
+             j += 1
+       tmp += [a]
+       j += 1
+    return i.merge(tmp) if len(tmp) &lt; len(bins) else bins</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Ranges.grow"><code class="name flex">
+<span>def <span class="ident">grow</span></span>(<span>i, a)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>When discretizing numbers, divide <code>a</code> into lots of small bins.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def grow(i,a):
+  &#34;When discretizing numbers, divide `a` into lots of small bins.&#34;
+  min  = len(a)**my.b
+  use  = len(a) - min
+  bins = [i.bin()]
+  for j,(x,y) in enumerate(a):
+    if Magic.no(x): continue
+    if j &lt; use and bins[-1].n &gt; min:
+      bins += [i.bin()]
+    bins[-1].add(x,y)
+    i.all.add(x,y) 
+  return bins</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Ranges.merge"><code class="name flex">
+<span>def <span class="ident">merge</span></span>(<span>i, bins)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>When discretizing numbers,
+merge adjacent bins if that works better than
+keeping them part. If any merges found, then
+recurse to merge the merged list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge(i,bins):
+  &#34;&#34;&#34;
+  When discretizing numbers, 
+  merge adjacent bins if that works better than 
+  keeping them part. If any merges found, then
+  recurse to merge the merged list.
+  &#34;&#34;&#34;
+  j, tmp = 0, []
+  while j &lt; len(bins):
+     a = bins[j]
+     if j &lt; len(bins) - 1:
+        b = bins[j+1]
+        c = a.merge(b)
+        if c.better(a,b):
+           a = c
+           j += 1
+     tmp += [a]
+     j += 1
+  return i.merge(tmp) if len(tmp) &lt; len(bins) else bins</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Ranges.nums"><code class="name flex">
+<span>def <span class="ident">nums</span></span>(<span>i, a)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>When discretizing numbers,
+Generate lots of small ranges, then
+merge those with similar scores."</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nums(i,a):
+  &#34;&#34;&#34;
+  When discretizing numbers,
+  Generate lots of small ranges, then
+  merge those with similar scores.&#34;
+  &#34;&#34;&#34;
+  return i.merge( i.grow( i.pairs(a)))</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Ranges.pairs"><code class="name flex">
+<span>def <span class="ident">pairs</span></span>(<span>i, a)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>When discretizing numbers, convert <code>a</code> into a list of x,y pairs</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pairs(i,a):
+  &#34;When discretizing numbers, convert `a` into a list of x,y pairs&#34;
+  lst = [(x,y) for x,y in a if not Magic.no(x)]
+  return sorted(lst, key= lambda z:z[0])</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Ranges.syms"><code class="name flex">
+<span>def <span class="ident">syms</span></span>(<span>i, a)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>When discretizing symbols, Generate one range for each symbol.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def syms(i,a):
+  &#34;When discretizing symbols, Generate one range for each symbol.&#34;
+  d  = {}
+  for x1,y1 in a:
+    if Magic.no(x1): continue
+    if not x1 in d: d[x1] = i.bin()
+    d[x1].add(x1,y1)
+    i.all.add(x1,y1)
+  return d.values()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Rx"><code class="flex name class">
+<span>class <span class="ident">Rx</span></span>
+<span>(</span><span>rx='', all=[], lo=0, hi=1, width=50, show='%5.0f', chops=[0.1, 0.3, 0.5, 0.7, 0.9], marks=[' ', '-', ' ', '-', ' '])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A treatment "<code><a title="bnbad.Rx" href="#bnbad.Rx">Rx</a></code>" is a label (<code>i.rx</code>) and a set of
+values (<code>i.all</code>).
+</p>
+<p>Similar treatments can be grouped together
+by the <a href="#bnbad.rxs"><code>rxs</code></a> function
+into sets of values with the same <code>rank</code>
+Things in the same rank are statistically
+indistinguishable, as judged by all three of:</p>
+<ol>
+<li>A very fast non-parametric <code>D</code> test <ul>
+<li>Sort the numns, ignore divisions less that
+30% of "spread" (90th-10th percentile range); </li>
+</ul>
+</li>
+<li>A (slightly more thorough) non-parametric effect
+size test (the Cliff's Delta);<ul>
+<li>Two lists are different if, usually,
+things from one list do not fall into the middle
+of the other.</li>
+</ul>
+</li>
+<li>(very thorough) non-parametric
+significance test (the Bootstrap);<ul>
+<li>See if hundreds of sample-with-replacements
+sets from two lists and
+different properties to
+the overall list.</li>
+</ul>
+</li>
+</ol>
+<p>Of the above, the third is far slower than the rest. Often, if it is
+omitted, the results are often the same as just using 1+2.
+So when
+each treatment has 1000s of values, it would be reasonable to skip
+it. Without bootstrapping,
+256 treatments with 1000 values
+can be sorted in less than 2 seconds. But with that skipping
+that same process takes half an hour.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Rx(Thing):
+  &#34;&#34;&#34;
+  A treatment &#34;`Rx`&#34; is a label (`i.rx`) and a set of 
+  values (`i.all`).  
+  
+  Similar treatments can be grouped together
+  by the [`rxs`](#bnbad.rxs) function
+  into sets of values with the same `rank`
+  Things in the same rank are statistically 
+  indistinguishable, as judged by all three of:
+
+  1. A very fast non-parametric `D` test 
+      - Sort the numns, ignore divisions less that
+        30% of &#34;spread&#34; (90th-10th percentile range); 
+  2. A (slightly more thorough) non-parametric effect 
+     size test (the Cliff&#39;s Delta);
+      -  Two lists are different if, usually, 
+         things from one list do not fall into the middle 
+         of the other.
+  3. (very thorough) non-parametric 
+     significance test (the Bootstrap);
+      - See if hundreds of sample-with-replacements
+        sets from two lists and  different properties to 
+        the overall list.
+  
+  Of the above, the third is far slower than the rest. Often, if it is
+  omitted, the results are often the same as just using 1+2.  So when
+  each treatment has 1000s of values, it would be reasonable to skip
+  it. Without bootstrapping,  256 treatments with 1000 values
+  can be sorted in less than 2 seconds. But with that skipping
+  that same process takes half an hour.
+  &#34;&#34;&#34;
+  def __init__(i, rx=&#34;&#34;, all=[], lo=0,hi=1,  
+                         width = 50,
+                         show  = &#34;%5.0f&#34;,
+                         chops = [0.1 ,0.3,0.5,0.7,0.9],
+                         marks = [&#34; &#34; ,&#34;-&#34;,&#34; &#34;,&#34;-&#34;,&#34; &#34;]):
+    i.rx   = rx
+    i.all  = sorted([x for x in all if x != &#34;?&#34;])
+    i.lo   = min(i.all[0],lo)
+    i.hi   = max(i.all[-1],hi)
+    i.n    = len(i.all)
+    i.med  = i.all[int(i.n/2)]
+    i.parts= [i]
+    i.rank = 0
+    i.width,i.chops,i.marks,i.show = width,chops,marks,show
+  def __lt__(i,j): 
+    &#34;Treatments are sorted on their `med` value.&#34;
+    return i.med &lt; j.med
+  def __eq__(i,j):
+    &#34;&#34;&#34;
+    Two treatments are statistically indistinguishable
+    if a non-parametric effect size test (`cliffsDelta`)
+    and a non-parametric significance test (`bootstrap`)
+    say that there are no differences between them.
+    &#34;&#34;&#34;
+    return i.cliffsDelta(j) and  i.bootstrap(j)
+  def __add__(i,j):
+    &#34;Treatments can be combined&#34;
+    k =  Rx(all = i.all + j.all,
+                  lo  = min(i.lo, j.lo), 
+                  hi  = max(i.hi, j.hi))
+    k.parts = i.parts + j.parts
+    return k
+  def __repr__(i):
+    &#34;Treatments can be printed.&#34;
+    return &#39;%10s %s&#39; % (i.rx, xtile(i.all, i.lo, i.hi,
+                                    show = i.show,
+                                    width = i.width,
+                                    chops = i.chops,
+                                    marks = i.marks))
+
+  def cliffsDelta(i,j, dull=my.Sdull):
+    &#34;&#34;&#34;
+    For every item in `lst1`, find its position in `lst2` Two lists are
+    different if, usually, things from one list do not fall into the
+    middle of the other.
+  
+    This code employees a few tricks to make all this run fast (e..g
+    pre-sort the lists, work over `runs` of same values).
+    &#34;&#34;&#34;
+    def runs(lst):
+      for j,two in enumerate(lst):
+        if j == 0: one,i = two,0
+        if one!=two:
+          yield j - i,one
+          i = j
+        one=two
+      yield j - i + 1,two
+    # --- end runs function ---------------------
+    lst1, lst2 = i.all, j.all
+    m, n = len(lst1), len(lst2)
+    lst2 = sorted(lst2)
+    j = more = less = 0
+    for repeats,x in runs(sorted(lst1)):
+      while j &lt;= (n - 1) and lst2[j] &lt;  x: j += 1
+      more += j*repeats
+      while j &lt;= (n - 1) and lst2[j] == x: j += 1
+      less += (n - j)*repeats
+    d= (more - less) / (m*n)
+    return abs(d)  &lt;= dull
+  
+  def bootstrap(i,j,onf=my.Sconf,b=my.Sb):
+    &#34;&#34;&#34;
+    Two  lists y0,z0 are the same if the same patterns can be seen in
+    all of them, as well as in 100s to 1000s  sub-samples from each.
+    From p220 to 223 of the Efron text  &#39;introduction to the bootstrap&#39;.
+    
+    This function checks for  different properties between (a) the two
+    lists and (b) hundreds of sample-with-replacements sets.
+    &#34;&#34;&#34;
+    class Sum(): 
+      &#34;# Quick &amp; dirty class to summarize sets of values.&#34;
+      def __init__(i,some=[]):
+        i.sum = i.n = i.mu = 0 ; i.all=[]
+        for one in some: i.put(one)
+      def put(i,x):
+        i.all.append(x);
+        i.sum +=x; i.n += 1; i.mu = float(i.sum)/i.n
+      def __add__(i1,i2): return Sum(i1.all + i2.all)
+    def testStatistic(y,z):
+       &#34;Define the property that we will check for.&#34;
+       tmp1 = tmp2 = 0
+       for y1 in y.all: tmp1 += (y1 - y.mu)**2
+       for z1 in z.all: tmp2 += (z1 - z.mu)**2
+       s1    = float(tmp1)/(y.n - 1)
+       s2    = float(tmp2)/(z.n - 1)
+       delta = z.mu - y.mu
+       if s1+s2:
+         delta =  delta/((s1/y.n + s2/z.n)**0.5)
+       return delta
+    def one(lst): 
+      &#34;Sampling with replacement.&#34;
+      return lst[ int(random.uniform(0,len(lst))) ]
+    #--------------
+    y0, z0 = i.all, j.all
+    y,z  = Sum(y0), Sum(z0)
+    x    = y + z
+    baseline = testStatistic(y,z)
+    yhat = [y1 - y.mu + x.mu for y1 in y.all]
+    zhat = [z1 - z.mu + x.mu for z1 in z.all]
+    bigger = 0
+    for i in range(b):
+      if testStatistic(Sum([one(yhat) for _ in yhat]),
+                       Sum([one(zhat) for _ in zhat])) &gt; baseline:
+        bigger += 1
+    return bigger / b &gt;= conf</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Rx.bootstrap"><code class="name flex">
+<span>def <span class="ident">bootstrap</span></span>(<span>i, j, onf=0.01, b=500)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Two
+lists y0,z0 are the same if the same patterns can be seen in
+all of them, as well as in 100s to 1000s
+sub-samples from each.
+From p220 to 223 of the Efron text
+'introduction to the bootstrap'.</p>
+<p>This function checks for
+different properties between (a) the two
+lists and (b) hundreds of sample-with-replacements sets.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def bootstrap(i,j,onf=my.Sconf,b=my.Sb):
+  &#34;&#34;&#34;
+  Two  lists y0,z0 are the same if the same patterns can be seen in
+  all of them, as well as in 100s to 1000s  sub-samples from each.
+  From p220 to 223 of the Efron text  &#39;introduction to the bootstrap&#39;.
+  
+  This function checks for  different properties between (a) the two
+  lists and (b) hundreds of sample-with-replacements sets.
+  &#34;&#34;&#34;
+  class Sum(): 
+    &#34;# Quick &amp; dirty class to summarize sets of values.&#34;
+    def __init__(i,some=[]):
+      i.sum = i.n = i.mu = 0 ; i.all=[]
+      for one in some: i.put(one)
+    def put(i,x):
+      i.all.append(x);
+      i.sum +=x; i.n += 1; i.mu = float(i.sum)/i.n
+    def __add__(i1,i2): return Sum(i1.all + i2.all)
+  def testStatistic(y,z):
+     &#34;Define the property that we will check for.&#34;
+     tmp1 = tmp2 = 0
+     for y1 in y.all: tmp1 += (y1 - y.mu)**2
+     for z1 in z.all: tmp2 += (z1 - z.mu)**2
+     s1    = float(tmp1)/(y.n - 1)
+     s2    = float(tmp2)/(z.n - 1)
+     delta = z.mu - y.mu
+     if s1+s2:
+       delta =  delta/((s1/y.n + s2/z.n)**0.5)
+     return delta
+  def one(lst): 
+    &#34;Sampling with replacement.&#34;
+    return lst[ int(random.uniform(0,len(lst))) ]
+  #--------------
+  y0, z0 = i.all, j.all
+  y,z  = Sum(y0), Sum(z0)
+  x    = y + z
+  baseline = testStatistic(y,z)
+  yhat = [y1 - y.mu + x.mu for y1 in y.all]
+  zhat = [z1 - z.mu + x.mu for z1 in z.all]
+  bigger = 0
+  for i in range(b):
+    if testStatistic(Sum([one(yhat) for _ in yhat]),
+                     Sum([one(zhat) for _ in zhat])) &gt; baseline:
+      bigger += 1
+  return bigger / b &gt;= conf</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Rx.cliffsDelta"><code class="name flex">
+<span>def <span class="ident">cliffsDelta</span></span>(<span>i, j, dull=0.147)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>For every item in <code>lst1</code>, find its position in <code>lst2</code> Two lists are
+different if, usually, things from one list do not fall into the
+middle of the other.</p>
+<p>This code employees a few tricks to make all this run fast (e..g
+pre-sort the lists, work over <code>runs</code> of same values).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cliffsDelta(i,j, dull=my.Sdull):
+  &#34;&#34;&#34;
+  For every item in `lst1`, find its position in `lst2` Two lists are
+  different if, usually, things from one list do not fall into the
+  middle of the other.
+
+  This code employees a few tricks to make all this run fast (e..g
+  pre-sort the lists, work over `runs` of same values).
+  &#34;&#34;&#34;
+  def runs(lst):
+    for j,two in enumerate(lst):
+      if j == 0: one,i = two,0
+      if one!=two:
+        yield j - i,one
+        i = j
+      one=two
+    yield j - i + 1,two
+  # --- end runs function ---------------------
+  lst1, lst2 = i.all, j.all
+  m, n = len(lst1), len(lst2)
+  lst2 = sorted(lst2)
+  j = more = less = 0
+  for repeats,x in runs(sorted(lst1)):
+    while j &lt;= (n - 1) and lst2[j] &lt;  x: j += 1
+    more += j*repeats
+    while j &lt;= (n - 1) and lst2[j] == x: j += 1
+    less += (n - j)*repeats
+  d= (more - less) / (m*n)
+  return abs(d)  &lt;= dull</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Sym"><code class="flex name class">
+<span>class <span class="ident">Sym</span></span>
+<span>(</span><span>*l)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Sym(Col):
+  def __init__(i, *l):
+    super().__init__(*l)
+    i.seen, i.most, i.mode = {}, 0, None
+  def mid(i): return i.mode
+  def add(i,x):
+    tmp = i.seen[x] = i.seen.get(x,0) + 1
+    if tmp &gt; i.most: i.most,i.mode = tmp,x
+    return x
+  def dist(i,x,y): 
+    return 1 if Magic.no(x) and Magic.no(y) else x != y</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Col" href="#bnbad.Col">Col</a></li>
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Sym.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>i, x)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(i,x):
+  tmp = i.seen[x] = i.seen.get(x,0) + 1
+  if tmp &gt; i.most: i.most,i.mode = tmp,x
+  return x</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Sym.dist"><code class="name flex">
+<span>def <span class="ident">dist</span></span>(<span>i, x, y)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dist(i,x,y): 
+  return 1 if Magic.no(x) and Magic.no(y) else x != y</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Sym.mid"><code class="name flex">
+<span>def <span class="ident">mid</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mid(i): return i.mode</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Tab"><code class="flex name class">
+<span>class <span class="ident">Tab</span></span>
+<span>(</span><span>rows=[])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Tab(Thing):
+  def __init__(i,rows=[]):
+    i.rows, i.cols = [], Cols()
+    [i.add(row) for row in rows]
+  def clone(i,rows=[]):
+    t  = Tab()
+    t  + [c.txt for c in i.cols.all] 
+    [t + row for row in  rows]
+    return t
+  def __add__(i,a): 
+    return i.add(a) if i.cols.all else i.cols.header(a)
+  def add(i,a): 
+    i.rows += [[c + a[c.pos] for c in i.cols.all]]
+  def read(i,data=None): 
+    [i + row for row in cols(rows(data))]
+    return i
+  def pairs(i,col):
+    return Bins(col.pos,i.rows, lambda z: z[col.pos], 
+                                lambda z: i.cols.klass(z))
+  def status(i):
+    return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid()) 
+                     for c in i.cols.y.values()]) + &#39;}&#39;
+  def mid(i):
+    return [ col.mid() for col in i.cols.all ]
+  def better(i,row1,row2):
+    s1,s2,n = 0,0,len(i.cols.y)+0.0001
+    for c in i.cols.y.values():
+      x   = c.norm( row1[c.pos] )
+      y   = c.norm( row2[c.pos] )
+      s1 -= math.e**(c.w*(x-y)/n)
+      s2 -= math.e**(c.w*(y-x)/n)
+    return s1/n &lt; s2/n</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Tab.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>i, a)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(i,a): 
+  i.rows += [[c + a[c.pos] for c in i.cols.all]]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Tab.better"><code class="name flex">
+<span>def <span class="ident">better</span></span>(<span>i, row1, row2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def better(i,row1,row2):
+  s1,s2,n = 0,0,len(i.cols.y)+0.0001
+  for c in i.cols.y.values():
+    x   = c.norm( row1[c.pos] )
+    y   = c.norm( row2[c.pos] )
+    s1 -= math.e**(c.w*(x-y)/n)
+    s2 -= math.e**(c.w*(y-x)/n)
+  return s1/n &lt; s2/n</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Tab.clone"><code class="name flex">
+<span>def <span class="ident">clone</span></span>(<span>i, rows=[])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clone(i,rows=[]):
+  t  = Tab()
+  t  + [c.txt for c in i.cols.all] 
+  [t + row for row in  rows]
+  return t</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Tab.mid"><code class="name flex">
+<span>def <span class="ident">mid</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mid(i):
+  return [ col.mid() for col in i.cols.all ]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Tab.pairs"><code class="name flex">
+<span>def <span class="ident">pairs</span></span>(<span>i, col)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pairs(i,col):
+  return Bins(col.pos,i.rows, lambda z: z[col.pos], 
+                              lambda z: i.cols.klass(z))</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Tab.read"><code class="name flex">
+<span>def <span class="ident">read</span></span>(<span>i, data=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read(i,data=None): 
+  [i + row for row in cols(rows(data))]
+  return i</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Tab.status"><code class="name flex">
+<span>def <span class="ident">status</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def status(i):
+  return &#39;{&#39; + &#39;, &#39;.join([(&#39;%.2f&#39; % c.mid()) 
+                   for c in i.cols.y.values()]) + &#39;}&#39;</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Test"><code class="flex name class">
+<span>class <span class="ident">Test</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Unit test manager. Stores all the tests in <code><a title="bnbad.Test.all" href="#bnbad.Test.all">Test.all</a></code>.
+Lets you list the tests, run some of them, or all.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Test:
+  &#34;&#34;&#34;
+  Unit test manager. Stores all the tests in `Test.all`. 
+  Lets you list the tests, run some of them, or all.
+  &#34;&#34;&#34;
+  t,f = 0,0
+  all = []
+  def score(s): 
+    t,f = Test.t, Test.f
+    return f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;
+  def go(fn=None, use=None):
+    if fn:
+      Test.all += [fn]
+    elif use:
+      [Test.run(fn) for fn in Test.all if use in fn.__name__]
+    else: 
+      [Test.run(fn) for fn in Test.all]
+  def run(fun):    
+    try:
+      Test.t += 1
+      print(&#34;### &#34;,fun.__name__)
+      doc = fun.__doc__ or &#34;&#34;
+      print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc) )
+      print(&#34;&#34;)
+      random.seed(my.r)
+      fun()
+      print(Test.score(&#34;PASS&#34;),&#39;:&#39;,fun.__name__)
+    except Exception:
+      Test.f += 1
+      print(traceback.format_exc())
+      print(Test.score(&#34;FAIL&#34;),&#39;:&#39;,fun.__name__)
+  def list():
+    print(&#34;&#34;)
+    print(__file__ + &#34; -t [NAME]&#34;) 
+    print(&#34;\nKnown test names:&#34;)
+    for fun in Test.all:
+      name = re.sub(r&#34;test_&#34;,&#34;&#34;,fun.__name__)
+      doc = fun.__doc__ or &#34;&#34;
+      doc = re.sub(r&#34;\n[ ]*&#34;,&#34;&#34;,doc)
+      print(f&#34;  {name:10s} : {doc}&#34;)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="bnbad.Test.all"><code class="name">var <span class="ident">all</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="bnbad.Test.f"><code class="name">var <span class="ident">f</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="bnbad.Test.t"><code class="name">var <span class="ident">t</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.Test.go"><code class="name flex">
+<span>def <span class="ident">go</span></span>(<span>fn=None, use=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def go(fn=None, use=None):
+  if fn:
+    Test.all += [fn]
+  elif use:
+    [Test.run(fn) for fn in Test.all if use in fn.__name__]
+  else: 
+    [Test.run(fn) for fn in Test.all]</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Test.list"><code class="name flex">
+<span>def <span class="ident">list</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def list():
+  print(&#34;&#34;)
+  print(__file__ + &#34; -t [NAME]&#34;) 
+  print(&#34;\nKnown test names:&#34;)
+  for fun in Test.all:
+    name = re.sub(r&#34;test_&#34;,&#34;&#34;,fun.__name__)
+    doc = fun.__doc__ or &#34;&#34;
+    doc = re.sub(r&#34;\n[ ]*&#34;,&#34;&#34;,doc)
+    print(f&#34;  {name:10s} : {doc}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Test.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>fun)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(fun):    
+  try:
+    Test.t += 1
+    print(&#34;### &#34;,fun.__name__)
+    doc = fun.__doc__ or &#34;&#34;
+    print( &#34;# &#34;+ re.sub(r&#34;\n[ ]*&#34;,&#34;\n# &#34;,doc) )
+    print(&#34;&#34;)
+    random.seed(my.r)
+    fun()
+    print(Test.score(&#34;PASS&#34;),&#39;:&#39;,fun.__name__)
+  except Exception:
+    Test.f += 1
+    print(traceback.format_exc())
+    print(Test.score(&#34;FAIL&#34;),&#39;:&#39;,fun.__name__)</code></pre>
+</details>
+</dd>
+<dt id="bnbad.Test.score"><code class="name flex">
+<span>def <span class="ident">score</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def score(s): 
+  t,f = Test.t, Test.f
+  return f&#34;#TEST {s} passes = {t-f} fails = {f}&#34;</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.Thing"><code class="flex name class">
+<span>class <span class="ident">Thing</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Thing:
+  &#34;&#34;&#34;
+  All my classes are Things that pretty print themselves
+  by reporting themselves as nested dictionaries then 
+  pprint-ing that dictionary.
+  &#34;&#34;&#34;
+  def __repr__(i):
+     return re.sub(r&#34;&#39;&#34;,&#39; &#39;, 
+                   pprint.pformat(dicts(i.__dict__),compact=True))</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="bnbad.Cluster" href="#bnbad.Cluster">Cluster</a></li>
+<li><a title="bnbad.Cocomo" href="#bnbad.Cocomo">Cocomo</a></li>
+<li><a title="bnbad.Col" href="#bnbad.Col">Col</a></li>
+<li><a title="bnbad.Cols" href="#bnbad.Cols">Cols</a></li>
+<li><a title="bnbad.DecisionList" href="#bnbad.DecisionList">DecisionList</a></li>
+<li><a title="bnbad.Dist" href="#bnbad.Dist">Dist</a></li>
+<li><a title="bnbad.Range" href="#bnbad.Range">Range</a></li>
+<li><a title="bnbad.Ranges" href="#bnbad.Ranges">Ranges</a></li>
+<li><a title="bnbad.Rx" href="#bnbad.Rx">Rx</a></li>
+<li><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></li>
+<li><a title="bnbad.X" href="#bnbad.X">X</a></li>
+<li><a title="bnbad.o" href="#bnbad.o">o</a></li>
+</ul>
+</dd>
+<dt id="bnbad.Tree"><code class="flex name class">
+<span>class <span class="ident">Tree</span></span>
+<span>(</span><span>t, cols='x', lo=None, lvl=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Tree(Cluster):
+  def __init__(i, t, cols=my.c, lo=None, lvl=0):
+    lo = lo or 2*len(t.rows)**my.s
+    if len(t.rows) &gt; lo:
+      if my.treeVerbose:
+        print((&#39;| &#39;*lvl) + str(len(t.rows)))
+      i.d         = Dist(t,cols=t.cols.__dict__[cols])
+      i.l,i.r,i.c = i.d.poles()
+      xs          = [i.d.project(r,i.l,i.r,i.c) for r in t.rows]
+      i.mid       = sum(xs) / len(xs)
+      i.kids      = [t.clone(),t.clone()]
+      [i.kids[x &gt;= i.mid].add(r)     for x,r in zip(xs, t.rows)]
+      if len(i.kids[0].rows) &lt; len(t.rows) and \
+         len(i.kids[1].rows) &lt; len(t.rows) :
+         [ Tree(kid, cols=cols, lo=lo, lvl=lvl+1) 
+            for kid in i.kids ]
+    else:
+       if my.treeVerbose:
+         print((&#39;| &#39;*lvl) + str(len(t.rows)),t.status())</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Cluster" href="#bnbad.Cluster">Cluster</a></li>
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+</dd>
+<dt id="bnbad.X"><code class="flex name class">
+<span>class <span class="ident">X</span></span>
+<span>(</span><span>lo, hi=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for holding knowledge about some variable <code><a title="bnbad.X" href="#bnbad.X">X</a></code>.
+Instances of this class:</p>
+<ul>
+<li>Know their <code>lo</code> and <code>hi</code> value;</li>
+<li>Know that if <code>hi</code> is missing, to just use <code>lo</code>;</li>
+<li>Know how to calculate a value within a legal range.</li>
+<li>Know how to cache that value (so we can use it over and over again)</li>
+<li>Know how to check new values</li>
+<li>Know how to combine themselves</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class X(Thing):
+  &#34;&#34;&#34;
+  Class for holding knowledge about some variable `X`. 
+  Instances of this class:
+
+  - Know their `lo` and `hi` value;
+  - Know that if `hi` is missing, to just use `lo`;
+  - Know how to calculate a value within a legal range.
+  - Know how to cache that value (so we can use it over and over again)
+  - Know how to check new values
+  - Know how to combine themselves 
+  &#34;&#34;&#34;
+  def __init__(i, lo,hi=None): 
+    i.lo = lo
+    i.hi = lo if hi==None else hi
+    i.lo0, i.hi0 = i.lo, i.hi
+    i.x  = None
+  def ok(i,z): 
+    return i.lo0 &lt;= z &lt;= i.hi0
+  def __call__(i):
+    if i.x == None: i.x = i.get()
+    return i.x
+  def __iadd__(i,j): 
+    lo = j.lo
+    hi = j.lo if j.hi==None else j.hi
+    if i.ok(lo) and i.ok(hi):
+      i.lo, i.hi, i.x  = lo, hi, None
+      return i
+    raise IndexError(&#39;out of bounds %s %s&#39; % (lo, hi))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="bnbad.F" href="#bnbad.F">F</a></li>
+<li><a title="bnbad.I" href="#bnbad.I">I</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="bnbad.X.ok"><code class="name flex">
+<span>def <span class="ident">ok</span></span>(<span>i, z)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ok(i,z): 
+  return i.lo0 &lt;= z &lt;= i.hi0</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="bnbad.o"><code class="flex name class">
+<span>class <span class="ident">o</span></span>
+<span>(</span><span>**d)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>All my classes are Things that pretty print themselves
+by reporting themselves as nested dictionaries then
+pprint-ing that dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class o(Thing):
+  def __init__(i,**d) : i.__dict__.update(**d)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></li>
+</ul>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -1094,23 +4723,27 @@ truth for yourself."
 <ul id="index">
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
-<li><code><a title="bnbad.col" href="col.html">bnbad.col</a></code></li>
-<li><code><a title="bnbad.data" href="data.html">bnbad.data</a></code></li>
+<li><code><a title="bnbad.aa" href="aa.html">bnbad.aa</a></code></li>
 <li><code><a title="bnbad.lib" href="lib.html">bnbad.lib</a></code></li>
-<li><code><a title="bnbad.my" href="my.html">bnbad.my</a></code></li>
-<li><code><a title="bnbad.ranges" href="ranges.html">bnbad.ranges</a></code></li>
-<li><code><a title="bnbad.rx" href="rx.html">bnbad.rx</a></code></li>
-<li><code><a title="bnbad.tab" href="tab.html">bnbad.tab</a></code></li>
-<li><code><a title="bnbad.test" href="test.html">bnbad.test</a></code></li>
-<li><code><a title="bnbad.x" href="x.html">bnbad.x</a></code></li>
-<li><code><a title="bnbad.xomo" href="xomo.html">bnbad.xomo</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
+<li><code><a title="bnbad.cols" href="#bnbad.cols">cols</a></code></li>
+<li><code><a title="bnbad.dicts" href="#bnbad.dicts">dicts</a></code></li>
+<li><code><a title="bnbad.dprint" href="#bnbad.dprint">dprint</a></code></li>
+<li><code><a title="bnbad.go" href="#bnbad.go">go</a></code></li>
+<li><code><a title="bnbad.has" href="#bnbad.has">has</a></code></li>
+<li><code><a title="bnbad.help" href="#bnbad.help">help</a></code></li>
+<li><code><a title="bnbad.pairs" href="#bnbad.pairs">pairs</a></code></li>
+<li><code><a title="bnbad.perc" href="#bnbad.perc">perc</a></code></li>
+<li><code><a title="bnbad.rows" href="#bnbad.rows">rows</a></code></li>
+<li><code><a title="bnbad.rxs" href="#bnbad.rxs">rxs</a></code></li>
+<li><code><a title="bnbad.shuffle" href="#bnbad.shuffle">shuffle</a></code></li>
 <li><code><a title="bnbad.test_bore" href="#bnbad.test_bore">test_bore</a></code></li>
+<li><code><a title="bnbad.test_bye" href="#bnbad.test_bye">test_bye</a></code></li>
 <li><code><a title="bnbad.test_dist" href="#bnbad.test_dist">test_dist</a></code></li>
-<li><code><a title="bnbad.test_fail" href="#bnbad.test_fail">test_fail</a></code></li>
+<li><code><a title="bnbad.test_hello" href="#bnbad.test_hello">test_hello</a></code></li>
 <li><code><a title="bnbad.test_hetab1" href="#bnbad.test_hetab1">test_hetab1</a></code></li>
 <li><code><a title="bnbad.test_range1" href="#bnbad.test_range1">test_range1</a></code></li>
 <li><code><a title="bnbad.test_range2" href="#bnbad.test_range2">test_range2</a></code></li>
@@ -1123,15 +4756,171 @@ truth for yourself."
 <li><code><a title="bnbad.test_tab2" href="#bnbad.test_tab2">test_tab2</a></code></li>
 <li><code><a title="bnbad.test_tests" href="#bnbad.test_tests">test_tests</a></code></li>
 <li><code><a title="bnbad.test_tree" href="#bnbad.test_tree">test_tree</a></code></li>
+<li><code><a title="bnbad.xtile" href="#bnbad.xtile">xtile</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="bnbad.Bore" href="#bnbad.Bore">Bore</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.Bore.div" href="#bnbad.Bore.div">div</a></code></li>
+<li><code><a title="bnbad.Bore.key" href="#bnbad.Bore.key">key</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Cluster" href="#bnbad.Cluster">Cluster</a></code></h4>
+</li>
+<li>
+<h4><code><a title="bnbad.Cocomo" href="#bnbad.Cocomo">Cocomo</a></code></h4>
+<ul class="two-column">
+<li><code><a title="bnbad.Cocomo.better" href="#bnbad.Cocomo.better">better</a></code></li>
+<li><code><a title="bnbad.Cocomo.defaults" href="#bnbad.Cocomo.defaults">defaults</a></code></li>
+<li><code><a title="bnbad.Cocomo.effort" href="#bnbad.Cocomo.effort">effort</a></code></li>
+<li><code><a title="bnbad.Cocomo.projects" href="#bnbad.Cocomo.projects">projects</a></code></li>
+<li><code><a title="bnbad.Cocomo.risk" href="#bnbad.Cocomo.risk">risk</a></code></li>
+<li><code><a title="bnbad.Cocomo.rules" href="#bnbad.Cocomo.rules">rules</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Col" href="#bnbad.Col">Col</a></code></h4>
+</li>
+<li>
+<h4><code><a title="bnbad.Cols" href="#bnbad.Cols">Cols</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.Cols.add" href="#bnbad.Cols.add">add</a></code></li>
+<li><code><a title="bnbad.Cols.header" href="#bnbad.Cols.header">header</a></code></li>
+<li><code><a title="bnbad.Cols.klass" href="#bnbad.Cols.klass">klass</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.DecisionList" href="#bnbad.DecisionList">DecisionList</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.DecisionList.show" href="#bnbad.DecisionList.show">show</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Dist" href="#bnbad.Dist">Dist</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.Dist.dist" href="#bnbad.Dist.dist">dist</a></code></li>
+<li><code><a title="bnbad.Dist.faraway" href="#bnbad.Dist.faraway">faraway</a></code></li>
+<li><code><a title="bnbad.Dist.neighbors" href="#bnbad.Dist.neighbors">neighbors</a></code></li>
+<li><code><a title="bnbad.Dist.poles" href="#bnbad.Dist.poles">poles</a></code></li>
+<li><code><a title="bnbad.Dist.project" href="#bnbad.Dist.project">project</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.F" href="#bnbad.F">F</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.F.get" href="#bnbad.F.get">get</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.I" href="#bnbad.I">I</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.I.get" href="#bnbad.I.get">get</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Magic" href="#bnbad.Magic">Magic</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.Magic.goalp" href="#bnbad.Magic.goalp">goalp</a></code></li>
+<li><code><a title="bnbad.Magic.klassp" href="#bnbad.Magic.klassp">klassp</a></code></li>
+<li><code><a title="bnbad.Magic.lessp" href="#bnbad.Magic.lessp">lessp</a></code></li>
+<li><code><a title="bnbad.Magic.no" href="#bnbad.Magic.no">no</a></code></li>
+<li><code><a title="bnbad.Magic.nump" href="#bnbad.Magic.nump">nump</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Num" href="#bnbad.Num">Num</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.Num.add" href="#bnbad.Num.add">add</a></code></li>
+<li><code><a title="bnbad.Num.dist" href="#bnbad.Num.dist">dist</a></code></li>
+<li><code><a title="bnbad.Num.mid" href="#bnbad.Num.mid">mid</a></code></li>
+<li><code><a title="bnbad.Num.norm" href="#bnbad.Num.norm">norm</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Range" href="#bnbad.Range">Range</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.Range.add" href="#bnbad.Range.add">add</a></code></li>
+<li><code><a title="bnbad.Range.better" href="#bnbad.Range.better">better</a></code></li>
+<li><code><a title="bnbad.Range.matches" href="#bnbad.Range.matches">matches</a></code></li>
+<li><code><a title="bnbad.Range.merge" href="#bnbad.Range.merge">merge</a></code></li>
+<li><code><a title="bnbad.Range.s" href="#bnbad.Range.s">s</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Ranges" href="#bnbad.Ranges">Ranges</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.Ranges.grow" href="#bnbad.Ranges.grow">grow</a></code></li>
+<li><code><a title="bnbad.Ranges.merge" href="#bnbad.Ranges.merge">merge</a></code></li>
+<li><code><a title="bnbad.Ranges.nums" href="#bnbad.Ranges.nums">nums</a></code></li>
+<li><code><a title="bnbad.Ranges.pairs" href="#bnbad.Ranges.pairs">pairs</a></code></li>
+<li><code><a title="bnbad.Ranges.syms" href="#bnbad.Ranges.syms">syms</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Rx" href="#bnbad.Rx">Rx</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.Rx.bootstrap" href="#bnbad.Rx.bootstrap">bootstrap</a></code></li>
+<li><code><a title="bnbad.Rx.cliffsDelta" href="#bnbad.Rx.cliffsDelta">cliffsDelta</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Sym" href="#bnbad.Sym">Sym</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.Sym.add" href="#bnbad.Sym.add">add</a></code></li>
+<li><code><a title="bnbad.Sym.dist" href="#bnbad.Sym.dist">dist</a></code></li>
+<li><code><a title="bnbad.Sym.mid" href="#bnbad.Sym.mid">mid</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Tab" href="#bnbad.Tab">Tab</a></code></h4>
+<ul class="two-column">
+<li><code><a title="bnbad.Tab.add" href="#bnbad.Tab.add">add</a></code></li>
+<li><code><a title="bnbad.Tab.better" href="#bnbad.Tab.better">better</a></code></li>
+<li><code><a title="bnbad.Tab.clone" href="#bnbad.Tab.clone">clone</a></code></li>
+<li><code><a title="bnbad.Tab.mid" href="#bnbad.Tab.mid">mid</a></code></li>
+<li><code><a title="bnbad.Tab.pairs" href="#bnbad.Tab.pairs">pairs</a></code></li>
+<li><code><a title="bnbad.Tab.read" href="#bnbad.Tab.read">read</a></code></li>
+<li><code><a title="bnbad.Tab.status" href="#bnbad.Tab.status">status</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Test" href="#bnbad.Test">Test</a></code></h4>
+<ul class="two-column">
+<li><code><a title="bnbad.Test.all" href="#bnbad.Test.all">all</a></code></li>
+<li><code><a title="bnbad.Test.f" href="#bnbad.Test.f">f</a></code></li>
+<li><code><a title="bnbad.Test.go" href="#bnbad.Test.go">go</a></code></li>
+<li><code><a title="bnbad.Test.list" href="#bnbad.Test.list">list</a></code></li>
+<li><code><a title="bnbad.Test.run" href="#bnbad.Test.run">run</a></code></li>
+<li><code><a title="bnbad.Test.score" href="#bnbad.Test.score">score</a></code></li>
+<li><code><a title="bnbad.Test.t" href="#bnbad.Test.t">t</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.Thing" href="#bnbad.Thing">Thing</a></code></h4>
+</li>
+<li>
+<h4><code><a title="bnbad.Tree" href="#bnbad.Tree">Tree</a></code></h4>
+</li>
+<li>
+<h4><code><a title="bnbad.X" href="#bnbad.X">X</a></code></h4>
+<ul class="">
+<li><code><a title="bnbad.X.ok" href="#bnbad.X.ok">ok</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="bnbad.o" href="#bnbad.o">o</a></code></h4>
+</li>
 </ul>
 </li>
 </ul>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3</a>.</p>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad()</script>
 </body>
 </html>

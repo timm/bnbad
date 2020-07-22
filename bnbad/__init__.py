@@ -54,7 +54,8 @@ Technical notes:
   and the symbolic ranges are then used to build a succinct decision list
   that can explain what constitutes `better` behavior. 
   This decision list has many uses:
-    - _Planning_: The deltas in the conditions that lead to the leaves of that decision list can
+    - _Planning_: The deltas in the conditions that lead to the leaves of that 
+      decision list can
       offer guidance on how to change
       `bad` to `better`. 
     - _Monitoring_: The opposite of planning. Learn what can change `better`
@@ -147,9 +148,6 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
-import os
-#import random,math,sys,re,os
-#from copy   import deepcopy as kopy
 from .lib import *
 from .col import *
 from .tab import *
@@ -157,7 +155,7 @@ from .my import *
 from .rx import *
 from .ranges import *
 from .xomo import *
-from .test import *
+from .test import Test,go
 
 
 @go
