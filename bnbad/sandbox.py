@@ -89,113 +89,125 @@ class Any:
 
 
 class Bins(Any):
-  def make(i):
-     return o(lo=10**32, hi=-10**32, y=0, n=0, all=i)
+  min = .05
 
-  def __init__(i, a, want=True, x=first, y=last):
-    i.a = []
-    i.want = want
-    i.all = i.make()
-    for z in a:
-      if yes(x(z)):
-        i.add(i.all, x(z), y(z))
-        i.all += [z]]
+  class Num(Any):
+    def __init__(i, all, pos=0, txt="", lo=0, hi=None):
+      i.txt, i.pos = pos, txt
+      i._all, i.lo, i.hi = all, lo, hi if hi else len(a)
 
-  def add(i, r, x, y):
-    r.x += y == i.want
-    r.y += y != i.want
-    r.lo= min(r.lo, x)
-    r.hi= max(r.hi, x)
+    def per(i, p=0.5):
+      j = int(len(i._all) * (lo + (hi - lo)*p))
+      return i._all.a[j].cells[i.pos]
+
+    def sd(i): return (i.per(.75) - i.per(.25)) / 2.54
+
+    def merge(i, j):
+      return Bins.Num(all=i._all, pos=i.pos, txt=i.txt,
+                      lo=min(i.lo, j.lo), hi=max(i.hi, j.hi))
+
+    def val(i, z): return z.cells[i.pos]
+
+  def __init__(i, a, want=True, x=0, y=1):
+    i.x, i.y, i.want = x, y, want
+    i.all = i.bin()
+    tmp = [z for z in a if yes(z.cells[i.x])]
+    i.a = sorted(tmp, key=lambda z: z.cells[i.x])
+    i.bins = i.shrink(i.grow([i.bin()]))
+
+  def bin(i): return o(x=Bins.Num(pos=i.x), y=Sym(pos=i.y))
+
+  def grow(i, bins):
+    for n, z in enumerate(i.a):
+      if bins[-1].x.n > len(i.a)/16:
+        bins += [i.bin()]
+      i.add(bins[-1],   n)
+      i.add(i.all, n)
+    i.bins = i.merge(bins)
+
+  def shrink(i, bins):
+    tmp = []
+    for j in len(bins):
+      a = bins[j]
+      if j < len(bins) - 2:
+        b = bins[j+1]
+        c = i.merge(a, b)
+        if i.better(c, a, b):
+          a = c
+          j += 1
+      tmp += [a]
+      j += 1
+    return tmp if len(tmp) == len(bins) else i.shrink(tmp)
+
+  def add(i, r, n):
+    r.x.add(n)
+    r.y.add(r.y.val(n) == i.want)
+
+  def better(i, c, a, b):
+    a, b, c = i.score(a), i.score(b), i.score(c)
+    return abs(b - a) < Bins.min or c >= b and c >= a
 
   def merge(i, r, s):
-    t= i.make()
-    t.y = r.y + s.y
-    t.n = r.n + s.n
-    t.lo = min(r.lo, s.lo)
-    t.hi = max(r.hi, s.hi)
-    return t
+    return i.make(y=r.y + s.y, n=r.n + s.n,
+                  lo=min(r.lo, s.lo),
+                  hi=max(r.hi, s.hi))
 
-  def sd(i, lo=0, hi=None):
-    if hi is None:
-      hi= len(i.a)
-    hi1= i.x(a[int(lo + (hi - lo)*0.9)])
-    lo1= i.x(a[int(lo + (hi - lo)*0.1)])
-    return (hi1 - lo1) / 2.54
-
-  def split(i):
-    n= class NSBins(Any):
-
-  def __init__(i, want):
-    i.want= want
-    i.bins= NSBin(i)
-
-
-class NSBin(Any):
-  def __init__(i, bins):
-    i.bins= bins
-    i.lo= 10**32
-    i.hi= -1 * i.lo
-    i.y= i.n = 0
-
-  def add(i, num, sym):
-    if yes(num):
-      i.lo= min(i.lo, num)
-      i.hi= max(i.hi, num)
-      i.y += sym == i.bins.want
-      i.n += sym != i.bins.want
-
-  def score(i):
-    p= 10**-9
-    y= i.y / (p + i.bins.y)
-    n= i.n / (p + i.bins.n)
-    return 0 if y < n + 0.05 else y*y / (p+y+n)
-
-  def merge(i, j):
-    k= NSBin(i.bins)
-    k.lo= min(i.lo, j.lo)
-    k.hi= max(i.hi, j.hi)
-    k.y= i.y + j.y
-    k.n= i.n + j.n
-    return k
+  def score(i, r, p=10**-9):
+    y = r.y / (p + i.all.y)
+    n = r.n / (p + i.all.n)
+    return 0 if y < n * (1+Bins.min) else y*y / (p+y+n)
 
 
 class Sym(Any):
   def __init__(i, pos=0, txt=""):
-    i.n, i.pos, i.txt= 0, pos, txt
-    i.seen= {}
-    i.mode, i.most= None, 0
+    i.n, i.pos, i.txt = 0, pos, txt
+    i.seen = {}
+    i.mode, i.most = None, 0
 
   def __add__(i, x):
     if yes(x):
       i.n += 1
-      tmp= i.seen[x] = i.seen.get(x, 0) + 1
+      tmp = i.seen[x] = i.seen.get(x, 0) + 1
       if tmp > i.most:
-        i.most, i.mode= tmp, x
+        i.most, i.mode = tmp, x
     return i
 
-  def dist(i, x, y):
-    return 1 if no(x) and no(y) else x != y
+  def val(i, row): return row.cells[i.pos]
+
+  def merge(i, j):
+    k = Sym(i.pos, i.txt)
+    k.n = i.n + j.n
+    for x in i.seen:
+      k.seen[x] = i.seen[x]
+    for x in j.seen:
+      k.seen[x] = k.seen.get(x, 0) + j.seen[x]
+    for x in k.seen:
+      if k.seen[x] > k.most:
+        k.most = k.seen[x]
+        k.mode = x
 
 
 class Num(Any):
   def __init__(i, pos=0, txt=""):
-    i.n, i.pos, i.txt= 0, pos, txt
-    i.mu, i.lo, i.hi= 0, 10**32, -10**32
-    i.w= -1 if lessp(txt) else 1
+    i.n, i.pos, i.txt = 0, pos, txt
+    i.mu, i.lo, i.hi = 0, 10**32, -10**32
+    i.w = -1 if lessp(txt) else 1
 
   def __add__(i, x):
     if yes(x):
       i.n += 1
       i.mu += (x-i.mu)/i.n
-      i.lo= min(i.lo, x)
-      i.hi= max(i.hi, x)
+      i.lo = min(i.lo, x)
+      i.hi = max(i.hi, x)
     return i
+
+  def val(i, row): return row.cells[i.pos]
 
 
 class Tab(Any):
   def __init__(i, src=None):
-    i.x, i.y, i.cols, i.rows= [], [], [], []
-    i.theKlass= None
+    i.x, i.y, i.cols, i.rows = [], [], [], []
+    i.theKlass = None
     i.read(src)
 
   def read(i, src=None):
@@ -207,23 +219,23 @@ class Tab(Any):
 
   def head(i, a):
     for pos, txt in enumerate(a):
-      one= (Num if nump(txt) else Sym)(pos, txt)
+      one = (Num if nump(txt) else Sym)(pos, txt)
       i.cols.append(one)
       (i.y if goalp(txt) else i.x).append(one)
       if klassp(txt):
-        i.theKlass= one
+        i.theKlass = one
 
   def row(i, x):
-    x= x.cells if isa(x, Row) else x
+    x = x.cells if isa(x, Row) else x
     [col + cell for col, cell in zip(i.cols, x)]
     i.rows += [x]
 
 
 class Row(Any):
   def __init__(i, tab, cells):
-    i.cells= cells
-    i.ranges = cells[: ]
-    i._tab= tab
+    i.cells = cells
+    i.ranges = cells[:]
+    i._tab = tab
 
 
 class Tests:
@@ -233,7 +245,7 @@ class Tests:
         getattr(Tests, x)()
 
   def test_tab():
-    t= Tab(data.auto93)
+    t = Tab(data.auto93)
     print(t.y[0])
 
 
