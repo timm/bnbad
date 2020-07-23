@@ -1,12 +1,17 @@
-from .lib import *
-from .my import *
+"""
+Test suite management.
+"""
+
+from .my import my
 from termcolor import colored
 import re
+import random
+import traceback
 
 
 def go(fn=None, use=None):
   """
-  Decorator for test functions. 
+  Decorator for test functions.
   Adds the function to `Test.all`.
   """
   Test.go(fn=fn, use=use)
@@ -15,7 +20,7 @@ def go(fn=None, use=None):
 
 class Test:
   """
-  Unit test manager. Stores all the tests in `Test.all`. 
+  Unit test manager. Stores all the tests in `Test.all`.
   Lets you list the tests, run some of them, or all.
   """
   t, f = 0, 0
@@ -37,7 +42,6 @@ class Test:
   def run(fun):
     try:
       Test.t += 1
-      doc = fun.__doc__ or ""
       random.seed(my.r)
       fun()
       print(Test.score("💚", "green") +

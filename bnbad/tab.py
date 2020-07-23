@@ -1,3 +1,8 @@
+"""
+Storage of rows, and summaries of each column. Also,
+(a) methods to recursively group tables into sub-tables (recursively);
+(b) tools to find deltas between tables.
+"""
 from .lib import cols, rows, shuffle
 from .lib import Thing
 from .my import my
@@ -27,10 +32,6 @@ class Tab(Thing):
   def read(i, data=None):
     [i + row for row in cols(rows(data))]
     return i
-
-  def pairs(i, col):
-    return Bins(col.pos, i.rows, lambda z: z[col.pos],
-                lambda z: i.cols.klass(z))
 
   def status(i):
     return '{' + ', '.join([('%.2f' % c.mid())

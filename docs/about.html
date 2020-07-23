@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.3" />
+<title>bnbad.about API documentation</title>
+<meta name="description" content="About this code …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{xline-height:1.5em;line-height:1.2em;font-family:Arial}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>bnbad.about</code></h1>
+</header>
+<section id="section-intro">
+<h2 id="about-this-code">About this code</h2>
+<p>Is your software ethical?
+Does its own source code
+holds a
+representation of user goals and
+uses those at runtime to guide
+its own behavior?
+Can that software report how well the user goals
+are being achieved and can it suggest how to adjust the system, to
+better achieve those goals?</p>
+<p>Do you want to make your software more ethical?
+BnBAD is a
+collection of data structures that support ethical the kind of
+ethical reasoning listed above.
+It is a multi-objective optimizer
+that reasons by breaking up problems into regions of <code>bad</code> and
+<code>better</code>, then looks for ways on how to jump between those regions.</p>
+<p>BnBAD might be an ethical choice in domains:</p>
+<ul>
+<li>when users have to trade-off competing goals,</li>
+<li>when succinct explanations are needed about what the system is doing,</li>
+<li>when
+those explanations have to include ranges within which it is safe
+to change the system,</li>
+<li>when guidance is needed for how to improve things
+(or know what might make things worse);</li>
+<li>when thing being studied is constantly changing so:</li>
+<li>we have to perpetually check if the current system is still trustworthy</li>
+<li>and, if not, we need to update our models</li>
+</ul>
+<p>Technical notes:</p>
+<ul>
+<li><code>bad</code> and <code>better</code> are score via
+<a href="#bnbad.Tab.better">Zitler's continuous domination predicate</a></li>
+<li>Examples are clustered in goal
+space and the <code>better</code> cluster is the one that dominates all the
+other <code>bad</code> clusters.</li>
+<li>Numerics are then broken up into just a few ranges
+using a bottom-up merging process
+guided by the ratio of <code>better</code> to <code>bad</code>
+in each range.</li>
+<li>These numeric ranges,
+and the symbolic ranges are then used to build a succinct decision list
+that can explain what constitutes <code>better</code> behavior.
+This decision list has many uses:<ul>
+<li><em>Planning</em>: The deltas in the conditions that lead to the leaves of that
+decision list can
+offer guidance on how to change
+<code>bad</code> to <code>better</code>.</li>
+<li><em>Monitoring</em>: The opposite of planning. Learn what can change <code>better</code>
+to <code>bad</code>, then watch out for those things.</li>
+<li><em>Anomaly detection and incremental certification:</em>
+The current decision list can be trusted as long as new examples
+fall close to the old examples seen in the leaves of the decision list.</li>
+<li><em>Stream mining</em>: Stop learning while the anomaly detector is not
+triggering. Track the anomalies seen each branch of the decision list.
+Update just the branches that get too many anomalies
+(if that ever happens).</li>
+</ul>
+</li>
+</ul>
+<h2 id="classes">Classes</h2>
+<p>In my code <code>Thing</code> and <code>o</code> are basic utility classes. <code>Thing</code>s
+know how to pretty-print themselves while <code>o</code> classes are
+basic containers for things with names slots (but no methods).</p>
+<pre><code> Thing
+    o
+    Cluster
+       Bore       :has 1 :to 2 :of Tab
+       Tree       :has 1 :to * :of Tab
+    Col(txt,pos)
+       Num(mu,lo,hi)
+       Sym(mode)
+    Cols          :has 1 :to * :of Col
+    Dist          :has 1 :to 1 :of Tab
+    Range(lo,hi)
+    Ranges        :has 1 :to * :of Range
+    Tab(rows)     :has 1 :to 1 :of Cols
+    Test
+</code></pre>
+<p>The real work here is done by <code>Tab</code>les.
+Such <code>Tab</code>les are the core of this design.
+When data is read from disk
+it is entered into a <code>Tab</code>le. When collecting data from some
+process, that data is incrementally written into a <code>Tab</code>le.
+If we recursively cluster data, each level of that recursion
+is a table.
+into tables. that have <code>rows</code> and <code>cols</code>.
+Each row is some example of <code>y=f(x)</code> where <code>y</code> and <code>x</code>
+can have multiple values (and when <code>|y|&gt;1</code>, then this
+then becomes a multi-objective reasoner).</p>
+<p>Our
+<code>rows</code> are just plain old Python lists. We can
+compute the <code>dist</code>ance between rows as well as checking
+if the goals in one row are "better than" (also known as
+"dominates") the other.</p>
+<p><code>Col</code> objects summarize what was seen in each column. There are
+two general kinds of <code>Col</code>s (<code>Num</code>erics and <code>Sym</code>bols) and
+which can be categoriesed into</p>
+<ul>
+<li><code>y</code> values:</li>
+<li>numeric goals (that we might want to maximize or minimze)</li>
+<li>symbolic gaols (that are also called <code>klass</code>es)</li>
+<li><code>x</code> values:</li>
+<li>which can be numeric or symbolic.</li>
+</ul>
+<p>Details:</p>
+<p><img src="design.png"></p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+## About this code
+
+Is your software ethical?  Does its own source code  holds a
+representation of user goals and  uses those at runtime to guide
+its own behavior?  Can that software report how well the user goals
+are being achieved and can it suggest how to adjust the system, to
+better achieve those goals?
+
+Do you want to make your software more ethical?  BnBAD is a
+collection of data structures that support ethical the kind of
+ethical reasoning listed above.  It is a multi-objective optimizer
+that reasons by breaking up problems into regions of `bad` and
+`better`, then looks for ways on how to jump between those regions.
+
+BnBAD might be an ethical choice in domains:
+
+- when users have to trade-off competing goals,
+- when succinct explanations are needed about what the system is doing,
+- when  those explanations have to include ranges within which it is safe
+  to change the system,
+- when guidance is needed for how to improve things
+  (or know what might make things worse);
+- when thing being studied is constantly changing so:
+   - we have to perpetually check if the current system is still trustworthy
+   - and, if not, we need to update our models
+
+Technical notes:
+
+- `bad` and `better` are score via
+  [Zitler&#39;s continuous domination predicate](#bnbad.Tab.better)
+- Examples are clustered in goal
+  space and the `better` cluster is the one that dominates all the
+  other `bad` clusters.
+- Numerics are then broken up into just a few ranges
+  using a bottom-up merging process
+  guided by the ratio of `better` to `bad`  in each range.
+- These numeric ranges,
+  and the symbolic ranges are then used to build a succinct decision list
+  that can explain what constitutes `better` behavior.
+  This decision list has many uses:
+    - _Planning_: The deltas in the conditions that lead to the leaves of that
+      decision list can
+      offer guidance on how to change
+      `bad` to `better`.
+    - _Monitoring_: The opposite of planning. Learn what can change `better`
+      to `bad`, then watch out for those things.
+    - _Anomaly detection and incremental certification:_
+     The current decision list can be trusted as long as new examples
+     fall close to the old examples seen in the leaves of the decision list.
+    - _Stream mining_: Stop learning while the anomaly detector is not
+      triggering. Track the anomalies seen each branch of the decision list.
+      Update just the branches that get too many anomalies
+      (if that ever happens).
+
+## Classes
+
+In my code `Thing` and `o` are basic utility classes. `Thing`s
+know how to pretty-print themselves while `o` classes are
+basic containers for things with names slots (but no methods).
+
+     Thing
+        o
+        Cluster
+           Bore       :has 1 :to 2 :of Tab
+           Tree       :has 1 :to * :of Tab
+        Col(txt,pos)
+           Num(mu,lo,hi)
+           Sym(mode)
+        Cols          :has 1 :to * :of Col
+        Dist          :has 1 :to 1 :of Tab
+        Range(lo,hi)
+        Ranges        :has 1 :to * :of Range
+        Tab(rows)     :has 1 :to 1 :of Cols
+        Test
+
+The real work here is done by `Tab`les.
+Such `Tab`les are the core of this design.
+When data is read from disk
+it is entered into a `Tab`le. When collecting data from some
+process, that data is incrementally written into a `Tab`le.
+If we recursively cluster data, each level of that recursion
+is a table.
+into tables. that have `rows` and `cols`.
+Each row is some example of `y=f(x)` where `y` and `x`
+can have multiple values (and when `|y|&gt;1`, then this
+then becomes a multi-objective reasoner).
+
+Our  `rows` are just plain old Python lists. We can
+compute the `dist`ance between rows as well as checking
+if the goals in one row are &#34;better than&#34; (also known as
+&#34;dominates&#34;) the other.
+
+`Col` objects summarize what was seen in each column. There are
+two general kinds of `Col`s (`Num`erics and `Sym`bols) and
+which can be categoriesed into
+
+- `y` values:
+ - numeric goals (that we might want to maximize or minimze)
+ - symbolic gaols (that are also called `klass`es)
+- `x` values:
+ - which can be numeric or symbolic.
+
+Details:
+
+&lt;img src=&#34;design.png&#34;&gt;
+&#34;&#34;&#34;</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<center>
+<a href="http://menzies.us/bnbad"><img src="letscook.png" width=500></a>
+<p><a href="#license">&copy; 2020</a>, Tim Menzies<br>
+<a href="mailto:timm@ieee.org">timm@ieee.org</a><br>
+<a href="http://menzies.us">http://menzies.us</a>
+</p>
+<p>
+"Give me the fruitful error any time,
+full of seeds, bursting with its own
+corrections. You can keep your sterile
+truth for yourself."
+-&nbsp;Vilfredo&nbsp;Pareto</p>
+<p>
+<a href="https://doi.org/10.5281/zenodo.3947026"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a>
+</p>
+<p>
+<a href="https://flake8.pycqa.org/en/latest/user/error-codes.html"><img src="https://img.shields.io/badge/syntax-pyflake8-orange"></a>
+<a href="https://travis-ci.org/github/timm/bnbad"><img src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a>
+</p>
+<p>
+<a href="https://github.com/timm/bnbad/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/license-mit-red"></a>
+<a href="https://pep8.readthedocs.io/en/release-1.7.x/intro.html#error-codes"><img src="https://img.shields.io/badge/style-pep8-yellow"></a>
+</p>
+<p>
+<a href="https://github.com/timm/bnbad/blob/master/README.md"><img src="github.png" width=40></a>
+<a href="https://github.com/timm/bnbad/archive/master.zip"> <img src="zip.png" width=40></a>
+</p>
+</center>
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#about-this-code">About this code</a></li>
+<li><a href="#classes">Classes</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="bnbad" href="index.html">bnbad</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p align=center>
+Copyright (c) 2020 Tim Menzies.
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the
+Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+The above copyright notice and this permission notice shall
+be included in all copies or substantial portions of the
+Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3</a>.</p>
+</footer>
+</body>
+</html>

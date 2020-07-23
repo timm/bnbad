@@ -1,24 +1,10 @@
 """
-Sample test data.
+Place for experiments: best to ignore this.
 """
-
-weather4 = """
-outlook,$temp,?$humid,wind,!play
-sunny, 85, 85,  FALSE, no
-sunny, 80, 90, TRUE, no
-overcast, 83, 86, FALSE, yes
-rainy, 70, 96, FALSE, yes
-rainy, 68, 80, FALSE, yes
-rainy, 65, 70, TRUE, no
-overcast, 64, 65, TRUE, yes
-sunny, 72, 95, FALSE, no
-sunny, 69, 70, FALSE, yes
-rainy, 75, 80, FALSE, yes
-sunny, 75, 70, TRUE, yes
-overcast, 72, 90, TRUE, yes
-overcast, 81, 75, FALSE, yes
-rainy, 71, 91, TRUE, no
-"""
+import re
+import sys
+import pprint
+import random
 
 auto93 = """
 cylinders, $displacement, $horsepower, <weight, >acceleration,$model, origin, >!mpg
@@ -421,3 +407,292 @@ cylinders, $displacement, $horsepower, <weight, >acceleration,$model, origin, >!
 4, 91, 67, 1850, 13.8, 80, 3, 40
 4, 86, 65, 2110, 17.9, 80, 3, 50
 """
+
+
+def r(): return random.random()
+def no(z): return z == "?"
+def yes(z): return not no(z)
+def isa(y, z): return isinstance(y, z)
+def strp(z): return isa(z, str)
+def nump(z): return "<" in z or "$" in z or ">" in z
+def last(z): return z[-1]
+def first(z): return z[0]
+def lessp(z): return "<" in z
+def goalp(z): return "<" in z or "!" in z or ">" in z
+def klassp(z): return "!" in z
+
+
+def shuffle(z):
+  random.shuffle(z)
+  return z
+
+
+class Any:
+  """
+  All my classes are Things that pretty print themselves
+  by reporting themselves as nested dictionaries then
+  pprint-ing that dictionary.
+  """
+  def __repr__(i):
+    def dicts(x, seen=None):
+      """
+      Converts `x` into a nested dictionary, then pretty-prints that.
+      """
+      if isinstance(x, (tuple, list)):
+        return [dicts(v, seen) for v in x]
+      elif isinstance(x, dict):
+        return {k: dicts(x[k], seen) for k in x if str(k)[0] != "_"}
+      elif isinstance(x, Any):
+        seen = seen or {}
+        j = id(x) % 128021  # ids are LONG; show them shorter.
+        if x in seen:
+          return f"#:{j}"
+        seen[x] = x
+        d = dicts(x.__dict__, seen)
+        d["#"] = j
+        return d
+      else:
+        return x
+    return re.sub(r"'", ' ',
+                  pprint.pformat(dicts(i.__dict__), compact=True))
+
+
+class Sym(Any):
+  def __init__(i, pos=0, txt=""):
+    i.n, i.pos, i.txt = 0, pos, txt
+    i.seen = {}
+    i.mode, i.most = None, 0
+
+  def __add__(i, x):
+    if yes(x):
+      i.n += 1
+      tmp = i.seen[x] = i.seen.get(x, 0) + 1
+      if tmp > i.most:
+        i.most, i.mode = tmp, x
+    return i
+
+  def dist(i, x, y):
+    return 1 if no(x) and no(y) else x != y
+
+  def merge(i, x, y, wx=1, wy=1):
+    if no(x) or no(y):
+      return "?"
+    elif r() < wx/(wx+wy):
+      return x
+    else:
+      return y
+
+
+class Num(Any):
+  def __init__(i, pos=0, txt=""):
+    i.n, i.pos, i.txt = 0, pos, txt
+    i.mu, i.lo, i.hi = 0, 10**32, -10**32
+    i.w = -1 if lessp(txt) else 1
+
+  def __add__(i, x):
+    if yes(x):
+      i.n += 1
+      i.mu += (x-i.mu)/i.n
+      i.lo = min(i.lo, x)
+      i.hi = max(i.hi, x)
+    return i
+
+  def norm(i, x):
+    return x if no(x) else (x - i.lo) / (i.hi - i.lo + 0.000001)
+
+  def dist(i, x, y):
+    if no(x) and no(y):
+      return 1
+    if no(x):
+      x = i.lo if y > i.mu else i.hi
+    if no(y):
+      y = i.lo if x > i.mu else i.hi
+    return abs(i.norm(x) - i.norm(y))
+
+  def merge(i, c, x, v=1):
+    if no(x) and no(c):
+      return "?"
+    if no(x):
+      return c
+    if no(c):
+      return x
+    n = 1/v
+    return (1-n)*c + n*x
+
+
+class Tab(Any):
+  def __init__(i, src=None, keep=True):
+    i.x, i.y, i.cols, i.rows = [], [], [], []
+    i.Klass = None
+    i.keep = keep
+    if src:
+      i.read(src)
+
+  def read(i, src):
+    [i.add(a) for a in prep(cols(rows(src)))]
+
+  def cluster(i, src):
+    k = MiniK(i)
+    i.keep = False
+    for n, row in enumerate(prep(cols(rows(src)))):
+      i.add(row) if n == 0 else k.add(Row(i, row))
+    k.adjust()
+    k.c = sorted([c for c in k.c if c.v > 0],
+                 key=lambda z: z.v)
+    return k
+
+  def add(i, a):
+    i.row(a) if len(i.cols) else i.head(a)
+
+  def head(i, a):
+    for pos, txt in enumerate(a):
+      one = (Num if nump(txt) else Sym)(pos, txt)
+      i.cols.append(one)
+      (i.y if goalp(txt) else i.x).append(one)
+      if klassp(txt):
+        i.Klass = one
+
+  def row(i, x):
+    x = Row(i, x.cells if isa(x, Row) else x)
+    [col + cell for col, cell in zip(i.cols, x.cells)]
+    if i.keep:
+      i.rows += [x]
+
+
+class Row(Any):
+  def __init__(i, tab, cells):
+    i.v = 0
+    i.near = []
+    i.cells = cells
+    i.ranges = cells[:]
+    i._tab = tab
+
+  def clone(i, cells):
+    tmp = Row(i._tab, cells)
+    tmp.v = i.v
+    return tmp
+
+  def __mul__(i, j):
+    k = i.cells[:]
+    for col in i._tab.y:
+      k[col.pos] = None
+    for col in i._tab.x:
+      p = col.pos
+      k[p] = col.merge(i.cells[p], j.cells[p], i.v)
+
+  def dist(i, j):
+    d = 0
+    for col in i._tab.x:
+      inc = col.dist(i.cells[col.pos], j.cells[col.pos])
+      d += inc**2
+    return (d/len(i._tab.x))**0.5
+
+  def neighbors(i):
+    a = [(i.dist(row), row)
+         for row in i._tab.rows if id(row) != id(i)]
+    return sorted(a, key=first)
+
+
+class MiniK(Any):
+  def __init__(i, t, m=20, k=32):
+    i.c, i.k, i.m, i.n, i._tab, = [], k, m, m, t
+
+  def add(i, row):
+    i.c.append(row) if len(i.c) < i.k else i.center(row)
+    i.n -= 1
+    if i.n < 1:
+      i.adjust()
+      i.n = i.m
+
+  def center(i, row):
+    centers = [(c.dist(row), c) for c in i.c]
+    nearest = sorted(centers, key=first)[0][1]
+    nearest.v += 1
+    nearest.near += [row]
+
+  def adjust(i):
+    for n, c in enumerate(i.c):
+      doomed = c.near
+      c.near = []
+      after = c.cells[:]
+      for row in doomed:
+        for x in i._tab.x:
+          one = after[x.pos]
+          two = row.cells[x.pos]
+          after[x.pos] = x.merge(one, two, c.v)
+        for y in i._tab.y:
+          after[y.pos] = None
+      i.c[n] = c.clone(after)
+
+
+def rows(x=None):
+  """
+  Read csv rows from stdio or a file or a string or a list.
+  Kill any whitespace or comments.
+  """
+  def strings(z):
+    for y in z.splitlines():
+      yield y
+
+  def csv(z):
+    with open(z) as fp:
+      for y in fp:
+        yield y
+
+  f = sys.stdin
+  if x:
+    f = csv if x[-3:] == 'csv' else strings
+  for y in f(x):
+    y = re.sub(r'([\n\t\r ]|#.*)', '', y.strip())
+    if y:
+      yield y.strip().split(",")
+
+
+def cols(src):
+  "Skip columns whose names contain '?'"
+  todo = None
+  for a in src:
+    todo = todo or [n for n, s in enumerate(a) if "?" not in s]
+    yield [a[n] for n in todo]
+
+
+def prep(src):
+  "Compile a column appropriately, skipping col1"
+  prep = []
+  def num(z): return z if no(z) else float(z)
+  def noop(z): return z
+  for a in src:
+    if prep:
+      yield [f(x) for x, f in zip(a, prep)]
+    else:
+      prep = [(num if nump(x) else noop) for x in a]
+      yield a
+
+
+class Tests:
+  def all():
+    for x in dir(Tests):
+      if "test_" in x:
+        getattr(Tests, x)()
+
+  def rest_tab():
+    t = Tab(auto93)
+    for row in shuffle(t.rows)[:5]:
+      a = row.neighbors()
+      close = a[0][1]
+      far = a[-1][1]
+      print("")
+      print(row.cells)
+      print(close.cells, row.dist(close))
+      print(far.cells,   row.dist(far))
+
+  def test_tab():
+    t = Tab()
+    k = t.cluster(auto93)
+    print([c.txt for c in t.cols])
+
+    for c in k.c:
+      print(c.v, c.cells)
+
+
+Tests.all()

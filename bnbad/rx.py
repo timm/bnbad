@@ -1,5 +1,10 @@
-from .lib import *
-from .my import *
+"""
+Statistical tools to group, and distinguish
+between sets of values.
+"""
+from .lib import xtile, Thing, perc
+from .my import my
+import random
 
 
 def rxs(d, width=50,
@@ -52,27 +57,27 @@ def rxs(d, width=50,
 
 class Rx(Thing):
   """
-  A treatment "`Rx`" is a label (`i.rx`) and a set of 
-  values (`i.all`).  
+  A treatment "`Rx`" is a label (`i.rx`) and a set of
+  values (`i.all`).
 
   Similar treatments can be grouped together
   by the [`rxs`](#bnbad.rxs) function
   into sets of values with the same `rank`
-  Things in the same rank are statistically 
+  Things in the same rank are statistically
   indistinguishable, as judged by all three of:
 
-  1. A very fast non-parametric `D` test 
+  1. A very fast non-parametric `D` test
       - Sort the numns, ignore divisions less that
-        30% of "spread" (90th-10th percentile range); 
-  2. A (slightly more thorough) non-parametric effect 
+        30% of "spread" (90th-10th percentile range);
+  2. A (slightly more thorough) non-parametric effect
      size test (the Cliff's Delta);
-      -  Two lists are different if, usually, 
-         things from one list do not fall into the middle 
+      -  Two lists are different if, usually,
+         things from one list do not fall into the middle
          of the other.
-  3. (very thorough) non-parametric 
+  3. (very thorough) non-parametric
      significance test (the Bootstrap);
       - See if hundreds of sample-with-replacements
-        sets from two lists and  different properties to 
+        sets from two lists and  different properties to
         the overall list.
 
   Of the above, the third is far slower than the rest. Often, if it is

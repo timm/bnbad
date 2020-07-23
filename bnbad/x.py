@@ -1,9 +1,14 @@
-from .lib import *
+"""
+Generate numbers within ranges of `lo` to `hi`.
+
+"""
+from .lib import Thing
+import random
 
 
 class X(Thing):
   """
-  Class for holding knowledge about some variable `X`. 
+  Class for holding knowledge about some variable `X`.
   Instances of this class:
 
   - Know their `lo` and `hi` value;
@@ -11,11 +16,11 @@ class X(Thing):
   - Know how to calculate a value within a legal range.
   - Know how to cache that value (so we can use it over and over again)
   - Know how to check new values
-  - Know how to combine themselves 
+  - Know how to combine themselves
   """
   def __init__(i, lo, hi=None):
     i.lo = lo
-    i.hi = lo if hi == None else hi
+    i.hi = lo if hi is None else hi
     i.lo0, i.hi0 = i.lo, i.hi
     i.x = None
 
@@ -23,13 +28,13 @@ class X(Thing):
     return i.lo0 <= z <= i.hi0
 
   def __call__(i):
-    if i.x == None:
+    if i.x is None:
       i.x = i.get()
     return i.x
 
   def __iadd__(i, j):
     lo = j.lo
-    hi = j.lo if j.hi == None else j.hi
+    hi = j.lo if j.hi is None else j.hi
     if i.ok(lo) and i.ok(hi):
       i.lo, i.hi, i.x = lo, hi, None
       return i

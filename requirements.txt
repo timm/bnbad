@@ -1,2 +1,4 @@
 termcolor
 rerun
+autopep8
+flake8
