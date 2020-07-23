@@ -1,9 +1,10 @@
 # MIT License
 
-<img align=right width=600 src="docs/mit.png">
 
 
 Copyright (c) 2020 Tim Menzies
+
+<img widdth=600 src="docs/mit.png">
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated
