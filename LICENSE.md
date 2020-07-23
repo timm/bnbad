@@ -1,6 +1,6 @@
 # MIT License
 
-<img align=right width=500 src="docs/mit.png">
+<img align=right width=600 src="docs/mit.png">
 
 
 Copyright (c) 2020 Tim Menzies
