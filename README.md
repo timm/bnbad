@@ -17,7 +17,6 @@
 <a href="http://menzies.us/bnbad"><img xxxalign=middle width=120  src=docs/readdocs.png></a>
 </p>
 
-<img  xalign=right width=250 src="docs/letscook.png">
 
 BnBAD is a multi-objective optimizer
 that reasons by:
@@ -36,6 +35,7 @@ that reasons by:
         :------:
 ```
 
+<img  align=right width=250 src="docs/letscook.png">
 BnBAD might be a useful choice when:
 
 - users have to trade-off competing goals, 
