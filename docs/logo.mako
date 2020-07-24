@@ -17,7 +17,7 @@ truth for yourself."
 </p>
 <p>
 <img alt="Python" src="https://img.shields.io/badge/python-v3.8-blue">
-<img alt="Platorm" src="https://img.shields.io/badge/platform-osx%20,%20lunix-lightgrey">
+<img alt="Platorm" src="https://img.shields.io/badge/platform-osx%20,%20linux-lightgrey">
 <a href="https://flake8.pycqa.org/en/latest/user/error-codes.html"><img alt="syntax" src="https://img.shields.io/badge/syntax-pyflake8-orange"></a>
 <a href="https://pep8.readthedocs.io/en/release-1.7.x/intro.html#error-codes"><img alt="Style" src="https://img.shields.io/badge/style-pep8-yellow"></a>
 <a href="https://travis-ci.org/github/timm/bnbad"><img alt="tests" src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> 
