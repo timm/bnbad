@@ -24,6 +24,8 @@ href="CONTACT.md">contact</a>
 <img alt="Platorm" src="https://img.shields.io/badge/platform-osx%20|%20lunix-lightgrey">
 <img alt="Python" src="https://img.shields.io/badge/python-v3.8-blue">
 <a href=https://github.com/timm/bnbad/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/timm/BnBAD"></a>
+<img src="https://img.shields.io/badge/purpose-ai%20,%20se-blueviolet">
+
 
 
 </p>
