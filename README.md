@@ -1,5 +1,5 @@
 <img  align=right width=250 src="docs/letscook.png">
-<h1 xalign=center> BnBAD (break 'n bad): Fast, explicable, multi-objective reasoning</h1>
+<h1 xalign=center> BnBAD (break 'n bad):<br>Fast, explicable, multi-objective reasoning</h1>
 
 
 <p xalign=center>
