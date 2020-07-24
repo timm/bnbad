@@ -2,6 +2,7 @@
 <p><b>Fast, explicable, multi-objective reasoning</b></p>
 
 
+<img  xalign=right width=250 src="docs/letscook.png">
 <p xalign=center>
 <a href="http://menzies.us/bnbad"><img width=150 border=1 src=docs/readdocs.png></a></p>
 
@@ -22,7 +23,6 @@
 
 
 
-<img  align=right width=250 src="docs/letscook.png">
 BnBAD is a multi-objective optimizer
 that reasons by:
 
