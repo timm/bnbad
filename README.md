@@ -17,7 +17,7 @@
 <a href="https://github.com/timm/bnbad/blob/master/LICENSE.md"><img  alt="License" src="https://img.shields.io/badge/license-mit-red"></a> 
 <img src="https://img.shields.io/badge/purpose-ai%20,%20se-blueviolet">
 </p>
-<hr>
+
 BnBAD is a multi-objective optimizer
 that reasons by:
 
