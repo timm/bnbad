@@ -19,7 +19,6 @@
 <a href="https://travis-ci.org/github/timm/bnbad"><img alt="tests" src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> 
 </p>
 
-<hr>
 
 
 
