@@ -1,10 +1,10 @@
 <h1 align=center> BnBAD (break 'n bad):<br>fast, explicable, multi-objective reasoning</h1>
 
 <p align=center>
-<a href="http://menzies.us/bnbad"><img xxxalign=middle width=200  src=docs/readdocs.png></a>
+<img width=600 src="docs/moea.png">
 </p>
 <p align=center>
-<img width=600 src="docs/moea.png">
+<a href="http://menzies.us/bnbad"><img xxxalign=middle width=150  src=docs/readdocs.png></a>
 </p>
 <p align=center>
 <img alt="Python" src="https://img.shields.io/badge/python-v3.8-blue">
