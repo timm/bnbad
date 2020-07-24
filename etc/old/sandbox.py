@@ -5,7 +5,7 @@ import re
 import sys
 import pprint
 import random
-import data
+from .data import auto93
 
 
 def r(): return random.random()
@@ -97,7 +97,7 @@ class Bins(Any):
       i._all, i.lo, i.hi = all, lo, hi if hi else len(a)
 
     def per(i, p=0.5):
-      j = int(len(i._all) * (lo + (hi - lo)*p))
+      j = int(len(i._all) * (lo + (hi - lo) * p))
       return i._all.a[j].cells[i.pos]
 
     def sd(i): return (i.per(.75) - i.per(.25)) / 2.54
@@ -119,9 +119,9 @@ class Bins(Any):
 
   def grow(i, bins):
     for n, z in enumerate(i.a):
-      if bins[-1].x.n > len(i.a)/16:
+      if bins[-1].x.n > len(i.a) / 16:
         bins += [i.bin()]
-      i.add(bins[-1],   n)
+      i.add(bins[-1], n)
       i.add(i.all, n)
     i.bins = i.merge(bins)
 
@@ -130,7 +130,7 @@ class Bins(Any):
     for j in len(bins):
       a = bins[j]
       if j < len(bins) - 2:
-        b = bins[j+1]
+        b = bins[j + 1]
         c = i.merge(a, b)
         if i.better(c, a, b):
           a = c
@@ -155,7 +155,7 @@ class Bins(Any):
   def score(i, r, p=10**-9):
     y = r.y / (p + i.all.y)
     n = r.n / (p + i.all.n)
-    return 0 if y < n * (1+Bins.min) else y*y / (p+y+n)
+    return 0 if y < n * (1 + Bins.min) else y * y / (p + y + n)
 
 
 class Sym(Any):
@@ -196,7 +196,7 @@ class Num(Any):
   def __add__(i, x):
     if yes(x):
       i.n += 1
-      i.mu += (x-i.mu)/i.n
+      i.mu += (x - i.mu) / i.n
       i.lo = min(i.lo, x)
       i.hi = max(i.hi, x)
     return i
