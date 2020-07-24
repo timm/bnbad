@@ -5,14 +5,7 @@
 <h3 align=center> Fast, explicable, multi-objective reasoning</h3> 
 
 <p align=center>
-<a
-href="http://menzies.us/bnbad">read the docs</a> :: <a
-href="#install">install</a> :: <a
-href="https://github.com/timm/bnbad/issues">issues</a> :: <a
-href="CONTRIBUTING.md">contribute</a> :: <a
-href="CITATION.md">cite</a> ::  <a
-href="CONTACT.md">contact</a>  
-</p>
+<a href="http://menzies.us/bnbad">read the docs</a></p>
 
 <p align=center>
 <a href="https://doi.org/10.5281/zenodo.3947026"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> 
