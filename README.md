@@ -5,11 +5,7 @@
 <a href="https://github.com/timm/bnbad/blob/master/LICENSE.md"><img  alt="License" src="https://img.shields.io/badge/license-mit-red"></a> 
 <img src="https://img.shields.io/badge/purpose-ai%20,%20se-blueviolet">
 <a href="http://menzies.us/bnbad"><img xxxalign=middle width=120  src=docs/readdocs.png></a>
-</p>
-
-
-
-<p xalign=center>
+<br>
 <img alt="Python" src="https://img.shields.io/badge/python-v3.8-blue">
 <img alt="Platorm" src="https://img.shields.io/badge/platform-osx%20,%20linux-lightgrey">
 <a href="https://flake8.pycqa.org/en/latest/user/error-codes.html"><img alt="syntax" src="https://img.shields.io/badge/syntax-pyflake8-orange"></a>
