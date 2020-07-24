@@ -35,7 +35,7 @@ that reasons by:
         :------:
 ```
 
-<img  align=right width=350 src="docs/letscook.png">
+<ximg  align=right width=350 src="docs/letscook.png">
 BnBAD might be a useful choice when:
 
 - users have to trade-off competing goals, 
