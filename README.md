@@ -17,7 +17,7 @@
 <a href="http://menzies.us/bnbad"><img xxxalign=middle width=120  src=docs/readdocs.png></a>
 </p>
 
-<img src="moea.png">
+<img src="docs/moea.png">
 
 BnBAD is a multi-objective optimizer
 that reasons by:
