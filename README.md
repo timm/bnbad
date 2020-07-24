@@ -17,7 +17,7 @@
 <p align=center>
 <img width=600 src="docs/moea.png">
 </p>
-
+<hr>
 BnBAD is a multi-objective optimizer
 that reasons by:
 
