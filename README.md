@@ -1,8 +1,8 @@
+<img  xalign=right width=250 src="docs/letscook.png">
 <h1 xalign=center> BnBAD (break 'n bad)</h3> 
 <p><b>Fast, explicable, multi-objective reasoning</b></p>
 
 
-<img  xalign=right width=250 src="docs/letscook.png">
 <p xalign=center>
 <a href="http://menzies.us/bnbad"><img width=150 border=1 src=docs/readdocs.png></a></p>
 
