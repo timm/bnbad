@@ -1,4 +1,4 @@
-<img  xalign=right width=250 src="docs/letscook.png">
+<img  align=right width=250 src="docs/letscook.png">
 <h1 xalign=center> BnBAD (break 'n bad): Fast, explicable, multi-objective reasoning</h1>
 
 
