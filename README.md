@@ -9,7 +9,6 @@
 href="http://menzies.us/bnbad">read the docs</a> :: <a
 href="#install">install</a> :: <a
 href="https://github.com/timm/bnbad/issues">issues</a> :: <a
-href="LICENSE.md">license</a> :: <a
 href="CONTRIBUTING.md">contribute</a> :: <a
 href="CITATION.md">cite</a> ::  <a
 href="CONTACT.md">contact</a>  
