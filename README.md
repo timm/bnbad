@@ -20,10 +20,10 @@ href="CONTACT.md">contact</a>
 <a href="https://flake8.pycqa.org/en/latest/user/error-codes.html"><img alt="syntax" src="https://img.shields.io/badge/syntax-pyflake8-orange"></a>
 <a href="https://travis-ci.org/github/timm/bnbad"><img alt="tests" src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> 
 <a href="https://github.com/timm/bnbad/blob/master/LICENSE.md"><img  alt="License" src="https://img.shields.io/badge/license-mit-red"></a> 
-<a href="https://pep8.readthedocs.io/en/release-1.7.x/intro.html#error-codes"><img alt="Style" src="https://img.shields.io/badge/style-pep8-yellow"></a>
+<a href="https://pep8.readthedocs.io/en/release-1.7.x/intro.html#error-codes"><img alt="Style" src="https://img.shields.io/badge/style-pep8-yellow"></a><br>
 <img alt="Platorm" src="https://img.shields.io/badge/platform-osx%20|%20lunix-lightgrey">
 <img alt="Python" src="https://img.shields.io/badge/python-v3.8-blue">
-<img alt="GitHub issues" src="https://img.shields.io/github/issues/timm/BnBAD">
+<a href=https://github.com/timm/bnbad/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/timm/BnBAD"></a>
 
 
 </p>
