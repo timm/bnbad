@@ -1,4 +1,4 @@
-<h1 xalign=center> BnBAD (break 'n bad):<br>Fast, explicable, multi-objective reasoning</h1>
+<h1 xalign=center> BnBAD (break 'n bad):<br>fast, explicable, multi-objective reasoning</h1>
 
 
 
@@ -17,7 +17,8 @@
 <a href="http://menzies.us/bnbad"><img xxxalign=middle width=120  src=docs/readdocs.png></a>
 </p>
 
-<hr>
+<img src="moea.png">
+
 BnBAD is a multi-objective optimizer
 that reasons by:
 
