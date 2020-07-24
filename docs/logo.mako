@@ -19,7 +19,8 @@ truth for yourself."
 <a href="https://travis-ci.org/github/timm/bnbad"><img alt="tests" src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> 
 <img alt="Platorm" src="https://img.shields.io/badge/platform-osx%20,%20lunix-lightgrey">
 <img alt="Python" src="https://img.shields.io/badge/python-v3.8-blue">
-<a href=https://github.com/timm/bnbad/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/timm/BnBAD"></a>
+<a href=https://github.com/timm/bnbad/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/timm/BnBAD"></a></p>
+<p>
 <a href="https://github.com/timm/bnbad/blob/master/README.md"><img src="github.png" width=40></a>
 <a href="https://github.com/timm/bnbad/archive/master.zip"> <img src="zip.png" width=40></a> 
 </p>
