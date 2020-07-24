@@ -50,12 +50,13 @@ class Num(Col):
     super().__init__(*lst)
     i.mu, i.lo, i.hi = 0, 10**32, -10**32
 
-  def mid(i): return i.mu
+  def mid(i):
+    return i.mu
 
   def add(i, x):
     x = float(x)
     i.lo, i.hi = min(i.lo, x), max(i.hi, x)
-    i.mu = i.mu + (x - i.mu)/i.n
+    i.mu = i.mu + (x - i.mu) / i.n
     return x
 
   def norm(i, x):
@@ -78,7 +79,8 @@ class Sym(Col):
     super().__init__(*lst)
     i.seen, i.most, i.mode = {}, 0, None
 
-  def mid(i): return i.mode
+  def mid(i):
+    return i.mode
 
   def add(i, x):
     tmp = i.seen[x] = i.seen.get(x, 0) + 1
