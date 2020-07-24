@@ -216,4 +216,4 @@ but that is not clear from the regression equations.
 
 For information on the following design, [read the docs](http://menzies.us/bnbad).
 
-<img src="docs/design.png">
+<img width=600 src="docs/design.png">
