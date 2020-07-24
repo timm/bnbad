@@ -19,7 +19,7 @@
 <img src="https://img.shields.io/badge/purpose-ai%20,%20se-blueviolet">
 </p>
 <p align=center>
-<a href="http://menzies.us/bnbad"><img width=250 border=1 src=docs/readdocs.png></a></p>
+<a href="http://menzies.us/bnbad"><img width=200 border=1 src=docs/readdocs.png></a></p>
 <hr>
 
 
