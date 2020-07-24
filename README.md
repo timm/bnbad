@@ -5,7 +5,7 @@
 <h3 align=center> Fast, explicable, multi-objective reasoning</h3> 
 
 <p align=center>
-<a href="http://menzies.us/bnbad">read the docs</a></p>
+<a href="http://menzies.us/bnbad"><img width=100 src=docs/readdocs.png></p>
 
 <p align=center>
 <a href="https://doi.org/10.5281/zenodo.3947026"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> 
