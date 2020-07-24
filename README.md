@@ -7,7 +7,7 @@
 <a href="https://doi.org/10.5281/zenodo.3947026"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.3947026.svg" alt="DOI"></a> 
 <a href="https://github.com/timm/bnbad/blob/master/LICENSE.md"><img  alt="License" src="https://img.shields.io/badge/license-mit-red"></a> 
 <img src="https://img.shields.io/badge/purpose-ai%20,%20se-blueviolet">
-<a href="http://menzies.us/bnbad"><img align=middle width=120  src=docs/readdocs.png></a>
+<a href="http://menzies.us/bnbad"><img xxxalign=middle width=120  src=docs/readdocs.png></a>
 </p>
 
 <p xalign=center>
