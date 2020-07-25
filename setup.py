@@ -15,7 +15,7 @@ setup(
         Nearly all this processing takes loglinear time.
       """,
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 2 - Pre-Alpha",
         "Environment :: Console",
         "Environment :: MacOS X",
         "Intended Audience :: Developers",

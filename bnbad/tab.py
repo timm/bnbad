@@ -41,13 +41,13 @@ class Tab(Thing):
     return [col.mid() for col in i.cols.all]
 
   def better(i, row1, row2):
-    s1, s2, n = 0, 0, len(i.cols.y)+0.0001
+    s1, s2, n = 0, 0, len(i.cols.y) + 0.0001
     for c in i.cols.y.values():
       x = c.norm(row1[c.pos])
       y = c.norm(row2[c.pos])
-      s1 -= math.e**(c.w*(x-y)/n)
-      s2 -= math.e**(c.w*(y-x)/n)
-    return s1/n < s2/n
+      s1 -= math.e**(c.w * (x - y) / n)
+      s2 -= math.e**(c.w * (y - x) / n)
+    return s1 / n < s2 / n
 
 
 class Dist(Thing):
@@ -62,7 +62,7 @@ class Dist(Thing):
     for col in i.cols.values():
       inc = col.dist(row1[col.pos], row2[col.pos])
       d += inc**my.p
-    return (d/len(i.cols))**(1/my.p)
+    return (d / len(i.cols))**(1 / my.p)
 
   def neighbors(i, r1):
     a = [(i.dist(r1, r2), r2) for r2 in i.rows if id(r1) != id(r2)]
@@ -81,7 +81,7 @@ class Dist(Thing):
   def project(i, row, left, right, c):
     a = i.dist(row, left)
     b = i.dist(row, right)
-    d = (a**2 + c**2 - b**2) / (2*c)
+    d = (a**2 + c**2 - b**2) / (2 * c)
     if d > 1:
       d = 1
     if d < 0:
@@ -95,7 +95,7 @@ class Cluster(Thing):
 
 class Tree(Cluster):
   def __init__(i, t, cols=my.c):
-    i.lo = 2*len(t.rows)**my.s
+    i.lo = 2 * len(t.rows)**my.s
     i.leaves = []
     i.dist = Dist(t, cols=t.cols.__dict__[cols])
     i.root = TreeNode(t, None, i, lvl=0)
@@ -111,10 +111,10 @@ class Tree(Cluster):
 
   def bore(i):
     "Return the best leaf and some of the rest."
-    i.leaves = sorted(i.leaves, key=lambda z: -1*z.dom)
+    i.leaves = sorted(i.leaves, key=lambda z: -1 * z.dom)
     best = i.leaves[0].t
     rest = [row for leaf in i.leaves[1:] for row in leaf.t.rows]
-    rest = shuffle(rest)[:len(best.rows)*my.N]
+    rest = shuffle(rest)[:len(best.rows) * my.N]
     return best, i.root.t.clone(rest), i.leaves[-1].t
 
 
@@ -140,15 +140,16 @@ class TreeNode:
       if len(tables[0].rows) < len(t.rows) and \
          len(tables[1].rows) < len(t.rows):
         for t1 in tables:
-          i.kids += [TreeNode(t1, i, _root, lvl+1)]
+          i.kids += [TreeNode(t1, i, _root, lvl + 1)]
 
   def show(i, pre):
     s = f"{pre}{len(i.t.rows)}"
     if i.kids:
       print(s)
     else:
-      stars = "*"*int(10*i.dom/len(i._root.leaves))
-      dom = int(100*i.dom/len(i._root.leaves))
+      n = i.dom / (len(i._root.leaves) - 1)
+      stars = "*" * int(10 * n)
+      dom = int(100 * n)
       print(f"{s} [{i.id}] {i.t.status()}{stars} {dom} %")
     for kid in i.kids:
       kid.show(pre + "|  ")
@@ -160,7 +161,7 @@ class DecisionList(Thing):
     What range best selects for `ok` while avoiding `bad`?
     Split on that decision.  Recurse.
     """
-    i.kid, i._up, i.leaf = None, _up,  ok.clone()
+    i.kid, i._up, i.leaf = None, _up, ok.clone()
     if lvl > 0 and len(ok.rows) >= my.M:
       i.decide, i.col, i.txt = i.decision(ok, bad)
       ok1 = ok.clone()
@@ -169,7 +170,7 @@ class DecisionList(Thing):
         (i.leaf if i.decide.matches(row) else ok1).add(row)
       for row in bad.rows:
         (i.leaf if i.decide.matches(row) else bad1).add(row)
-      i.kid = DecisionList(ok1, bad1, _up=i,  lvl=lvl-1)
+      i.kid = DecisionList(ok1, bad1, _up=i, lvl=lvl - 1)
     else:
       for row in ok.rows:
         i.leaf.add(row)
@@ -190,9 +191,9 @@ class DecisionList(Thing):
 
   def show(i, pre=""):
     if i.kid:
-      print(pre+"if", i.txt, " in ",
+      print(pre + "if", i.txt, " in ",
             i.decide.lo, "..", i.decide.hi,
-            "then",  i.leaf.status(), len(i.leaf.rows))
+            "then", i.leaf.status(), len(i.leaf.rows))
       i.kid.show(pre=pre + "|  ")
     else:
       m = len(i.leaf.rows)

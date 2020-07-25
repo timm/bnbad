@@ -115,7 +115,7 @@ def test_tree():
   my.treeVerbose = True
   t = Tree(t, cols="y")
   assert(15 == len(t.leaves))
-  # t.show()
+  t.show()
 
 
 @go
@@ -186,14 +186,14 @@ def _range0(n, xy):
 def test_range1():
   "Two ranges, equal size"
   n = 10
-  _range0(2, [[i, i > n] for i in range(n*2)])
+  _range0(2, [[i, i > n] for i in range(n * 2)])
 
 
 @go
 def test_range2():
   "4 ranges"
   n = 10**4
-  _range0(4, [[i, i > .1*n and i < .2*n or i > .7*n]
+  _range0(4, [[i, i > .1 * n and i < .2 * n or i > .7 * n]
               for i in range(n)])
 
 
@@ -201,7 +201,7 @@ def test_range2():
 def test_range3():
   "5 ranges"
   n = 10**4
-  _range0(5, [[i, i > .1*n and i < .2*n or i > .6*n and i < .7*n]
+  _range0(5, [[i, i > .1 * n and i < .2 * n or i > .6 * n and i < .7 * n]
               for i in range(n)])
 
 
@@ -224,7 +224,7 @@ def test_range5():
 def test_range6():
   "3 ranges"
   n = 10**3
-  _range0(3, [[i, i > .4*n and i < .6*n] for i in range(n)])
+  _range0(3, [[i, i > .4 * n and i < .6 * n] for i in range(n)])
 
 
 @go
@@ -250,14 +250,14 @@ def test_rxs():
   """
   n = 256
   groups = rxs(dict(
-      x1=[0.34, 0.49, 0.51, 0.6]*n,
-      x2=[0.6, 0.7, 0.8, 0.89]*n,
-      x3=[0.13, 0.23, 0.33, 0.35]*n,
-      x4=[0.6, 0.7,  0.8, 0.9]*n,
-      x5=[0.1, 0.2,  0.3, 0.4]*n),
+      x1=[0.34, 0.49, 0.51, 0.6] * n,
+      x2=[0.6, 0.7, 0.8, 0.89] * n,
+      x3=[0.13, 0.23, 0.33, 0.35] * n,
+      x4=[0.6, 0.7, 0.8, 0.9] * n,
+      x5=[0.1, 0.2, 0.3, 0.4] * n),
       width=20, verbose=False,
       show="%.2f",
-      chops=[.25,  .5, .75],
+      chops=[.25, .5, .75],
       marks=["-", "-", " "])
   all = [x for g in groups for x in g.parts]
   assert(len(all) == 5)
@@ -265,5 +265,5 @@ def test_rxs():
   for n, one in enumerate(all):
     assert(len(one.all) == 1024)
     if n > 0:
-      assert(one.med >= all[n-1].med)
-      assert(one.rank >= all[n-1].rank)
+      assert(one.med >= all[n - 1].med)
+      assert(one.rank >= all[n - 1].rank)
