@@ -1,7 +1,7 @@
 <h1 align=center> BnBAD (break 'n bad):<br>fast, explicable, multi-objective reasoning</h1>
 
 <p align=center>
-<img width=600 src="docs/moea.png">
+<img width=500 src="docs/moea.png">
 </p>
 <p align=center>
 <a href="http://menzies.us/bnbad"><img xxxalign=middle width=150  src=docs/readdocs.png></a>
