@@ -16,8 +16,8 @@
 <a href="https://pep8.readthedocs.io/en/release-1.7.x/intro.html#error-codes"><img alt="Style" src="https://img.shields.io/badge/style-pep8-yellow"></a>
 <a href="https://flake8.pycqa.org/en/latest/user/error-codes.html"><img alt="syntax" src="https://img.shields.io/badge/syntax-pyflake8-orange"></a>
 </p>
-<p>
-<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/timm/bnbad?color=yellowgreen">
+<p align=center>
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/timm/bnbad?color=yellow%20green">
 <a href="https://travis-ci.org/github/timm/bnbad"><img alt="tests" src="https://travis-ci.org/timm/bnbad.svg?branch=master"></a> 
 </p>
 
